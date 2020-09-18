@@ -7,19 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="baidu_union_verify" content="95a5ac60bbd586b9a7d9b452462db831">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>SpringCloud 简单总结 | 刘峻良的博客</title>
+  <title>SpringCloud之Zuul | 刘峻良的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是Spring cloud 构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。  个人理解：服务发现注册 、配置中心 、消息总线 、负载均衡 、断路器 、数据监控 等操作">
+  <meta name="description" content="1、简介Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringCloud 简单总结">
-<meta property="og:url" content="https://alibroadcast.com/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="SpringCloud之Zuul">
+<meta property="og:url" content="https://alibroadcast.com/2020/09/18/springcloud%20%E4%B9%8Bzuul/index.html">
 <meta property="og:site_name" content="刘峻良的博客">
-<meta property="og:description" content="什么是Spring cloud 构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。  个人理解：服务发现注册 、配置中心 、消息总线 、负载均衡 、断路器 、数据监控 等操作">
+<meta property="og:description" content="1、简介Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribb">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-13T03:52:28.550Z">
-<meta property="article:modified_time" content="2020-09-13T03:51:38.039Z">
+<meta property="article:published_time" content="2020-09-18T12:04:21.248Z">
+<meta property="article:modified_time" content="2020-09-18T12:00:08.669Z">
 <meta property="article:author" content="刘峻良">
 <meta property="article:tag" content="SpringCloud">
+<meta property="article:tag" content="Zuul">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="刘峻良的博客" type="application/atom+xml">
@@ -148,20 +149,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Spring cloud 简单总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-springcloud 之zuul" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SpringCloud 简单总结
+      SpringCloud之Zuul
     </h1>
   
 
         
-        <a href="/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-09-13T03:52:28.550Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
+        <a href="/2020/09/18/springcloud%20%E4%B9%8Bzuul/" class="archive-article-date">
+  	<time datetime="2020-09-18T12:04:21.248Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
 </a>
 
         <!-- 不蒜子统计 -->
@@ -174,34 +175,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什么是Spring-cloud"><a href="#什么是Spring-cloud" class="headerlink" title="什么是Spring cloud"></a>什么是Spring cloud</h2><blockquote>
-<p>构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。</p>
-</blockquote>
-<p>个人理解：<strong>服务发现注册</strong> 、<strong>配置中心</strong> 、<strong>消息总线</strong> 、<strong>负载均衡</strong> 、<strong>断路器</strong> 、<strong>数据监控</strong> 等操作。我们能在 Spring Boot 的基础上轻松地实现微服务项目的构建。</p>
+        <h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribbon结合实现了负载均衡的功能</p>
 <a id="more"></a>
+<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、pom依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;&#x2F;project.reporting.outputEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;spring-cloud.version&gt;Finchley.SR2&lt;&#x2F;spring-cloud.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-eureka&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-zuul&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置hystrix所需依赖的包 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
 
+<p>（2）、application.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootZuul</span><br><span class="line">server.port&#x3D;6005</span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br><span class="line"></span><br><span class="line">zuul.routes.springbootService.path&#x3D;&#x2F;springbootService&#x2F;**</span><br><span class="line">zuul.routes.springbootService.serviceId&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">zuul.routes.springCloudFeign.path&#x3D;&#x2F;springCloudFeign&#x2F;**</span><br><span class="line">zuul.routes.springCloudFeign.serviceId&#x3D;springCloudFeign</span><br></pre></td></tr></table></figure>
 
-<h2 id="Sprng-Cloud-的服务发现框架——Eureka"><a href="#Sprng-Cloud-的服务发现框架——Eureka" class="headerlink" title="Sprng Cloud 的服务发现框架——Eureka"></a>Sprng Cloud 的服务发现框架——Eureka</h2><blockquote>
-<p>Eureka是基于REST（代表性状态转移）的服务，主要在AWS云中用于定位服务，以实现负载均衡和中间层服务器的故障转移。我们称此服务为Eureka服务器。Eureka还带有一个基于Java的客户端组件Eureka Client，它使与服务的交互变得更加容易。客户端还具有一个内置的负载平衡器，可以执行基本的循环负载平衡。在Netflix，更复杂的负载均衡器将Eureka包装起来，以基于流量，资源使用，错误条件等多种因素提供加权负载均衡，以提供出色的弹性。</p>
-</blockquote>
-<p>个人理解：服务发现框架。</p>
-<h2 id="Sprng-Cloud-的负载均衡之-Ribbon"><a href="#Sprng-Cloud-的负载均衡之-Ribbon" class="headerlink" title="Sprng Cloud 的负载均衡之 Ribbon"></a>Sprng Cloud 的负载均衡之 Ribbon</h2><blockquote>
-<p>Ribbon 是 Netflix 公司的一个开源的负载均衡 项目，是一个客户端/进程内负载均衡器，<strong>运行在消费者端</strong>。</p>
-</blockquote>
-<p>个人理解：类似 nginx 不过 ribbon是一种<strong>集中式</strong>的负载均衡器， <strong>将所有请求都集中起来，然后再进行负载均衡</strong>。</p>
-<h2 id="Sprng-Cloud的-Open-Feign"><a href="#Sprng-Cloud的-Open-Feign" class="headerlink" title="Sprng Cloud的 Open Feign"></a>Sprng Cloud的 Open Feign</h2><blockquote>
-<p>OpenFeign 也是运行在消费者端的，使用 Ribbon 进行负载均衡，所以 OpenFeign 直接内置了 Ribbon。</p>
-</blockquote>
-<p>个人理解：消费者省去调用 <code>RestRemplate</code> 的 <code>API</code>，直接指定生产者方法</p>
-<h2 id="Sprng-Cloud的-Hystrix"><a href="#Sprng-Cloud的-Hystrix" class="headerlink" title="Sprng Cloud的 Hystrix"></a>Sprng Cloud的 Hystrix</h2><blockquote>
-<p>在分布式环境中，不可避免地会有许多服务依赖项中的某些失败。Hystrix是一个库，可通过添加等待时间容限和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，停止服务之间的级联故障并提供后备选项来实现此目的，所有这些都可以提高系统的整体弹性。</p>
-</blockquote>
-<p>个人理解：就是一个能进行 <strong>熔断</strong> 和 <strong>降级</strong> 的中转仓库，提高整体系统的弹性。防止某个系统服务挂掉后，影响整体的系统运行直至<strong>服务雪崩</strong>。</p>
-<h2 id="Sprng-Cloud的Zuul"><a href="#Sprng-Cloud的Zuul" class="headerlink" title="Sprng Cloud的Zuul"></a>Sprng Cloud的Zuul</h2><blockquote>
-<p>ZUUL 是从设备和 web 站点到 Netflix 流应用后端的所有请求的前门。作为边界服务应用，ZUUL 是为了实现动态路由、监视、弹性和安全性而构建的。它还具有根据情况将请求路由到多个 Amazon Auto Scaling Groups（亚马逊自动缩放组，亚马逊的一种云计算方式） 的能力</p>
-</blockquote>
-<p>个人理解：介于客户端与服务器端之间，用于对请求进行<strong>鉴权</strong>、<strong>限流</strong>、 <strong>路由</strong>、<strong>监控</strong>等功能。最关键的就是 <strong>路由和过滤器</strong> 了.</p>
+<p>（3）、主方法入口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableZuulProxy</span><br><span class="line">@RefreshScope</span><br><span class="line">public class ZuulserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ZuulserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>（4）、请求过滤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class serviceFilter extends ZuulFilter &#123;</span><br><span class="line"></span><br><span class="line">    private static Logger log &#x3D; LoggerFactory.getLogger(serviceFilter.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String filterType() &#123;</span><br><span class="line">        return &quot;pre&quot;; &#x2F;&#x2F; 定义filter的类型，有pre、route、post、error四种</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int filterOrder() &#123;</span><br><span class="line">        return 0; &#x2F;&#x2F; 定义filter的顺序，数字越小表示顺序越高，越先执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean shouldFilter() &#123;</span><br><span class="line">        return true; &#x2F;&#x2F; 表示是否需要执行该filter，true表示执行，false表示不执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object run() &#123;</span><br><span class="line">        &#x2F;&#x2F; filter需要执行的具体操作</span><br><span class="line">        RequestContext ctx &#x3D; RequestContext.getCurrentContext();</span><br><span class="line">        HttpServletRequest request &#x3D; ctx.getRequest();</span><br><span class="line">        String token &#x3D; request.getParameter(&quot;token&quot;);</span><br><span class="line">        System.out.println(token);</span><br><span class="line">        if (token &#x3D;&#x3D; null) &#123;</span><br><span class="line">            log.warn(&quot;there is no request token&quot;);</span><br><span class="line">            ctx.setSendZuulResponse(false);</span><br><span class="line">            ctx.setResponseStatusCode(401);</span><br><span class="line">            try &#123;</span><br><span class="line">                ctx.getResponse().getWriter().write(&quot;there is no request token&quot;);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;ok&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（5）、失败回调</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceFallbackProvider implements FallbackProvider &#123;</span><br><span class="line">    @Override</span><br><span class="line">    &#x2F;&#x2F; 指定熔断器功能应用于哪些路由的服务</span><br><span class="line">    public String getRoute() &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里只针对&quot;springbootService&quot;服务进行熔断</span><br><span class="line">        &#x2F;&#x2F; 如果需要针对所有服务熔断，则return &quot;*&quot;</span><br><span class="line">        return &quot;springbootService&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ClientHttpResponse fallbackResponse(String route, Throwable cause) &#123;</span><br><span class="line">        System.out.println(&quot;route:&quot;+route);</span><br><span class="line"></span><br><span class="line">        return new ClientHttpResponse() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public HttpStatus getStatusCode() throws IOException &#123;</span><br><span class="line">                return HttpStatus.OK;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public int getRawStatusCode() throws IOException &#123;</span><br><span class="line">                return 200;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public String getStatusText() throws IOException &#123;</span><br><span class="line">                return &quot;ok&quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void close() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            &#x2F;&#x2F; 发生熔断式，返回的信息</span><br><span class="line">            public InputStream getBody() throws IOException &#123;</span><br><span class="line">                return new ByteArrayInputStream(&quot;Sorry, the service is unavailable now.&quot;.getBytes());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public HttpHeaders getHeaders() &#123;</span><br><span class="line">                HttpHeaders headers &#x3D; new HttpHeaders();</span><br><span class="line">                headers.setContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">                return headers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -252,6 +241,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zuul</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -294,7 +287,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/2020/09/18/springcloud%20%E4%B9%8Bzuul/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,18 +301,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/13/SpringCloud%20%E9%85%8D%E7%BD%AE%20hystrix-board/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/09/18/springcloud%E4%B9%8Bfeign/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          SpringCloud 配置 hystrix-board
+          SpringCloud之Feign
         
       </div>
     </a>
   
   
-    <a href="/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Windows 下部署RocketMq</div>
+    <a href="/2020/09/18/springcloud%20%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringCloud之生产者</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -346,7 +339,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSpring-cloud"><span class="toc-number">1.</span> <span class="toc-text">什么是Spring cloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud-%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94Eureka"><span class="toc-number">2.</span> <span class="toc-text">Sprng Cloud 的服务发现框架——Eureka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud-%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B9%8B-Ribbon"><span class="toc-number">3.</span> <span class="toc-text">Sprng Cloud 的负载均衡之 Ribbon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84-Open-Feign"><span class="toc-number">4.</span> <span class="toc-text">Sprng Cloud的 Open Feign</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84-Hystrix"><span class="toc-number">5.</span> <span class="toc-text">Sprng Cloud的 Hystrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84Zuul"><span class="toc-number">6.</span> <span class="toc-text">Sprng Cloud的Zuul</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%B4%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">2、贴代码</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -379,7 +372,7 @@ if(true){
   	repo: 'blog',
   	owner: 'liujunliangOne',
   	admin: ['liujunliangOne'],
-  	id: 'Sun Sep 13 2020 11:52:28 GMT+0800',
+  	id: 'Fri Sep 18 2020 20:04:21 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 

@@ -7,19 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="baidu_union_verify" content="95a5ac60bbd586b9a7d9b452462db831">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>SpringCloud 简单总结 | 刘峻良的博客</title>
+  <title>SpringCloud之Feign | 刘峻良的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是Spring cloud 构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。  个人理解：服务发现注册 、配置中心 、消息总线 、负载均衡 、断路器 、数据监控 等操作">
+  <meta name="description" content="1、 Feign介绍Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。 2、Feign工作原理如下（1）、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringCloud 简单总结">
-<meta property="og:url" content="https://alibroadcast.com/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="SpringCloud之Feign">
+<meta property="og:url" content="https://alibroadcast.com/2020/09/18/springcloud%E4%B9%8Bfeign/index.html">
 <meta property="og:site_name" content="刘峻良的博客">
-<meta property="og:description" content="什么是Spring cloud 构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。  个人理解：服务发现注册 、配置中心 、消息总线 、负载均衡 、断路器 、数据监控 等操作">
+<meta property="og:description" content="1、 Feign介绍Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。 2、Feign工作原理如下（1）、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-13T03:52:28.550Z">
-<meta property="article:modified_time" content="2020-09-13T03:51:38.039Z">
+<meta property="article:published_time" content="2020-09-18T12:04:21.264Z">
+<meta property="article:modified_time" content="2020-09-18T11:55:12.319Z">
 <meta property="article:author" content="刘峻良">
 <meta property="article:tag" content="SpringCloud">
+<meta property="article:tag" content="Feign">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="刘峻良的博客" type="application/atom+xml">
@@ -148,20 +149,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Spring cloud 简单总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-springcloud之feign" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SpringCloud 简单总结
+      SpringCloud之Feign
     </h1>
   
 
         
-        <a href="/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-09-13T03:52:28.550Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
+        <a href="/2020/09/18/springcloud%E4%B9%8Bfeign/" class="archive-article-date">
+  	<time datetime="2020-09-18T12:04:21.264Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
 </a>
 
         <!-- 不蒜子统计 -->
@@ -174,33 +175,49 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什么是Spring-cloud"><a href="#什么是Spring-cloud" class="headerlink" title="什么是Spring cloud"></a>什么是Spring cloud</h2><blockquote>
-<p>构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。</p>
-</blockquote>
-<p>个人理解：<strong>服务发现注册</strong> 、<strong>配置中心</strong> 、<strong>消息总线</strong> 、<strong>负载均衡</strong> 、<strong>断路器</strong> 、<strong>数据监控</strong> 等操作。我们能在 Spring Boot 的基础上轻松地实现微服务项目的构建。</p>
+        <h4 id="1、-Feign介绍"><a href="#1、-Feign介绍" class="headerlink" title="1、 Feign介绍"></a>1、 Feign介绍</h4><p>Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。</p>
+<h3 id="2、Feign工作原理如下"><a href="#2、Feign工作原理如下" class="headerlink" title="2、Feign工作原理如下"></a>2、Feign工作原理如下</h3><p>（1）、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生成此接口的代理对象</p>
+<p>（2）、@FeignClient(value = “springbootService”, fallback=ServiceFallback.class) 即指定了生产者的服务名称，Feign会从注册中心获取生产者服务列表，并通过负载均衡算法进行服务调用。</p>
+<p>（3）、在接口方法 中使用注解@RequestMapping(value = “/service/hello”)，指定调用的url，Feign将根据url进行远程调用。</p>
 <a id="more"></a>
+<ul>
+<li>主程序入口添加了@EnableFeignClients注解开启对FeignClient扫描加载处理。根据Feign Client的开发规范，定义接口并加@FeignClientd注解。</li>
+<li>当程序启动时，回进行包扫描，扫描所有@FeignClients的注解的类，并且讲这些信息注入Spring IOC容器中，当定义的的Feign接口中的方法呗调用时，通过JDK的代理方式，来生成具体的RequestTemplate.当生成代理时，Feign会为每个接口方法创建一个RequestTemplate。当生成代理时，Feign会为每个接口方法创建一个RequestTemplate对象，改对象封装可HTTP请求需要的全部信息，如请求参数名，请求方法等信息都是在这个过程中确定的。</li>
+<li>然后RequestTemplate生成Request,然后把Request交给Client去处理，这里指的时Client可以时JDK原生的URLConnection,Apache的HttpClient,也可以时OKhttp，最后Client被封装到LoadBalanceClient类，这个类结合Ribbon负载均衡发器服务之间的调用。</li>
+</ul>
+<h3 id="3、Feign注解剖析"><a href="#3、Feign注解剖析" class="headerlink" title="3、Feign注解剖析"></a>3、Feign注解剖析</h3><p>@FeignClient注解主要被@Target({ElementType.TYPE})修饰，表示该注解主要使用在接口上。它具备了如下的属性：</p>
+<ul>
+<li><p>name:指定FeignClient的名称，如果使用了Ribbon，name就作为微服务的名称，用于服务发现。</p>
+</li>
+<li><p>url:url一般用于调试，可以指定@FeignClient调用的地址。</p>
+</li>
+<li><p>decode404: 当发生404错误时，如果该字段为true，会调用decoder进行解码，否则抛出FeignException.</p>
+</li>
+<li><p>configuration:Feign配置类，可以自定或者配置Feign的Encoder，Decoder，LogLevel，Contract。</p>
+</li>
+<li><p>fallback:定义容错的处理类，当调用远程接口失败或者超时时，会调用对应的接口的容错逻辑，fallback指定的类必须实现@Feign标记的接口。</p>
+</li>
+<li><p>fallbacjFactory:工厂类，用于生成fallback类实例，通过这个属性可以实现每个接口通用的容错逻辑们介绍重复的代码。</p>
+</li>
+<li><p>path：定义当前FeignClient的统一前缀。</p>
+<h3 id="4、上代码"><a href="#4、上代码" class="headerlink" title="4、上代码"></a>4、上代码</h3></li>
+</ul>
+<p>（1）、主方法入口，添加pom依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@ServletComponentScan</span><br><span class="line">@EnableFeignClients</span><br><span class="line">@EnableCircuitBreaker</span><br><span class="line">public class FeignserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(FeignserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    RestTemplate restTemplate() &#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-lang3&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.4&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;fastjson&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.7&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.module&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-module-jaxb-annotations&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Cloud Config 客户端依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Boot Actuator，感应服务端变化--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.hystrix&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hystrix-javanica&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Sprng-Cloud-的服务发现框架——Eureka"><a href="#Sprng-Cloud-的服务发现框架——Eureka" class="headerlink" title="Sprng Cloud 的服务发现框架——Eureka"></a>Sprng Cloud 的服务发现框架——Eureka</h2><blockquote>
-<p>Eureka是基于REST（代表性状态转移）的服务，主要在AWS云中用于定位服务，以实现负载均衡和中间层服务器的故障转移。我们称此服务为Eureka服务器。Eureka还带有一个基于Java的客户端组件Eureka Client，它使与服务的交互变得更加容易。客户端还具有一个内置的负载平衡器，可以执行基本的循环负载平衡。在Netflix，更复杂的负载均衡器将Eureka包装起来，以基于流量，资源使用，错误条件等多种因素提供加权负载均衡，以提供出色的弹性。</p>
-</blockquote>
-<p>个人理解：服务发现框架。</p>
-<h2 id="Sprng-Cloud-的负载均衡之-Ribbon"><a href="#Sprng-Cloud-的负载均衡之-Ribbon" class="headerlink" title="Sprng Cloud 的负载均衡之 Ribbon"></a>Sprng Cloud 的负载均衡之 Ribbon</h2><blockquote>
-<p>Ribbon 是 Netflix 公司的一个开源的负载均衡 项目，是一个客户端/进程内负载均衡器，<strong>运行在消费者端</strong>。</p>
-</blockquote>
-<p>个人理解：类似 nginx 不过 ribbon是一种<strong>集中式</strong>的负载均衡器， <strong>将所有请求都集中起来，然后再进行负载均衡</strong>。</p>
-<h2 id="Sprng-Cloud的-Open-Feign"><a href="#Sprng-Cloud的-Open-Feign" class="headerlink" title="Sprng Cloud的 Open Feign"></a>Sprng Cloud的 Open Feign</h2><blockquote>
-<p>OpenFeign 也是运行在消费者端的，使用 Ribbon 进行负载均衡，所以 OpenFeign 直接内置了 Ribbon。</p>
-</blockquote>
-<p>个人理解：消费者省去调用 <code>RestRemplate</code> 的 <code>API</code>，直接指定生产者方法</p>
-<h2 id="Sprng-Cloud的-Hystrix"><a href="#Sprng-Cloud的-Hystrix" class="headerlink" title="Sprng Cloud的 Hystrix"></a>Sprng Cloud的 Hystrix</h2><blockquote>
-<p>在分布式环境中，不可避免地会有许多服务依赖项中的某些失败。Hystrix是一个库，可通过添加等待时间容限和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，停止服务之间的级联故障并提供后备选项来实现此目的，所有这些都可以提高系统的整体弹性。</p>
-</blockquote>
-<p>个人理解：就是一个能进行 <strong>熔断</strong> 和 <strong>降级</strong> 的中转仓库，提高整体系统的弹性。防止某个系统服务挂掉后，影响整体的系统运行直至<strong>服务雪崩</strong>。</p>
-<h2 id="Sprng-Cloud的Zuul"><a href="#Sprng-Cloud的Zuul" class="headerlink" title="Sprng Cloud的Zuul"></a>Sprng Cloud的Zuul</h2><blockquote>
-<p>ZUUL 是从设备和 web 站点到 Netflix 流应用后端的所有请求的前门。作为边界服务应用，ZUUL 是为了实现动态路由、监视、弹性和安全性而构建的。它还具有根据情况将请求路由到多个 Amazon Auto Scaling Groups（亚马逊自动缩放组，亚马逊的一种云计算方式） 的能力</p>
-</blockquote>
-<p>个人理解：介于客户端与服务器端之间，用于对请求进行<strong>鉴权</strong>、<strong>限流</strong>、 <strong>路由</strong>、<strong>监控</strong>等功能。最关键的就是 <strong>路由和过滤器</strong> 了.</p>
+<p>（2）、application.properties配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;springCloudFeign</span><br><span class="line">server.port&#x3D;6004</span><br><span class="line"></span><br><span class="line">feign.hystrix.enabled&#x3D;true</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>（3）、添加feign 调用方法及失败会掉方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@FeignClient(value &#x3D; &quot;springbootService&quot;, fallback&#x3D;ServiceFallback.class) &#x2F;&#x2F;这里的value对应调用服务的spring.applicatoin.name</span><br><span class="line">public interface ServiceFeignClient &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value &#x3D; &quot;&#x2F;service&#x2F;hello&quot;)</span><br><span class="line">    RestfulResult hello(@RequestBody ServiceInfo serviceInfo);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceFallback implements ServiceFeignClient&#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public RestfulResult hello(ServiceInfo serviceInfo) &#123;</span><br><span class="line">        RestfulResult result &#x3D; new RestfulResult();</span><br><span class="line">        result.setData(&quot;服务调用失败&quot;);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）、controller 层调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 调用：localhost:6004&#x2F;consumerService?token&#x3D;1</span><br><span class="line">@RequestMapping(&quot;&#x2F;consumerService&quot;)</span><br><span class="line">public void consumerService(HttpServletResponse response, ServiceInfo serviceInfo) &#123;</span><br><span class="line">    RestfulResult restfulResult &#x3D; serviceFeignClient.hello(serviceInfo);</span><br><span class="line">    CommUtils.printDataJason(response, restfulResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -252,6 +269,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Feign</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -294,7 +315,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/2020/09/18/springcloud%E4%B9%8Bfeign/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,18 +329,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/13/SpringCloud%20%E9%85%8D%E7%BD%AE%20hystrix-board/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/09/18/SpringCloud%E4%B9%8BHystrix/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          SpringCloud 配置 hystrix-board
+          SpringCloud之Hystrix
         
       </div>
     </a>
   
   
-    <a href="/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Windows 下部署RocketMq</div>
+    <a href="/2020/09/18/springcloud%20%E4%B9%8Bzuul/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringCloud之Zuul</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -346,7 +367,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSpring-cloud"><span class="toc-number">1.</span> <span class="toc-text">什么是Spring cloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud-%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94Eureka"><span class="toc-number">2.</span> <span class="toc-text">Sprng Cloud 的服务发现框架——Eureka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud-%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B9%8B-Ribbon"><span class="toc-number">3.</span> <span class="toc-text">Sprng Cloud 的负载均衡之 Ribbon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84-Open-Feign"><span class="toc-number">4.</span> <span class="toc-text">Sprng Cloud的 Open Feign</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84-Hystrix"><span class="toc-number">5.</span> <span class="toc-text">Sprng Cloud的 Hystrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84Zuul"><span class="toc-number">6.</span> <span class="toc-text">Sprng Cloud的Zuul</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81-Feign%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">1、 Feign介绍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Feign%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%A6%82%E4%B8%8B"><span class="toc-number"></span> <span class="toc-text">2、Feign工作原理如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81Feign%E6%B3%A8%E8%A7%A3%E5%89%96%E6%9E%90"><span class="toc-number"></span> <span class="toc-text">3、Feign注解剖析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E4%B8%8A%E4%BB%A3%E7%A0%81"><span class="toc-number"></span> <span class="toc-text">4、上代码</span></a>
                     </div>
                 </span>
             </div>
@@ -379,7 +400,7 @@ if(true){
   	repo: 'blog',
   	owner: 'liujunliangOne',
   	admin: ['liujunliangOne'],
-  	id: 'Sun Sep 13 2020 11:52:28 GMT+0800',
+  	id: 'Fri Sep 18 2020 20:04:21 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 

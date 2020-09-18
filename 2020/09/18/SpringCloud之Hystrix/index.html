@@ -7,19 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="baidu_union_verify" content="95a5ac60bbd586b9a7d9b452462db831">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>SpringCloud 简单总结 | 刘峻良的博客</title>
+  <title>SpringCloud之Hystrix | 刘峻良的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是Spring cloud 构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。  个人理解：服务发现注册 、配置中心 、消息总线 、负载均衡 、断路器 、数据监控 等操作">
+  <meta name="description" content="Hystrix的请求合并1、请求合并为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。 同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置  hystrix.collapser.default.timerDelayInMilliseconds  进行修改属性值。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringCloud 简单总结">
-<meta property="og:url" content="https://alibroadcast.com/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="SpringCloud之Hystrix">
+<meta property="og:url" content="https://alibroadcast.com/2020/09/18/SpringCloud%E4%B9%8BHystrix/index.html">
 <meta property="og:site_name" content="刘峻良的博客">
-<meta property="og:description" content="什么是Spring cloud 构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。  个人理解：服务发现注册 、配置中心 、消息总线 、负载均衡 、断路器 、数据监控 等操作">
+<meta property="og:description" content="Hystrix的请求合并1、请求合并为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。 同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置  hystrix.collapser.default.timerDelayInMilliseconds  进行修改属性值。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-13T03:52:28.550Z">
-<meta property="article:modified_time" content="2020-09-13T03:51:38.039Z">
+<meta property="article:published_time" content="2020-09-18T12:04:21.264Z">
+<meta property="article:modified_time" content="2020-09-18T11:56:13.197Z">
 <meta property="article:author" content="刘峻良">
 <meta property="article:tag" content="SpringCloud">
+<meta property="article:tag" content="Hystrix">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="刘峻良的博客" type="application/atom+xml">
@@ -148,20 +149,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Spring cloud 简单总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SpringCloud之Hystrix" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SpringCloud 简单总结
+      SpringCloud之Hystrix
     </h1>
   
 
         
-        <a href="/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-09-13T03:52:28.550Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
+        <a href="/2020/09/18/SpringCloud%E4%B9%8BHystrix/" class="archive-article-date">
+  	<time datetime="2020-09-18T12:04:21.264Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
 </a>
 
         <!-- 不蒜子统计 -->
@@ -174,33 +175,73 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什么是Spring-cloud"><a href="#什么是Spring-cloud" class="headerlink" title="什么是Spring cloud"></a>什么是Spring cloud</h2><blockquote>
-<p>构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。</p>
+        <h2 id="Hystrix的请求合并"><a href="#Hystrix的请求合并" class="headerlink" title="Hystrix的请求合并"></a>Hystrix的请求合并</h2><h3 id="1、请求合并"><a href="#1、请求合并" class="headerlink" title="1、请求合并"></a>1、请求合并</h3><p>为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。</p>
+<p>同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置</p>
+<blockquote>
+<p>hystrix.collapser.default.timerDelayInMilliseconds</p>
 </blockquote>
-<p>个人理解：<strong>服务发现注册</strong> 、<strong>配置中心</strong> 、<strong>消息总线</strong> 、<strong>负载均衡</strong> 、<strong>断路器</strong> 、<strong>数据监控</strong> 等操作。我们能在 Spring Boot 的基础上轻松地实现微服务项目的构建。</p>
+<p>进行修改属性值。</p>
 <a id="more"></a>
 
+<p>如果请求一次的依赖服务的平均时间是10ms，那么在最不乐观的情况下（合并窗口开始是请求加入等待队列）这次请求响应时间就会变成20ms。如果高并发的接口通过请求合并会极大提高系统的吞吐量，可以忽略合并时间窗口的开销，反之，并发量较低，对延迟敏感的接口不建议使用请求合并。</p>
+<h3 id="2、贴代码，注解的形式实现请求合并"><a href="#2、贴代码，注解的形式实现请求合并" class="headerlink" title="2、贴代码，注解的形式实现请求合并"></a>2、贴代码，注解的形式实现请求合并</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">ServiceFeignClient serviceFeignClient;</span><br><span class="line"></span><br><span class="line">@HystrixCollapser(batchMethod &#x3D; &quot;getNameBatch&quot;,scope &#x3D; com.netflix.hystrix.HystrixCollapser.Scope.GLOBAL,</span><br><span class="line">        collapserProperties &#x3D; &#123;@HystrixProperty(name &#x3D; &quot;timerDelayInMilliseconds&quot;, value &#x3D; &quot;200&quot;)&#125;)</span><br><span class="line">public Future&lt;RestfulResult&gt; batchGetName(String name) &#123;</span><br><span class="line">    System.out.println(&quot;被合并的请求&quot;);</span><br><span class="line">    throw new RuntimeException(&quot;This method body should not be executed&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Sprng-Cloud-的服务发现框架——Eureka"><a href="#Sprng-Cloud-的服务发现框架——Eureka" class="headerlink" title="Sprng Cloud 的服务发现框架——Eureka"></a>Sprng Cloud 的服务发现框架——Eureka</h2><blockquote>
-<p>Eureka是基于REST（代表性状态转移）的服务，主要在AWS云中用于定位服务，以实现负载均衡和中间层服务器的故障转移。我们称此服务为Eureka服务器。Eureka还带有一个基于Java的客户端组件Eureka Client，它使与服务的交互变得更加容易。客户端还具有一个内置的负载平衡器，可以执行基本的循环负载平衡。在Netflix，更复杂的负载均衡器将Eureka包装起来，以基于流量，资源使用，错误条件等多种因素提供加权负载均衡，以提供出色的弹性。</p>
-</blockquote>
-<p>个人理解：服务发现框架。</p>
-<h2 id="Sprng-Cloud-的负载均衡之-Ribbon"><a href="#Sprng-Cloud-的负载均衡之-Ribbon" class="headerlink" title="Sprng Cloud 的负载均衡之 Ribbon"></a>Sprng Cloud 的负载均衡之 Ribbon</h2><blockquote>
-<p>Ribbon 是 Netflix 公司的一个开源的负载均衡 项目，是一个客户端/进程内负载均衡器，<strong>运行在消费者端</strong>。</p>
-</blockquote>
-<p>个人理解：类似 nginx 不过 ribbon是一种<strong>集中式</strong>的负载均衡器， <strong>将所有请求都集中起来，然后再进行负载均衡</strong>。</p>
-<h2 id="Sprng-Cloud的-Open-Feign"><a href="#Sprng-Cloud的-Open-Feign" class="headerlink" title="Sprng Cloud的 Open Feign"></a>Sprng Cloud的 Open Feign</h2><blockquote>
-<p>OpenFeign 也是运行在消费者端的，使用 Ribbon 进行负载均衡，所以 OpenFeign 直接内置了 Ribbon。</p>
-</blockquote>
-<p>个人理解：消费者省去调用 <code>RestRemplate</code> 的 <code>API</code>，直接指定生产者方法</p>
-<h2 id="Sprng-Cloud的-Hystrix"><a href="#Sprng-Cloud的-Hystrix" class="headerlink" title="Sprng Cloud的 Hystrix"></a>Sprng Cloud的 Hystrix</h2><blockquote>
-<p>在分布式环境中，不可避免地会有许多服务依赖项中的某些失败。Hystrix是一个库，可通过添加等待时间容限和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，停止服务之间的级联故障并提供后备选项来实现此目的，所有这些都可以提高系统的整体弹性。</p>
-</blockquote>
-<p>个人理解：就是一个能进行 <strong>熔断</strong> 和 <strong>降级</strong> 的中转仓库，提高整体系统的弹性。防止某个系统服务挂掉后，影响整体的系统运行直至<strong>服务雪崩</strong>。</p>
-<h2 id="Sprng-Cloud的Zuul"><a href="#Sprng-Cloud的Zuul" class="headerlink" title="Sprng Cloud的Zuul"></a>Sprng Cloud的Zuul</h2><blockquote>
-<p>ZUUL 是从设备和 web 站点到 Netflix 流应用后端的所有请求的前门。作为边界服务应用，ZUUL 是为了实现动态路由、监视、弹性和安全性而构建的。它还具有根据情况将请求路由到多个 Amazon Auto Scaling Groups（亚马逊自动缩放组，亚马逊的一种云计算方式） 的能力</p>
-</blockquote>
-<p>个人理解：介于客户端与服务器端之间，用于对请求进行<strong>鉴权</strong>、<strong>限流</strong>、 <strong>路由</strong>、<strong>监控</strong>等功能。最关键的就是 <strong>路由和过滤器</strong> 了.</p>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@HystrixCommand</span><br><span class="line">public List&lt;RestfulResult&gt; getNameBatch(List&lt;String&gt; ids) &#123;</span><br><span class="line">    System.out.println(&quot;发送请求。。。参数为：&quot; + ids.toString() + &quot;,&quot; + Thread.currentThread().getName());</span><br><span class="line">    List&lt;RestfulResult&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    for (String id : ids) &#123;</span><br><span class="line">        ServiceInfo serviceInfo &#x3D; new ServiceInfo();</span><br><span class="line">        serviceInfo.setName(id);</span><br><span class="line">        RestfulResult hello &#x3D; serviceFeignClient.hello(serviceInfo);</span><br><span class="line">        System.out.println(&quot;发送请求。。。参数为：&quot; + hello.getData());</span><br><span class="line">        list.add(hello);</span><br><span class="line">    &#125;</span><br><span class="line">    return list;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;testService&quot;)</span><br><span class="line">public void testService(HttpServletResponse response, ServiceInfo serviceInfo) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     *即使是调用一次也会被合并</span><br><span class="line">     *&#x2F;</span><br><span class="line">    HystrixRequestContext context &#x3D; HystrixRequestContext.initializeContext();</span><br><span class="line">    Future&lt;RestfulResult&gt; stringFuture &#x3D; hysService.batchGetName(serviceInfo.getName());</span><br><span class="line">    RestfulResult restfulResult &#x3D; stringFuture.get();</span><br><span class="line">    context.close();</span><br><span class="line">    CommUtils.printDataJason(response, restfulResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-lang3&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.4&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;fastjson&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.7&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.module&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-module-jaxb-annotations&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Cloud Config 客户端依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Boot Actuator，感应服务端变化--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.hystrix&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hystrix-javanica&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、测试方法"><a href="#3、测试方法" class="headerlink" title="3、测试方法"></a>3、测试方法</h3><p>（1）、postman进行借口请求</p>
+<p>（2）、使用 jmete进行测试，下载链接  <a target="_blank" rel="noopener" href="http://jmeter.apache.org/download_jmeter.cgi">http://jmeter.apache.org/download_jmeter.cgi</a></p>
+<p><strong>常用的Hystrix属性：</strong></p>
+<p>hystrix.command.default和hystrix.threadpool.default中的default为默认CommandKey</p>
+<h2 id="Command-Properties："><a href="#Command-Properties：" class="headerlink" title="Command Properties："></a>Command Properties：</h2><h3 id="1-Execution相关的属性的配置："><a href="#1-Execution相关的属性的配置：" class="headerlink" title="1.Execution相关的属性的配置："></a>1.Execution相关的属性的配置：</h3><ul>
+<li>hystrix.command.default.execution.isolation.strategy 隔离策略，默认是Thread, 可选Thread｜Semaphore</li>
+<li>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds 命令执行超时时间，默认1000ms</li>
+<li>hystrix.command.default.execution.timeout.enabled 执行是否启用超时，默认启用true</li>
+<li>hystrix.command.default.execution.isolation.thread.interruptOnTimeout 发生超时是是否中断，默认true</li>
+<li>hystrix.command.default.execution.isolation.semaphore.maxConcurrentRequests 最大并发请求数，默认10，该参数当使用ExecutionIsolationStrategy.SEMAPHORE策略时才有效。如果达到最大并发请求数，请求会被拒绝。理论上选择semaphore size的原则和选择thread size一致，但选用semaphore时每次执行的单元要比较小且执行速度快（ms级别），否则的话应该用thread。<br>semaphore应该占整个容器（tomcat）的线程池的一小部分。</li>
+</ul>
+<h3 id="2-Fallback相关的属性"><a href="#2-Fallback相关的属性" class="headerlink" title="2.Fallback相关的属性"></a>2.Fallback相关的属性</h3><p>这些参数可以应用于Hystrix的THREAD和SEMAPHORE策略</p>
+<ul>
+<li>hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests 如果并发数达到该设置值，请求会被拒绝和抛出异常并且fallback不会被调用。默认10</li>
+<li>hystrix.command.default.fallback.enabled 当执行失败或者请求被拒绝，是否会尝试调用hystrixCommand.getFallback() 。默认true</li>
+</ul>
+<h3 id="3-Circuit-Breaker相关的属性"><a href="#3-Circuit-Breaker相关的属性" class="headerlink" title="3.Circuit Breaker相关的属性"></a>3.Circuit Breaker相关的属性</h3><ul>
+<li>hystrix.command.default.circuitBreaker.enabled 用来跟踪circuit的健康性，如果未达标则让request短路。默认true</li>
+<li>hystrix.command.default.circuitBreaker.requestVolumeThreshold 一个rolling window内最小的请求数。如果设为20，那么当一个rolling window的时间内（比如说1个rolling window是10秒）收到19个请求，即使19个请求都失败，也不会触发circuit break。默认20</li>
+<li>hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds 触发短路的时间值，当该值设为5000时，则当触发circuit break后的5000毫秒内都会拒绝request，也就是5000毫秒后才会关闭circuit。默认5000</li>
+<li>hystrix.command.default.circuitBreaker.errorThresholdPercentage错误比率阀值，如果错误率&gt;=该值，circuit会被打开，并短路所有请求触发fallback。默认50</li>
+<li>hystrix.command.default.circuitBreaker.forceOpen 强制打开熔断器，如果打开这个开关，那么拒绝所有request，默认false</li>
+<li>hystrix.command.default.circuitBreaker.forceClosed 强制关闭熔断器 如果这个开关打开，circuit将一直关闭且忽略circuitBreaker.errorThresholdPercentage</li>
+</ul>
+<h3 id="4-Metrics相关参数"><a href="#4-Metrics相关参数" class="headerlink" title="4.Metrics相关参数"></a>4.Metrics相关参数</h3><ul>
+<li>hystrix.command.default.metrics.rollingStats.timeInMilliseconds 设置统计的时间窗口值的，毫秒值，circuit break 的打开会根据1个rolling window的统计来计算。若rolling window被设为10000毫秒，则rolling window会被分成n个buckets，每个bucket包含success，failure，timeout，rejection的次数的统计信息。默认10000</li>
+<li>hystrix.command.default.metrics.rollingStats.numBuckets 设置一个rolling window被划分的数量，若numBuckets＝10，rolling window＝10000，那么一个bucket的时间即1秒。必须符合rolling window % numberBuckets == 0。默认10</li>
+<li>hystrix.command.default.metrics.rollingPercentile.enabled 执行时是否enable指标的计算和跟踪，默认true</li>
+<li>hystrix.command.default.metrics.rollingPercentile.timeInMilliseconds 设置rolling percentile window的时间，默认60000</li>
+<li>hystrix.command.default.metrics.rollingPercentile.numBuckets 设置rolling percentile window的numberBuckets。逻辑同上。默认6</li>
+<li>hystrix.command.default.metrics.rollingPercentile.bucketSize 如果bucket size＝100，window＝10s，若这10s里有500次执行，只有最后100次执行会被统计到bucket里去。增加该值会增加内存开销以及排序的开销。默认100</li>
+<li>hystrix.command.default.metrics.healthSnapshot.intervalInMilliseconds 记录health 快照（用来统计成功和错误绿）的间隔，默认500ms</li>
+</ul>
+<h3 id="5-Request-Context-相关参数"><a href="#5-Request-Context-相关参数" class="headerlink" title="5.Request Context 相关参数"></a>5.Request Context 相关参数</h3><p>hystrix.command.default.requestCache.enabled 默认true，需要重载getCacheKey()，返回null时不缓存<br>hystrix.command.default.requestLog.enabled 记录日志到HystrixRequestLog，默认true</p>
+<h3 id="6-Collapser-Properties-相关参数"><a href="#6-Collapser-Properties-相关参数" class="headerlink" title="6.Collapser Properties 相关参数"></a>6.Collapser Properties 相关参数</h3><p>hystrix.collapser.default.maxRequestsInBatch 单次批处理的最大请求数，达到该数量触发批处理，默认Integer.MAX_VALUE<br>hystrix.collapser.default.timerDelayInMilliseconds 触发批处理的延迟，也可以为创建批处理的时间＋该值，默认10<br>hystrix.collapser.default.requestCache.enabled 是否对HystrixCollapser.execute() and HystrixCollapser.queue()的cache，默认true</p>
+<h3 id="7-ThreadPool-相关参数"><a href="#7-ThreadPool-相关参数" class="headerlink" title="7.ThreadPool 相关参数"></a>7.ThreadPool 相关参数</h3><p>线程数默认值10适用于大部分情况（有时可以设置得更小），如果需要设置得更大，那有个基本得公式可以follow：<br>requests per second at peak when healthy × 99th percentile latency in seconds + some breathing room<br>每秒最大支撑的请求数 (99%平均响应时间 + 缓存值)<br>比如：每秒能处理1000个请求，99%的请求响应时间是60ms，那么公式是：<br>1000 （0.060+0.012）</p>
+<p>基本得原则时保持线程池尽可能小，他主要是为了释放压力，防止资源被阻塞。<br>当一切都是正常的时候，线程池一般仅会有1到2个线程激活来提供服务</p>
+<ul>
+<li><ul>
+<li>hystrix.threadpool.default.coreSize 并发执行的最大线程数，默认10</li>
+<li>hystrix.threadpool.default.maxQueueSize BlockingQueue的最大队列数，当设为－1，会使用SynchronousQueue，值为正时使用LinkedBlcokingQueue。该设置只会在初始化时有效，之后不能修改threadpool的queue size，除非reinitialising thread executor。默认－1。</li>
+<li>hystrix.threadpool.default.queueSizeRejectionThreshold 即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝。因为maxQueueSize不能被动态修改，这个参数将允许我们动态设置该值。if maxQueueSize == -1，该字段将不起作用</li>
+<li>hystrix.threadpool.default.keepAliveTimeMinutes 如果corePoolSize和maxPoolSize设成一样（默认实现）该设置无效。如果通过plugin（<a target="_blank" rel="noopener" href="https://github.com/Netflix/Hystrix/wiki/Plugins%EF%BC%89%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%AF%A5%E8%AE%BE%E7%BD%AE%E6%89%8D%E6%9C%89%E7%94%A8%EF%BC%8C%E9%BB%98%E8%AE%A41">https://github.com/Netflix/Hystrix/wiki/Plugins）使用自定义实现，该设置才有用，默认1</a>.</li>
+<li>hystrix.threadpool.default.metrics.rollingStats.timeInMilliseconds 线程池统计指标的时间，默认10000</li>
+<li>hystrix.threadpool.default.metrics.rollingStats.numBuckets 将rolling window划分为n个buckets，默认10</li>
+</ul>
+</li>
+</ul>
 
       
 
@@ -252,6 +293,10 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Hystrix</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -294,7 +339,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/2020/09/18/SpringCloud%E4%B9%8BHystrix/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,18 +353,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/13/SpringCloud%20%E9%85%8D%E7%BD%AE%20hystrix-board/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/09/18/springcloud%E4%B9%8Bribbon/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          SpringCloud 配置 hystrix-board
+          SpringCloud之Ribbon
         
       </div>
     </a>
   
   
-    <a href="/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Windows 下部署RocketMq</div>
+    <a href="/2020/09/18/springcloud%E4%B9%8Bfeign/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringCloud之Feign</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -346,7 +391,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSpring-cloud"><span class="toc-number">1.</span> <span class="toc-text">什么是Spring cloud</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud-%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%A1%86%E6%9E%B6%E2%80%94%E2%80%94Eureka"><span class="toc-number">2.</span> <span class="toc-text">Sprng Cloud 的服务发现框架——Eureka</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud-%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B9%8B-Ribbon"><span class="toc-number">3.</span> <span class="toc-text">Sprng Cloud 的负载均衡之 Ribbon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84-Open-Feign"><span class="toc-number">4.</span> <span class="toc-text">Sprng Cloud的 Open Feign</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84-Hystrix"><span class="toc-number">5.</span> <span class="toc-text">Sprng Cloud的 Hystrix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sprng-Cloud%E7%9A%84Zuul"><span class="toc-number">6.</span> <span class="toc-text">Sprng Cloud的Zuul</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hystrix%E7%9A%84%E8%AF%B7%E6%B1%82%E5%90%88%E5%B9%B6"><span class="toc-number">1.</span> <span class="toc-text">Hystrix的请求合并</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E8%AF%B7%E6%B1%82%E5%90%88%E5%B9%B6"><span class="toc-number">1.1.</span> <span class="toc-text">1、请求合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E8%B4%B4%E4%BB%A3%E7%A0%81%EF%BC%8C%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%AF%B7%E6%B1%82%E5%90%88%E5%B9%B6"><span class="toc-number">1.2.</span> <span class="toc-text">2、贴代码，注解的形式实现请求合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">3、测试方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-Properties%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">Command Properties：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Execution%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B1%9E%E6%80%A7%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">1.Execution相关的属性的配置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Fallback%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">2.2.</span> <span class="toc-text">2.Fallback相关的属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Circuit-Breaker%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">2.3.</span> <span class="toc-text">3.Circuit Breaker相关的属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Metrics%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">4.Metrics相关参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Request-Context-%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-number">2.5.</span> <span class="toc-text">5.Request Context 相关参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Collapser-Properties-%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-number">2.6.</span> <span class="toc-text">6.Collapser Properties 相关参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-ThreadPool-%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-number">2.7.</span> <span class="toc-text">7.ThreadPool 相关参数</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -379,7 +424,7 @@ if(true){
   	repo: 'blog',
   	owner: 'liujunliangOne',
   	admin: ['liujunliangOne'],
-  	id: 'Sun Sep 13 2020 11:52:28 GMT+0800',
+  	id: 'Fri Sep 18 2020 20:04:21 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
