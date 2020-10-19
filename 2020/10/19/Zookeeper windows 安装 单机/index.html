@@ -9,12 +9,12 @@
   <link rel="dns-prefetch" href="https://alibroadcast.com">
   <title>Zookeeper windows 安装 单机测试 | 刘峻良的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、安装zookeeper 下载地址为: https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;releases.html 本例使用版本 zookeeper-3.4.14 1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:  2、在安装目录下面新建一个空的 data 文件夹和 log 文件夹:  3、修改 z">
+  <meta name="description" content="一、安装zookeeper 下载地址为: https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;releases.html 本例使用版本 zookeeper-3.4.14 1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper windows 安装 单机测试">
 <meta property="og:url" content="https://alibroadcast.com/2020/10/19/Zookeeper%20windows%20%E5%AE%89%E8%A3%85%20%E5%8D%95%E6%9C%BA/index.html">
 <meta property="og:site_name" content="刘峻良的博客">
-<meta property="og:description" content="一、安装zookeeper 下载地址为: https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;releases.html 本例使用版本 zookeeper-3.4.14 1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:  2、在安装目录下面新建一个空的 data 文件夹和 log 文件夹:  3、修改 z">
+<meta property="og:description" content="一、安装zookeeper 下载地址为: https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;releases.html 本例使用版本 zookeeper-3.4.14 1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alibroadcast.com/assets/resource/zookeeper/1.png">
 <meta property="og:image" content="https://alibroadcast.com/assets/resource/zookeeper/2.png">
@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://alibroadcast.com/assets/resource/zookeeper/4.png">
 <meta property="og:image" content="https://alibroadcast.com/assets/resource/zookeeper/5.png">
 <meta property="article:published_time" content="2020-10-19T11:09:54.458Z">
-<meta property="article:modified_time" content="2020-10-19T12:27:47.581Z">
+<meta property="article:modified_time" content="2020-10-19T13:06:32.286Z">
 <meta property="article:author" content="刘峻良">
 <meta property="article:tag" content="Zookeeper">
 <meta name="twitter:card" content="summary">
@@ -185,6 +185,8 @@
 <p>本例使用版本 zookeeper-3.4.14</p>
 <p>1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:</p>
 <p><img src="/assets/resource/zookeeper/1.png"></p>
+<a id="more"></a>
+
 <p>2、在安装目录下面新建一个空的 data 文件夹和 log 文件夹:</p>
 <p><img src="/assets/resource/zookeeper/2.png"></p>
 <p>3、修改 zoo.cfg 配置文件，将 dataDir=/tmp/zookeeper 修改成 zookeeper 安装目录所在的 data 文件夹，再添加一条添加数据日志的配置(需要根据自己的安装路径修改)。</p>
