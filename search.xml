@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hadoop之HDFS</title>
-    <url>/blog/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
+    <url>/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
     <content><![CDATA[<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>HDFS <strong>(分布式文件系统)</strong> 是整个hadoop体系的基础，负责数据的存储与管理。HDFS有着高<a href="https://baike.baidu.com/item/%E5%AE%B9%E9%94%99%E6%80%A7/9131391">容错性</a>（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。</p>
 <p>client：切分文件，访问HDFS时，首先与NameNode交互，获取目标文件的位置信息，然后与DataNode交互，读写数据</p>
 <p>NameNode：master节点，每个HDFS集群只有一个，管理HDFS的名称空间和数据块映射信息，配置相关副本信息，处理客户端请求。</p>
@@ -38,7 +38,7 @@
   </entry>
   <entry>
     <title>Hadoop入门教程</title>
-    <url>/blog/2020/09/25/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+    <url>/2020/09/25/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
 <p>（1）、HDSF  文件存儲</p>
 <p>（2）、HBASE 非关系型数据库</p>
@@ -76,7 +76,7 @@
   </entry>
   <entry>
     <title>Java mongodb 的基本操作</title>
-    <url>/blog/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
+    <url>/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
     <content><![CDATA[<h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</p>
 <p>连接数据库的Java代码如下：</p>
 <a id="more"></a>
@@ -116,7 +116,7 @@
   </entry>
   <entry>
     <title>SpringCloud 简单总结</title>
-    <url>/blog/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/</url>
+    <url>/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="什么是Spring-cloud"><a href="#什么是Spring-cloud" class="headerlink" title="什么是Spring cloud"></a>什么是Spring cloud</h2><blockquote>
 <p>构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。</p>
 </blockquote>
@@ -151,7 +151,7 @@
   </entry>
   <entry>
     <title>SpringCloud 配置 hystrix-board</title>
-    <url>/blog/2020/09/13/SpringCloud%20%E9%85%8D%E7%BD%AE%20hystrix-board/</url>
+    <url>/2020/09/13/SpringCloud%20%E9%85%8D%E7%BD%AE%20hystrix-board/</url>
     <content><![CDATA[<p>hystrix-board服务监控</p>
 <p>1、创建新项目:hystrixdashboard。在application.properties文件中添加配置文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;hystrixboard</span><br><span class="line">server.port&#x3D;6009</span><br></pre></td></tr></table></figure>
@@ -192,7 +192,7 @@
   </entry>
   <entry>
     <title>SpringCloud之Hystrix</title>
-    <url>/blog/2020/09/18/SpringCloud%E4%B9%8BHystrix/</url>
+    <url>/2020/09/18/SpringCloud%E4%B9%8BHystrix/</url>
     <content><![CDATA[<h2 id="Hystrix的请求合并"><a href="#Hystrix的请求合并" class="headerlink" title="Hystrix的请求合并"></a>Hystrix的请求合并</h2><h3 id="1、请求合并"><a href="#1、请求合并" class="headerlink" title="1、请求合并"></a>1、请求合并</h3><p>为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。</p>
 <p>同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置</p>
 <blockquote>
@@ -268,7 +268,7 @@
   </entry>
   <entry>
     <title>Spring 常用注解</title>
-    <url>/blog/2020/08/24/Spring%E6%B3%A8%E8%A7%A3/</url>
+    <url>/2020/08/24/Spring%E6%B3%A8%E8%A7%A3/</url>
     <content><![CDATA[<h2 id="Spring部分"><a href="#Spring部分" class="headerlink" title="Spring部分"></a>Spring部分</h2><h3 id="1、声明bean的注解"><a href="#1、声明bean的注解" class="headerlink" title="1、声明bean的注解"></a>1、声明bean的注解</h3><blockquote>
 <p>@Component 组件，没有明确的角色</p>
 </blockquote>
@@ -489,7 +489,7 @@
   </entry>
   <entry>
     <title>Windows 下部署RocketMq</title>
-    <url>/blog/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/</url>
+    <url>/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/</url>
     <content><![CDATA[<h2 id="1、环境"><a href="#1、环境" class="headerlink" title="1、环境"></a>1、环境</h2><p>Windows系统、JDK1.8、Maven 、Git</p>
 <h2 id="2、RocketMq部署"><a href="#2、RocketMq部署" class="headerlink" title="2、RocketMq部署"></a>2、RocketMq部署</h2><h3 id="2-1、下载："><a href="#2-1、下载：" class="headerlink" title="2.1、下载："></a>2.1、下载：</h3><p><a href="http://rocketmq.apache.org/release_notes/release-notes-4.3.0/">http://rocketmq.apache.org/release_notes/release-notes-4.3.0/</a></p>
 <p><a href="https://github.com/apache/rocketmq-externals.git">https://github.com/apache/rocketmq-externals.git</a></p>
@@ -512,8 +512,58 @@
       </tags>
   </entry>
   <entry>
+    <title>Zookeeper windows 安装 单机测试</title>
+    <url>/2020/10/19/Zookeeper%20windows%20%E5%AE%89%E8%A3%85%20%E5%8D%95%E6%9C%BA/</url>
+    <content><![CDATA[<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>zookeeper 下载地址为: <a href="https://zookeeper.apache.org/releases.html">https://zookeeper.apache.org/releases.html</a></p>
+<p>本例使用版本 zookeeper-3.4.14</p>
+<p>1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:</p>
+<p><img src="/assets/resource/zookeeper/1.png"></p>
+<p>2、在安装目录下面新建一个空的 data 文件夹和 log 文件夹:</p>
+<p><img src="/assets/resource/zookeeper/2.png"></p>
+<p>3、修改 zoo.cfg 配置文件，将 dataDir=/tmp/zookeeper 修改成 zookeeper 安装目录所在的 data 文件夹，再添加一条添加数据日志的配置(需要根据自己的安装路径修改)。</p>
+<p><img src="/assets/resource/zookeeper/3.png"></p>
+<p>4、双击 bin目录下zkServer.cmd 启动程序:控制台显示 <strong>bind to port 0.0.0.0/0.0.0.0:2181</strong>，表示服务端启动成功!</p>
+<p><img src="/assets/resource/zookeeper/4.png"></p>
+<p>5、双击 bin目录下zkCli.cmd 启动客户端</p>
+<p><img src="/assets/resource/zookeeper/5.png"></p>
+<h2 id="二、-Java连接测试"><a href="#二、-Java连接测试" class="headerlink" title="二、 Java连接测试"></a>二、 Java连接测试</h2><p>使用的 IDE 为 IntelliJ IDEA，创建一个 maven 工程，命名为 zookeeper-demo，并且引入如下依赖，可以自行在maven中央仓库选择合适的版本，介绍原生 API 和 Curator 两种方式。</p>
+<p>1、依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.11&lt;&#x2F;version&gt;</span><br><span class="line">  &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.zookeeper&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;zookeeper&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;3.4.8&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.curator&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;curator-framework&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.0.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.curator&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;curator-recipes&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.0.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、客户端的 zookeeper 原生 API</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class ConnectionDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            final CountDownLatch countDownLatch &#x3D; new CountDownLatch(1);</span><br><span class="line">            ZooKeeper zooKeeper &#x3D;</span><br><span class="line">                    new ZooKeeper(&quot;127.0.0.1:2181&quot;,</span><br><span class="line">                            4000, new Watcher() &#123;</span><br><span class="line">                        @Override</span><br><span class="line">                        public void process(WatchedEvent event) &#123;</span><br><span class="line">                            if (Event.KeeperState.SyncConnected &#x3D;&#x3D; event.getState()) &#123;</span><br><span class="line">                                &#x2F;&#x2F;如果收到了服务端的响应事件，连接成功</span><br><span class="line">                                countDownLatch.countDown();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">            &#x2F;&#x2F; countDownLatch.await();</span><br><span class="line">            &#x2F;&#x2F;CONNECTED</span><br><span class="line">           &#x2F;&#x2F; zooKeeper.create(&quot;&#x2F;runoob&quot;,&quot;0&quot;.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);</span><br><span class="line">            System.out.println(zooKeeper.getState());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出 connected 显示连接成功!</p>
+<p>log4j:WARN No appenders could be found for logger (org.apache.zookeeper.ZooKeeper).<br>log4j:WARN Please initialize the log4j system properly.<br>log4j:WARN See <a href="http://logging.apache.org/log4j/1.2/faq.html#noconfig">http://logging.apache.org/log4j/1.2/faq.html#noconfig</a> for more info.<br>CONNECTED</p>
+<p>Process finished with exit code 0</p>
+<p>简单示例添加节点 API，将上述代码中</p>
+<p> zooKeeper.create(“/runoob”,”0”.getBytes(),ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);</p>
+<p>注释打开执行，同时在服务端终端执行命令，显示设置成功。</p>
+<p>[zk: localhost:2181(CONNECTED) 1] get /runoob<br>0<br>cZxid = 0x69<br>ctime = Fri Oct 16 15:51:26 GMT+08:00 2020<br>mZxid = 0x69<br>mtime = Fri Oct 16 15:51:26 GMT+08:00 2020<br>pZxid = 0x69<br>cversion = 0<br>dataVersion = 0<br>aclVersion = 0<br>ephemeralOwner = 0x0<br>dataLength = 1<br>numChildren = 0<br>[zk: localhost:2181(CONNECTED) 2]</p>
+<p>3、客户端的curator连接</p>
+<p>Curator 是 Netflix 公司开源的一套 zookeeper 客户端框架，解决了很多 Zookeeper 客户端非常底层的细节开发工作，包括连接重连、反复注册 Watcher 和 NodeExistsException 异常等。</p>
+<p>Curator 包含了几个包：</p>
+<ul>
+<li><p><strong>curator-framework</strong>：对 zookeeper 的底层 api 的一些封装。</p>
+</li>
+<li><p><strong>curator-client</strong>：提供一些客户端的操作，例如重试策略等。</p>
+</li>
+<li><p><strong>curator-recipes</strong>：封装了一些高级特性，如：Cache 事件监听、选举、分布式锁、分布式计数器、分布式 Barrier 等。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class CuratorDemo &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        CuratorFramework curatorFramework&#x3D; CuratorFrameworkFactory.</span><br><span class="line">                builder().connectString(&quot;127.0.0.1:2181&quot;).</span><br><span class="line">                sessionTimeoutMs(4000).retryPolicy(new</span><br><span class="line">                ExponentialBackoffRetry(1000,3)).</span><br><span class="line">                namespace(&quot;&quot;).build();</span><br><span class="line">        curatorFramework.start();</span><br><span class="line">        Stat stat&#x3D;new Stat();</span><br><span class="line">        &#x2F;&#x2F;查询节点数据</span><br><span class="line">        byte[] bytes &#x3D;        curatorFramework.getData().storingStatIn(stat).forPath(&quot;&#x2F;runoob&quot;);</span><br><span class="line">        System.out.println(new String(bytes));</span><br><span class="line">        curatorFramework.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>上一步设置了 <strong>/runoob</strong> 节点值，所以控制台输出。</p>
+<p>log4j:WARN No appenders could be found for logger (org.apache.curator.utils.Compatibility).<br>log4j:WARN Please initialize the log4j system properly.<br>log4j:WARN See <a href="http://logging.apache.org/log4j/1.2/faq.html#noconfig">http://logging.apache.org/log4j/1.2/faq.html#noconfig</a> for more info.<br>0</p>
+<p>Process finished with exit code 0</p>
+]]></content>
+      <tags>
+        <tag>Zookeeper</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop之MapReduce</title>
-    <url>/blog/2020/09/25/hadoop%E4%B9%8BMapReduce/</url>
+    <url>/2020/09/25/hadoop%E4%B9%8BMapReduce/</url>
     <content><![CDATA[<h2 id="MapReduce简介"><a href="#MapReduce简介" class="headerlink" title="MapReduce简介"></a>MapReduce简介</h2><p>MapReduce <strong>（分布式计算框架）</strong>是一种基于磁盘的分布式并行批处理计算模型，用于处理大数据量的计算。其中Map对应数据集上的独立元素进行指定的操作，生成键-值对形式中间，Reduce则对中间结果中相同的键的所有值进行规约，以得到最终结果。</p>
 <p>Jobtracker：master节点，只有一个，管理所有作业，任务/作业的监控，错误处理等，将任务分解成一系列任务，并分派给Tasktracker。</p>
 <p>Tacktracker：slave节点，运行 Map task和Reduce task；并与Jobtracker交互，汇报任务状态。</p>
@@ -538,7 +588,7 @@
   </entry>
   <entry>
     <title>hadoop常用操作命令汇总</title>
-    <url>/blog/2020/09/25/hadoop%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
+    <url>/2020/09/25/hadoop%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
     <content><![CDATA[<h2 id="hadoop常用操作命令汇总"><a href="#hadoop常用操作命令汇总" class="headerlink" title="hadoop常用操作命令汇总"></a>hadoop常用操作命令汇总</h2><p>（1）、列出根目录下所有的目录或文件</p>
 <blockquote>
 <p>hadoop dfs -ls /</p>
@@ -649,7 +699,7 @@
   </entry>
   <entry>
     <title>hexo 命令</title>
-    <url>/blog/2020/08/22/hexo%E4%BD%BF%E7%94%A8/</url>
+    <url>/2020/08/22/hexo%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <a id="more"></a>
 
@@ -673,7 +723,7 @@
   </entry>
   <entry>
     <title>redis 基本操作</title>
-    <url>/blog/2020/08/29/redis%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <url>/2020/08/29/redis%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<ul>
 <li>redis是key-value的数据结构，每条数据都是⼀个键值对</li>
 <li>键的类型是字符串</li>
@@ -983,7 +1033,7 @@
   </entry>
   <entry>
     <title>SpringCloud之Zuul</title>
-    <url>/blog/2020/09/18/springcloud%20%E4%B9%8Bzuul/</url>
+    <url>/2020/09/18/springcloud%20%E4%B9%8Bzuul/</url>
     <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribbon结合实现了负载均衡的功能</p>
 <a id="more"></a>
 <h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、pom依赖</p>
@@ -1007,7 +1057,7 @@
   </entry>
   <entry>
     <title>SpringCloud之生产者</title>
-    <url>/blog/2020/09/18/springcloud%20%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85/</url>
+    <url>/2020/09/18/springcloud%20%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85/</url>
     <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>生产者为了提供测试方法</p>
 <h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">server.port&#x3D;6001</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
@@ -1036,7 +1086,7 @@
   </entry>
   <entry>
     <title>SpringCloud之Eureka</title>
-    <url>/blog/2020/09/18/springcloud%E4%B9%8BEurake/</url>
+    <url>/2020/09/18/springcloud%E4%B9%8BEurake/</url>
     <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -1065,7 +1115,7 @@
   </entry>
   <entry>
     <title>SpringCloud之Feign</title>
-    <url>/blog/2020/09/18/springcloud%E4%B9%8Bfeign/</url>
+    <url>/2020/09/18/springcloud%E4%B9%8Bfeign/</url>
     <content><![CDATA[<h4 id="1、-Feign介绍"><a href="#1、-Feign介绍" class="headerlink" title="1、 Feign介绍"></a>1、 Feign介绍</h4><p>Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。</p>
 <h3 id="2、Feign工作原理如下"><a href="#2、Feign工作原理如下" class="headerlink" title="2、Feign工作原理如下"></a>2、Feign工作原理如下</h3><p>（1）、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生成此接口的代理对象</p>
 <p>（2）、@FeignClient(value = “springbootService”, fallback=ServiceFallback.class) 即指定了生产者的服务名称，Feign会从注册中心获取生产者服务列表，并通过负载均衡算法进行服务调用。</p>
@@ -1117,7 +1167,7 @@
   </entry>
   <entry>
     <title>SpringCloud之Ribbon</title>
-    <url>/blog/2020/09/18/springcloud%E4%B9%8Bribbon/</url>
+    <url>/2020/09/18/springcloud%E4%B9%8Bribbon/</url>
     <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Spring Cloud Ribbon是一个基于HTTP和TCP的客户端负载均衡工具，它基于Netflix Ribbon实现。通过Spring Cloud的封装，可以让我们轻松地将面向服务的REST模版请求自动转换成客户端负载均衡的服务调用。集中式负载均衡。</p>
 <h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootConsumerRibbon</span><br><span class="line">server.port&#x3D;6007</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
@@ -1141,7 +1191,7 @@
   </entry>
   <entry>
     <title>windows 下部署hadoop</title>
-    <url>/blog/2020/09/25/windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2hadoop/</url>
+    <url>/2020/09/25/windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2hadoop/</url>
     <content><![CDATA[<h2 id="1、下载hadoop-和配置的文件（待定）"><a href="#1、下载hadoop-和配置的文件（待定）" class="headerlink" title="1、下载hadoop 和配置的文件（待定）"></a>1、下载hadoop 和配置的文件（待定）</h2><p>（1）、各种版本<a href="https://archive.apache.org/dist/hadoop/common/">hadoop</a></p>
 <p>（2）、根据版本进行选择bin的内容进行覆盖（支持windows 运行的工具）将bin目录(包含以下.dll和.exe文件)文件替换原来hadoop目录下的bin目录</p>
 <h2 id="2、-配置hadoop环境变量"><a href="#2、-配置hadoop环境变量" class="headerlink" title="2、 配置hadoop环境变量"></a>2、 配置hadoop环境变量</h2><p>右键单击我的电脑 –&gt;属性 –&gt;高级环境变量配置 –&gt;高级选项卡 –&gt;环境变量 –&gt; 单击新建HADOOP_HOME和编辑环境变量path如下图 </p>
