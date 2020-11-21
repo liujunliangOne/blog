@@ -1,117 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hadoop之HDFS</title>
-    <url>/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
-    <content><![CDATA[<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>HDFS <strong>(分布式文件系统)</strong> 是整个hadoop体系的基础，负责数据的存储与管理。HDFS有着高<a href="https://baike.baidu.com/item/%E5%AE%B9%E9%94%99%E6%80%A7/9131391">容错性</a>（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。</p>
-<p>client：切分文件，访问HDFS时，首先与NameNode交互，获取目标文件的位置信息，然后与DataNode交互，读写数据</p>
-<p>NameNode：master节点，每个HDFS集群只有一个，管理HDFS的名称空间和数据块映射信息，配置相关副本信息，处理客户端请求。</p>
-<p>DataNode：slave节点，存储实际数据，并汇报状态信息给NameNode，默认一个文件会备份3份在不同的DataNode中，实现高可靠性和容错性。</p>
-<p>Secondary NameNode：辅助NameNode，实现高可靠性，定期合并fsimage和fsedits，推送给NameNode；紧急情况下辅助和恢复NameNode，但其并非NameNode的热备份。</p>
-<a id="more"></a>
-<p>Hadoop 2为HDFS引入了两个重要的新功能 ——Federation和高可用（HA）：</p>
-<ul>
-<li>Federation允许集群中出现多个NameNode，之间相互独立且不需要互相协调，各自分工，管理自己的区域。 DataNode 被用作通用的数据块存储设备。每个 DataNode 要向集群中所有NameNode 注册，并发送心跳报告，执行所有 namenode的命令。</li>
-<li>HDFS中的高可用性消除了Hadoop 1中存在的单点故障，其中，NameNode故障将导致集群中断。HDFS的高可用性提供故障转移功能（备用节点从失败的主NameNode接管工作的过程）以实现自动化。</li>
-</ul>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><img src="/assets/resource/hadoop/hdfs/command1.png"></p>
-<p><img src="/assets/resource/hadoop/hdfs/command2.png"></p>
-<p><img src="/assets/resource/hadoop/hdfs/command3.png"></p>
-<h2 id="使用Java程序对HDFS文件系统进行操作"><a href="#使用Java程序对HDFS文件系统进行操作" class="headerlink" title="使用Java程序对HDFS文件系统进行操作"></a>使用Java程序对HDFS文件系统进行操作</h2><p>通过HDFS文件系统提供的Java API，我们可以完成如下的操作：</p>
-<p>① 在HDFS文件系统中创建目录；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 在hdfs更目录下面创建test1文件夹</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void mkdir() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.mkdirs(new Path(&quot;&#x2F;test1&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>② 查看HDFS文件系统中的目录及文件信息；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 列出hdfs上所有的文件或文件夹：</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void listFiles() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    &#x2F;&#x2F; true 表示递归查找 false 不进行递归查找</span><br><span class="line">    RemoteIterator&lt;LocatedFileStatus&gt; iterator &#x3D; fs.listFiles(new Path(&quot;&#x2F;&quot;), true);</span><br><span class="line">    while (iterator.hasNext())&#123;</span><br><span class="line">        LocatedFileStatus next &#x3D; iterator.next();</span><br><span class="line">        System.out.println(next.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;----------------------------------------------------------&quot;);</span><br><span class="line">    FileStatus[] fileStatuses &#x3D; fs.listStatus(new Path(&quot;&#x2F;&quot;));</span><br><span class="line">    for (int i &#x3D; 0; i &lt; fileStatuses.length; i++) &#123;</span><br><span class="line">        FileStatus fileStatus &#x3D; fileStatuses[i];</span><br><span class="line">        System.out.println(fileStatus.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>③ 通过FileSystem API读取数据（下载文件）；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 将hdfs上文件下载到本地</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void download() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.copyToLocalFile(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;userlogs&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p> ④通过FileSystem API上传数据到HDFS文件系统中；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 上传文件到hdfs上</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void upload() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.get(conf);</span><br><span class="line">    fs.copyFromLocalFile(new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;&#x2F;user&#x2F;wcinput&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>⑤ 删除HDFS文件系统中的数据。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 删除hdfs上的文件</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void removeFile() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.delete(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop入门教程</title>
-    <url>/2020/09/25/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
-<p>（1）、HDSF  文件存儲</p>
-<p>（2）、HBASE 非关系型数据库</p>
-<p>（3）、MapReduce 离线计算</p>
-<p>（4）、hive 数据查询</p>
-<p>（5）、spark 内存级别计算</p>
-<p>（6）、stom 实时计算</p>
-<p>（7）、kafka 消息队列</p>
-<a id="more"></a>
-<h2 id="1-2-HDFS-文件系统"><a href="#1-2-HDFS-文件系统" class="headerlink" title="1.2 HDFS  文件系统"></a>1.2 HDFS  文件系统</h2><p>HDFS（Hadoop Distributed File System，Hadoop分布式文件系统），它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集（largedata set）的应用程序。</p>
-<p>HDFS的设计特点:</p>
-<p>1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储。</p>
-<p>2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多。</p>
-<p>3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</p>
-<p>4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</p>
-<p>5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</p>
-<p>HDFS的master/slave构架:</p>
-<p>一个HDFS集群是有一个Namenode和一定数目的Datanode组成。Namenode是一个中心服务器，负责管理文件系统的namespace和客户端对文件的访问。Datanode在集群中一般是一个节点一个，负责管理节点上它们附带的存储。在内部，一个文件其实分成一个或多个block，这些block存储在Datanode集合里。Namenode执行文件系统的namespace操作，例如打开、关闭、重命名文件和目录，同时决定block到具体Datanode节点的映射。Datanode在Namenode的指挥下进行block的创建、删除和复制。Namenode和Datanode都是设计成可以跑在普通的廉价的运行linux的机器上。</p>
-<p>HDFS的关键元素:</p>
-<p>1、 Block：将一个文件进行分块，通常是64M。</p>
-<p>2、 NameNode：保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2. 开始支持activity-standy模式—-如果主NameNode失效，启动备用主机运行NameNode。</p>
-<p>3、 DataNode：分布在廉价的计算机上，用于存储Block块文件。</p>
-<h2 id="1-3-MapReduce-文件系统"><a href="#1-3-MapReduce-文件系统" class="headerlink" title="1.3 MapReduce 文件系统"></a>1.3 MapReduce 文件系统</h2><p>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。MapReduce将分成两个部分”Map（映射）”和”Reduce（归约）”。</p>
-<p>当你向MapReduce框架提交一个计算作业时，它会首先把计算作业拆分成若干个Map任务，然后分配到不同的节点上去执行，每一个Map任务处理输入数据中的一部分，当Map任务完成后，它会生成一些中间文件，这些中间文件将会作为Reduce任务的输入数据。Reduce任务的主要目标就是把前面若干个Map的输出汇总到一起并输出。</p>
-<p>步骤1：首先对输入数据源进行切片</p>
-<p>步骤2：master调度worker执行map任务</p>
-<p>步骤3：worker读取输入源片段</p>
-<p>步骤4：worker执行map任务，将任务输出保存在本地</p>
-<p>步骤5：master调度worker执行reduce任务，reduce worker读取map任务的输出文件</p>
-<p>步骤6：执行reduce任务，将任务输出保存到HDFS</p>
-]]></content>
-      <tags>
-        <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java mongodb 的基本操作</title>
-    <url>/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
-    <content><![CDATA[<h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</p>
-<p>连接数据库的Java代码如下：</p>
+    <title>Redis-GEO的Java中使用</title>
+    <url>/2020/11/21/Redis-GEO%E7%9A%84Java%E4%B8%AD%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">       &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">       </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">       System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">        </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="添加坐标"><a href="#添加坐标" class="headerlink" title="添加坐标"></a>添加坐标</h2><p> key ,经度 , 维度 , 距离 ,return m 表示单位为米</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long addReo(String key, double longitude, double latitude, String itemName) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, point, itemName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="批量添加地理位置"><a href="#批量添加地理位置" class="headerlink" title="批量添加地理位置"></a>批量添加地理位置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long geoadd(String key, Map&lt;Object, Point&gt; memberCoordinateMap) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, memberCoordinateMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.util.ArrayList;  </span><br><span class="line">import java.util.List;  </span><br><span class="line">import com.mongodb.MongoClient;  </span><br><span class="line">import com.mongodb.MongoCredential;  </span><br><span class="line">import com.mongodb.ServerAddress;  </span><br><span class="line">import com.mongodb.client.MongoDatabase;  </span><br><span class="line">  </span><br><span class="line">public class MongoDBJDBC &#123;  </span><br><span class="line">    public static void main(String[] args)&#123;  </span><br><span class="line">        try &#123;  </span><br><span class="line">            &#x2F;&#x2F;连接到MongoDB服务 如果是远程连接可以替换“localhost”为服务器所在IP地址  </span><br><span class="line">            &#x2F;&#x2F;ServerAddress()两个参数分别为 服务器地址 和 端口  </span><br><span class="line">            ServerAddress serverAddress &#x3D; new ServerAddress(&quot;localhost&quot;,27017);  </span><br><span class="line">            List&lt;ServerAddress&gt; addrs &#x3D; new ArrayList&lt;ServerAddress&gt;();  </span><br><span class="line">            addrs.add(serverAddress);  </span><br><span class="line">              </span><br><span class="line">            &#x2F;&#x2F;MongoCredential.createScramSha1Credential()三个参数分别为 用户名 数据库名称 密码  </span><br><span class="line">            MongoCredential credential &#x3D; MongoCredential.createScramSha1Credential(&quot;username&quot;, &quot;databaseName&quot;, &quot;password&quot;.toCharArray());  </span><br><span class="line">            List&lt;MongoCredential&gt; credentials &#x3D; new ArrayList&lt;MongoCredential&gt;();  </span><br><span class="line">            credentials.add(credential);  </span><br><span class="line">              </span><br><span class="line">            &#x2F;&#x2F;通过连接认证获取MongoDB连接  </span><br><span class="line">            MongoClient mongoClient &#x3D; new MongoClient(addrs,credentials);  </span><br><span class="line">              </span><br><span class="line">            &#x2F;&#x2F;连接到数据库  </span><br><span class="line">            MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;databaseName&quot;);  </span><br><span class="line">            System.out.println(&quot;Connect to database successfully&quot;);  </span><br><span class="line">        &#125; catch (Exception e) &#123;  </span><br><span class="line">            System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="根据给定地理位置获取指定范围内的地理位置集合"><a href="#根据给定地理位置获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置获取指定范围内的地理位置集合"></a>根据给定地理位置获取指定范围内的地理位置集合</h2><p>返回匹配位置的经纬度 + 匹配位置与给定地理位置的距离 + 从近到远排序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoRadiusResponse&gt; georadiusByMember(String key, String member, double radius) &#123;</span><br><span class="line">    return (List&lt;GeoRadiusResponse&gt;) redisTemplate.getOperations().opsForGeo().geoRadiusByMember(key, member, radius);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h2><p>我们可以使用 com.mongodb.client.MongoDatabase 类中的createCollection()来创建集合</p>
-<p>代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">      &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">      MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">       </span><br><span class="line">      &#x2F;&#x2F; 连接到数据库</span><br><span class="line">      MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">      System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">      mongoDatabase.createCollection(&quot;test&quot;);</span><br><span class="line">      System.out.println(&quot;集合创建成功&quot;);</span><br><span class="line">        </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置集合"></a>根据给定地理位置坐标获取指定范围内的地理位置集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadius(String key, double longitude, double latitude, double radius) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, Metrics.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="获取集合"><a href="#获取集合" class="headerlink" title="获取集合"></a>获取集合</h2><p>我们可以使用com.mongodb.client.MongoDatabase类的 getCollection() 方法来获取一个集合</p>
-<p>代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">       &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">       </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">       System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">      </span><br><span class="line">       MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">       System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置部分集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置部分集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置部分集合"></a>根据给定地理位置坐标获取指定范围内的地理位置部分集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadiusArgs(String key, double longitude, double latitude, double radius, int limit) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, RedisGeoCommands.DistanceUnit.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">      RedisGeoCommands.GeoRadiusCommandArgs args&#x3D; RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().limit(limit).sortAscending();</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h2><p>我们可以使用com.mongodb.client.MongoCollection类的 insertMany() 方法来插入一个文档</p>
-<p>代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import org.bson.Document;</span><br><span class="line"></span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">         </span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">         &#x2F;&#x2F;插入文档  </span><br><span class="line">         &#x2F;** </span><br><span class="line">         * 1. 创建文档 org.bson.Document 参数为key-value的格式 </span><br><span class="line">         * 2. 创建文档集合List&lt;Document&gt; </span><br><span class="line">         * 3. 将文档集合插入数据库集合中 mongoCollection.insertMany(List&lt;Document&gt;) 插入单个文档可以用 mongoCollection.insertOne(Document) </span><br><span class="line">         * *&#x2F;</span><br><span class="line">         Document document &#x3D; new Document(&quot;title&quot;, &quot;MongoDB&quot;).  </span><br><span class="line">         append(&quot;description&quot;, &quot;database&quot;).  </span><br><span class="line">         append(&quot;likes&quot;, 100).  </span><br><span class="line">         append(&quot;by&quot;, &quot;Fly&quot;);  </span><br><span class="line">         List&lt;Document&gt; documents &#x3D; new ArrayList&lt;Document&gt;();  </span><br><span class="line">         documents.add(document);  </span><br><span class="line">         collection.insertMany(documents);  </span><br><span class="line">         System.out.println(&quot;文档插入成功&quot;);  </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">         System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="查询两位置距离"><a href="#查询两位置距离" class="headerlink" title="查询两位置距离"></a>查询两位置距离</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Double geoDist(String key, String member1, String member2, Metrics unit) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoDist(key, member1, member2, unit).getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="检索所有文档"><a href="#检索所有文档" class="headerlink" title="检索所有文档"></a>检索所有文档</h2><p>我们可以使用 com.mongodb.client.MongoCollection 类中的 find() 方法来获取集合中的所有文档。</p>
-<p>此方法返回一个游标，所以你需要遍历这个游标。</p>
-<p>代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.FindIterable;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoCursor;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">         </span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F;检索所有文档  </span><br><span class="line">         &#x2F;** </span><br><span class="line">         * 1. 获取迭代器FindIterable&lt;Document&gt; </span><br><span class="line">         * 2. 获取游标MongoCursor&lt;Document&gt; </span><br><span class="line">         * 3. 通过游标遍历检索出的文档集合 </span><br><span class="line">         * *&#x2F;  </span><br><span class="line">         FindIterable&lt;Document&gt; findIterable &#x3D; collection.find();  </span><br><span class="line">         MongoCursor&lt;Document&gt; mongoCursor &#x3D; findIterable.iterator();  </span><br><span class="line">         while(mongoCursor.hasNext())&#123;  </span><br><span class="line">            System.out.println(mongoCursor.next());  </span><br><span class="line">         &#125;  </span><br><span class="line">      </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">         System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="获取地理位置的坐标"><a href="#获取地理位置的坐标" class="headerlink" title="获取地理位置的坐标"></a>获取地理位置的坐标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoCoordinate&gt; geopos(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoPos(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h2><p>你可以使用 com.mongodb.client.MongoCollection 类中的 updateMany() 方法来更新集合中的文档。</p>
-<p>代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.FindIterable;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoCursor;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line">import com.mongodb.client.model.Filters;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">         </span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F;更新文档   将文档中likes&#x3D;100的文档修改为likes&#x3D;200   </span><br><span class="line">         collection.updateMany(Filters.eq(&quot;likes&quot;, 100), new Document(&quot;$set&quot;,new Document(&quot;likes&quot;,200)));  </span><br><span class="line">         &#x2F;&#x2F;检索查看结果  </span><br><span class="line">         FindIterable&lt;Document&gt; findIterable &#x3D; collection.find();  </span><br><span class="line">         MongoCursor&lt;Document&gt; mongoCursor &#x3D; findIterable.iterator();  </span><br><span class="line">         while(mongoCursor.hasNext())&#123;  </span><br><span class="line">            System.out.println(mongoCursor.next());  </span><br><span class="line">         &#125;  </span><br><span class="line">      </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">         System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="删除第一个文档"><a href="#删除第一个文档" class="headerlink" title="删除第一个文档"></a>删除第一个文档</h2><p>要删除集合中的第一个文档，首先你需要使用com.mongodb.DBCollection类中的 findOne()方法来获取第一个文档，然后使用remove 方法删除。</p>
-<p>代码片段如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.FindIterable;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoCursor;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line">import com.mongodb.client.model.Filters;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line"></span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;删除符合条件的第一个文档  </span><br><span class="line">         collection.deleteOne(Filters.eq(&quot;likes&quot;, 200));  </span><br><span class="line">         &#x2F;&#x2F;删除所有符合条件的文档  </span><br><span class="line">         collection.deleteMany (Filters.eq(&quot;likes&quot;, 200));  </span><br><span class="line">         &#x2F;&#x2F;检索查看结果  </span><br><span class="line">         FindIterable&lt;Document&gt; findIterable &#x3D; collection.find();  </span><br><span class="line">         MongoCursor&lt;Document&gt; mongoCursor &#x3D; findIterable.iterator();  </span><br><span class="line">         while(mongoCursor.hasNext())&#123;  </span><br><span class="line">           System.out.println(mongoCursor.next());  </span><br><span class="line">         &#125;  </span><br><span class="line">           </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="可以获取某个地理位置的geohash值"><a href="#可以获取某个地理位置的geohash值" class="headerlink" title="可以获取某个地理位置的geohash值"></a>可以获取某个地理位置的geohash值</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;String&gt; geohash(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoHash(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>mongodb</tag>
-        <tag>Java</tag>
+        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
@@ -147,6 +64,42 @@
 ]]></content>
       <tags>
         <tag>SpringCloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop之HDFS</title>
+    <url>/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
+    <content><![CDATA[<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>HDFS <strong>(分布式文件系统)</strong> 是整个hadoop体系的基础，负责数据的存储与管理。HDFS有着高<a href="https://baike.baidu.com/item/%E5%AE%B9%E9%94%99%E6%80%A7/9131391">容错性</a>（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。</p>
+<p>client：切分文件，访问HDFS时，首先与NameNode交互，获取目标文件的位置信息，然后与DataNode交互，读写数据</p>
+<p>NameNode：master节点，每个HDFS集群只有一个，管理HDFS的名称空间和数据块映射信息，配置相关副本信息，处理客户端请求。</p>
+<p>DataNode：slave节点，存储实际数据，并汇报状态信息给NameNode，默认一个文件会备份3份在不同的DataNode中，实现高可靠性和容错性。</p>
+<p>Secondary NameNode：辅助NameNode，实现高可靠性，定期合并fsimage和fsedits，推送给NameNode；紧急情况下辅助和恢复NameNode，但其并非NameNode的热备份。</p>
+<a id="more"></a>
+<p>Hadoop 2为HDFS引入了两个重要的新功能 ——Federation和高可用（HA）：</p>
+<ul>
+<li>Federation允许集群中出现多个NameNode，之间相互独立且不需要互相协调，各自分工，管理自己的区域。 DataNode 被用作通用的数据块存储设备。每个 DataNode 要向集群中所有NameNode 注册，并发送心跳报告，执行所有 namenode的命令。</li>
+<li>HDFS中的高可用性消除了Hadoop 1中存在的单点故障，其中，NameNode故障将导致集群中断。HDFS的高可用性提供故障转移功能（备用节点从失败的主NameNode接管工作的过程）以实现自动化。</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><img src="/assets/resource/hadoop/hdfs/command1.png"></p>
+<p><img src="/assets/resource/hadoop/hdfs/command2.png"></p>
+<p><img src="/assets/resource/hadoop/hdfs/command3.png"></p>
+<h2 id="使用Java程序对HDFS文件系统进行操作"><a href="#使用Java程序对HDFS文件系统进行操作" class="headerlink" title="使用Java程序对HDFS文件系统进行操作"></a>使用Java程序对HDFS文件系统进行操作</h2><p>通过HDFS文件系统提供的Java API，我们可以完成如下的操作：</p>
+<p>① 在HDFS文件系统中创建目录；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 在hdfs更目录下面创建test1文件夹</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void mkdir() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.mkdirs(new Path(&quot;&#x2F;test1&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>② 查看HDFS文件系统中的目录及文件信息；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 列出hdfs上所有的文件或文件夹：</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void listFiles() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    &#x2F;&#x2F; true 表示递归查找 false 不进行递归查找</span><br><span class="line">    RemoteIterator&lt;LocatedFileStatus&gt; iterator &#x3D; fs.listFiles(new Path(&quot;&#x2F;&quot;), true);</span><br><span class="line">    while (iterator.hasNext())&#123;</span><br><span class="line">        LocatedFileStatus next &#x3D; iterator.next();</span><br><span class="line">        System.out.println(next.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;----------------------------------------------------------&quot;);</span><br><span class="line">    FileStatus[] fileStatuses &#x3D; fs.listStatus(new Path(&quot;&#x2F;&quot;));</span><br><span class="line">    for (int i &#x3D; 0; i &lt; fileStatuses.length; i++) &#123;</span><br><span class="line">        FileStatus fileStatus &#x3D; fileStatuses[i];</span><br><span class="line">        System.out.println(fileStatus.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>③ 通过FileSystem API读取数据（下载文件）；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 将hdfs上文件下载到本地</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void download() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.copyToLocalFile(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;userlogs&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> ④通过FileSystem API上传数据到HDFS文件系统中；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 上传文件到hdfs上</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void upload() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.get(conf);</span><br><span class="line">    fs.copyFromLocalFile(new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;&#x2F;user&#x2F;wcinput&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>⑤ 删除HDFS文件系统中的数据。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 删除hdfs上的文件</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void removeFile() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.delete(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -264,227 +217,6 @@
       <tags>
         <tag>SpringCloud</tag>
         <tag>Hystrix</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring 常用注解</title>
-    <url>/2020/08/24/Spring%E6%B3%A8%E8%A7%A3/</url>
-    <content><![CDATA[<h2 id="Spring部分"><a href="#Spring部分" class="headerlink" title="Spring部分"></a>Spring部分</h2><h3 id="1、声明bean的注解"><a href="#1、声明bean的注解" class="headerlink" title="1、声明bean的注解"></a>1、声明bean的注解</h3><blockquote>
-<p>@Component 组件，没有明确的角色</p>
-</blockquote>
-<blockquote>
-<p>@Service 在业务逻辑层使用（service层）</p>
-</blockquote>
-<blockquote>
-<p>@Repository 在数据访问层使用（dao层）</p>
-</blockquote>
-<blockquote>
-<p>@Controller 在展现层使用，控制器的声明（C）</p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="2、注入bean的注解"><a href="#2、注入bean的注解" class="headerlink" title="2、注入bean的注解"></a>2、注入bean的注解</h3><blockquote>
-<p>@Autowired：由Spring提供</p>
-</blockquote>
-<blockquote>
-<p>@Inject：由JSR-330提供</p>
-</blockquote>
-<blockquote>
-<p>@Resource：由JSR-250提供</p>
-</blockquote>
-<blockquote>
-<p>都可以注解在set方法和属性上，推荐注解在属性上（一目了然，少写代码）。</p>
-</blockquote>
-<h3 id="3、java配置类相关注解"><a href="#3、java配置类相关注解" class="headerlink" title="3、java配置类相关注解"></a>3、java配置类相关注解</h3><blockquote>
-<p>@Configuration 声明当前类为配置类，相当于xml形式的Spring配置（类上）</p>
-</blockquote>
-<blockquote>
-<p>@Bean 注解在方法上，声明当前方法的返回值为一个bean，替代xml中的方式（方法上）</p>
-</blockquote>
-<blockquote>
-<p>@Configuration 声明当前类为配置类，其中内部组合了@Component注解，表明这个类是一个bean（类上）</p>
-</blockquote>
-<blockquote>
-<p>@ComponentScan 用于对Component进行扫描，相当于xml中的（类上）</p>
-</blockquote>
-<blockquote>
-<p>@WishlyConfiguration 为@Configuration与@ComponentScan的组合注解，可以替代这两个注解</p>
-</blockquote>
-<h3 id="4、切面（AOP）相关注解"><a href="#4、切面（AOP）相关注解" class="headerlink" title="4、切面（AOP）相关注解"></a>4、切面（AOP）相关注解</h3><blockquote>
-<p>Spring支持AspectJ的注解式切面编程。</p>
-</blockquote>
-<blockquote>
-<p>@Aspect 声明一个切面（类上） 使用@After、@Before、@Around定义建言（advice），可直接将拦截规则（切点）作为参数。</p>
-</blockquote>
-<blockquote>
-<p>@After 在方法执行之后执行（方法上） @Before 在方法执行之前执行（方法上） @Around 在方法执行之前与之后执行（方法上）</p>
-</blockquote>
-<blockquote>
-<p>@PointCut 声明切点 在java配置类中使用@EnableAspectJAutoProxy注解开启Spring对AspectJ代理的支持（类上）</p>
-</blockquote>
-<h3 id="5、-Bean的属性支持"><a href="#5、-Bean的属性支持" class="headerlink" title="5、@Bean的属性支持"></a>5、@Bean的属性支持</h3><blockquote>
-<p>@Validated</p>
-</blockquote>
-<blockquote>
-<p>@Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常</p>
-</blockquote>
-<blockquote>
-<p>@Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean。</p>
-</blockquote>
-<blockquote>
-<p>@Lazy(true) 表示延迟初始化</p>
-</blockquote>
-<blockquote>
-<p>@Scope 设置Spring容器如何新建Bean实例（方法上，得有@Bean） 其设置类型包括：</p>
-</blockquote>
-<blockquote>
-<p>Singleton （单例,一个Spring容器中只有一个bean实例，默认模式）, Protetype （每次调用新建一个bean）, Request （web项目中，给每个http request新建一个bean）, Session （web项目中，给每个http session新建一个bean）, GlobalSession（给每一个 global http session新建一个Bean实例）</p>
-</blockquote>
-<blockquote>
-<p>@StepScope 在Spring Batch中还有涉及</p>
-</blockquote>
-<blockquote>
-<p>@PostConstruct 由JSR-250提供，在构造函数执行完之后执行，等价于xml配置文件中bean的initMethod</p>
-</blockquote>
-<blockquote>
-<p>@PreDestory 由JSR-250提供，在Bean销毁之前执行，等价于xml配置文件中bean的destroyMethod</p>
-</blockquote>
-<blockquote>
-<p>@Async异步方法调用</p>
-</blockquote>
-<h3 id="6、-Value注解"><a href="#6、-Value注解" class="headerlink" title="6、@Value注解"></a>6、@Value注解</h3><blockquote>
-<p>@Value 为属性注入值（属性上） 支持如下方式的注入： 》注入普通字符 @Value(“colcol”)String name;</p>
-</blockquote>
-<blockquote>
-<p>注入操作系统属性  @Value(“#{systemProperties[‘os.name’]}”)String osName;</p>
-</blockquote>
-<blockquote>
-<p>注入表达式结果 @Value(“#{ T(java.lang.Math).random() * 100 }”) String randomNumber;</p>
-</blockquote>
-<blockquote>
-<p>注入其它bean属性@Value(“#{domeClass.name}”)String name;</p>
-</blockquote>
-<blockquote>
-<p>注入文件资源 @Value(“classpath:com/hgs/hello/test.txt”)String Resource file;</p>
-</blockquote>
-<blockquote>
-<p>注入网站资源 @Value(“<a href="https://alibroadcast.com&quot;)resource/">https://alibroadcast.com&quot;)Resource</a> url;</p>
-</blockquote>
-<blockquote>
-<p>注入配置文件Value(“${book.name}”)String bookName;</p>
-</blockquote>
-<blockquote>
-<p>注入配置使用方法： ① 编写配置文件（test.properties）book.name=《三体》</p>
-</blockquote>
-<blockquote>
-<p>@PropertySource 加载配置文件(类上)</p>
-</blockquote>
-<blockquote>
-<p>@PropertySource(“classpath:com/test1.propertie”)</p>
-</blockquote>
-<blockquote>
-<p>还需配置一个PropertySourcesPlaceholderConfigurer的bean。</p>
-</blockquote>
-<h3 id="7、环境切换"><a href="#7、环境切换" class="headerlink" title="7、环境切换"></a>7、环境切换</h3><blockquote>
-<p>@Profile 通过设定Environment的ActiveProfiles来设定当前context需要使用的配置环境。（类或方法上）</p>
-</blockquote>
-<blockquote>
-<p>@Conditional Spring4中可以使用此注解定义条件话的bean，通过实现Condition接口，并重写matches方法，从而决定该bean是否被实例化。（方法上）</p>
-</blockquote>
-<h3 id="8、异步相关"><a href="#8、异步相关" class="headerlink" title="8、异步相关"></a>8、异步相关</h3><blockquote>
-<p>@EnableAsync 配置类中，通过此注解开启对异步任务的支持，叙事性AsyncConfigurer接口（类上）</p>
-</blockquote>
-<blockquote>
-<p>@Async 在实际执行的bean方法使用该注解来申明其是一个异步任务（方法上或类上所有的方法都将异步，需要@EnableAsync开启异步任务）</p>
-</blockquote>
-<h3 id="9、定时任务相关"><a href="#9、定时任务相关" class="headerlink" title="9、定时任务相关"></a>9、定时任务相关</h3><blockquote>
-<p>@EnableScheduling 在配置类上使用，开启计划任务的支持（类上）</p>
-</blockquote>
-<blockquote>
-<p>@Scheduled 来申明这是一个任务，包括cron,fixDelay,fixRate等类型（方法上，需先开启计划任务的支持）</p>
-</blockquote>
-<h3 id="10、-Enable-注解说明"><a href="#10、-Enable-注解说明" class="headerlink" title="10、@Enable*注解说明"></a>10、@Enable*注解说明</h3><blockquote>
-<p>这些注解主要用来开启对xxx的支持。 @EnableAspectJAutoProxy 开启对AspectJ自动代理的支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableAsync 开启异步方法的支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableScheduling 开启计划任务的支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableWebMvc 开启Web MVC的配置支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableConfigurationProperties 开启对@ConfigurationProperties注解配置Bean的支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableJpaRepositories 开启对SpringData JPA Repository的支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableTransactionManagement 开启注解式事务的支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableTransactionManagement 开启注解式事务的支持</p>
-</blockquote>
-<blockquote>
-<p>@EnableCaching 开启注解式的缓存支持</p>
-</blockquote>
-<h3 id="11、测试相关注解"><a href="#11、测试相关注解" class="headerlink" title="11、测试相关注解"></a>11、测试相关注解</h3><blockquote>
-<p>@RunWith 运行器，Spring中通常用于对JUnit的支持</p>
-</blockquote>
-<blockquote>
-<p>@RunWith(SpringJUnit4ClassRunner.class)</p>
-</blockquote>
-<blockquote>
-<p>@ContextConfiguration 用来加载配置ApplicationContext，其中classes属性用来加载配置类</p>
-</blockquote>
-<blockquote>
-<p>@ContextConfiguration(classes={TestConfig.class})</p>
-</blockquote>
-<h2 id="SpringMVC部分"><a href="#SpringMVC部分" class="headerlink" title="SpringMVC部分"></a>SpringMVC部分</h2><blockquote>
-<p>@EnableWebMvc 在配置类中开启Web MVC的配置支持，如一些ViewResolver或者MessageConverter等，若无此句，重写WebMvcConfigurerAdapter方法（用于对SpringMVC的配置）。</p>
-</blockquote>
-<blockquote>
-<p>@Controller 声明该类为SpringMVC中的Controller</p>
-</blockquote>
-<blockquote>
-<p>@RequestMapping 用于映射Web请求，包括访问路径和参数（类或方法上）</p>
-</blockquote>
-<blockquote>
-<p>@ResponseBody 支持将返回值放在response内，而不是一个页面，通常用户返回json数据（返回值旁或方法上）</p>
-</blockquote>
-<blockquote>
-<p>@RequestBody 允许request的参数在request体中，而不是在直接连接在地址后面。（放在参数前）</p>
-</blockquote>
-<blockquote>
-<p>@PathVariable 用于接收路径参数，比如@RequestMapping(“/hello/{name}”)申明的路径，将注解放在参数中前，即可获取该值，通常作为Restful的接口实现方法。</p>
-</blockquote>
-<blockquote>
-<p>@RestController 该注解为一个组合注解，相当于@Controller和@ResponseBody的组合，注解在类上，意味着，该Controller的所有方法都默认加上了@ResponseBody。</p>
-</blockquote>
-<blockquote>
-<p>@ControllerAdvice 通过该注解，我们可以将对于控制器的全局配置放置在同一个位置，注解了@Controller的类的方法可使用@ExceptionHandler、@InitBinder、@ModelAttribute注解到方法上， 这对所有注解了 @RequestMapping的控制器内的方法有效。</p>
-</blockquote>
-<blockquote>
-<p>@ExceptionHandler 用于全局处理控制器里的异常</p>
-</blockquote>
-<blockquote>
-<p>@InitBinder 用来设置WebDataBinder，WebDataBinder用来自动绑定前台请求参数到Model中。</p>
-</blockquote>
-<blockquote>
-<p>@ModelAttribute 本来的作用是绑定键值对到Model里，在@ControllerAdvice中是让全局的@RequestMapping都能获得在此处设置的键值对。</p>
-</blockquote>
-<blockquote>
-<p>@PostMapping</p>
-</blockquote>
-<blockquote>
-<p>@GetMapping</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>spring</tag>
-        <tag>springMvc</tag>
       </tags>
   </entry>
   <entry>
@@ -721,6 +453,334 @@
       <tags>
         <tag>hexo</tag>
         <tag>yilia</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java mongodb 的基本操作</title>
+    <url>/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
+    <content><![CDATA[<h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</p>
+<p>连接数据库的Java代码如下：</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">       &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">       </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">       System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">        </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.util.ArrayList;  </span><br><span class="line">import java.util.List;  </span><br><span class="line">import com.mongodb.MongoClient;  </span><br><span class="line">import com.mongodb.MongoCredential;  </span><br><span class="line">import com.mongodb.ServerAddress;  </span><br><span class="line">import com.mongodb.client.MongoDatabase;  </span><br><span class="line">  </span><br><span class="line">public class MongoDBJDBC &#123;  </span><br><span class="line">    public static void main(String[] args)&#123;  </span><br><span class="line">        try &#123;  </span><br><span class="line">            &#x2F;&#x2F;连接到MongoDB服务 如果是远程连接可以替换“localhost”为服务器所在IP地址  </span><br><span class="line">            &#x2F;&#x2F;ServerAddress()两个参数分别为 服务器地址 和 端口  </span><br><span class="line">            ServerAddress serverAddress &#x3D; new ServerAddress(&quot;localhost&quot;,27017);  </span><br><span class="line">            List&lt;ServerAddress&gt; addrs &#x3D; new ArrayList&lt;ServerAddress&gt;();  </span><br><span class="line">            addrs.add(serverAddress);  </span><br><span class="line">              </span><br><span class="line">            &#x2F;&#x2F;MongoCredential.createScramSha1Credential()三个参数分别为 用户名 数据库名称 密码  </span><br><span class="line">            MongoCredential credential &#x3D; MongoCredential.createScramSha1Credential(&quot;username&quot;, &quot;databaseName&quot;, &quot;password&quot;.toCharArray());  </span><br><span class="line">            List&lt;MongoCredential&gt; credentials &#x3D; new ArrayList&lt;MongoCredential&gt;();  </span><br><span class="line">            credentials.add(credential);  </span><br><span class="line">              </span><br><span class="line">            &#x2F;&#x2F;通过连接认证获取MongoDB连接  </span><br><span class="line">            MongoClient mongoClient &#x3D; new MongoClient(addrs,credentials);  </span><br><span class="line">              </span><br><span class="line">            &#x2F;&#x2F;连接到数据库  </span><br><span class="line">            MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;databaseName&quot;);  </span><br><span class="line">            System.out.println(&quot;Connect to database successfully&quot;);  </span><br><span class="line">        &#125; catch (Exception e) &#123;  </span><br><span class="line">            System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h2><p>我们可以使用 com.mongodb.client.MongoDatabase 类中的createCollection()来创建集合</p>
+<p>代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">      &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">      MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">       </span><br><span class="line">      &#x2F;&#x2F; 连接到数据库</span><br><span class="line">      MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">      System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">      mongoDatabase.createCollection(&quot;test&quot;);</span><br><span class="line">      System.out.println(&quot;集合创建成功&quot;);</span><br><span class="line">        </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取集合"><a href="#获取集合" class="headerlink" title="获取集合"></a>获取集合</h2><p>我们可以使用com.mongodb.client.MongoDatabase类的 getCollection() 方法来获取一个集合</p>
+<p>代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">       &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">       </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">       System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">      </span><br><span class="line">       MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">       System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h2><p>我们可以使用com.mongodb.client.MongoCollection类的 insertMany() 方法来插入一个文档</p>
+<p>代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import org.bson.Document;</span><br><span class="line"></span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">         </span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">         &#x2F;&#x2F;插入文档  </span><br><span class="line">         &#x2F;** </span><br><span class="line">         * 1. 创建文档 org.bson.Document 参数为key-value的格式 </span><br><span class="line">         * 2. 创建文档集合List&lt;Document&gt; </span><br><span class="line">         * 3. 将文档集合插入数据库集合中 mongoCollection.insertMany(List&lt;Document&gt;) 插入单个文档可以用 mongoCollection.insertOne(Document) </span><br><span class="line">         * *&#x2F;</span><br><span class="line">         Document document &#x3D; new Document(&quot;title&quot;, &quot;MongoDB&quot;).  </span><br><span class="line">         append(&quot;description&quot;, &quot;database&quot;).  </span><br><span class="line">         append(&quot;likes&quot;, 100).  </span><br><span class="line">         append(&quot;by&quot;, &quot;Fly&quot;);  </span><br><span class="line">         List&lt;Document&gt; documents &#x3D; new ArrayList&lt;Document&gt;();  </span><br><span class="line">         documents.add(document);  </span><br><span class="line">         collection.insertMany(documents);  </span><br><span class="line">         System.out.println(&quot;文档插入成功&quot;);  </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">         System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="检索所有文档"><a href="#检索所有文档" class="headerlink" title="检索所有文档"></a>检索所有文档</h2><p>我们可以使用 com.mongodb.client.MongoCollection 类中的 find() 方法来获取集合中的所有文档。</p>
+<p>此方法返回一个游标，所以你需要遍历这个游标。</p>
+<p>代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.FindIterable;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoCursor;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">         </span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F;检索所有文档  </span><br><span class="line">         &#x2F;** </span><br><span class="line">         * 1. 获取迭代器FindIterable&lt;Document&gt; </span><br><span class="line">         * 2. 获取游标MongoCursor&lt;Document&gt; </span><br><span class="line">         * 3. 通过游标遍历检索出的文档集合 </span><br><span class="line">         * *&#x2F;  </span><br><span class="line">         FindIterable&lt;Document&gt; findIterable &#x3D; collection.find();  </span><br><span class="line">         MongoCursor&lt;Document&gt; mongoCursor &#x3D; findIterable.iterator();  </span><br><span class="line">         while(mongoCursor.hasNext())&#123;  </span><br><span class="line">            System.out.println(mongoCursor.next());  </span><br><span class="line">         &#125;  </span><br><span class="line">      </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">         System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h2><p>你可以使用 com.mongodb.client.MongoCollection 类中的 updateMany() 方法来更新集合中的文档。</p>
+<p>代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.FindIterable;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoCursor;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line">import com.mongodb.client.model.Filters;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line">         </span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line">         </span><br><span class="line">         &#x2F;&#x2F;更新文档   将文档中likes&#x3D;100的文档修改为likes&#x3D;200   </span><br><span class="line">         collection.updateMany(Filters.eq(&quot;likes&quot;, 100), new Document(&quot;$set&quot;,new Document(&quot;likes&quot;,200)));  </span><br><span class="line">         &#x2F;&#x2F;检索查看结果  </span><br><span class="line">         FindIterable&lt;Document&gt; findIterable &#x3D; collection.find();  </span><br><span class="line">         MongoCursor&lt;Document&gt; mongoCursor &#x3D; findIterable.iterator();  </span><br><span class="line">         while(mongoCursor.hasNext())&#123;  </span><br><span class="line">            System.out.println(mongoCursor.next());  </span><br><span class="line">         &#125;  </span><br><span class="line">      </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">         System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除第一个文档"><a href="#删除第一个文档" class="headerlink" title="删除第一个文档"></a>删除第一个文档</h2><p>要删除集合中的第一个文档，首先你需要使用com.mongodb.DBCollection类中的 findOne()方法来获取第一个文档，然后使用remove 方法删除。</p>
+<p>代码片段如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.FindIterable;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoCursor;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line">import com.mongodb.client.model.Filters;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line"></span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;删除符合条件的第一个文档  </span><br><span class="line">         collection.deleteOne(Filters.eq(&quot;likes&quot;, 200));  </span><br><span class="line">         &#x2F;&#x2F;删除所有符合条件的文档  </span><br><span class="line">         collection.deleteMany (Filters.eq(&quot;likes&quot;, 200));  </span><br><span class="line">         &#x2F;&#x2F;检索查看结果  </span><br><span class="line">         FindIterable&lt;Document&gt; findIterable &#x3D; collection.find();  </span><br><span class="line">         MongoCursor&lt;Document&gt; mongoCursor &#x3D; findIterable.iterator();  </span><br><span class="line">         while(mongoCursor.hasNext())&#123;  </span><br><span class="line">           System.out.println(mongoCursor.next());  </span><br><span class="line">         &#125;  </span><br><span class="line">           </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>mongodb</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hadoop入门教程</title>
+    <url>/2020/09/25/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
+<p>（1）、HDSF  文件存儲</p>
+<p>（2）、HBASE 非关系型数据库</p>
+<p>（3）、MapReduce 离线计算</p>
+<p>（4）、hive 数据查询</p>
+<p>（5）、spark 内存级别计算</p>
+<p>（6）、stom 实时计算</p>
+<p>（7）、kafka 消息队列</p>
+<a id="more"></a>
+<h2 id="1-2-HDFS-文件系统"><a href="#1-2-HDFS-文件系统" class="headerlink" title="1.2 HDFS  文件系统"></a>1.2 HDFS  文件系统</h2><p>HDFS（Hadoop Distributed File System，Hadoop分布式文件系统），它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集（largedata set）的应用程序。</p>
+<p>HDFS的设计特点:</p>
+<p>1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储。</p>
+<p>2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多。</p>
+<p>3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</p>
+<p>4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</p>
+<p>5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</p>
+<p>HDFS的master/slave构架:</p>
+<p>一个HDFS集群是有一个Namenode和一定数目的Datanode组成。Namenode是一个中心服务器，负责管理文件系统的namespace和客户端对文件的访问。Datanode在集群中一般是一个节点一个，负责管理节点上它们附带的存储。在内部，一个文件其实分成一个或多个block，这些block存储在Datanode集合里。Namenode执行文件系统的namespace操作，例如打开、关闭、重命名文件和目录，同时决定block到具体Datanode节点的映射。Datanode在Namenode的指挥下进行block的创建、删除和复制。Namenode和Datanode都是设计成可以跑在普通的廉价的运行linux的机器上。</p>
+<p>HDFS的关键元素:</p>
+<p>1、 Block：将一个文件进行分块，通常是64M。</p>
+<p>2、 NameNode：保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2. 开始支持activity-standy模式—-如果主NameNode失效，启动备用主机运行NameNode。</p>
+<p>3、 DataNode：分布在廉价的计算机上，用于存储Block块文件。</p>
+<h2 id="1-3-MapReduce-文件系统"><a href="#1-3-MapReduce-文件系统" class="headerlink" title="1.3 MapReduce 文件系统"></a>1.3 MapReduce 文件系统</h2><p>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。MapReduce将分成两个部分”Map（映射）”和”Reduce（归约）”。</p>
+<p>当你向MapReduce框架提交一个计算作业时，它会首先把计算作业拆分成若干个Map任务，然后分配到不同的节点上去执行，每一个Map任务处理输入数据中的一部分，当Map任务完成后，它会生成一些中间文件，这些中间文件将会作为Reduce任务的输入数据。Reduce任务的主要目标就是把前面若干个Map的输出汇总到一起并输出。</p>
+<p>步骤1：首先对输入数据源进行切片</p>
+<p>步骤2：master调度worker执行map任务</p>
+<p>步骤3：worker读取输入源片段</p>
+<p>步骤4：worker执行map任务，将任务输出保存在本地</p>
+<p>步骤5：master调度worker执行reduce任务，reduce worker读取map任务的输出文件</p>
+<p>步骤6：执行reduce任务，将任务输出保存到HDFS</p>
+]]></content>
+      <tags>
+        <tag>Hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring 常用注解</title>
+    <url>/2020/08/24/Spring%E6%B3%A8%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="Spring部分"><a href="#Spring部分" class="headerlink" title="Spring部分"></a>Spring部分</h2><h3 id="1、声明bean的注解"><a href="#1、声明bean的注解" class="headerlink" title="1、声明bean的注解"></a>1、声明bean的注解</h3><blockquote>
+<p>@Component 组件，没有明确的角色</p>
+</blockquote>
+<blockquote>
+<p>@Service 在业务逻辑层使用（service层）</p>
+</blockquote>
+<blockquote>
+<p>@Repository 在数据访问层使用（dao层）</p>
+</blockquote>
+<blockquote>
+<p>@Controller 在展现层使用，控制器的声明（C）</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="2、注入bean的注解"><a href="#2、注入bean的注解" class="headerlink" title="2、注入bean的注解"></a>2、注入bean的注解</h3><blockquote>
+<p>@Autowired：由Spring提供</p>
+</blockquote>
+<blockquote>
+<p>@Inject：由JSR-330提供</p>
+</blockquote>
+<blockquote>
+<p>@Resource：由JSR-250提供</p>
+</blockquote>
+<blockquote>
+<p>都可以注解在set方法和属性上，推荐注解在属性上（一目了然，少写代码）。</p>
+</blockquote>
+<h3 id="3、java配置类相关注解"><a href="#3、java配置类相关注解" class="headerlink" title="3、java配置类相关注解"></a>3、java配置类相关注解</h3><blockquote>
+<p>@Configuration 声明当前类为配置类，相当于xml形式的Spring配置（类上）</p>
+</blockquote>
+<blockquote>
+<p>@Bean 注解在方法上，声明当前方法的返回值为一个bean，替代xml中的方式（方法上）</p>
+</blockquote>
+<blockquote>
+<p>@Configuration 声明当前类为配置类，其中内部组合了@Component注解，表明这个类是一个bean（类上）</p>
+</blockquote>
+<blockquote>
+<p>@ComponentScan 用于对Component进行扫描，相当于xml中的（类上）</p>
+</blockquote>
+<blockquote>
+<p>@WishlyConfiguration 为@Configuration与@ComponentScan的组合注解，可以替代这两个注解</p>
+</blockquote>
+<h3 id="4、切面（AOP）相关注解"><a href="#4、切面（AOP）相关注解" class="headerlink" title="4、切面（AOP）相关注解"></a>4、切面（AOP）相关注解</h3><blockquote>
+<p>Spring支持AspectJ的注解式切面编程。</p>
+</blockquote>
+<blockquote>
+<p>@Aspect 声明一个切面（类上） 使用@After、@Before、@Around定义建言（advice），可直接将拦截规则（切点）作为参数。</p>
+</blockquote>
+<blockquote>
+<p>@After 在方法执行之后执行（方法上） @Before 在方法执行之前执行（方法上） @Around 在方法执行之前与之后执行（方法上）</p>
+</blockquote>
+<blockquote>
+<p>@PointCut 声明切点 在java配置类中使用@EnableAspectJAutoProxy注解开启Spring对AspectJ代理的支持（类上）</p>
+</blockquote>
+<h3 id="5、-Bean的属性支持"><a href="#5、-Bean的属性支持" class="headerlink" title="5、@Bean的属性支持"></a>5、@Bean的属性支持</h3><blockquote>
+<p>@Validated</p>
+</blockquote>
+<blockquote>
+<p>@Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常</p>
+</blockquote>
+<blockquote>
+<p>@Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean。</p>
+</blockquote>
+<blockquote>
+<p>@Lazy(true) 表示延迟初始化</p>
+</blockquote>
+<blockquote>
+<p>@Scope 设置Spring容器如何新建Bean实例（方法上，得有@Bean） 其设置类型包括：</p>
+</blockquote>
+<blockquote>
+<p>Singleton （单例,一个Spring容器中只有一个bean实例，默认模式）, Protetype （每次调用新建一个bean）, Request （web项目中，给每个http request新建一个bean）, Session （web项目中，给每个http session新建一个bean）, GlobalSession（给每一个 global http session新建一个Bean实例）</p>
+</blockquote>
+<blockquote>
+<p>@StepScope 在Spring Batch中还有涉及</p>
+</blockquote>
+<blockquote>
+<p>@PostConstruct 由JSR-250提供，在构造函数执行完之后执行，等价于xml配置文件中bean的initMethod</p>
+</blockquote>
+<blockquote>
+<p>@PreDestory 由JSR-250提供，在Bean销毁之前执行，等价于xml配置文件中bean的destroyMethod</p>
+</blockquote>
+<blockquote>
+<p>@Async异步方法调用</p>
+</blockquote>
+<h3 id="6、-Value注解"><a href="#6、-Value注解" class="headerlink" title="6、@Value注解"></a>6、@Value注解</h3><blockquote>
+<p>@Value 为属性注入值（属性上） 支持如下方式的注入： 》注入普通字符 @Value(“colcol”)String name;</p>
+</blockquote>
+<blockquote>
+<p>注入操作系统属性  @Value(“#{systemProperties[‘os.name’]}”)String osName;</p>
+</blockquote>
+<blockquote>
+<p>注入表达式结果 @Value(“#{ T(java.lang.Math).random() * 100 }”) String randomNumber;</p>
+</blockquote>
+<blockquote>
+<p>注入其它bean属性@Value(“#{domeClass.name}”)String name;</p>
+</blockquote>
+<blockquote>
+<p>注入文件资源 @Value(“classpath:com/hgs/hello/test.txt”)String Resource file;</p>
+</blockquote>
+<blockquote>
+<p>注入网站资源 @Value(“<a href="https://alibroadcast.com&quot;)resource/">https://alibroadcast.com&quot;)Resource</a> url;</p>
+</blockquote>
+<blockquote>
+<p>注入配置文件Value(“${book.name}”)String bookName;</p>
+</blockquote>
+<blockquote>
+<p>注入配置使用方法： ① 编写配置文件（test.properties）book.name=《三体》</p>
+</blockquote>
+<blockquote>
+<p>@PropertySource 加载配置文件(类上)</p>
+</blockquote>
+<blockquote>
+<p>@PropertySource(“classpath:com/test1.propertie”)</p>
+</blockquote>
+<blockquote>
+<p>还需配置一个PropertySourcesPlaceholderConfigurer的bean。</p>
+</blockquote>
+<h3 id="7、环境切换"><a href="#7、环境切换" class="headerlink" title="7、环境切换"></a>7、环境切换</h3><blockquote>
+<p>@Profile 通过设定Environment的ActiveProfiles来设定当前context需要使用的配置环境。（类或方法上）</p>
+</blockquote>
+<blockquote>
+<p>@Conditional Spring4中可以使用此注解定义条件话的bean，通过实现Condition接口，并重写matches方法，从而决定该bean是否被实例化。（方法上）</p>
+</blockquote>
+<h3 id="8、异步相关"><a href="#8、异步相关" class="headerlink" title="8、异步相关"></a>8、异步相关</h3><blockquote>
+<p>@EnableAsync 配置类中，通过此注解开启对异步任务的支持，叙事性AsyncConfigurer接口（类上）</p>
+</blockquote>
+<blockquote>
+<p>@Async 在实际执行的bean方法使用该注解来申明其是一个异步任务（方法上或类上所有的方法都将异步，需要@EnableAsync开启异步任务）</p>
+</blockquote>
+<h3 id="9、定时任务相关"><a href="#9、定时任务相关" class="headerlink" title="9、定时任务相关"></a>9、定时任务相关</h3><blockquote>
+<p>@EnableScheduling 在配置类上使用，开启计划任务的支持（类上）</p>
+</blockquote>
+<blockquote>
+<p>@Scheduled 来申明这是一个任务，包括cron,fixDelay,fixRate等类型（方法上，需先开启计划任务的支持）</p>
+</blockquote>
+<h3 id="10、-Enable-注解说明"><a href="#10、-Enable-注解说明" class="headerlink" title="10、@Enable*注解说明"></a>10、@Enable*注解说明</h3><blockquote>
+<p>这些注解主要用来开启对xxx的支持。 @EnableAspectJAutoProxy 开启对AspectJ自动代理的支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableAsync 开启异步方法的支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableScheduling 开启计划任务的支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableWebMvc 开启Web MVC的配置支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableConfigurationProperties 开启对@ConfigurationProperties注解配置Bean的支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableJpaRepositories 开启对SpringData JPA Repository的支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableTransactionManagement 开启注解式事务的支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableTransactionManagement 开启注解式事务的支持</p>
+</blockquote>
+<blockquote>
+<p>@EnableCaching 开启注解式的缓存支持</p>
+</blockquote>
+<h3 id="11、测试相关注解"><a href="#11、测试相关注解" class="headerlink" title="11、测试相关注解"></a>11、测试相关注解</h3><blockquote>
+<p>@RunWith 运行器，Spring中通常用于对JUnit的支持</p>
+</blockquote>
+<blockquote>
+<p>@RunWith(SpringJUnit4ClassRunner.class)</p>
+</blockquote>
+<blockquote>
+<p>@ContextConfiguration 用来加载配置ApplicationContext，其中classes属性用来加载配置类</p>
+</blockquote>
+<blockquote>
+<p>@ContextConfiguration(classes={TestConfig.class})</p>
+</blockquote>
+<h2 id="SpringMVC部分"><a href="#SpringMVC部分" class="headerlink" title="SpringMVC部分"></a>SpringMVC部分</h2><blockquote>
+<p>@EnableWebMvc 在配置类中开启Web MVC的配置支持，如一些ViewResolver或者MessageConverter等，若无此句，重写WebMvcConfigurerAdapter方法（用于对SpringMVC的配置）。</p>
+</blockquote>
+<blockquote>
+<p>@Controller 声明该类为SpringMVC中的Controller</p>
+</blockquote>
+<blockquote>
+<p>@RequestMapping 用于映射Web请求，包括访问路径和参数（类或方法上）</p>
+</blockquote>
+<blockquote>
+<p>@ResponseBody 支持将返回值放在response内，而不是一个页面，通常用户返回json数据（返回值旁或方法上）</p>
+</blockquote>
+<blockquote>
+<p>@RequestBody 允许request的参数在request体中，而不是在直接连接在地址后面。（放在参数前）</p>
+</blockquote>
+<blockquote>
+<p>@PathVariable 用于接收路径参数，比如@RequestMapping(“/hello/{name}”)申明的路径，将注解放在参数中前，即可获取该值，通常作为Restful的接口实现方法。</p>
+</blockquote>
+<blockquote>
+<p>@RestController 该注解为一个组合注解，相当于@Controller和@ResponseBody的组合，注解在类上，意味着，该Controller的所有方法都默认加上了@ResponseBody。</p>
+</blockquote>
+<blockquote>
+<p>@ControllerAdvice 通过该注解，我们可以将对于控制器的全局配置放置在同一个位置，注解了@Controller的类的方法可使用@ExceptionHandler、@InitBinder、@ModelAttribute注解到方法上， 这对所有注解了 @RequestMapping的控制器内的方法有效。</p>
+</blockquote>
+<blockquote>
+<p>@ExceptionHandler 用于全局处理控制器里的异常</p>
+</blockquote>
+<blockquote>
+<p>@InitBinder 用来设置WebDataBinder，WebDataBinder用来自动绑定前台请求参数到Model中。</p>
+</blockquote>
+<blockquote>
+<p>@ModelAttribute 本来的作用是绑定键值对到Model里，在@ControllerAdvice中是让全局的@RequestMapping都能获得在此处设置的键值对。</p>
+</blockquote>
+<blockquote>
+<p>@PostMapping</p>
+</blockquote>
+<blockquote>
+<p>@GetMapping</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>spring</tag>
+        <tag>springMvc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud之Eureka</title>
+    <url>/2020/09/18/springcloud%E4%B9%8BEurake/</url>
+    <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p>2、在项目的主入口添加注解@EnableEurekaServer</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class EurekaserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(EurekaserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、在application.properties文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port&#x3D;5000</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line">#是否向服务注册中心注册自己,默认为true</span><br><span class="line">eureka.client.register-with-eureka&#x3D;false</span><br><span class="line">#是否检索服务</span><br><span class="line">eureka.client.fetch-registry&#x3D;true</span><br><span class="line">eureka.client.serviceUrl.defaultZone&#x3D;http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+<p>4、输入地址<a href="http://localhost:5000/">http://localhost:5000/</a></p>
+<p><img src="/assets/resource/springcloud/eureka0.png"></p>
+<p>5、EurakeSever 认证 添加依赖 并 在application.properties文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加basic认证</span><br><span class="line"></span><br><span class="line">security.basic.enabled&#x3D;true</span><br><span class="line"></span><br><span class="line">security.user.name&#x3D;user1</span><br><span class="line"></span><br><span class="line">security.user.password&#x3D;password1</span><br></pre></td></tr></table></figure>
+
+<p>6、我们也修改服务端，我们只需要将服务提供端application.properties 中原来的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eureka.client.service-url.defalutZone&#x3D; http:&#x2F;&#x2F;localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line">变为： eureka.client.serviceurl.defalutZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/resource/springcloud/eureka0.png"></p>
+]]></content>
+      <tags>
+        <tag>SpringCloud</tag>
+        <tag>Eureka</tag>
       </tags>
   </entry>
   <entry>
@@ -1034,27 +1094,27 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringCloud之Zuul</title>
-    <url>/2020/09/18/springcloud%20%E4%B9%8Bzuul/</url>
-    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribbon结合实现了负载均衡的功能</p>
+    <title>SpringCloud之Ribbon</title>
+    <url>/2020/09/18/springcloud%E4%B9%8Bribbon/</url>
+    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Spring Cloud Ribbon是一个基于HTTP和TCP的客户端负载均衡工具，它基于Netflix Ribbon实现。通过Spring Cloud的封装，可以让我们轻松地将面向服务的REST模版请求自动转换成客户端负载均衡的服务调用。集中式负载均衡。</p>
+<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootConsumerRibbon</span><br><span class="line">server.port&#x3D;6007</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、pom依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;&#x2F;project.reporting.outputEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;spring-cloud.version&gt;Finchley.SR2&lt;&#x2F;spring-cloud.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-eureka&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-zuul&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置hystrix所需依赖的包 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
 
-<p>（2）、application.properties</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootZuul</span><br><span class="line">server.port&#x3D;6005</span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br><span class="line"></span><br><span class="line">zuul.routes.springbootService.path&#x3D;&#x2F;springbootService&#x2F;**</span><br><span class="line">zuul.routes.springbootService.serviceId&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">zuul.routes.springCloudFeign.path&#x3D;&#x2F;springCloudFeign&#x2F;**</span><br><span class="line">zuul.routes.springCloudFeign.serviceId&#x3D;springCloudFeign</span><br></pre></td></tr></table></figure>
+<p>（2）、主入口方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@ServletComponentScan</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableHystrix</span><br><span class="line">public class RibbonserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(RibbonserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced</span><br><span class="line">    RestTemplate restTemplate()&#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>（3）、主方法入口</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableZuulProxy</span><br><span class="line">@RefreshScope</span><br><span class="line">public class ZuulserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ZuulserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）、接口调用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 调用：localhost:6007&#x2F;consumerServiceRibbon?token&#x3D;1</span><br><span class="line">@RequestMapping(&quot;&#x2F;consumerServiceRibbon&quot;)</span><br><span class="line">@HystrixCommand(fallbackMethod &#x3D; &quot;consumerServiceRibbonFallback&quot;)</span><br><span class="line">public String consumerServiceRibbon(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    String result &#x3D; this.restTemplate.postForObject(&quot;http:&#x2F;&#x2F;springbootService&#x2F;service&#x2F;rest?token&#x3D;1&quot;, serviceInfo, String.class);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>（4）、请求过滤</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class serviceFilter extends ZuulFilter &#123;</span><br><span class="line"></span><br><span class="line">    private static Logger log &#x3D; LoggerFactory.getLogger(serviceFilter.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String filterType() &#123;</span><br><span class="line">        return &quot;pre&quot;; &#x2F;&#x2F; 定义filter的类型，有pre、route、post、error四种</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int filterOrder() &#123;</span><br><span class="line">        return 0; &#x2F;&#x2F; 定义filter的顺序，数字越小表示顺序越高，越先执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean shouldFilter() &#123;</span><br><span class="line">        return true; &#x2F;&#x2F; 表示是否需要执行该filter，true表示执行，false表示不执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object run() &#123;</span><br><span class="line">        &#x2F;&#x2F; filter需要执行的具体操作</span><br><span class="line">        RequestContext ctx &#x3D; RequestContext.getCurrentContext();</span><br><span class="line">        HttpServletRequest request &#x3D; ctx.getRequest();</span><br><span class="line">        String token &#x3D; request.getParameter(&quot;token&quot;);</span><br><span class="line">        System.out.println(token);</span><br><span class="line">        if (token &#x3D;&#x3D; null) &#123;</span><br><span class="line">            log.warn(&quot;there is no request token&quot;);</span><br><span class="line">            ctx.setSendZuulResponse(false);</span><br><span class="line">            ctx.setResponseStatusCode(401);</span><br><span class="line">            try &#123;</span><br><span class="line">                ctx.getResponse().getWriter().write(&quot;there is no request token&quot;);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;ok&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）、失败回调</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public String consumerServiceRibbonFallback(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    return &quot;consumerServiceRibbon异常，端口：&quot; + port + &quot;，Name&#x3D;&quot; + serviceInfo.getName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>（5）、失败回调</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceFallbackProvider implements FallbackProvider &#123;</span><br><span class="line">    @Override</span><br><span class="line">    &#x2F;&#x2F; 指定熔断器功能应用于哪些路由的服务</span><br><span class="line">    public String getRoute() &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里只针对&quot;springbootService&quot;服务进行熔断</span><br><span class="line">        &#x2F;&#x2F; 如果需要针对所有服务熔断，则return &quot;*&quot;</span><br><span class="line">        return &quot;springbootService&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ClientHttpResponse fallbackResponse(String route, Throwable cause) &#123;</span><br><span class="line">        System.out.println(&quot;route:&quot;+route);</span><br><span class="line"></span><br><span class="line">        return new ClientHttpResponse() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public HttpStatus getStatusCode() throws IOException &#123;</span><br><span class="line">                return HttpStatus.OK;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public int getRawStatusCode() throws IOException &#123;</span><br><span class="line">                return 200;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public String getStatusText() throws IOException &#123;</span><br><span class="line">                return &quot;ok&quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void close() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            &#x2F;&#x2F; 发生熔断式，返回的信息</span><br><span class="line">            public InputStream getBody() throws IOException &#123;</span><br><span class="line">                return new ByteArrayInputStream(&quot;Sorry, the service is unavailable now.&quot;.getBytes());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public HttpHeaders getHeaders() &#123;</span><br><span class="line">                HttpHeaders headers &#x3D; new HttpHeaders();</span><br><span class="line">                headers.setContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">                return headers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<p>（5）、启动连个生产者提供方法（略去）</p>
+]]></content>
       <tags>
         <tag>SpringCloud</tag>
-        <tag>Zuul</tag>
+        <tag>Ribbon</tag>
       </tags>
   </entry>
   <entry>
@@ -1084,35 +1144,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class JsonUtils &#123;</span><br><span class="line"></span><br><span class="line">    public JsonUtils() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String renderString(HttpServletResponse response, Object object) &#123;</span><br><span class="line">        return renderString(response, JsonMapper.toJsonString(object), &quot;application&#x2F;json&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String renderString(HttpServletResponse response, String string, String type) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            response.setContentType(type);</span><br><span class="line">            response.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">            response.getWriter().print(string);</span><br><span class="line">            return null;</span><br><span class="line">        &#125; catch (IOException var4) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>SpringCloud</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringCloud之Eureka</title>
-    <url>/2020/09/18/springcloud%E4%B9%8BEurake/</url>
-    <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<p>2、在项目的主入口添加注解@EnableEurekaServer</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class EurekaserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(EurekaserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、在application.properties文件中进行配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port&#x3D;5000</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line">#是否向服务注册中心注册自己,默认为true</span><br><span class="line">eureka.client.register-with-eureka&#x3D;false</span><br><span class="line">#是否检索服务</span><br><span class="line">eureka.client.fetch-registry&#x3D;true</span><br><span class="line">eureka.client.serviceUrl.defaultZone&#x3D;http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
-<p>4、输入地址<a href="http://localhost:5000/">http://localhost:5000/</a></p>
-<p><img src="/assets/resource/springcloud/eureka0.png"></p>
-<p>5、EurakeSever 认证 添加依赖 并 在application.properties文件中进行配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加basic认证</span><br><span class="line"></span><br><span class="line">security.basic.enabled&#x3D;true</span><br><span class="line"></span><br><span class="line">security.user.name&#x3D;user1</span><br><span class="line"></span><br><span class="line">security.user.password&#x3D;password1</span><br></pre></td></tr></table></figure>
-
-<p>6、我们也修改服务端，我们只需要将服务提供端application.properties 中原来的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eureka.client.service-url.defalutZone&#x3D; http:&#x2F;&#x2F;localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line">变为： eureka.client.serviceurl.defalutZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/assets/resource/springcloud/eureka0.png"></p>
-]]></content>
-      <tags>
-        <tag>SpringCloud</tag>
-        <tag>Eureka</tag>
       </tags>
   </entry>
   <entry>
@@ -1168,27 +1199,27 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringCloud之Ribbon</title>
-    <url>/2020/09/18/springcloud%E4%B9%8Bribbon/</url>
-    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Spring Cloud Ribbon是一个基于HTTP和TCP的客户端负载均衡工具，它基于Netflix Ribbon实现。通过Spring Cloud的封装，可以让我们轻松地将面向服务的REST模版请求自动转换成客户端负载均衡的服务调用。集中式负载均衡。</p>
-<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootConsumerRibbon</span><br><span class="line">server.port&#x3D;6007</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+    <title>SpringCloud之Zuul</title>
+    <url>/2020/09/18/springcloud%20%E4%B9%8Bzuul/</url>
+    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribbon结合实现了负载均衡的功能</p>
 <a id="more"></a>
+<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、pom依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;&#x2F;project.reporting.outputEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;spring-cloud.version&gt;Finchley.SR2&lt;&#x2F;spring-cloud.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-eureka&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-zuul&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置hystrix所需依赖的包 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
 
-<p>（2）、主入口方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@ServletComponentScan</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableHystrix</span><br><span class="line">public class RibbonserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(RibbonserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced</span><br><span class="line">    RestTemplate restTemplate()&#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）、application.properties</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootZuul</span><br><span class="line">server.port&#x3D;6005</span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br><span class="line"></span><br><span class="line">zuul.routes.springbootService.path&#x3D;&#x2F;springbootService&#x2F;**</span><br><span class="line">zuul.routes.springbootService.serviceId&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">zuul.routes.springCloudFeign.path&#x3D;&#x2F;springCloudFeign&#x2F;**</span><br><span class="line">zuul.routes.springCloudFeign.serviceId&#x3D;springCloudFeign</span><br></pre></td></tr></table></figure>
 
-<p>（3）、接口调用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 调用：localhost:6007&#x2F;consumerServiceRibbon?token&#x3D;1</span><br><span class="line">@RequestMapping(&quot;&#x2F;consumerServiceRibbon&quot;)</span><br><span class="line">@HystrixCommand(fallbackMethod &#x3D; &quot;consumerServiceRibbonFallback&quot;)</span><br><span class="line">public String consumerServiceRibbon(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    String result &#x3D; this.restTemplate.postForObject(&quot;http:&#x2F;&#x2F;springbootService&#x2F;service&#x2F;rest?token&#x3D;1&quot;, serviceInfo, String.class);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）、主方法入口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableZuulProxy</span><br><span class="line">@RefreshScope</span><br><span class="line">public class ZuulserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ZuulserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>（4）、失败回调</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public String consumerServiceRibbonFallback(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    return &quot;consumerServiceRibbon异常，端口：&quot; + port + &quot;，Name&#x3D;&quot; + serviceInfo.getName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）、请求过滤</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class serviceFilter extends ZuulFilter &#123;</span><br><span class="line"></span><br><span class="line">    private static Logger log &#x3D; LoggerFactory.getLogger(serviceFilter.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String filterType() &#123;</span><br><span class="line">        return &quot;pre&quot;; &#x2F;&#x2F; 定义filter的类型，有pre、route、post、error四种</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int filterOrder() &#123;</span><br><span class="line">        return 0; &#x2F;&#x2F; 定义filter的顺序，数字越小表示顺序越高，越先执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean shouldFilter() &#123;</span><br><span class="line">        return true; &#x2F;&#x2F; 表示是否需要执行该filter，true表示执行，false表示不执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object run() &#123;</span><br><span class="line">        &#x2F;&#x2F; filter需要执行的具体操作</span><br><span class="line">        RequestContext ctx &#x3D; RequestContext.getCurrentContext();</span><br><span class="line">        HttpServletRequest request &#x3D; ctx.getRequest();</span><br><span class="line">        String token &#x3D; request.getParameter(&quot;token&quot;);</span><br><span class="line">        System.out.println(token);</span><br><span class="line">        if (token &#x3D;&#x3D; null) &#123;</span><br><span class="line">            log.warn(&quot;there is no request token&quot;);</span><br><span class="line">            ctx.setSendZuulResponse(false);</span><br><span class="line">            ctx.setResponseStatusCode(401);</span><br><span class="line">            try &#123;</span><br><span class="line">                ctx.getResponse().getWriter().write(&quot;there is no request token&quot;);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;ok&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>（5）、启动连个生产者提供方法（略去）</p>
-]]></content>
+<p>（5）、失败回调</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceFallbackProvider implements FallbackProvider &#123;</span><br><span class="line">    @Override</span><br><span class="line">    &#x2F;&#x2F; 指定熔断器功能应用于哪些路由的服务</span><br><span class="line">    public String getRoute() &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里只针对&quot;springbootService&quot;服务进行熔断</span><br><span class="line">        &#x2F;&#x2F; 如果需要针对所有服务熔断，则return &quot;*&quot;</span><br><span class="line">        return &quot;springbootService&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ClientHttpResponse fallbackResponse(String route, Throwable cause) &#123;</span><br><span class="line">        System.out.println(&quot;route:&quot;+route);</span><br><span class="line"></span><br><span class="line">        return new ClientHttpResponse() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public HttpStatus getStatusCode() throws IOException &#123;</span><br><span class="line">                return HttpStatus.OK;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public int getRawStatusCode() throws IOException &#123;</span><br><span class="line">                return 200;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public String getStatusText() throws IOException &#123;</span><br><span class="line">                return &quot;ok&quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void close() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            &#x2F;&#x2F; 发生熔断式，返回的信息</span><br><span class="line">            public InputStream getBody() throws IOException &#123;</span><br><span class="line">                return new ByteArrayInputStream(&quot;Sorry, the service is unavailable now.&quot;.getBytes());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public HttpHeaders getHeaders() &#123;</span><br><span class="line">                HttpHeaders headers &#x3D; new HttpHeaders();</span><br><span class="line">                headers.setContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">                return headers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>SpringCloud</tag>
-        <tag>Ribbon</tag>
+        <tag>Zuul</tag>
       </tags>
   </entry>
   <entry>
