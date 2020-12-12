@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alibroadcast.com/%E5%8D%9A%E5%AE%A2%E7%94%9F%E6%B6%AF/index.html</loc>
+    
+    <lastmod>2020-12-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://alibroadcast.com/2020/12/12/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2020-12-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://alibroadcast.com/2020/11/24/mongodb%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/</loc>
     
     <lastmod>2020-11-24</lastmod>
@@ -158,7 +172,7 @@
 
   <url>
     <loc>https://alibroadcast.com/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -166,126 +180,133 @@
   
   <url>
     <loc>https://alibroadcast.com/tags/Hadoop/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alibroadcast.com/tags/%E5%8D%9A%E5%AE%A2%E7%94%9F%E6%B6%AF/</loc>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/mongodb/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/Java/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/redis/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/SpringCloud/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/hystrix/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/hystrix-board/</loc>
-    <lastmod>2020-12-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://alibroadcast.com/tags/Hystrix/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/spring/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/springMvc/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://alibroadcast.com/tags/RocketMq/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <loc>https://alibroadcast.com/tags/Hystrix/</loc>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/Zookeeper/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alibroadcast.com/tags/RocketMq/</loc>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/hexo/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/yilia/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/Zuul/</loc>
-    <lastmod>2020-12-11</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://alibroadcast.com/tags/Eureka/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/Feign/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alibroadcast.com/tags/Eureka/</loc>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/Ribbon/</loc>
-    <lastmod>2020-12-11</lastmod>
+    <lastmod>2020-12-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
