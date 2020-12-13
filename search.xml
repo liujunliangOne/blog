@@ -123,7 +123,7 @@
 </li>
 <li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
 <blockquote>
-<p>deploy: type: git repo: <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
+<p>deploy: type: git repo: <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
 </blockquote>
 </li>
 <li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
@@ -134,6 +134,76 @@
 <li><p>发布之后可以登录你的域名查看效果</p>
 </li>
 </ol>
+]]></content>
+      <tags>
+        <tag>博客生涯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo搭建博客跟随鼠标线条特效</title>
+    <url>/2020/12/14/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%BA%BF%E6%9D%A1%E7%89%B9%E6%95%88/</url>
+    <content><![CDATA[<p>博客页面鼠标悬停即可展示该特效，操作方式本文以<strong>yilia</strong>主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建鼠标线条特效的后缀为mouseline.js的文件，粘贴js代码如下：<br>  <a id="more"></a></p>
+<blockquote>
+<p>!function(){</p>
+<p>function n(n,e,t){</p>
+<p>return n.getAttribute(e)||t</p>
+<p>}</p>
+<p>function e(n){</p>
+<p>return document.getElementsByTagName(n)</p>
+<p>}</p>
+<p>function t(){</p>
+<p>var t=e(“script”),o=t.length,i=t[o-1];</p>
+<p>return{</p>
+<p>l:o,z:n(i,”zIndex”,-1),o:n(i,”opacity”,.5),c:n(i,”color”,”0,0,0”),n:n(i,”count”,99)</p>
+<p>}</p>
+<p>}</p>
+<p>function o(){</p>
+<p>a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,</p>
+<p>c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight</p>
+<p>}</p>
+<p>function i(){</p>
+<p>r.clearRect(0,0,a,c);</p>
+<p>var n,e,t,o,m,l;</p>
+<p>s.forEach(function(i,x){</p>
+<p>for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;a||i.x&lt;0?-1:1,i.ya*=i.y&gt;c||i.y&lt;0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e&lt;u.length;e++)n=u[e],</p>
+<p>null!==n.x&amp;&amp;null!==n.y&amp;&amp;(o=i.x-n.x,m=i.y-n.y,</p>
+<p>l=o<em>o+m</em>m,l&lt;n.max&amp;&amp;(n===y&amp;&amp;l&gt;=n.max/2&amp;&amp;(i.x-=.03<em>o,i.y-=.03</em>m),</p>
+<p>t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle=”rgba(“+d.c+”,”+(t+.2)+”)”,r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))</p>
+<p>}),</p>
+<p>x(i)</p>
+<p>}</p>
+<p>var a,c,u,m=document.createElement(“canvas”),</p>
+<p>d=t(),l=”c_n”+d.l,r=m.getContext(“2d”),</p>
+<p>x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||</p>
+<p>function(n){</p>
+<p>window.setTimeout(n,1e3/45)</p>
+<p>},</p>
+<p>w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText=”position:fixed;top:0;left:0;z-index:”+d.z+”;opacity:”+d.o,e(“body”)[0].appendChild(m),o(),window.onresize=o,</p>
+<p>window.onmousemove=function(n){</p>
+<p>n=n||window.event,y.x=n.clientX,y.y=n.clientY</p>
+<p>},</p>
+<p>window.onmouseout=function(){</p>
+<p>y.x=null,y.y=null</p>
+<p>};</p>
+<p>for(var s=[],f=0;d.n&gt;f;f++){</p>
+<p>var h=w()<em>a,g=w()<em>c,v=2</em>w()-1,p=2</em>w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})</p>
+<p>}</p>
+<p>u=s.concat([y]),</p>
+<p>setTimeout(function(){i()},100)</p>
+<p>}();</p>
+</blockquote>
+<p>保存后在主题模板的layout文件夹的_partial找到footer.ejs并打开引入：</p>
+<blockquote>
+<script type="text/javascript" src="/js/mouseline.js"></script>
+</blockquote>
+<p>保存即可。</p>
+<p>控制台执行：</p>
+<blockquote>
+<p>hexo clean</p>
+<p>hexo g</p>
+<p>hexo s</p>
+</blockquote>
+<p>根据控制台提示，在浏览器执行localhost:4000打开博客后，页面鼠标悬停即可查看线条效果。</p>
 ]]></content>
       <tags>
         <tag>博客生涯</tag>
