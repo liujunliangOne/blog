@@ -18,7 +18,7 @@
 <meta property="og:description" content="博客页面鼠标悬停即可展示该特效，操作方式本文以yilia主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建鼠标线条特效的后缀为mouseline.js的文件，粘贴js代码如下：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-13T23:40:01.091Z">
-<meta property="article:modified_time" content="2020-12-13T23:41:47.606Z">
+<meta property="article:modified_time" content="2020-12-13T23:55:18.515Z">
 <meta property="article:author" content="刘峻良">
 <meta property="article:tag" content="博客生涯">
 <meta name="twitter:card" content="summary">
@@ -209,27 +209,27 @@
 <p>}</p>
 <p>}</p>
 <p>function o(){</p>
-<p>a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,</p>
-<p>c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight</p>
+<p>a=m.width=window.innerWidth||document.documentElement.clientWidth||<br>document.body.clientWidth,</p>
+<p>c=m.height=window.innerHeight||document.documentElement.clientHeight||<br>document.body.clientHeight</p>
 <p>}</p>
 <p>function i(){</p>
 <p>r.clearRect(0,0,a,c);</p>
 <p>var n,e,t,o,m,l;</p>
 <p>s.forEach(function(i,x){</p>
-<p>for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;a||i.x&lt;0?-1:1,i.ya*=i.y&gt;c||i.y&lt;0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e&lt;u.length;e++)n=u[e],</p>
+<p>for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;a||i.x&lt;0?-1:1,i.ya*=i.y&gt;c||i.y&lt;0?-1:1,<br>r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e&lt;u.length;e++)n=u[e],</p>
 <p>null!==n.x&amp;&amp;null!==n.y&amp;&amp;(o=i.x-n.x,m=i.y-n.y,</p>
 <p>l=o<em>o+m</em>m,l&lt;n.max&amp;&amp;(n===y&amp;&amp;l&gt;=n.max/2&amp;&amp;(i.x-=.03<em>o,i.y-=.03</em>m),</p>
-<p>t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle=”rgba(“+d.c+”,”+(t+.2)+”)”,r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))</p>
+<p>t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,<br>r.strokeStyle=”rgba(“+d.c+”,”+(t+.2)+”)”,r.moveTo(i.x,i.y),<br>r.lineTo(n.x,n.y),r.stroke()))</p>
 <p>}),</p>
 <p>x(i)</p>
 <p>}</p>
 <p>var a,c,u,m=document.createElement(“canvas”),</p>
 <p>d=t(),l=”c_n”+d.l,r=m.getContext(“2d”),</p>
-<p>x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||</p>
+<p>x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||<br>window.mozRequestAnimationFrame||window.oRequestAnimationFrame||<br>window.msRequestAnimationFrame||</p>
 <p>function(n){</p>
 <p>window.setTimeout(n,1e3/45)</p>
 <p>},</p>
-<p>w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText=”position:fixed;top:0;left:0;z-index:”+d.z+”;opacity:”+d.o,e(“body”)[0].appendChild(m),o(),window.onresize=o,</p>
+<p>w=Math.random,y={x:null,y:null,max:2e4};m.id=l,<br>m.style.cssText=”position:fixed;top:0;left:0;z-index:”+d.z+”;opacity:”+d.o,<br>e(“body”)[0].appendChild(m),o(),window.onresize=o,</p>
 <p>window.onmousemove=function(n){</p>
 <p>n=n||window.event,y.x=n.clientX,y.y=n.clientY</p>
 <p>},</p>
@@ -245,7 +245,7 @@
 </blockquote>
 <p>保存后在主题模板的layout文件夹的_partial找到footer.ejs并打开引入：</p>
 <blockquote>
-<script type="text/javascript" src="/js/mouseline.js"></script>
+<p>script type=”text/javascript” src=”/js/mouseline.js”</p>
 </blockquote>
 <p>保存即可。</p>
 <p>控制台执行：</p>
