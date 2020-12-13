@@ -8,17 +8,19 @@
   <meta name="google-site-verification" content="5VV2g4WoKe3YeJrqfp6EOjk2McEGR-9meiIwbsGRe44" />
   <meta name="baidu-site-verification" content="code-tlVARJejdv" />
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>Tag: Zuul | 刘峻良的博客</title>
+  <title>Hexo搭建博客鼠标点击爱心特效 | 刘峻良的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="刘峻良的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘峻良的博客">
-<meta property="og:url" content="https://alibroadcast.com/tags/Zuul/index.html">
+  <meta name="description" content="博客页面点击弹出爱心特效，操作方式本文以yilia主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建爱心特效的后缀为click-live.js的文件，粘贴js代码如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo搭建博客鼠标点击爱心特效">
+<meta property="og:url" content="https://alibroadcast.com/2020/12/13/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83%E7%89%B9%E6%95%88/index.html">
 <meta property="og:site_name" content="刘峻良的博客">
-<meta property="og:description" content="刘峻良的个人博客">
+<meta property="og:description" content="博客页面点击弹出爱心特效，操作方式本文以yilia主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建爱心特效的后缀为click-live.js的文件，粘贴js代码如下：">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-13T01:32:19.416Z">
+<meta property="article:modified_time" content="2020-12-13T01:45:33.923Z">
 <meta property="article:author" content="刘峻良">
-<meta property="article:tag" content="刘峻良的博客,博客">
+<meta property="article:tag" content="博客生涯">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="刘峻良的博客" type="application/atom+xml">
@@ -159,68 +161,255 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Hexo搭建博客鼠标点击爱心特效" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/18/springcloud%20%E4%B9%8Bzuul/" class="archive-article-date">
-  	<time datetime="2020-09-18T12:04:21.248Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/18/springcloud%20%E4%B9%8Bzuul/">SpringCloud之Zuul</a>
+    <h1 class="article-title" itemprop="name">
+      Hexo搭建博客鼠标点击爱心特效
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/12/13/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83%E7%89%B9%E6%95%88/" class="archive-article-date">
+  	<time datetime="2020-12-13T01:32:19.416Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-13</time>
+</a>
+
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>博客页面点击弹出爱心特效，操作方式本文以<strong>yilia</strong>主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建爱心特效的后缀为click-live.js的文件，粘贴js代码如下：</p>
+<a id="more"></a>
+<blockquote>
+<pre><code>! function (e, t, a) &#123;
+function n() &#123;
+    c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &#39;&#39;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;), o(), r()
+&#125;
+
+function r() &#123;
+    for (var e = 0; e &lt; d.length; e++) d[e].alpha &lt;= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = &quot;left:&quot; + d[e].x + &quot;px;top:&quot; + d[e].y + &quot;px;opacity:&quot; + d[e].alpha + &quot;;transform:scale(&quot; + d[e].scale + &quot;,&quot; + d[e].scale + &quot;) rotate(45deg);background:&quot; + d[e].color + &quot;;z-index:99999&quot;);
+    requestAnimationFrame(r)
+&#125;
+
+function o() &#123;
+    var t = &quot;function&quot; == typeof e.onclick &amp;&amp; e.onclick;
+    e.onclick = function (e) &#123;
+        t &amp;&amp; t(), i(e)
+    &#125;
+&#125;
+
+function i(e) &#123;
+    var a = t.createElement(&quot;div&quot;);
+    a.className = &quot;heart&quot;, d.push(&#123;
+        el: a,
+        x: e.clientX - 5,
+        y: e.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: s()
+    &#125;), t.body.appendChild(a)
+&#125;
+
+function c(e) &#123;
+    var a = t.createElement(&quot;style&quot;);
+    a.type = &quot;text/css&quot;;
+    try &#123;
+        a.appendChild(t.createTextNode(e))
+    &#125; catch (t) &#123;
+        a.styleSheet.cssText = e
+    &#125;
+    t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a)
+&#125;
+
+function s() &#123;
+    return &quot;rgb(&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;)&quot;
+&#125;
+var d = [];
+e.requestAnimationFrame = function () &#123;
+    return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) &#123;
+        setTimeout(e, 1e3 / 60)
+    &#125;
+&#125;(), n()
+&#125;(window, document);</code></pre>
+</blockquote>
+<p>保存后在主题模板的layout文件夹的_partial找到footer.ejs并打开引入：</p>
+<blockquote>
+<script type="text/javascript" src="/js/click-love.js"></script>
+</blockquote>
+<p>保存即可。</p>
+<p>控制台执行：</p>
+<blockquote>
+<p>hexo clean</p>
+<p>hexo g</p>
+<p>hexo s</p>
+</blockquote>
+<p>根据控制台提示，在浏览器执行localhost:4000打开博客后，页面内点击鼠标即可查看爱心效果。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zuul</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客生涯</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/2020/12/13/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83%E7%89%B9%E6%95%88/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/12/12/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo Github Page搭建个人博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
 
-
- <!-- newsdetail -->
+  
+  
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<!-- newsdetail -->
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-1303628385911689"
@@ -230,6 +419,34 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2f513189b9b4b5da5670',
+  	clientSecret: '0bd1e7728dce6728fdcb39a2a961c223df68c0f0',
+  	repo: 'blog',
+  	owner: 'liujunliangOne',
+  	admin: ['liujunliangOne'],
+  	id: 'Sun Dec 13 2020 09:32:19 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
+  
+
+  
+
+
+
+
           </div>
         </div>
       </div>
@@ -263,9 +480,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

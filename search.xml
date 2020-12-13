@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hadoop之HDFS</title>
+    <url>/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
+    <content><![CDATA[<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>HDFS <strong>(分布式文件系统)</strong> 是整个hadoop体系的基础，负责数据的存储与管理。HDFS有着高<a href="https://baike.baidu.com/item/%E5%AE%B9%E9%94%99%E6%80%A7/9131391">容错性</a>（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。</p>
+<p>client：切分文件，访问HDFS时，首先与NameNode交互，获取目标文件的位置信息，然后与DataNode交互，读写数据</p>
+<p>NameNode：master节点，每个HDFS集群只有一个，管理HDFS的名称空间和数据块映射信息，配置相关副本信息，处理客户端请求。</p>
+<p>DataNode：slave节点，存储实际数据，并汇报状态信息给NameNode，默认一个文件会备份3份在不同的DataNode中，实现高可靠性和容错性。</p>
+<p>Secondary NameNode：辅助NameNode，实现高可靠性，定期合并fsimage和fsedits，推送给NameNode；紧急情况下辅助和恢复NameNode，但其并非NameNode的热备份。</p>
+<a id="more"></a>
+<p>Hadoop 2为HDFS引入了两个重要的新功能 ——Federation和高可用（HA）：</p>
+<ul>
+<li>Federation允许集群中出现多个NameNode，之间相互独立且不需要互相协调，各自分工，管理自己的区域。 DataNode 被用作通用的数据块存储设备。每个 DataNode 要向集群中所有NameNode 注册，并发送心跳报告，执行所有 namenode的命令。</li>
+<li>HDFS中的高可用性消除了Hadoop 1中存在的单点故障，其中，NameNode故障将导致集群中断。HDFS的高可用性提供故障转移功能（备用节点从失败的主NameNode接管工作的过程）以实现自动化。</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><img src="/assets/resource/hadoop/hdfs/command1.png"></p>
+<p><img src="/assets/resource/hadoop/hdfs/command2.png"></p>
+<p><img src="/assets/resource/hadoop/hdfs/command3.png"></p>
+<h2 id="使用Java程序对HDFS文件系统进行操作"><a href="#使用Java程序对HDFS文件系统进行操作" class="headerlink" title="使用Java程序对HDFS文件系统进行操作"></a>使用Java程序对HDFS文件系统进行操作</h2><p>通过HDFS文件系统提供的Java API，我们可以完成如下的操作：</p>
+<p>① 在HDFS文件系统中创建目录；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 在hdfs更目录下面创建test1文件夹</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void mkdir() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.mkdirs(new Path(&quot;&#x2F;test1&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>② 查看HDFS文件系统中的目录及文件信息；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 列出hdfs上所有的文件或文件夹：</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void listFiles() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    &#x2F;&#x2F; true 表示递归查找 false 不进行递归查找</span><br><span class="line">    RemoteIterator&lt;LocatedFileStatus&gt; iterator &#x3D; fs.listFiles(new Path(&quot;&#x2F;&quot;), true);</span><br><span class="line">    while (iterator.hasNext())&#123;</span><br><span class="line">        LocatedFileStatus next &#x3D; iterator.next();</span><br><span class="line">        System.out.println(next.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;----------------------------------------------------------&quot;);</span><br><span class="line">    FileStatus[] fileStatuses &#x3D; fs.listStatus(new Path(&quot;&#x2F;&quot;));</span><br><span class="line">    for (int i &#x3D; 0; i &lt; fileStatuses.length; i++) &#123;</span><br><span class="line">        FileStatus fileStatus &#x3D; fileStatuses[i];</span><br><span class="line">        System.out.println(fileStatus.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>③ 通过FileSystem API读取数据（下载文件）；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 将hdfs上文件下载到本地</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void download() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.copyToLocalFile(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;userlogs&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> ④通过FileSystem API上传数据到HDFS文件系统中；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 上传文件到hdfs上</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void upload() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.get(conf);</span><br><span class="line">    fs.copyFromLocalFile(new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;&#x2F;user&#x2F;wcinput&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>⑤ 删除HDFS文件系统中的数据。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 删除hdfs上的文件</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void removeFile() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.delete(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop入门教程</title>
     <url>/2020/09/25/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
@@ -34,42 +70,6 @@
 <p>步骤5：master调度worker执行reduce任务，reduce worker读取map任务的输出文件</p>
 <p>步骤6：执行reduce任务，将任务输出保存到HDFS</p>
 ]]></content>
-      <tags>
-        <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop之HDFS</title>
-    <url>/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
-    <content><![CDATA[<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>HDFS <strong>(分布式文件系统)</strong> 是整个hadoop体系的基础，负责数据的存储与管理。HDFS有着高<a href="https://baike.baidu.com/item/%E5%AE%B9%E9%94%99%E6%80%A7/9131391">容错性</a>（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。</p>
-<p>client：切分文件，访问HDFS时，首先与NameNode交互，获取目标文件的位置信息，然后与DataNode交互，读写数据</p>
-<p>NameNode：master节点，每个HDFS集群只有一个，管理HDFS的名称空间和数据块映射信息，配置相关副本信息，处理客户端请求。</p>
-<p>DataNode：slave节点，存储实际数据，并汇报状态信息给NameNode，默认一个文件会备份3份在不同的DataNode中，实现高可靠性和容错性。</p>
-<p>Secondary NameNode：辅助NameNode，实现高可靠性，定期合并fsimage和fsedits，推送给NameNode；紧急情况下辅助和恢复NameNode，但其并非NameNode的热备份。</p>
-<a id="more"></a>
-<p>Hadoop 2为HDFS引入了两个重要的新功能 ——Federation和高可用（HA）：</p>
-<ul>
-<li>Federation允许集群中出现多个NameNode，之间相互独立且不需要互相协调，各自分工，管理自己的区域。 DataNode 被用作通用的数据块存储设备。每个 DataNode 要向集群中所有NameNode 注册，并发送心跳报告，执行所有 namenode的命令。</li>
-<li>HDFS中的高可用性消除了Hadoop 1中存在的单点故障，其中，NameNode故障将导致集群中断。HDFS的高可用性提供故障转移功能（备用节点从失败的主NameNode接管工作的过程）以实现自动化。</li>
-</ul>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><img src="/assets/resource/hadoop/hdfs/command1.png"></p>
-<p><img src="/assets/resource/hadoop/hdfs/command2.png"></p>
-<p><img src="/assets/resource/hadoop/hdfs/command3.png"></p>
-<h2 id="使用Java程序对HDFS文件系统进行操作"><a href="#使用Java程序对HDFS文件系统进行操作" class="headerlink" title="使用Java程序对HDFS文件系统进行操作"></a>使用Java程序对HDFS文件系统进行操作</h2><p>通过HDFS文件系统提供的Java API，我们可以完成如下的操作：</p>
-<p>① 在HDFS文件系统中创建目录；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 在hdfs更目录下面创建test1文件夹</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void mkdir() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.mkdirs(new Path(&quot;&#x2F;test1&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>② 查看HDFS文件系统中的目录及文件信息；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 列出hdfs上所有的文件或文件夹：</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void listFiles() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    &#x2F;&#x2F; true 表示递归查找 false 不进行递归查找</span><br><span class="line">    RemoteIterator&lt;LocatedFileStatus&gt; iterator &#x3D; fs.listFiles(new Path(&quot;&#x2F;&quot;), true);</span><br><span class="line">    while (iterator.hasNext())&#123;</span><br><span class="line">        LocatedFileStatus next &#x3D; iterator.next();</span><br><span class="line">        System.out.println(next.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;----------------------------------------------------------&quot;);</span><br><span class="line">    FileStatus[] fileStatuses &#x3D; fs.listStatus(new Path(&quot;&#x2F;&quot;));</span><br><span class="line">    for (int i &#x3D; 0; i &lt; fileStatuses.length; i++) &#123;</span><br><span class="line">        FileStatus fileStatus &#x3D; fileStatuses[i];</span><br><span class="line">        System.out.println(fileStatus.getPath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>③ 通过FileSystem API读取数据（下载文件）；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 将hdfs上文件下载到本地</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void download() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.copyToLocalFile(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;userlogs&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p> ④通过FileSystem API上传数据到HDFS文件系统中；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 上传文件到hdfs上</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void upload() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.get(conf);</span><br><span class="line">    fs.copyFromLocalFile(new Path(&quot;C:&#x2F;Users&#x2F;Administrator&#x2F;Desktop&#x2F;rocketmq-externals-master.zip&quot;),new Path(&quot;&#x2F;user&#x2F;wcinput&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>⑤ 删除HDFS文件系统中的数据。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 删除hdfs上的文件</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void removeFile() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.delete(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>Hadoop</tag>
       </tags>
@@ -123,7 +123,7 @@
 </li>
 <li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
 <blockquote>
-<p>deploy: type: git repo: <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;">&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
+<p>deploy: type: git repo: <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#x6f;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
 </blockquote>
 </li>
 <li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
@@ -134,6 +134,80 @@
 <li><p>发布之后可以登录你的域名查看效果</p>
 </li>
 </ol>
+]]></content>
+      <tags>
+        <tag>博客生涯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo搭建博客鼠标点击爱心特效</title>
+    <url>/2020/12/13/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83%E7%89%B9%E6%95%88/</url>
+    <content><![CDATA[<p>博客页面点击弹出爱心特效，操作方式本文以<strong>yilia</strong>主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建爱心特效的后缀为click-live.js的文件，粘贴js代码如下：</p>
+<a id="more"></a>
+<blockquote>
+<pre><code>! function (e, t, a) &#123;
+function n() &#123;
+    c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &#39;&#39;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;), o(), r()
+&#125;
+
+function r() &#123;
+    for (var e = 0; e &lt; d.length; e++) d[e].alpha &lt;= 0 ? (t.body.removeChild(d[e].el), d.splice(e, 1)) : (d[e].y--, d[e].scale += .004, d[e].alpha -= .013, d[e].el.style.cssText = &quot;left:&quot; + d[e].x + &quot;px;top:&quot; + d[e].y + &quot;px;opacity:&quot; + d[e].alpha + &quot;;transform:scale(&quot; + d[e].scale + &quot;,&quot; + d[e].scale + &quot;) rotate(45deg);background:&quot; + d[e].color + &quot;;z-index:99999&quot;);
+    requestAnimationFrame(r)
+&#125;
+
+function o() &#123;
+    var t = &quot;function&quot; == typeof e.onclick &amp;&amp; e.onclick;
+    e.onclick = function (e) &#123;
+        t &amp;&amp; t(), i(e)
+    &#125;
+&#125;
+
+function i(e) &#123;
+    var a = t.createElement(&quot;div&quot;);
+    a.className = &quot;heart&quot;, d.push(&#123;
+        el: a,
+        x: e.clientX - 5,
+        y: e.clientY - 5,
+        scale: 1,
+        alpha: 1,
+        color: s()
+    &#125;), t.body.appendChild(a)
+&#125;
+
+function c(e) &#123;
+    var a = t.createElement(&quot;style&quot;);
+    a.type = &quot;text/css&quot;;
+    try &#123;
+        a.appendChild(t.createTextNode(e))
+    &#125; catch (t) &#123;
+        a.styleSheet.cssText = e
+    &#125;
+    t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a)
+&#125;
+
+function s() &#123;
+    return &quot;rgb(&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;,&quot; + ~~(255 * Math.random()) + &quot;)&quot;
+&#125;
+var d = [];
+e.requestAnimationFrame = function () &#123;
+    return e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) &#123;
+        setTimeout(e, 1e3 / 60)
+    &#125;
+&#125;(), n()
+&#125;(window, document);</code></pre>
+</blockquote>
+<p>保存后在主题模板的layout文件夹的_partial找到footer.ejs并打开引入：</p>
+<blockquote>
+<script type="text/javascript" src="/js/click-love.js"></script>
+</blockquote>
+<p>保存即可。</p>
+<p>控制台执行：</p>
+<blockquote>
+<p>hexo clean</p>
+<p>hexo g</p>
+<p>hexo s</p>
+</blockquote>
+<p>根据控制台提示，在浏览器执行localhost:4000打开博客后，页面内点击鼠标即可查看爱心效果。</p>
 ]]></content>
       <tags>
         <tag>博客生涯</tag>
@@ -284,6 +358,82 @@
         <tag>SpringCloud</tag>
         <tag>hystrix</tag>
         <tag>hystrix-board</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud之Hystrix</title>
+    <url>/2020/09/18/SpringCloud%E4%B9%8BHystrix/</url>
+    <content><![CDATA[<h2 id="Hystrix的请求合并"><a href="#Hystrix的请求合并" class="headerlink" title="Hystrix的请求合并"></a>Hystrix的请求合并</h2><h3 id="1、请求合并"><a href="#1、请求合并" class="headerlink" title="1、请求合并"></a>1、请求合并</h3><p>为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。</p>
+<p>同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置</p>
+<blockquote>
+<p>hystrix.collapser.default.timerDelayInMilliseconds</p>
+</blockquote>
+<p>进行修改属性值。</p>
+<a id="more"></a>
+
+<p>如果请求一次的依赖服务的平均时间是10ms，那么在最不乐观的情况下（合并窗口开始是请求加入等待队列）这次请求响应时间就会变成20ms。如果高并发的接口通过请求合并会极大提高系统的吞吐量，可以忽略合并时间窗口的开销，反之，并发量较低，对延迟敏感的接口不建议使用请求合并。</p>
+<h3 id="2、贴代码，注解的形式实现请求合并"><a href="#2、贴代码，注解的形式实现请求合并" class="headerlink" title="2、贴代码，注解的形式实现请求合并"></a>2、贴代码，注解的形式实现请求合并</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">ServiceFeignClient serviceFeignClient;</span><br><span class="line"></span><br><span class="line">@HystrixCollapser(batchMethod &#x3D; &quot;getNameBatch&quot;,scope &#x3D; com.netflix.hystrix.HystrixCollapser.Scope.GLOBAL,</span><br><span class="line">        collapserProperties &#x3D; &#123;@HystrixProperty(name &#x3D; &quot;timerDelayInMilliseconds&quot;, value &#x3D; &quot;200&quot;)&#125;)</span><br><span class="line">public Future&lt;RestfulResult&gt; batchGetName(String name) &#123;</span><br><span class="line">    System.out.println(&quot;被合并的请求&quot;);</span><br><span class="line">    throw new RuntimeException(&quot;This method body should not be executed&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@HystrixCommand</span><br><span class="line">public List&lt;RestfulResult&gt; getNameBatch(List&lt;String&gt; ids) &#123;</span><br><span class="line">    System.out.println(&quot;发送请求。。。参数为：&quot; + ids.toString() + &quot;,&quot; + Thread.currentThread().getName());</span><br><span class="line">    List&lt;RestfulResult&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    for (String id : ids) &#123;</span><br><span class="line">        ServiceInfo serviceInfo &#x3D; new ServiceInfo();</span><br><span class="line">        serviceInfo.setName(id);</span><br><span class="line">        RestfulResult hello &#x3D; serviceFeignClient.hello(serviceInfo);</span><br><span class="line">        System.out.println(&quot;发送请求。。。参数为：&quot; + hello.getData());</span><br><span class="line">        list.add(hello);</span><br><span class="line">    &#125;</span><br><span class="line">    return list;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;testService&quot;)</span><br><span class="line">public void testService(HttpServletResponse response, ServiceInfo serviceInfo) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     *即使是调用一次也会被合并</span><br><span class="line">     *&#x2F;</span><br><span class="line">    HystrixRequestContext context &#x3D; HystrixRequestContext.initializeContext();</span><br><span class="line">    Future&lt;RestfulResult&gt; stringFuture &#x3D; hysService.batchGetName(serviceInfo.getName());</span><br><span class="line">    RestfulResult restfulResult &#x3D; stringFuture.get();</span><br><span class="line">    context.close();</span><br><span class="line">    CommUtils.printDataJason(response, restfulResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-lang3&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.4&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;fastjson&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.7&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.module&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-module-jaxb-annotations&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Cloud Config 客户端依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Boot Actuator，感应服务端变化--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.hystrix&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hystrix-javanica&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、测试方法"><a href="#3、测试方法" class="headerlink" title="3、测试方法"></a>3、测试方法</h3><p>（1）、postman进行借口请求</p>
+<p>（2）、使用 jmete进行测试，下载链接  <a href="http://jmeter.apache.org/download_jmeter.cgi">http://jmeter.apache.org/download_jmeter.cgi</a></p>
+<p><strong>常用的Hystrix属性：</strong></p>
+<p>hystrix.command.default和hystrix.threadpool.default中的default为默认CommandKey</p>
+<h2 id="Command-Properties："><a href="#Command-Properties：" class="headerlink" title="Command Properties："></a>Command Properties：</h2><h3 id="1-Execution相关的属性的配置："><a href="#1-Execution相关的属性的配置：" class="headerlink" title="1.Execution相关的属性的配置："></a>1.Execution相关的属性的配置：</h3><ul>
+<li>hystrix.command.default.execution.isolation.strategy 隔离策略，默认是Thread, 可选Thread｜Semaphore</li>
+<li>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds 命令执行超时时间，默认1000ms</li>
+<li>hystrix.command.default.execution.timeout.enabled 执行是否启用超时，默认启用true</li>
+<li>hystrix.command.default.execution.isolation.thread.interruptOnTimeout 发生超时是是否中断，默认true</li>
+<li>hystrix.command.default.execution.isolation.semaphore.maxConcurrentRequests 最大并发请求数，默认10，该参数当使用ExecutionIsolationStrategy.SEMAPHORE策略时才有效。如果达到最大并发请求数，请求会被拒绝。理论上选择semaphore size的原则和选择thread size一致，但选用semaphore时每次执行的单元要比较小且执行速度快（ms级别），否则的话应该用thread。<br>semaphore应该占整个容器（tomcat）的线程池的一小部分。</li>
+</ul>
+<h3 id="2-Fallback相关的属性"><a href="#2-Fallback相关的属性" class="headerlink" title="2.Fallback相关的属性"></a>2.Fallback相关的属性</h3><p>这些参数可以应用于Hystrix的THREAD和SEMAPHORE策略</p>
+<ul>
+<li>hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests 如果并发数达到该设置值，请求会被拒绝和抛出异常并且fallback不会被调用。默认10</li>
+<li>hystrix.command.default.fallback.enabled 当执行失败或者请求被拒绝，是否会尝试调用hystrixCommand.getFallback() 。默认true</li>
+</ul>
+<h3 id="3-Circuit-Breaker相关的属性"><a href="#3-Circuit-Breaker相关的属性" class="headerlink" title="3.Circuit Breaker相关的属性"></a>3.Circuit Breaker相关的属性</h3><ul>
+<li>hystrix.command.default.circuitBreaker.enabled 用来跟踪circuit的健康性，如果未达标则让request短路。默认true</li>
+<li>hystrix.command.default.circuitBreaker.requestVolumeThreshold 一个rolling window内最小的请求数。如果设为20，那么当一个rolling window的时间内（比如说1个rolling window是10秒）收到19个请求，即使19个请求都失败，也不会触发circuit break。默认20</li>
+<li>hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds 触发短路的时间值，当该值设为5000时，则当触发circuit break后的5000毫秒内都会拒绝request，也就是5000毫秒后才会关闭circuit。默认5000</li>
+<li>hystrix.command.default.circuitBreaker.errorThresholdPercentage错误比率阀值，如果错误率&gt;=该值，circuit会被打开，并短路所有请求触发fallback。默认50</li>
+<li>hystrix.command.default.circuitBreaker.forceOpen 强制打开熔断器，如果打开这个开关，那么拒绝所有request，默认false</li>
+<li>hystrix.command.default.circuitBreaker.forceClosed 强制关闭熔断器 如果这个开关打开，circuit将一直关闭且忽略circuitBreaker.errorThresholdPercentage</li>
+</ul>
+<h3 id="4-Metrics相关参数"><a href="#4-Metrics相关参数" class="headerlink" title="4.Metrics相关参数"></a>4.Metrics相关参数</h3><ul>
+<li>hystrix.command.default.metrics.rollingStats.timeInMilliseconds 设置统计的时间窗口值的，毫秒值，circuit break 的打开会根据1个rolling window的统计来计算。若rolling window被设为10000毫秒，则rolling window会被分成n个buckets，每个bucket包含success，failure，timeout，rejection的次数的统计信息。默认10000</li>
+<li>hystrix.command.default.metrics.rollingStats.numBuckets 设置一个rolling window被划分的数量，若numBuckets＝10，rolling window＝10000，那么一个bucket的时间即1秒。必须符合rolling window % numberBuckets == 0。默认10</li>
+<li>hystrix.command.default.metrics.rollingPercentile.enabled 执行时是否enable指标的计算和跟踪，默认true</li>
+<li>hystrix.command.default.metrics.rollingPercentile.timeInMilliseconds 设置rolling percentile window的时间，默认60000</li>
+<li>hystrix.command.default.metrics.rollingPercentile.numBuckets 设置rolling percentile window的numberBuckets。逻辑同上。默认6</li>
+<li>hystrix.command.default.metrics.rollingPercentile.bucketSize 如果bucket size＝100，window＝10s，若这10s里有500次执行，只有最后100次执行会被统计到bucket里去。增加该值会增加内存开销以及排序的开销。默认100</li>
+<li>hystrix.command.default.metrics.healthSnapshot.intervalInMilliseconds 记录health 快照（用来统计成功和错误绿）的间隔，默认500ms</li>
+</ul>
+<h3 id="5-Request-Context-相关参数"><a href="#5-Request-Context-相关参数" class="headerlink" title="5.Request Context 相关参数"></a>5.Request Context 相关参数</h3><p>hystrix.command.default.requestCache.enabled 默认true，需要重载getCacheKey()，返回null时不缓存<br>hystrix.command.default.requestLog.enabled 记录日志到HystrixRequestLog，默认true</p>
+<h3 id="6-Collapser-Properties-相关参数"><a href="#6-Collapser-Properties-相关参数" class="headerlink" title="6.Collapser Properties 相关参数"></a>6.Collapser Properties 相关参数</h3><p>hystrix.collapser.default.maxRequestsInBatch 单次批处理的最大请求数，达到该数量触发批处理，默认Integer.MAX_VALUE<br>hystrix.collapser.default.timerDelayInMilliseconds 触发批处理的延迟，也可以为创建批处理的时间＋该值，默认10<br>hystrix.collapser.default.requestCache.enabled 是否对HystrixCollapser.execute() and HystrixCollapser.queue()的cache，默认true</p>
+<h3 id="7-ThreadPool-相关参数"><a href="#7-ThreadPool-相关参数" class="headerlink" title="7.ThreadPool 相关参数"></a>7.ThreadPool 相关参数</h3><p>线程数默认值10适用于大部分情况（有时可以设置得更小），如果需要设置得更大，那有个基本得公式可以follow：<br>requests per second at peak when healthy × 99th percentile latency in seconds + some breathing room<br>每秒最大支撑的请求数 (99%平均响应时间 + 缓存值)<br>比如：每秒能处理1000个请求，99%的请求响应时间是60ms，那么公式是：<br>1000 （0.060+0.012）</p>
+<p>基本得原则时保持线程池尽可能小，他主要是为了释放压力，防止资源被阻塞。<br>当一切都是正常的时候，线程池一般仅会有1到2个线程激活来提供服务</p>
+<ul>
+<li><ul>
+<li>hystrix.threadpool.default.coreSize 并发执行的最大线程数，默认10</li>
+<li>hystrix.threadpool.default.maxQueueSize BlockingQueue的最大队列数，当设为－1，会使用SynchronousQueue，值为正时使用LinkedBlcokingQueue。该设置只会在初始化时有效，之后不能修改threadpool的queue size，除非reinitialising thread executor。默认－1。</li>
+<li>hystrix.threadpool.default.queueSizeRejectionThreshold 即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝。因为maxQueueSize不能被动态修改，这个参数将允许我们动态设置该值。if maxQueueSize == -1，该字段将不起作用</li>
+<li>hystrix.threadpool.default.keepAliveTimeMinutes 如果corePoolSize和maxPoolSize设成一样（默认实现）该设置无效。如果通过plugin（<a href="https://github.com/Netflix/Hystrix/wiki/Plugins%EF%BC%89%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%AF%A5%E8%AE%BE%E7%BD%AE%E6%89%8D%E6%9C%89%E7%94%A8%EF%BC%8C%E9%BB%98%E8%AE%A41">https://github.com/Netflix/Hystrix/wiki/Plugins）使用自定义实现，该设置才有用，默认1</a>.</li>
+<li>hystrix.threadpool.default.metrics.rollingStats.timeInMilliseconds 线程池统计指标的时间，默认10000</li>
+<li>hystrix.threadpool.default.metrics.rollingStats.numBuckets 将rolling window划分为n个buckets，默认10</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>SpringCloud</tag>
+        <tag>Hystrix</tag>
       </tags>
   </entry>
   <entry>
@@ -508,79 +658,27 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringCloud之Hystrix</title>
-    <url>/2020/09/18/SpringCloud%E4%B9%8BHystrix/</url>
-    <content><![CDATA[<h2 id="Hystrix的请求合并"><a href="#Hystrix的请求合并" class="headerlink" title="Hystrix的请求合并"></a>Hystrix的请求合并</h2><h3 id="1、请求合并"><a href="#1、请求合并" class="headerlink" title="1、请求合并"></a>1、请求合并</h3><p>为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。</p>
-<p>同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置</p>
-<blockquote>
-<p>hystrix.collapser.default.timerDelayInMilliseconds</p>
-</blockquote>
-<p>进行修改属性值。</p>
-<a id="more"></a>
+    <title>Windows 下部署RocketMq</title>
+    <url>/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/</url>
+    <content><![CDATA[<h2 id="1、环境"><a href="#1、环境" class="headerlink" title="1、环境"></a>1、环境</h2><p>Windows系统、JDK1.8、Maven 、Git</p>
+<h2 id="2、RocketMq部署"><a href="#2、RocketMq部署" class="headerlink" title="2、RocketMq部署"></a>2、RocketMq部署</h2><h3 id="2-1、下载："><a href="#2-1、下载：" class="headerlink" title="2.1、下载："></a>2.1、下载：</h3><p><a href="http://rocketmq.apache.org/release_notes/release-notes-4.3.0/">http://rocketmq.apache.org/release_notes/release-notes-4.3.0/</a></p>
+<p><a href="https://github.com/apache/rocketmq-externals.git">https://github.com/apache/rocketmq-externals.git</a></p>
+<h3 id="2-2、解压release-notes-4-3-0后配置环境变量"><a href="#2-2、解压release-notes-4-3-0后配置环境变量" class="headerlink" title="2.2、解压release-notes-4.3.0后配置环境变量"></a>2.2、解压release-notes-4.3.0后配置环境变量</h3><a id="more"></a>
 
-<p>如果请求一次的依赖服务的平均时间是10ms，那么在最不乐观的情况下（合并窗口开始是请求加入等待队列）这次请求响应时间就会变成20ms。如果高并发的接口通过请求合并会极大提高系统的吞吐量，可以忽略合并时间窗口的开销，反之，并发量较低，对延迟敏感的接口不建议使用请求合并。</p>
-<h3 id="2、贴代码，注解的形式实现请求合并"><a href="#2、贴代码，注解的形式实现请求合并" class="headerlink" title="2、贴代码，注解的形式实现请求合并"></a>2、贴代码，注解的形式实现请求合并</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">ServiceFeignClient serviceFeignClient;</span><br><span class="line"></span><br><span class="line">@HystrixCollapser(batchMethod &#x3D; &quot;getNameBatch&quot;,scope &#x3D; com.netflix.hystrix.HystrixCollapser.Scope.GLOBAL,</span><br><span class="line">        collapserProperties &#x3D; &#123;@HystrixProperty(name &#x3D; &quot;timerDelayInMilliseconds&quot;, value &#x3D; &quot;200&quot;)&#125;)</span><br><span class="line">public Future&lt;RestfulResult&gt; batchGetName(String name) &#123;</span><br><span class="line">    System.out.println(&quot;被合并的请求&quot;);</span><br><span class="line">    throw new RuntimeException(&quot;This method body should not be executed&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@HystrixCommand</span><br><span class="line">public List&lt;RestfulResult&gt; getNameBatch(List&lt;String&gt; ids) &#123;</span><br><span class="line">    System.out.println(&quot;发送请求。。。参数为：&quot; + ids.toString() + &quot;,&quot; + Thread.currentThread().getName());</span><br><span class="line">    List&lt;RestfulResult&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    for (String id : ids) &#123;</span><br><span class="line">        ServiceInfo serviceInfo &#x3D; new ServiceInfo();</span><br><span class="line">        serviceInfo.setName(id);</span><br><span class="line">        RestfulResult hello &#x3D; serviceFeignClient.hello(serviceInfo);</span><br><span class="line">        System.out.println(&quot;发送请求。。。参数为：&quot; + hello.getData());</span><br><span class="line">        list.add(hello);</span><br><span class="line">    &#125;</span><br><span class="line">    return list;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RequestMapping(&quot;&#x2F;testService&quot;)</span><br><span class="line">public void testService(HttpServletResponse response, ServiceInfo serviceInfo) throws ExecutionException, InterruptedException &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     *即使是调用一次也会被合并</span><br><span class="line">     *&#x2F;</span><br><span class="line">    HystrixRequestContext context &#x3D; HystrixRequestContext.initializeContext();</span><br><span class="line">    Future&lt;RestfulResult&gt; stringFuture &#x3D; hysService.batchGetName(serviceInfo.getName());</span><br><span class="line">    RestfulResult restfulResult &#x3D; stringFuture.get();</span><br><span class="line">    context.close();</span><br><span class="line">    CommUtils.printDataJason(response, restfulResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.commons&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;commons-lang3&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.4&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;fastjson&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.7&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.module&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-module-jaxb-annotations&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Cloud Config 客户端依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--Spring Boot Actuator，感应服务端变化--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.hystrix&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hystrix-javanica&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、测试方法"><a href="#3、测试方法" class="headerlink" title="3、测试方法"></a>3、测试方法</h3><p>（1）、postman进行借口请求</p>
-<p>（2）、使用 jmete进行测试，下载链接  <a href="http://jmeter.apache.org/download_jmeter.cgi">http://jmeter.apache.org/download_jmeter.cgi</a></p>
-<p><strong>常用的Hystrix属性：</strong></p>
-<p>hystrix.command.default和hystrix.threadpool.default中的default为默认CommandKey</p>
-<h2 id="Command-Properties："><a href="#Command-Properties：" class="headerlink" title="Command Properties："></a>Command Properties：</h2><h3 id="1-Execution相关的属性的配置："><a href="#1-Execution相关的属性的配置：" class="headerlink" title="1.Execution相关的属性的配置："></a>1.Execution相关的属性的配置：</h3><ul>
-<li>hystrix.command.default.execution.isolation.strategy 隔离策略，默认是Thread, 可选Thread｜Semaphore</li>
-<li>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds 命令执行超时时间，默认1000ms</li>
-<li>hystrix.command.default.execution.timeout.enabled 执行是否启用超时，默认启用true</li>
-<li>hystrix.command.default.execution.isolation.thread.interruptOnTimeout 发生超时是是否中断，默认true</li>
-<li>hystrix.command.default.execution.isolation.semaphore.maxConcurrentRequests 最大并发请求数，默认10，该参数当使用ExecutionIsolationStrategy.SEMAPHORE策略时才有效。如果达到最大并发请求数，请求会被拒绝。理论上选择semaphore size的原则和选择thread size一致，但选用semaphore时每次执行的单元要比较小且执行速度快（ms级别），否则的话应该用thread。<br>semaphore应该占整个容器（tomcat）的线程池的一小部分。</li>
-</ul>
-<h3 id="2-Fallback相关的属性"><a href="#2-Fallback相关的属性" class="headerlink" title="2.Fallback相关的属性"></a>2.Fallback相关的属性</h3><p>这些参数可以应用于Hystrix的THREAD和SEMAPHORE策略</p>
-<ul>
-<li>hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests 如果并发数达到该设置值，请求会被拒绝和抛出异常并且fallback不会被调用。默认10</li>
-<li>hystrix.command.default.fallback.enabled 当执行失败或者请求被拒绝，是否会尝试调用hystrixCommand.getFallback() 。默认true</li>
-</ul>
-<h3 id="3-Circuit-Breaker相关的属性"><a href="#3-Circuit-Breaker相关的属性" class="headerlink" title="3.Circuit Breaker相关的属性"></a>3.Circuit Breaker相关的属性</h3><ul>
-<li>hystrix.command.default.circuitBreaker.enabled 用来跟踪circuit的健康性，如果未达标则让request短路。默认true</li>
-<li>hystrix.command.default.circuitBreaker.requestVolumeThreshold 一个rolling window内最小的请求数。如果设为20，那么当一个rolling window的时间内（比如说1个rolling window是10秒）收到19个请求，即使19个请求都失败，也不会触发circuit break。默认20</li>
-<li>hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds 触发短路的时间值，当该值设为5000时，则当触发circuit break后的5000毫秒内都会拒绝request，也就是5000毫秒后才会关闭circuit。默认5000</li>
-<li>hystrix.command.default.circuitBreaker.errorThresholdPercentage错误比率阀值，如果错误率&gt;=该值，circuit会被打开，并短路所有请求触发fallback。默认50</li>
-<li>hystrix.command.default.circuitBreaker.forceOpen 强制打开熔断器，如果打开这个开关，那么拒绝所有request，默认false</li>
-<li>hystrix.command.default.circuitBreaker.forceClosed 强制关闭熔断器 如果这个开关打开，circuit将一直关闭且忽略circuitBreaker.errorThresholdPercentage</li>
-</ul>
-<h3 id="4-Metrics相关参数"><a href="#4-Metrics相关参数" class="headerlink" title="4.Metrics相关参数"></a>4.Metrics相关参数</h3><ul>
-<li>hystrix.command.default.metrics.rollingStats.timeInMilliseconds 设置统计的时间窗口值的，毫秒值，circuit break 的打开会根据1个rolling window的统计来计算。若rolling window被设为10000毫秒，则rolling window会被分成n个buckets，每个bucket包含success，failure，timeout，rejection的次数的统计信息。默认10000</li>
-<li>hystrix.command.default.metrics.rollingStats.numBuckets 设置一个rolling window被划分的数量，若numBuckets＝10，rolling window＝10000，那么一个bucket的时间即1秒。必须符合rolling window % numberBuckets == 0。默认10</li>
-<li>hystrix.command.default.metrics.rollingPercentile.enabled 执行时是否enable指标的计算和跟踪，默认true</li>
-<li>hystrix.command.default.metrics.rollingPercentile.timeInMilliseconds 设置rolling percentile window的时间，默认60000</li>
-<li>hystrix.command.default.metrics.rollingPercentile.numBuckets 设置rolling percentile window的numberBuckets。逻辑同上。默认6</li>
-<li>hystrix.command.default.metrics.rollingPercentile.bucketSize 如果bucket size＝100，window＝10s，若这10s里有500次执行，只有最后100次执行会被统计到bucket里去。增加该值会增加内存开销以及排序的开销。默认100</li>
-<li>hystrix.command.default.metrics.healthSnapshot.intervalInMilliseconds 记录health 快照（用来统计成功和错误绿）的间隔，默认500ms</li>
-</ul>
-<h3 id="5-Request-Context-相关参数"><a href="#5-Request-Context-相关参数" class="headerlink" title="5.Request Context 相关参数"></a>5.Request Context 相关参数</h3><p>hystrix.command.default.requestCache.enabled 默认true，需要重载getCacheKey()，返回null时不缓存<br>hystrix.command.default.requestLog.enabled 记录日志到HystrixRequestLog，默认true</p>
-<h3 id="6-Collapser-Properties-相关参数"><a href="#6-Collapser-Properties-相关参数" class="headerlink" title="6.Collapser Properties 相关参数"></a>6.Collapser Properties 相关参数</h3><p>hystrix.collapser.default.maxRequestsInBatch 单次批处理的最大请求数，达到该数量触发批处理，默认Integer.MAX_VALUE<br>hystrix.collapser.default.timerDelayInMilliseconds 触发批处理的延迟，也可以为创建批处理的时间＋该值，默认10<br>hystrix.collapser.default.requestCache.enabled 是否对HystrixCollapser.execute() and HystrixCollapser.queue()的cache，默认true</p>
-<h3 id="7-ThreadPool-相关参数"><a href="#7-ThreadPool-相关参数" class="headerlink" title="7.ThreadPool 相关参数"></a>7.ThreadPool 相关参数</h3><p>线程数默认值10适用于大部分情况（有时可以设置得更小），如果需要设置得更大，那有个基本得公式可以follow：<br>requests per second at peak when healthy × 99th percentile latency in seconds + some breathing room<br>每秒最大支撑的请求数 (99%平均响应时间 + 缓存值)<br>比如：每秒能处理1000个请求，99%的请求响应时间是60ms，那么公式是：<br>1000 （0.060+0.012）</p>
-<p>基本得原则时保持线程池尽可能小，他主要是为了释放压力，防止资源被阻塞。<br>当一切都是正常的时候，线程池一般仅会有1到2个线程激活来提供服务</p>
-<ul>
-<li><ul>
-<li>hystrix.threadpool.default.coreSize 并发执行的最大线程数，默认10</li>
-<li>hystrix.threadpool.default.maxQueueSize BlockingQueue的最大队列数，当设为－1，会使用SynchronousQueue，值为正时使用LinkedBlcokingQueue。该设置只会在初始化时有效，之后不能修改threadpool的queue size，除非reinitialising thread executor。默认－1。</li>
-<li>hystrix.threadpool.default.queueSizeRejectionThreshold 即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝。因为maxQueueSize不能被动态修改，这个参数将允许我们动态设置该值。if maxQueueSize == -1，该字段将不起作用</li>
-<li>hystrix.threadpool.default.keepAliveTimeMinutes 如果corePoolSize和maxPoolSize设成一样（默认实现）该设置无效。如果通过plugin（<a href="https://github.com/Netflix/Hystrix/wiki/Plugins%EF%BC%89%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0%EF%BC%8C%E8%AF%A5%E8%AE%BE%E7%BD%AE%E6%89%8D%E6%9C%89%E7%94%A8%EF%BC%8C%E9%BB%98%E8%AE%A41">https://github.com/Netflix/Hystrix/wiki/Plugins）使用自定义实现，该设置才有用，默认1</a>.</li>
-<li>hystrix.threadpool.default.metrics.rollingStats.timeInMilliseconds 线程池统计指标的时间，默认10000</li>
-<li>hystrix.threadpool.default.metrics.rollingStats.numBuckets 将rolling window划分为n个buckets，默认10</li>
-</ul>
-</li>
-</ul>
+<p>变量名：ROCKETMQ_HOME<br>变量值：MQ解压路径\MQ文件夹名</p>
+<p>如：ROCKETMQ_HOME =E:\rocketmq-all-4.3.0-bin-release</p>
+<h3 id="2-3、启动NAMESERVER"><a href="#2-3、启动NAMESERVER" class="headerlink" title="2.3、启动NAMESERVER"></a>2.3、启动NAMESERVER</h3><p>Cmd命令框执行进入（release-notes-4.3.0）至‘MQ文件夹\bin’下，然后执行‘<strong>start mqnamesrv.cmd</strong>’，启动NAMESERVER。成功后会弹出提示框，此框勿关闭。</p>
+<p><img src="/assets/resource/rocket/rocketmq2.png"></p>
+<h3 id="2-4、启动BROKER"><a href="#2-4、启动BROKER" class="headerlink" title="2.4、启动BROKER"></a>2.4、启动BROKER</h3><p>Cmd命令框执行进入（release-notes-4.3.0）至‘MQ文件夹\bin’下，然后执行‘<strong>start mqbroker.cmd -n 127.0.0.1:9876 autoCreateTopicEnable=true</strong>’，启动BROKER。成功后会弹出提示框，此框勿关闭。</p>
+<h2 id="3、RocketMQ插件部署解压rocketmq-externals"><a href="#3、RocketMQ插件部署解压rocketmq-externals" class="headerlink" title="3、RocketMQ插件部署解压rocketmq-externals"></a>3、RocketMQ插件部署解压rocketmq-externals</h2><p>下载完成之后，进入‘rocketmq-externals\rocketmq-console\src\main\resources’文件夹，打开‘application.properties’进行配置。</p>
+<p><img src="/assets/resource/rocket/rocketmq3.png"></p>
+<h3 id="3-1、编译并启动"><a href="#3-1、编译并启动" class="headerlink" title="3.1、编译并启动"></a>3.1、编译并启动</h3><p>用CMD进入‘\rocketmq-externals\rocketmq-console’文件夹，执行‘mvn clean package -Dmaven.test.skip=true’，编译生成。</p>
+<p>编译成功之后，Cmd进入‘target’文件夹，执行‘java -jar rocketmq-console-ng 2.0.0.jar’，启动‘rocketmq-console-ng 2.0.0.jar’。</p>
+<p>浏览器中输入‘127.0.0.1:配置端口’，成功后即可查看。</p>
+<p><img src="/assets/resource/rocket/rocketmq1.png"></p>
 ]]></content>
       <tags>
-        <tag>SpringCloud</tag>
-        <tag>Hystrix</tag>
+        <tag>RocketMq</tag>
       </tags>
   </entry>
   <entry>
@@ -636,27 +734,28 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows 下部署RocketMq</title>
-    <url>/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/</url>
-    <content><![CDATA[<h2 id="1、环境"><a href="#1、环境" class="headerlink" title="1、环境"></a>1、环境</h2><p>Windows系统、JDK1.8、Maven 、Git</p>
-<h2 id="2、RocketMq部署"><a href="#2、RocketMq部署" class="headerlink" title="2、RocketMq部署"></a>2、RocketMq部署</h2><h3 id="2-1、下载："><a href="#2-1、下载：" class="headerlink" title="2.1、下载："></a>2.1、下载：</h3><p><a href="http://rocketmq.apache.org/release_notes/release-notes-4.3.0/">http://rocketmq.apache.org/release_notes/release-notes-4.3.0/</a></p>
-<p><a href="https://github.com/apache/rocketmq-externals.git">https://github.com/apache/rocketmq-externals.git</a></p>
-<h3 id="2-2、解压release-notes-4-3-0后配置环境变量"><a href="#2-2、解压release-notes-4-3-0后配置环境变量" class="headerlink" title="2.2、解压release-notes-4.3.0后配置环境变量"></a>2.2、解压release-notes-4.3.0后配置环境变量</h3><a id="more"></a>
+    <title>Hadoop之MapReduce</title>
+    <url>/2020/09/25/hadoop%E4%B9%8BMapReduce/</url>
+    <content><![CDATA[<h2 id="MapReduce简介"><a href="#MapReduce简介" class="headerlink" title="MapReduce简介"></a>MapReduce简介</h2><p>MapReduce <strong>（分布式计算框架）</strong>是一种基于磁盘的分布式并行批处理计算模型，用于处理大数据量的计算。其中Map对应数据集上的独立元素进行指定的操作，生成键-值对形式中间，Reduce则对中间结果中相同的键的所有值进行规约，以得到最终结果。</p>
+<p>Jobtracker：master节点，只有一个，管理所有作业，任务/作业的监控，错误处理等，将任务分解成一系列任务，并分派给Tasktracker。</p>
+<p>Tacktracker：slave节点，运行 Map task和Reduce task；并与Jobtracker交互，汇报任务状态。</p>
+<p>Map task：解析每条数据记录，传递给用户编写的map()函数并执行，将输出结果写入到本地磁盘（如果为map—only作业，则直接写入HDFS）。</p>
+<p>Reduce task：从Map 它深刻地执行结果中，远程读取输入数据，对数据进行排序，将数据分组传递给用户编写的Reduce()函数执行。</p>
+<a id="more"></a>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.hadoop&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hadoop-common&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.8.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.hadoop&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hadoop-hdfs&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.8.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 
-<p>变量名：ROCKETMQ_HOME<br>变量值：MQ解压路径\MQ文件夹名</p>
-<p>如：ROCKETMQ_HOME =E:\rocketmq-all-4.3.0-bin-release</p>
-<h3 id="2-3、启动NAMESERVER"><a href="#2-3、启动NAMESERVER" class="headerlink" title="2.3、启动NAMESERVER"></a>2.3、启动NAMESERVER</h3><p>Cmd命令框执行进入（release-notes-4.3.0）至‘MQ文件夹\bin’下，然后执行‘<strong>start mqnamesrv.cmd</strong>’，启动NAMESERVER。成功后会弹出提示框，此框勿关闭。</p>
-<p><img src="/assets/resource/rocket/rocketmq2.png"></p>
-<h3 id="2-4、启动BROKER"><a href="#2-4、启动BROKER" class="headerlink" title="2.4、启动BROKER"></a>2.4、启动BROKER</h3><p>Cmd命令框执行进入（release-notes-4.3.0）至‘MQ文件夹\bin’下，然后执行‘<strong>start mqbroker.cmd -n 127.0.0.1:9876 autoCreateTopicEnable=true</strong>’，启动BROKER。成功后会弹出提示框，此框勿关闭。</p>
-<h2 id="3、RocketMQ插件部署解压rocketmq-externals"><a href="#3、RocketMQ插件部署解压rocketmq-externals" class="headerlink" title="3、RocketMQ插件部署解压rocketmq-externals"></a>3、RocketMQ插件部署解压rocketmq-externals</h2><p>下载完成之后，进入‘rocketmq-externals\rocketmq-console\src\main\resources’文件夹，打开‘application.properties’进行配置。</p>
-<p><img src="/assets/resource/rocket/rocketmq3.png"></p>
-<h3 id="3-1、编译并启动"><a href="#3-1、编译并启动" class="headerlink" title="3.1、编译并启动"></a>3.1、编译并启动</h3><p>用CMD进入‘\rocketmq-externals\rocketmq-console’文件夹，执行‘mvn clean package -Dmaven.test.skip=true’，编译生成。</p>
-<p>编译成功之后，Cmd进入‘target’文件夹，执行‘java -jar rocketmq-console-ng 2.0.0.jar’，启动‘rocketmq-console-ng 2.0.0.jar’。</p>
-<p>浏览器中输入‘127.0.0.1:配置端口’，成功后即可查看。</p>
-<p><img src="/assets/resource/rocket/rocketmq1.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.liujl.mapreduce.util;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.LongWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @Author: Administrator</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date: 2020&#x2F;9&#x2F;23 0023 16:18</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class MyMapper extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 四个泛型类型分别代表：</span><br><span class="line">     * KeyIn        Mapper的输入数据的Key，这里是每行文字的起始位置（0,11,...）</span><br><span class="line">     * ValueIn      Mapper的输入数据的Value，这里是每行文字</span><br><span class="line">     * KeyOut       Mapper的输出数据的Key，这里是每行文字中的“年份”</span><br><span class="line">     * ValueOut     Mapper的输出数据的Value，这里是每行文字中的“气温”</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">        String line &#x3D; value.toString();</span><br><span class="line">        String year &#x3D; line.substring(0, 4);</span><br><span class="line">        int temperature &#x3D; Integer.parseInt(line.substring(8));</span><br><span class="line">        context.write(new Text(year), new IntWritable(temperature));</span><br><span class="line">        &#x2F;&#x2F; 打印样本: After Mapper:2000, 15</span><br><span class="line">        System.out.println(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot; + &quot;After Mapper:&quot; + new Text(year) + &quot;, &quot; + new IntWritable(temperature));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.liujl.mapreduce.util;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @Author: Administrator</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date: 2020&#x2F;9&#x2F;23 0023 16:30</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class MyReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void reduce(Text key, Iterable&lt;IntWritable&gt; values,</span><br><span class="line">                       Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">        int maxValue &#x3D; Integer.MIN_VALUE;</span><br><span class="line">        StringBuffer sb &#x3D; new StringBuffer();</span><br><span class="line">        &#x2F;&#x2F;取values的最大值</span><br><span class="line">        for (IntWritable value : values) &#123;</span><br><span class="line">            maxValue &#x3D; Math.max(maxValue, value.get());</span><br><span class="line">            sb.append(value).append(&quot;, &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 打印样本： Before Reduce: 2000, 15, 23, 99, 12, 22,</span><br><span class="line">        System.out.print(&quot;Before Reduce: &quot; + key + &quot;, &quot; + sb.toString());</span><br><span class="line">        context.write(key, new IntWritable(maxValue));</span><br><span class="line">        &#x2F;&#x2F; 打印样本： After Reduce: 2000, 99</span><br><span class="line">        System.out.println(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot; + &quot;After Reduce: &quot; + key + &quot;, &quot; + maxValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.liujl.mapreduce;</span><br><span class="line"></span><br><span class="line">import com.liujl.mapreduce.util.MyMapper;</span><br><span class="line">import com.liujl.mapreduce.util.MyReducer;</span><br><span class="line">import org.apache.hadoop.conf.Configuration;</span><br><span class="line">import org.apache.hadoop.fs.FileSystem;</span><br><span class="line">import org.apache.hadoop.fs.Path;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Job;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line">import org.junit.jupiter.api.Test;</span><br><span class="line">import org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@SpringBootTest</span><br><span class="line">class MapreduceApplicationTests &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    void contextLoads() throws IOException, ClassNotFoundException, InterruptedException &#123;</span><br><span class="line">        &#x2F;&#x2F;输入路径</span><br><span class="line">        String dst &#x3D; &quot;hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput&#x2F;mapreduce.txt&quot;;</span><br><span class="line">        &#x2F;&#x2F;输出路径，必须是不存在的，空文件夹也不行。</span><br><span class="line"></span><br><span class="line">        Configuration hadoopConfig &#x3D; new Configuration();</span><br><span class="line">        System.setProperty(&quot;hadoop.home.dir&quot;, &quot;E:\\hadoop-3.0.0&quot;);</span><br><span class="line">        hadoopConfig.set(&quot;fs.hdfs.impl&quot;,</span><br><span class="line">                org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()</span><br><span class="line">        );</span><br><span class="line">        hadoopConfig.set(&quot;fs.file.impl&quot;,</span><br><span class="line">                org.apache.hadoop.fs.LocalFileSystem.class.getName()</span><br><span class="line">        );</span><br><span class="line">        String tempPath&#x3D;&quot;&#x2F;&quot;+System.currentTimeMillis()+&quot;&quot;;</span><br><span class="line">        String dstOut &#x3D; &quot;hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput&quot;+tempPath;</span><br><span class="line">        Job job &#x3D; new Job(hadoopConfig);</span><br><span class="line">        &#x2F;&#x2F;如果需要打成jar运行，需要下面这句</span><br><span class="line">        &#x2F;&#x2F;job.setJarByClass(NewMaxTemperature.class);</span><br><span class="line">        &#x2F;&#x2F;job执行作业时输入和输出文件的路径</span><br><span class="line">        FileInputFormat.addInputPath(job, new Path(dst));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, new Path(dstOut));</span><br><span class="line">        &#x2F;&#x2F;指定自定义的Mapper和Reducer作为两个阶段的任务处理类</span><br><span class="line">        job.setMapperClass(MyMapper.class);</span><br><span class="line">        job.setReducerClass(MyReducer.class);</span><br><span class="line">        &#x2F;&#x2F;设置最后输出结果的Key和Value的类型</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        &#x2F;&#x2F;执行job，直到完成</span><br><span class="line">        job.waitForCompletion(true);</span><br><span class="line">        System.out.println(&quot;Finished&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2014010114<br>2014010216<br>2014010317<br>2014010410<br>2014010506<br>2012010609<br>2012010732<br>2012010812<br>2012010919<br>2012011023<br>2001010116<br>2001010212<br>2001010310<br>2001010411<br>2001010529<br>2013010619<br>2013010722<br>2013010812<br>2013010929<br>2013011023<br>2008010105<br>2008010216<br>2008010337<br>2008010414<br>2008010516<br>2007010619<br>2007010712<br>2007010812<br>2007010999<br>2007011023<br>2010010114<br>2010010216<br>2010010317<br>2010010410<br>2010010506<br>2015010649<br>2015010722<br>2015010812<br>2015010999<br>2015011023</p>
+</blockquote>
 ]]></content>
       <tags>
-        <tag>RocketMq</tag>
+        <tag>Hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -764,31 +863,6 @@
 <p>//hadoop jar + 要执行的jar包 + 要运行的类 + 输入目录 + 输出目录</p>
 <blockquote>
 <p>hadoop jar wordcount.jar com.xuebusi.hadoop.mr.WordCountDriver /wordcount/input /wordcount/out</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop之MapReduce</title>
-    <url>/2020/09/25/hadoop%E4%B9%8BMapReduce/</url>
-    <content><![CDATA[<h2 id="MapReduce简介"><a href="#MapReduce简介" class="headerlink" title="MapReduce简介"></a>MapReduce简介</h2><p>MapReduce <strong>（分布式计算框架）</strong>是一种基于磁盘的分布式并行批处理计算模型，用于处理大数据量的计算。其中Map对应数据集上的独立元素进行指定的操作，生成键-值对形式中间，Reduce则对中间结果中相同的键的所有值进行规约，以得到最终结果。</p>
-<p>Jobtracker：master节点，只有一个，管理所有作业，任务/作业的监控，错误处理等，将任务分解成一系列任务，并分派给Tasktracker。</p>
-<p>Tacktracker：slave节点，运行 Map task和Reduce task；并与Jobtracker交互，汇报任务状态。</p>
-<p>Map task：解析每条数据记录，传递给用户编写的map()函数并执行，将输出结果写入到本地磁盘（如果为map—only作业，则直接写入HDFS）。</p>
-<p>Reduce task：从Map 它深刻地执行结果中，远程读取输入数据，对数据进行排序，将数据分组传递给用户编写的Reduce()函数执行。</p>
-<a id="more"></a>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.hadoop&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hadoop-common&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.8.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.hadoop&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hadoop-hdfs&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.8.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.liujl.mapreduce.util;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.LongWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @Author: Administrator</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date: 2020&#x2F;9&#x2F;23 0023 16:18</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class MyMapper extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 四个泛型类型分别代表：</span><br><span class="line">     * KeyIn        Mapper的输入数据的Key，这里是每行文字的起始位置（0,11,...）</span><br><span class="line">     * ValueIn      Mapper的输入数据的Value，这里是每行文字</span><br><span class="line">     * KeyOut       Mapper的输出数据的Key，这里是每行文字中的“年份”</span><br><span class="line">     * ValueOut     Mapper的输出数据的Value，这里是每行文字中的“气温”</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">        String line &#x3D; value.toString();</span><br><span class="line">        String year &#x3D; line.substring(0, 4);</span><br><span class="line">        int temperature &#x3D; Integer.parseInt(line.substring(8));</span><br><span class="line">        context.write(new Text(year), new IntWritable(temperature));</span><br><span class="line">        &#x2F;&#x2F; 打印样本: After Mapper:2000, 15</span><br><span class="line">        System.out.println(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot; + &quot;After Mapper:&quot; + new Text(year) + &quot;, &quot; + new IntWritable(temperature));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.liujl.mapreduce.util;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @Author: Administrator</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date: 2020&#x2F;9&#x2F;23 0023 16:30</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class MyReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void reduce(Text key, Iterable&lt;IntWritable&gt; values,</span><br><span class="line">                       Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">        int maxValue &#x3D; Integer.MIN_VALUE;</span><br><span class="line">        StringBuffer sb &#x3D; new StringBuffer();</span><br><span class="line">        &#x2F;&#x2F;取values的最大值</span><br><span class="line">        for (IntWritable value : values) &#123;</span><br><span class="line">            maxValue &#x3D; Math.max(maxValue, value.get());</span><br><span class="line">            sb.append(value).append(&quot;, &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 打印样本： Before Reduce: 2000, 15, 23, 99, 12, 22,</span><br><span class="line">        System.out.print(&quot;Before Reduce: &quot; + key + &quot;, &quot; + sb.toString());</span><br><span class="line">        context.write(key, new IntWritable(maxValue));</span><br><span class="line">        &#x2F;&#x2F; 打印样本： After Reduce: 2000, 99</span><br><span class="line">        System.out.println(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot; + &quot;After Reduce: &quot; + key + &quot;, &quot; + maxValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.liujl.mapreduce;</span><br><span class="line"></span><br><span class="line">import com.liujl.mapreduce.util.MyMapper;</span><br><span class="line">import com.liujl.mapreduce.util.MyReducer;</span><br><span class="line">import org.apache.hadoop.conf.Configuration;</span><br><span class="line">import org.apache.hadoop.fs.FileSystem;</span><br><span class="line">import org.apache.hadoop.fs.Path;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Job;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line">import org.junit.jupiter.api.Test;</span><br><span class="line">import org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">@SpringBootTest</span><br><span class="line">class MapreduceApplicationTests &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    void contextLoads() throws IOException, ClassNotFoundException, InterruptedException &#123;</span><br><span class="line">        &#x2F;&#x2F;输入路径</span><br><span class="line">        String dst &#x3D; &quot;hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput&#x2F;mapreduce.txt&quot;;</span><br><span class="line">        &#x2F;&#x2F;输出路径，必须是不存在的，空文件夹也不行。</span><br><span class="line"></span><br><span class="line">        Configuration hadoopConfig &#x3D; new Configuration();</span><br><span class="line">        System.setProperty(&quot;hadoop.home.dir&quot;, &quot;E:\\hadoop-3.0.0&quot;);</span><br><span class="line">        hadoopConfig.set(&quot;fs.hdfs.impl&quot;,</span><br><span class="line">                org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()</span><br><span class="line">        );</span><br><span class="line">        hadoopConfig.set(&quot;fs.file.impl&quot;,</span><br><span class="line">                org.apache.hadoop.fs.LocalFileSystem.class.getName()</span><br><span class="line">        );</span><br><span class="line">        String tempPath&#x3D;&quot;&#x2F;&quot;+System.currentTimeMillis()+&quot;&quot;;</span><br><span class="line">        String dstOut &#x3D; &quot;hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput&quot;+tempPath;</span><br><span class="line">        Job job &#x3D; new Job(hadoopConfig);</span><br><span class="line">        &#x2F;&#x2F;如果需要打成jar运行，需要下面这句</span><br><span class="line">        &#x2F;&#x2F;job.setJarByClass(NewMaxTemperature.class);</span><br><span class="line">        &#x2F;&#x2F;job执行作业时输入和输出文件的路径</span><br><span class="line">        FileInputFormat.addInputPath(job, new Path(dst));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, new Path(dstOut));</span><br><span class="line">        &#x2F;&#x2F;指定自定义的Mapper和Reducer作为两个阶段的任务处理类</span><br><span class="line">        job.setMapperClass(MyMapper.class);</span><br><span class="line">        job.setReducerClass(MyReducer.class);</span><br><span class="line">        &#x2F;&#x2F;设置最后输出结果的Key和Value的类型</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        &#x2F;&#x2F;执行job，直到完成</span><br><span class="line">        job.waitForCompletion(true);</span><br><span class="line">        System.out.println(&quot;Finished&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>2014010114<br>2014010216<br>2014010317<br>2014010410<br>2014010506<br>2012010609<br>2012010732<br>2012010812<br>2012010919<br>2012011023<br>2001010116<br>2001010212<br>2001010310<br>2001010411<br>2001010529<br>2013010619<br>2013010722<br>2013010812<br>2013010929<br>2013011023<br>2008010105<br>2008010216<br>2008010337<br>2008010414<br>2008010516<br>2007010619<br>2007010712<br>2007010812<br>2007010999<br>2007011023<br>2010010114<br>2010010216<br>2010010317<br>2010010410<br>2010010506<br>2015010649<br>2015010722<br>2015010812<br>2015010999<br>2015011023</p>
 </blockquote>
 ]]></content>
       <tags>
@@ -1232,6 +1306,35 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringCloud之Eureka</title>
+    <url>/2020/09/18/springcloud%E4%B9%8BEurake/</url>
+    <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p>2、在项目的主入口添加注解@EnableEurekaServer</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class EurekaserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(EurekaserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、在application.properties文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port&#x3D;5000</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line">#是否向服务注册中心注册自己,默认为true</span><br><span class="line">eureka.client.register-with-eureka&#x3D;false</span><br><span class="line">#是否检索服务</span><br><span class="line">eureka.client.fetch-registry&#x3D;true</span><br><span class="line">eureka.client.serviceUrl.defaultZone&#x3D;http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+<p>4、输入地址<a href="http://localhost:5000/">http://localhost:5000/</a></p>
+<p><img src="/assets/resource/springcloud/eureka0.png"></p>
+<p>5、EurakeSever 认证 添加依赖 并 在application.properties文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加basic认证</span><br><span class="line"></span><br><span class="line">security.basic.enabled&#x3D;true</span><br><span class="line"></span><br><span class="line">security.user.name&#x3D;user1</span><br><span class="line"></span><br><span class="line">security.user.password&#x3D;password1</span><br></pre></td></tr></table></figure>
+
+<p>6、我们也修改服务端，我们只需要将服务提供端application.properties 中原来的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eureka.client.service-url.defalutZone&#x3D; http:&#x2F;&#x2F;localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line">变为： eureka.client.serviceurl.defalutZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/resource/springcloud/eureka0.png"></p>
+]]></content>
+      <tags>
+        <tag>SpringCloud</tag>
+        <tag>Eureka</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringCloud之Feign</title>
     <url>/2020/09/18/springcloud%E4%B9%8Bfeign/</url>
     <content><![CDATA[<h4 id="1、-Feign介绍"><a href="#1、-Feign介绍" class="headerlink" title="1、 Feign介绍"></a>1、 Feign介绍</h4><p>Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。</p>
@@ -1281,35 +1384,6 @@
       <tags>
         <tag>SpringCloud</tag>
         <tag>Feign</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringCloud之Eureka</title>
-    <url>/2020/09/18/springcloud%E4%B9%8BEurake/</url>
-    <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<p>2、在项目的主入口添加注解@EnableEurekaServer</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class EurekaserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(EurekaserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、在application.properties文件中进行配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port&#x3D;5000</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line">#是否向服务注册中心注册自己,默认为true</span><br><span class="line">eureka.client.register-with-eureka&#x3D;false</span><br><span class="line">#是否检索服务</span><br><span class="line">eureka.client.fetch-registry&#x3D;true</span><br><span class="line">eureka.client.serviceUrl.defaultZone&#x3D;http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
-<p>4、输入地址<a href="http://localhost:5000/">http://localhost:5000/</a></p>
-<p><img src="/assets/resource/springcloud/eureka0.png"></p>
-<p>5、EurakeSever 认证 添加依赖 并 在application.properties文件中进行配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加basic认证</span><br><span class="line"></span><br><span class="line">security.basic.enabled&#x3D;true</span><br><span class="line"></span><br><span class="line">security.user.name&#x3D;user1</span><br><span class="line"></span><br><span class="line">security.user.password&#x3D;password1</span><br></pre></td></tr></table></figure>
-
-<p>6、我们也修改服务端，我们只需要将服务提供端application.properties 中原来的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eureka.client.service-url.defalutZone&#x3D; http:&#x2F;&#x2F;localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line">变为： eureka.client.serviceurl.defalutZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/assets/resource/springcloud/eureka0.png"></p>
-]]></content>
-      <tags>
-        <tag>SpringCloud</tag>
-        <tag>Eureka</tag>
       </tags>
   </entry>
   <entry>
