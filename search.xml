@@ -123,7 +123,7 @@
 </li>
 <li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
 <blockquote>
-<p>deploy: type: git repo: <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
+<p>deploy: type: git repo: <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;</a>:yourname/yourname.github.io.git branch: master</p>
 </blockquote>
 </li>
 <li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
@@ -801,6 +801,80 @@ e.requestAnimationFrame = function () &#123;
 ]]></content>
       <tags>
         <tag>Zookeeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git的基本操作</title>
+    <url>/2020/12/15/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>在实际开发中，会使用git作为版本控制工具来完成团队协作，因此，对命令做部分常用操作的归纳总结，方便日常查看使用。</p>
+<a id="more"></a>
+
+<p>主要涉及到四个关键点：</p>
+<ol>
+<li>工作区：本地电脑存放项目文件的地方；</li>
+<li>暂存区（Index/Stage）：在使用git管理项目文件的时候，其本地的项目文件会多出一个.git的文件夹，将这个.git文件夹称之为版本库。其中.git文件夹中包含了两个部分，一个是暂存区（Index或者Stage）,顾名思义就是暂时存放文件的地方，通常使用add命令将工作区的文件添加到暂存区里；</li>
+<li>本地仓库：.git文件夹里还包括git自动创建的master分支，并且将HEAD指针指向master分支。使用commit命令可以将暂存区中的文件添加到本地仓库中；</li>
+<li>远程仓库：不是在本地仓库中，项目代码在远程git服务器上，比如项目放在github上，就是一个远程仓库，通常使用clone命令将远程仓库拷贝到本地仓库中，开发后推送到远程仓库中即可；</li>
+</ol>
+<p>日常开发时，代码实际上放置在工作区，通过add等这些命令将代码文教提交给暂存区（Index/Stage），也就意味着代码全权交给了git进行管理，之后通过commit等命令将暂存区提交给master分支上，也就是意味打了一个版本，也可以说代码提交到了本地仓库中。另外，团队协作过程中自然而然还涉及到与远程仓库的交互。</p>
+<p>因此，经过这样的分析，git命令可以分为这样的逻辑进行理解和记忆：</p>
+<ol>
+<li>git管理配置的命令；</li>
+<li>工作区与暂存区的交互；</li>
+<li>暂存区与本地仓库（分支）上的交互；</li>
+<li>本地仓库与远程仓库的交互。</li>
+</ol>
+<h1 id="1、-git配置命令"><a href="#1、-git配置命令" class="headerlink" title="1、 git配置命令"></a>1、 git配置命令</h1><p>查询配置信息</p>
+<blockquote>
+<p>列出当前配置：<code>git config --list</code>;<br>列出repository配置：<code>git config --local --list</code>;<br>列出全局配置：<code>git config --global --list</code>;<br>列出系统配置：<code>git config --system --list</code>;</p>
+</blockquote>
+<p>第一次使用git，配置用户信息</p>
+<blockquote>
+<p>配置用户名：<code>git config --global user.name &quot;your name&quot;</code>;<br>配置用户邮箱：<code>git config --global user.email &quot;youremail@github.com&quot;</code>;</p>
+</blockquote>
+<h1 id="2、工作区上的操作命令"><a href="#2、工作区上的操作命令" class="headerlink" title="2、工作区上的操作命令"></a>2、工作区上的操作命令</h1><p>新建仓库</p>
+<blockquote>
+<p>将工作区中的项目文件使用git进行管理，即创建一个新的本地仓库：<code>git init</code>；<br>从远程git仓库复制项目：<code>git clone &lt;url&gt;</code></p>
+</blockquote>
+<p>提交</p>
+<blockquote>
+<p>提交工作区所有文件到暂存区：<code>git add .</code><br>提交工作区中指定文件到暂存区：<code>git add &lt;file1&gt; &lt;file2&gt; ...</code>;<br>提交工作区中某个文件夹中所有文件到暂存区：<code>git add [dir]</code>;</p>
+</blockquote>
+<p>撤销</p>
+<blockquote>
+<p>删除工作区文件，并且也从暂存区删除对应文件的记录：<code>git rm &lt;file1&gt; &lt;file2&gt;</code>;<br>从暂存区中删除文件，但是工作区依然还有该文件:<code>git rm --cached &lt;file&gt;</code>;<br>取消暂存区已经暂存的文件：<code>git reset HEAD &lt;file&gt;...</code>;<br>撤销上一次对文件的操作：<code>git checkout --&lt;file&gt;</code>。要确定上一次对文件的修改不再需要，如果想保留上一次的修改以备以后继续工作，可以使用stashing和分支来处理；<br>隐藏当前变更，以便能够切换分支：<code>git stash</code>；<br>查看当前所有的储藏：<code>git stash list</code>；<br>应用最新的储藏：<code>git stash apply</code>，如果想应用更早的储藏：<code>git stash apply stash@&#123;2&#125;</code>；重新应用被暂存的变更，需要加上<code>--index</code>参数：<code>git stash apply --index</code>;<br>使用apply命令只是应用储藏，而内容仍然还在栈上，需要移除指定的储藏：<code>git stash drop stash&#123;0&#125;</code>；如果使用pop命令不仅可以重新应用储藏，还可以立刻从堆栈中清除：<code>git stash pop</code>;<br>在某些情况下，你可能想应用储藏的修改，在进行了一些其他的修改后，又要取消之前所应用储藏的修改。Git没有提供类似于 stash unapply 的命令，但是可以通过取消该储藏的补丁达到同样的效果：<code>git stash show -p stash@&#123;0&#125; | git apply -R</code>；同样的，如果你沒有指定具体的某个储藏，Git 会选择最近的储藏：<code>git stash show -p | git apply -R</code>；</p>
+</blockquote>
+<p>更新文件</p>
+<blockquote>
+<p>重命名文件，并将已改名文件提交到暂存区：<code>git mv [file-original] [file-renamed]</code>;</p>
+</blockquote>
+<p>查新信息</p>
+<blockquote>
+<p>查询当前工作区所有文件的状态：<code>git status</code>;<br>比较工作区中当前文件和暂存区之间的差异，也就是修改之后还没有暂存的内容：git diff；指定文件在工作区和暂存区上差异比较：<code>git diff &lt;file-name&gt;</code>;</p>
+</blockquote>
+<h1 id="3、暂存区上的操作命令"><a href="#3、暂存区上的操作命令" class="headerlink" title="3、暂存区上的操作命令"></a>3、暂存区上的操作命令</h1><p>提交文件到版本库</p>
+<blockquote>
+<p>将暂存区中的文件提交到本地仓库中，即打上新版本：<code>git commit -m &quot;commit_info&quot;</code>;<br>将所有已经使用git管理过的文件暂存后一并提交，跳过add到暂存区的过程：<code>git commit -a -m &quot;commit_info&quot;</code>;<br>提交文件时，发现漏掉几个文件，或者注释写错了，可以撤销上一次提交：<code>git commit --amend</code>;</p>
+</blockquote>
+<p>查看信息</p>
+<blockquote>
+<p>比较暂存区与上一版本的差异：<code>git diff --cached</code>;<br>指定文件在暂存区和本地仓库的不同：<code>git diff &lt;file-name&gt; --cached</code>;<br>查看提交历史：git log；参数<code>-p</code>展开每次提交的内容差异，用<code>-2</code>显示最近的两次更新，如<code>git log -p -2</code>;</p>
+</blockquote>
+<p>打标签</p>
+<blockquote>
+<p>列出现在所有的标签：<code>git tag</code>;<br>使用特定的搜索模式列出符合条件的标签：<code>git tag -l &quot;v1.4.2.*&quot;</code>;<br>创建含附注类型的标签，需要加<code>-a</code>参数: <code>git tag -a v1.4 -m &quot;my version 1.4&quot;</code>;<br>使用git show命令查看相应标签的版本信息：<code>git show v1.4</code>;<br>验证已签署的标签：git tag -v ，如<code>git tag -v v1.5</code>;<br>创建一个轻量级标签的话，就直接使用git tag命令即可，连<code>-a</code>,<code>-s</code>以及<code>-m</code>选项都不需要，直接给出标签名字即可，如<code>git tag v1.5</code>;<br>将标签推送到远程仓库中：git push origin ，如<code>git push origin v1.5</code>；<br>将本地所有的标签全部推送到远程仓库中：<code>git push origin --tags</code>;</p>
+</blockquote>
+<p>分支管理</p>
+<blockquote>
+<p>创建分支：<code>git branch &lt;branch-name&gt;</code>，如<code>git branch yilia</code>；<br>从当前所处的分支切换到其他分支：<code>git checkout &lt;branch-name&gt;</code>，如<code>git checkout yilia</code>；<br>新建并切换到新建分支上：<code>git checkout -b &lt;branch-name&gt;</code>;<br>删除分支：<code>git branch -d &lt;branch-name&gt;</code>；<br>将当前分支与指定分支进行合并：<code>git merge &lt;branch-name&gt;</code>;<br>显示本地仓库的所有分支：<code>git branch</code>;<br>查看各个分支最后一个提交对象的信息：<code>git branch -v</code>;<br>查看哪些分支已经合并到当前分支：<code>git branch --merged</code>;<br>查看当前哪些分支还没有合并到当前分支：<code>git branch --no-merged</code>;<br>把远程分支合并到当前分支：<code>git merge &lt;remote-name&gt;/&lt;branch-name&gt;</code>;<br>在远程分支的基础上创建新的本地分支<code>：git checkout -b &lt;branch-name&gt; &lt;remote-name&gt;/&lt;branch-name&gt;</code>，如<code>git checkout -b serverfix origin/serverfix</code>;<br>从远程分支checkout出来的本地分支，称之为跟踪分支。在跟踪分支上向远程分支上推送内容：<code>git push</code>。该命令会自动判断应该向远程仓库中的哪个分支推送数据；在跟踪分支上合并远程分支：<code>git pull</code>；<br>将一个分支里提交的改变移到基底分支上重放一遍：<code>git rebase &lt;rebase-branch&gt; &lt;branch-name&gt;</code>；</p>
+</blockquote>
+<h1 id="4、本地仓库上的操作"><a href="#4、本地仓库上的操作" class="headerlink" title="4、本地仓库上的操作"></a>4、本地仓库上的操作</h1><blockquote>
+<p>查看本地仓库关联的远程仓库：<code>git remote</code>；在克隆完每个远程仓库后，远程仓库默认为<code>origin</code>;加上<code>-v</code>的参数后，会显示远程仓库的<code>url</code>地址；<br>添加远程仓库：<code>git remote add [remote-name] [url]</code>，比如：<code>git remote add example git://github.com/example/example.git</code>;<br>从远程仓库中抓取本地仓库中没有的更新：<code>git fetch [remote-name]</code>，如<code>git fetch origin</code>;使用fetch只是将远端数据拉到本地仓库，并不自动合并到当前工作分支，只能人工合并。如果设置了某个分支关联到远程仓库的某个分支的话，可以使用<code>git pull</code>来拉去远程分支的数据，然后将远端分支自动合并到本地仓库中的当前分支；<br>将本地仓库某分支推送到远程仓库上：<code>git push [remote-name] [branch-name]</code>，如<code>git push origin master</code>；如果想将本地分支推送到远程仓库的不同名分支：<code>git push &lt;remote-name&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;</code>，如<code>git push origin serverfix:awesomebranch</code>;如果想删除远程分支：<code>git push [romote-name] :&lt;remote-branch&gt;</code>，如<code>git push origin :serverfix</code>。这里省略了本地分支，也就相当于将空白内容推送给远程分支，就等于删掉了远程分支。<br>查看远程仓库的详细信息：<code>git remote show origin</code>；<br>修改某个远程仓库在本地的简称：<code>git remote rename [old-name] [new-name]</code>，如<code>git remote rename origin org</code>；<br>移除远程仓库：<code>git remote rm [remote-name]</code>；</p>
+</blockquote>
+<h1 id="5、忽略文件-gitignore"><a href="#5、忽略文件-gitignore" class="headerlink" title="5、忽略文件.gitignore"></a>5、忽略文件.gitignore</h1><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。如下例：</p>
+]]></content>
+      <tags>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -1534,116 +1608,57 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>git的基本操作</title>
-    <url>/2020/12/15/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<p>在实际开发中，会使用git作为版本控制工具来完成团队协作，因此，对命令做部分常用操作的归纳总结，方便日常查看使用。</p>
+    <title>道德经第一章之天地之始，万物之母</title>
+    <url>/2020/12/16/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%B9%8B%E5%A4%A9%E5%9C%B0%E4%B9%8B%E5%A7%8B%EF%BC%8C%E4%B8%87%E7%89%A9%E4%B9%8B%E6%AF%8D/</url>
+    <content><![CDATA[<p>道可道，非常道；</p>
+<p>名可名，非常名。</p>
+<p>无，名天地之始；</p>
+<p>有，名万物之母。</p>
 <a id="more"></a>
 
-<p>主要涉及到四个关键点：</p>
-<ol>
-<li>工作区：本地电脑存放项目文件的地方；</li>
-<li>暂存区（Index/Stage）：在使用git管理项目文件的时候，其本地的项目文件会多出一个.git的文件夹，将这个.git文件夹称之为版本库。其中.git文件夹中包含了两个部分，一个是暂存区（Index或者Stage）,顾名思义就是暂时存放文件的地方，通常使用add命令将工作区的文件添加到暂存区里；</li>
-<li>本地仓库：.git文件夹里还包括git自动创建的master分支，并且将HEAD指针指向master分支。使用commit命令可以将暂存区中的文件添加到本地仓库中；</li>
-<li>远程仓库：不是在本地仓库中，项目代码在远程git服务器上，比如项目放在github上，就是一个远程仓库，通常使用clone命令将远程仓库拷贝到本地仓库中，开发后推送到远程仓库中即可；</li>
-</ol>
-<p>日常开发时，代码实际上放置在工作区，通过add等这些命令将代码文教提交给暂存区（Index/Stage），也就意味着代码全权交给了git进行管理，之后通过commit等命令将暂存区提交给master分支上，也就是意味打了一个版本，也可以说代码提交到了本地仓库中。另外，团队协作过程中自然而然还涉及到与远程仓库的交互。</p>
-<p>因此，经过这样的分析，git命令可以分为这样的逻辑进行理解和记忆：</p>
-<ol>
-<li>git管理配置的命令；</li>
-<li>工作区与暂存区的交互；</li>
-<li>暂存区与本地仓库（分支）上的交互；</li>
-<li>本地仓库与远程仓库的交互。</li>
-</ol>
-<h1 id="1、-git配置命令"><a href="#1、-git配置命令" class="headerlink" title="1、 git配置命令"></a>1、 git配置命令</h1><p>查询配置信息</p>
+<p>故常无，欲以观其妙；</p>
+<p>常有，欲以观其徼。</p>
+<p>此两者，同出而异名，同谓之玄之又玄，众妙之门。</p>
 <blockquote>
-<p>列出当前配置：<code>git config --list</code>;<br>列出repository配置：<code>git config --local --list</code>;<br>列出全局配置：<code>git config --global --list</code>;<br>列出系统配置：<code>git config --system --list</code>;</p>
+<p>译文：</p>
 </blockquote>
-<p>第一次使用git，配置用户信息</p>
-<blockquote>
-<p>配置用户名：<code>git config --global user.name &quot;your name&quot;</code>;<br>配置用户邮箱：<code>git config --global user.email &quot;youremail@github.com&quot;</code>;</p>
-</blockquote>
-<h1 id="2、工作区上的操作命令"><a href="#2、工作区上的操作命令" class="headerlink" title="2、工作区上的操作命令"></a>2、工作区上的操作命令</h1><p>新建仓库</p>
-<blockquote>
-<p>将工作区中的项目文件使用git进行管理，即创建一个新的本地仓库：<code>git init</code>；<br>从远程git仓库复制项目：<code>git clone &lt;url&gt;</code></p>
-</blockquote>
-<p>提交</p>
-<blockquote>
-<p>提交工作区所有文件到暂存区：<code>git add .</code><br>提交工作区中指定文件到暂存区：<code>git add &lt;file1&gt; &lt;file2&gt; ...</code>;<br>提交工作区中某个文件夹中所有文件到暂存区：<code>git add [dir]</code>;</p>
-</blockquote>
-<p>撤销</p>
-<blockquote>
-<p>删除工作区文件，并且也从暂存区删除对应文件的记录：<code>git rm &lt;file1&gt; &lt;file2&gt;</code>;<br>从暂存区中删除文件，但是工作区依然还有该文件:<code>git rm --cached &lt;file&gt;</code>;<br>取消暂存区已经暂存的文件：<code>git reset HEAD &lt;file&gt;...</code>;<br>撤销上一次对文件的操作：<code>git checkout --&lt;file&gt;</code>。要确定上一次对文件的修改不再需要，如果想保留上一次的修改以备以后继续工作，可以使用stashing和分支来处理；<br>隐藏当前变更，以便能够切换分支：<code>git stash</code>；<br>查看当前所有的储藏：<code>git stash list</code>；<br>应用最新的储藏：<code>git stash apply</code>，如果想应用更早的储藏：<code>git stash apply stash@&#123;2&#125;</code>；重新应用被暂存的变更，需要加上<code>--index</code>参数：<code>git stash apply --index</code>;<br>使用apply命令只是应用储藏，而内容仍然还在栈上，需要移除指定的储藏：<code>git stash drop stash&#123;0&#125;</code>；如果使用pop命令不仅可以重新应用储藏，还可以立刻从堆栈中清除：<code>git stash pop</code>;<br>在某些情况下，你可能想应用储藏的修改，在进行了一些其他的修改后，又要取消之前所应用储藏的修改。Git没有提供类似于 stash unapply 的命令，但是可以通过取消该储藏的补丁达到同样的效果：<code>git stash show -p stash@&#123;0&#125; | git apply -R</code>；同样的，如果你沒有指定具体的某个储藏，Git 会选择最近的储藏：<code>git stash show -p | git apply -R</code>；</p>
-</blockquote>
-<p>更新文件</p>
-<blockquote>
-<p>重命名文件，并将已改名文件提交到暂存区：<code>git mv [file-original] [file-renamed]</code>;</p>
-</blockquote>
-<p>查新信息</p>
-<blockquote>
-<p>查询当前工作区所有文件的状态：<code>git status</code>;<br>比较工作区中当前文件和暂存区之间的差异，也就是修改之后还没有暂存的内容：git diff；指定文件在工作区和暂存区上差异比较：<code>git diff &lt;file-name&gt;</code>;</p>
-</blockquote>
-<h1 id="3、暂存区上的操作命令"><a href="#3、暂存区上的操作命令" class="headerlink" title="3、暂存区上的操作命令"></a>3、暂存区上的操作命令</h1><p>提交文件到版本库</p>
-<blockquote>
-<p>将暂存区中的文件提交到本地仓库中，即打上新版本：<code>git commit -m &quot;commit_info&quot;</code>;<br>将所有已经使用git管理过的文件暂存后一并提交，跳过add到暂存区的过程：<code>git commit -a -m &quot;commit_info&quot;</code>;<br>提交文件时，发现漏掉几个文件，或者注释写错了，可以撤销上一次提交：<code>git commit --amend</code>;</p>
-</blockquote>
-<p>查看信息</p>
-<blockquote>
-<p>比较暂存区与上一版本的差异：<code>git diff --cached</code>;<br>指定文件在暂存区和本地仓库的不同：<code>git diff &lt;file-name&gt; --cached</code>;<br>查看提交历史：git log；参数<code>-p</code>展开每次提交的内容差异，用<code>-2</code>显示最近的两次更新，如<code>git log -p -2</code>;</p>
-</blockquote>
-<p>打标签</p>
-<blockquote>
-<p>列出现在所有的标签：<code>git tag</code>;<br>使用特定的搜索模式列出符合条件的标签：<code>git tag -l &quot;v1.4.2.*&quot;</code>;<br>创建含附注类型的标签，需要加<code>-a</code>参数: <code>git tag -a v1.4 -m &quot;my version 1.4&quot;</code>;<br>使用git show命令查看相应标签的版本信息：<code>git show v1.4</code>;<br>验证已签署的标签：git tag -v ，如<code>git tag -v v1.5</code>;<br>创建一个轻量级标签的话，就直接使用git tag命令即可，连<code>-a</code>,<code>-s</code>以及<code>-m</code>选项都不需要，直接给出标签名字即可，如<code>git tag v1.5</code>;<br>将标签推送到远程仓库中：git push origin ，如<code>git push origin v1.5</code>；<br>将本地所有的标签全部推送到远程仓库中：<code>git push origin --tags</code>;</p>
-</blockquote>
-<p>分支管理</p>
-<blockquote>
-<p>创建分支：<code>git branch &lt;branch-name&gt;</code>，如<code>git branch yilia</code>；<br>从当前所处的分支切换到其他分支：<code>git checkout &lt;branch-name&gt;</code>，如<code>git checkout yilia</code>；<br>新建并切换到新建分支上：<code>git checkout -b &lt;branch-name&gt;</code>;<br>删除分支：<code>git branch -d &lt;branch-name&gt;</code>；<br>将当前分支与指定分支进行合并：<code>git merge &lt;branch-name&gt;</code>;<br>显示本地仓库的所有分支：<code>git branch</code>;<br>查看各个分支最后一个提交对象的信息：<code>git branch -v</code>;<br>查看哪些分支已经合并到当前分支：<code>git branch --merged</code>;<br>查看当前哪些分支还没有合并到当前分支：<code>git branch --no-merged</code>;<br>把远程分支合并到当前分支：<code>git merge &lt;remote-name&gt;/&lt;branch-name&gt;</code>;<br>在远程分支的基础上创建新的本地分支<code>：git checkout -b &lt;branch-name&gt; &lt;remote-name&gt;/&lt;branch-name&gt;</code>，如<code>git checkout -b serverfix origin/serverfix</code>;<br>从远程分支checkout出来的本地分支，称之为跟踪分支。在跟踪分支上向远程分支上推送内容：<code>git push</code>。该命令会自动判断应该向远程仓库中的哪个分支推送数据；在跟踪分支上合并远程分支：<code>git pull</code>；<br>将一个分支里提交的改变移到基底分支上重放一遍：<code>git rebase &lt;rebase-branch&gt; &lt;branch-name&gt;</code>；</p>
-</blockquote>
-<h1 id="4、本地仓库上的操作"><a href="#4、本地仓库上的操作" class="headerlink" title="4、本地仓库上的操作"></a>4、本地仓库上的操作</h1><blockquote>
-<p>查看本地仓库关联的远程仓库：<code>git remote</code>；在克隆完每个远程仓库后，远程仓库默认为<code>origin</code>;加上<code>-v</code>的参数后，会显示远程仓库的<code>url</code>地址；<br>添加远程仓库：<code>git remote add [remote-name] [url]</code>，比如：<code>git remote add example git://github.com/example/example.git</code>;<br>从远程仓库中抓取本地仓库中没有的更新：<code>git fetch [remote-name]</code>，如<code>git fetch origin</code>;使用fetch只是将远端数据拉到本地仓库，并不自动合并到当前工作分支，只能人工合并。如果设置了某个分支关联到远程仓库的某个分支的话，可以使用<code>git pull</code>来拉去远程分支的数据，然后将远端分支自动合并到本地仓库中的当前分支；<br>将本地仓库某分支推送到远程仓库上：<code>git push [remote-name] [branch-name]</code>，如<code>git push origin master</code>；如果想将本地分支推送到远程仓库的不同名分支：<code>git push &lt;remote-name&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;</code>，如<code>git push origin serverfix:awesomebranch</code>;如果想删除远程分支：<code>git push [romote-name] :&lt;remote-branch&gt;</code>，如<code>git push origin :serverfix</code>。这里省略了本地分支，也就相当于将空白内容推送给远程分支，就等于删掉了远程分支。<br>查看远程仓库的详细信息：<code>git remote show origin</code>；<br>修改某个远程仓库在本地的简称：<code>git remote rename [old-name] [new-name]</code>，如<code>git remote rename origin org</code>；<br>移除远程仓库：<code>git remote rm [remote-name]</code>；</p>
-</blockquote>
-<h1 id="5、忽略文件-gitignore"><a href="#5、忽略文件-gitignore" class="headerlink" title="5、忽略文件.gitignore"></a>5、忽略文件.gitignore</h1><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。如下例：</p>
+<p>能用言语说出来的”道“，都不是永恒的、终极的”道“；</p>
+<p>能形容出来的“名”，都不是永恒的、终极的“名”。</p>
+<p>无影无形的混沌状态，乃天地万物之始。</p>
+<p>天地万物形成时的本原状态，乃孕育万物之源。</p>
+<p>所以要长从“无”中领悟“道”的玄妙；</p>
+<p>要常从“有”中领悟万物产生的端倪。</p>
+<p>“无”和“有”本原相同名称相异，但都体现了“道”的深远玄妙。</p>
+<p>这不是一般的深远玄妙，而是深远有深远，玄妙又玄妙，这就是宇宙天地万物之一切奥妙的总门。</p>
 ]]></content>
       <tags>
-        <tag>git</tag>
+        <tag>阅读</tag>
+        <tag>道德经</tag>
       </tags>
   </entry>
   <entry>
-    <title>道德经第一章之天地之始，万物之母</title>
-    <url>/2020/12/16/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%B9%8B%E5%A4%A9%E5%9C%B0%E4%B9%8B%E5%A7%8B%EF%BC%8C%E4%B8%87%E7%89%A9%E4%B9%8B%E6%AF%8D/</url>
-    <content><![CDATA[<center>道可道，非常道；</center>
-
-<center>名可名，非常名。</center>
-
-<center>无，名天地之始；</center>
-
-<center>有，名万物之母。</center>
-
+    <title>道德经第三章之圣人之治，无为而治</title>
+    <url>/2020/12/18/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%89%E7%AB%A0%E4%B9%8B%E5%9C%A3%E4%BA%BA%E4%B9%8B%E6%B2%BB%EF%BC%8C%E6%97%A0%E4%B8%BA%E8%80%8C%E6%B2%BB/</url>
+    <content><![CDATA[<p>不尚贤，使民不争。</p>
+<p>不贵难得之货，使民不为盗。</p>
+<p>不见可欲，使民心不乱。</p>
+<p>是以圣人之治，</p>
+<p>虚其心，实其腹，弱其志，强其骨。</p>
 <a id="more"></a>
-
-<center>故常无，欲以观其妙；</center>
-
-<center>常有，欲以观其徼。</center>
-
-<center>此两者，同出而异名，同谓之玄之又玄，众妙之门。</center>
-
-<center>译文：</center>
-
-<center>能用言语说出来的”道“，都不是永恒的、终极的”道“；</center>
-
-<center>能形容出来的“名”，都不是永恒的、终极的“名”。</center>
-
-<center>无影无形的混沌状态，乃天地万物之始。</center>
-
-<center>天地万物形成时的本原状态，乃孕育万物之源。</center>
-
-<center>所以要长从“无”中领悟“道”的玄妙；</center>
-
-<center>要常从“有”中领悟万物产生的端倪。</center>
-
-<center>“无”和“有”本原相同名称相异，但都体现了“道”的深远玄妙。</center>
-
-<center>这不是一般的深远玄妙，而是深远有深远，玄妙又玄妙，这就是宇宙天地万物之一切奥妙的总门。</center>
-
+<p>常使民无知无欲，</p>
+<p>使夫智者不敢为也。</p>
+<p>为无为，则无不治。</p>
+<blockquote>
+<p>译文：</p>
+</blockquote>
+<p>不崇尚贤德才能之人，使百姓不困此相争。</p>
+<p>不以难得稀有之物为珍宝，使百姓不因此而做偷盗之事。</p>
+<p>不炫耀能引发欲望的财务，使民心不为此受到迷乱。</p>
+<p>所以圣人治理政事，</p>
+<p>会净化人民的心灵，满足其温饱，削弱其争名夺利之心，强健其筋骨体魄，</p>
+<p>使百姓无奸巧之心，无非分之想，内心纯净淡泊，</p>
+<p>使那些争名夺利的“智巧”之人不敢为非作歹。</p>
+<p>所以圣人治世，按照“无为”的原则来做事，那么天下也就没有什么治理不好的了。</p>
 ]]></content>
       <tags>
         <tag>阅读</tag>
@@ -1653,20 +1668,14 @@ e.requestAnimationFrame = function () &#123;
   <entry>
     <title>道德经第二章之为而不恃，功成弗居</title>
     <url>/2020/12/17/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%B9%8B%E4%B8%BA%E8%80%8C%E4%B8%8D%E6%81%83%EF%BC%8C%E5%8A%9F%E6%88%90%E5%BC%97%E5%B1%85/</url>
-    <content><![CDATA[<center>天下皆知美之为美，斯恶矣；</center>
-
-<center>皆知善之为善，斯不善矣。</center>
-
-<center>故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随，恒也。</center>
-
-<center>是以圣人处无为之事，行不言之教；</center>
-
+    <content><![CDATA[<p>天下皆知美之为美，斯恶矣；</p>
+<p>皆知善之为善，斯不善矣。</p>
+<p>故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随，恒也。</p>
+<p>是以圣人处无为之事，行不言之教；</p>
 <a id="more"></a>
 
-<center>万物作而弗始，生而弗有，为而弗恃，功成而弗居。</center>
-
-<center>夫唯弗居，是以不去。</center>
-
+<p>万物作而弗始，生而弗有，为而弗恃，功成而弗居。</p>
+<p>夫唯弗居，是以不去。</p>
 <blockquote>
 <p> 译文</p>
 </blockquote>
