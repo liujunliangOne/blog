@@ -4,11 +4,11 @@
     <title>Hadoop之HDFS</title>
     <url>/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
     <content><![CDATA[<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>HDFS <strong>(分布式文件系统)</strong> 是整个hadoop体系的基础，负责数据的存储与管理。HDFS有着高<a href="https://baike.baidu.com/item/%E5%AE%B9%E9%94%99%E6%80%A7/9131391">容错性</a>（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。</p>
+<a id="more"></a>
 <p>client：切分文件，访问HDFS时，首先与NameNode交互，获取目标文件的位置信息，然后与DataNode交互，读写数据</p>
 <p>NameNode：master节点，每个HDFS集群只有一个，管理HDFS的名称空间和数据块映射信息，配置相关副本信息，处理客户端请求。</p>
 <p>DataNode：slave节点，存储实际数据，并汇报状态信息给NameNode，默认一个文件会备份3份在不同的DataNode中，实现高可靠性和容错性。</p>
 <p>Secondary NameNode：辅助NameNode，实现高可靠性，定期合并fsimage和fsedits，推送给NameNode；紧急情况下辅助和恢复NameNode，但其并非NameNode的热备份。</p>
-<a id="more"></a>
 <p>Hadoop 2为HDFS引入了两个重要的新功能 ——Federation和高可用（HA）：</p>
 <ul>
 <li>Federation允许集群中出现多个NameNode，之间相互独立且不需要互相协调，各自分工，管理自己的区域。 DataNode 被用作通用的数据块存储设备。每个 DataNode 要向集群中所有NameNode 注册，并发送心跳报告，执行所有 namenode的命令。</li>
@@ -33,7 +33,8 @@
 <p>⑤ 删除HDFS文件系统中的数据。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 删除hdfs上的文件</span><br><span class="line"> * @throws IOException</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Test</span><br><span class="line">public void removeFile() throws IOException &#123;</span><br><span class="line">    Configuration conf &#x3D; new Configuration();</span><br><span class="line">    conf.set(&quot;fs.defaultFS&quot;,&quot;hdfs:&#x2F;&#x2F;localhost:9500&quot;);</span><br><span class="line">    FileSystem fs &#x3D; FileSystem.newInstance(conf);</span><br><span class="line">    fs.delete(new Path(&quot;&#x2F;user&#x2F;wcinput&#x2F;rocketmq-externals-master.zip&quot;),false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>Hadoop</tag>
+        <tag>technology</tag>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -71,72 +72,8 @@
 <p>步骤6：执行reduce任务，将任务输出保存到HDFS</p>
 ]]></content>
       <tags>
-        <tag>Hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo Github Page搭建个人博客</title>
-    <url>/2020/12/12/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><h3 id="1、hexo介绍"><a href="#1、hexo介绍" class="headerlink" title="1、hexo介绍"></a>1、hexo介绍</h3><blockquote>
-<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页</p>
-</blockquote>
-<h3 id="2、Markdown介绍"><a href="#2、Markdown介绍" class="headerlink" title="2、Markdown介绍"></a>2、Markdown介绍</h3><blockquote>
-<p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="1、github账号创建和git安装"><a href="#1、github账号创建和git安装" class="headerlink" title="1、github账号创建和git安装"></a>1、github账号创建和git安装</h3><blockquote>
-<p>没有github账号，按照流程注册即可<br>创建仓库,命名格式为 yourname.git.io<br>为仓库创建两个分支，master（默认的主分支）用于博客的发布，另外创建一个分支hexo（具体名称自拟吧）用于保存博客项目，为了防止换电脑导致以前的博文丢失的情况，确保记录的同步，并且将自己创建的分支hexo设置为默认分支–settings中可进行设置<br>创建git-pages，一般仓库创建后会自动勾选，此选项可以保证通过已项目名为域名来访问你的博文<br>接下来为保证可以在终端运行git命令，需要安装git</p>
-</blockquote>
-<blockquote>
-<p>git version  //检测是否安装成功</p>
-</blockquote>
-<h3 id="2、nodejs安装"><a href="#2、nodejs安装" class="headerlink" title="2、nodejs安装"></a>2、nodejs安装</h3><blockquote>
-<p>进入<a href="https://nodejs.org/">node.js官网</a>安装，按照导航进行</p>
-</blockquote>
-<blockquote>
-<p>npm -v  //检测nodejs是否安装成功</p>
-<p>若出现 命令未找到 的错误提示，则需要手动的配置环境变量，将nodejs目录配到path目录下。此处选择nodejs版本时尽量选择最新的版本，方便后续选择的主题时候的兼容性。</p>
-</blockquote>
-<h3 id="3-hexo安装"><a href="#3-hexo安装" class="headerlink" title="3.hexo安装"></a>3.hexo安装</h3><blockquote>
-<p>nodejs安装成功后可以使用以下命令安装hexo.</p>
-</blockquote>
-<blockquote>
-<p>npm install hexo -g //安装全局的hexo<br>npm install hexo //在某目录下有效<br>hexo -v //检测是否成功安装</p>
-</blockquote>
-<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>###项目创建</p>
-<blockquote>
-<p>选择一个位置将仓库同步到本地，进入到文件中，打开文件查看选项中的显示影藏文件，可看到至少有一个.git文件（此处将.git文件复制到别处，随后清空仓库项目文件夹，为了后续操作执行–hexo init 的时候需要文件夹为空），同步命令为：</p>
-</blockquote>
-<blockquote>
-<p>git clone  xxx  //复制github仓库路径<br>随后在此目录下（保证此时是空文件夹），打开CMD（shift+鼠标右键），顺序运行：<br> hexo init //初始化项目<br> npm install hexo //安装插件<br> npm install hexo-deployer-git //发布到git上时必要的插件<br>项目初始化后，可以看到如下的目录结构，分别表示为：<br>       .deploy #需要部署的文件<br>       node_modules #Hexo插件<br>       public #生成的静态网页文件<br>       scaffolds #模板<br>       source #博客正文和其他源文件，404、favicon、CNAME 、站点地图都放在这里<br>       _drafts #草稿<br>       _posts #文章<br>       themes #主题<br>       _config.yml #全局配置文件<br>       package.json<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">接下来可以运行命令，创建一篇博文，文章使用的是MarkDown语言，具体语法此处不做介绍</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<pre><code>hexo new &quot;title&quot; //创建指定标题的文章</code></pre>
-<p>文章内容编辑好以后，执行命令：<br>    hexo clean //清除原有记录<br>    hexo g //generate生成html文件<br>    hexo s //server本地运行<br>本地运行以后会实时的对本地文件进行监控，修改后直接刷新浏览器即可看到效果，到此，简单的个人博客已经搭建完成了，接下来可以件博客发布到github上，让网友可以通过你的域名访问个人博客,发布需要的几个步骤：</p>
-</blockquote>
-<ol>
-<li><p>成功安装了发布需要的插件</p>
-<blockquote>
-<p>npm install hexo-deployer-git //发布到git上时必要的插件`</p>
-</blockquote>
-</li>
-<li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
-<blockquote>
-<p>deploy: type: git repo: <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;</a>:yourname/yourname.github.io.git branch: master</p>
-</blockquote>
-</li>
-<li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
-<blockquote>
-<p>hexo d</p>
-</blockquote>
-</li>
-<li><p>发布之后可以登录你的域名查看效果</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>博客生涯</tag>
+        <tag>technology</tag>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -204,6 +141,71 @@
 <p>hexo s</p>
 </blockquote>
 <p>根据控制台提示，在浏览器执行localhost:4000打开博客后，页面鼠标悬停即可查看线条效果。</p>
+]]></content>
+      <tags>
+        <tag>博客生涯</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo Github Page搭建个人博客</title>
+    <url>/2020/12/12/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><h3 id="1、hexo介绍"><a href="#1、hexo介绍" class="headerlink" title="1、hexo介绍"></a>1、hexo介绍</h3><blockquote>
+<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页</p>
+</blockquote>
+<h3 id="2、Markdown介绍"><a href="#2、Markdown介绍" class="headerlink" title="2、Markdown介绍"></a>2、Markdown介绍</h3><blockquote>
+<p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="1、github账号创建和git安装"><a href="#1、github账号创建和git安装" class="headerlink" title="1、github账号创建和git安装"></a>1、github账号创建和git安装</h3><blockquote>
+<p>没有github账号，按照流程注册即可<br>创建仓库,命名格式为 yourname.git.io<br>为仓库创建两个分支，master（默认的主分支）用于博客的发布，另外创建一个分支hexo（具体名称自拟吧）用于保存博客项目，为了防止换电脑导致以前的博文丢失的情况，确保记录的同步，并且将自己创建的分支hexo设置为默认分支–settings中可进行设置<br>创建git-pages，一般仓库创建后会自动勾选，此选项可以保证通过已项目名为域名来访问你的博文<br>接下来为保证可以在终端运行git命令，需要安装git</p>
+</blockquote>
+<blockquote>
+<p>git version  //检测是否安装成功</p>
+</blockquote>
+<h3 id="2、nodejs安装"><a href="#2、nodejs安装" class="headerlink" title="2、nodejs安装"></a>2、nodejs安装</h3><blockquote>
+<p>进入<a href="https://nodejs.org/">node.js官网</a>安装，按照导航进行</p>
+</blockquote>
+<blockquote>
+<p>npm -v  //检测nodejs是否安装成功</p>
+<p>若出现 命令未找到 的错误提示，则需要手动的配置环境变量，将nodejs目录配到path目录下。此处选择nodejs版本时尽量选择最新的版本，方便后续选择的主题时候的兼容性。</p>
+</blockquote>
+<h3 id="3-hexo安装"><a href="#3-hexo安装" class="headerlink" title="3.hexo安装"></a>3.hexo安装</h3><blockquote>
+<p>nodejs安装成功后可以使用以下命令安装hexo.</p>
+</blockquote>
+<blockquote>
+<p>npm install hexo -g //安装全局的hexo<br>npm install hexo //在某目录下有效<br>hexo -v //检测是否成功安装</p>
+</blockquote>
+<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>###项目创建</p>
+<blockquote>
+<p>选择一个位置将仓库同步到本地，进入到文件中，打开文件查看选项中的显示影藏文件，可看到至少有一个.git文件（此处将.git文件复制到别处，随后清空仓库项目文件夹，为了后续操作执行–hexo init 的时候需要文件夹为空），同步命令为：</p>
+</blockquote>
+<blockquote>
+<p>git clone  xxx  //复制github仓库路径<br>随后在此目录下（保证此时是空文件夹），打开CMD（shift+鼠标右键），顺序运行：<br> hexo init //初始化项目<br> npm install hexo //安装插件<br> npm install hexo-deployer-git //发布到git上时必要的插件<br>项目初始化后，可以看到如下的目录结构，分别表示为：<br>       .deploy #需要部署的文件<br>       node_modules #Hexo插件<br>       public #生成的静态网页文件<br>       scaffolds #模板<br>       source #博客正文和其他源文件，404、favicon、CNAME 、站点地图都放在这里<br>       _drafts #草稿<br>       _posts #文章<br>       themes #主题<br>       _config.yml #全局配置文件<br>       package.json<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">接下来可以运行命令，创建一篇博文，文章使用的是MarkDown语言，具体语法此处不做介绍</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<pre><code>hexo new &quot;title&quot; //创建指定标题的文章</code></pre>
+<p>文章内容编辑好以后，执行命令：<br>    hexo clean //清除原有记录<br>    hexo g //generate生成html文件<br>    hexo s //server本地运行<br>本地运行以后会实时的对本地文件进行监控，修改后直接刷新浏览器即可看到效果，到此，简单的个人博客已经搭建完成了，接下来可以件博客发布到github上，让网友可以通过你的域名访问个人博客,发布需要的几个步骤：</p>
+</blockquote>
+<ol>
+<li><p>成功安装了发布需要的插件</p>
+<blockquote>
+<p>npm install hexo-deployer-git //发布到git上时必要的插件`</p>
+</blockquote>
+</li>
+<li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
+<blockquote>
+<p>deploy: type: git repo: <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;</a>:yourname/yourname.github.io.git branch: master</p>
+</blockquote>
+</li>
+<li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
+<blockquote>
+<p>hexo d</p>
+</blockquote>
+</li>
+<li><p>发布之后可以登录你的域名查看效果</p>
+</li>
+</ol>
 ]]></content>
       <tags>
         <tag>博客生涯</tag>
@@ -284,6 +286,38 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
+    <title>Redis-GEO的Java中使用</title>
+    <url>/2020/11/21/Redis-GEO%E7%9A%84Java%E4%B8%AD%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h2 id="添加坐标"><a href="#添加坐标" class="headerlink" title="添加坐标"></a>添加坐标</h2><p> key ,经度 , 维度 , 距离 ,return m 表示单位为米</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long addReo(String key, double longitude, double latitude, String itemName) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, point, itemName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="批量添加地理位置"><a href="#批量添加地理位置" class="headerlink" title="批量添加地理位置"></a>批量添加地理位置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long geoadd(String key, Map&lt;Object, Point&gt; memberCoordinateMap) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, memberCoordinateMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置获取指定范围内的地理位置集合"><a href="#根据给定地理位置获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置获取指定范围内的地理位置集合"></a>根据给定地理位置获取指定范围内的地理位置集合</h2><p>返回匹配位置的经纬度 + 匹配位置与给定地理位置的距离 + 从近到远排序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoRadiusResponse&gt; georadiusByMember(String key, String member, double radius) &#123;</span><br><span class="line">    return (List&lt;GeoRadiusResponse&gt;) redisTemplate.getOperations().opsForGeo().geoRadiusByMember(key, member, radius);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置集合"></a>根据给定地理位置坐标获取指定范围内的地理位置集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadius(String key, double longitude, double latitude, double radius) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, Metrics.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置部分集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置部分集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置部分集合"></a>根据给定地理位置坐标获取指定范围内的地理位置部分集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadiusArgs(String key, double longitude, double latitude, double radius, int limit) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, RedisGeoCommands.DistanceUnit.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">      RedisGeoCommands.GeoRadiusCommandArgs args&#x3D; RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().limit(limit).sortAscending();</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询两位置距离"><a href="#查询两位置距离" class="headerlink" title="查询两位置距离"></a>查询两位置距离</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Double geoDist(String key, String member1, String member2, Metrics unit) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoDist(key, member1, member2, unit).getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取地理位置的坐标"><a href="#获取地理位置的坐标" class="headerlink" title="获取地理位置的坐标"></a>获取地理位置的坐标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoCoordinate&gt; geopos(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoPos(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="可以获取某个地理位置的geohash值"><a href="#可以获取某个地理位置的geohash值" class="headerlink" title="可以获取某个地理位置的geohash值"></a>可以获取某个地理位置的geohash值</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;String&gt; geohash(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoHash(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java mongodb 的基本操作</title>
     <url>/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
     <content><![CDATA[<h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</p>
@@ -319,39 +353,9 @@ e.requestAnimationFrame = function () &#123;
 <p>代码片段如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.bson.Document;</span><br><span class="line">import com.mongodb.MongoClient;</span><br><span class="line">import com.mongodb.client.FindIterable;</span><br><span class="line">import com.mongodb.client.MongoCollection;</span><br><span class="line">import com.mongodb.client.MongoCursor;</span><br><span class="line">import com.mongodb.client.MongoDatabase;</span><br><span class="line">import com.mongodb.client.model.Filters;</span><br><span class="line"></span><br><span class="line">public class MongoDBJDBC&#123;</span><br><span class="line">   public static void main( String args[] )&#123;</span><br><span class="line">      try&#123;   </span><br><span class="line">         &#x2F;&#x2F; 连接到 mongodb 服务</span><br><span class="line">         MongoClient mongoClient &#x3D; new MongoClient( &quot;localhost&quot; , 27017 );</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F; 连接到数据库</span><br><span class="line">         MongoDatabase mongoDatabase &#x3D; mongoClient.getDatabase(&quot;mycol&quot;);  </span><br><span class="line">         System.out.println(&quot;Connect to database successfully&quot;);</span><br><span class="line"></span><br><span class="line">         MongoCollection&lt;Document&gt; collection &#x3D; mongoDatabase.getCollection(&quot;test&quot;);</span><br><span class="line">         System.out.println(&quot;集合 test 选择成功&quot;);</span><br><span class="line"></span><br><span class="line">         &#x2F;&#x2F;删除符合条件的第一个文档  </span><br><span class="line">         collection.deleteOne(Filters.eq(&quot;likes&quot;, 200));  </span><br><span class="line">         &#x2F;&#x2F;删除所有符合条件的文档  </span><br><span class="line">         collection.deleteMany (Filters.eq(&quot;likes&quot;, 200));  </span><br><span class="line">         &#x2F;&#x2F;检索查看结果  </span><br><span class="line">         FindIterable&lt;Document&gt; findIterable &#x3D; collection.find();  </span><br><span class="line">         MongoCursor&lt;Document&gt; mongoCursor &#x3D; findIterable.iterator();  </span><br><span class="line">         while(mongoCursor.hasNext())&#123;  </span><br><span class="line">           System.out.println(mongoCursor.next());  </span><br><span class="line">         &#125;  </span><br><span class="line">           </span><br><span class="line">      &#125;catch(Exception e)&#123;</span><br><span class="line">        System.err.println( e.getClass().getName() + &quot;: &quot; + e.getMessage() );</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
+        <tag>technology</tag>
         <tag>mongodb</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Redis-GEO的Java中使用</title>
-    <url>/2020/11/21/Redis-GEO%E7%9A%84Java%E4%B8%AD%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<h2 id="添加坐标"><a href="#添加坐标" class="headerlink" title="添加坐标"></a>添加坐标</h2><p> key ,经度 , 维度 , 距离 ,return m 表示单位为米</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long addReo(String key, double longitude, double latitude, String itemName) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, point, itemName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="批量添加地理位置"><a href="#批量添加地理位置" class="headerlink" title="批量添加地理位置"></a>批量添加地理位置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long geoadd(String key, Map&lt;Object, Point&gt; memberCoordinateMap) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, memberCoordinateMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置获取指定范围内的地理位置集合"><a href="#根据给定地理位置获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置获取指定范围内的地理位置集合"></a>根据给定地理位置获取指定范围内的地理位置集合</h2><p>返回匹配位置的经纬度 + 匹配位置与给定地理位置的距离 + 从近到远排序</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoRadiusResponse&gt; georadiusByMember(String key, String member, double radius) &#123;</span><br><span class="line">    return (List&lt;GeoRadiusResponse&gt;) redisTemplate.getOperations().opsForGeo().geoRadiusByMember(key, member, radius);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置坐标获取指定范围内的地理位置集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置集合"></a>根据给定地理位置坐标获取指定范围内的地理位置集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadius(String key, double longitude, double latitude, double radius) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, Metrics.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置坐标获取指定范围内的地理位置部分集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置部分集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置部分集合"></a>根据给定地理位置坐标获取指定范围内的地理位置部分集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadiusArgs(String key, double longitude, double latitude, double radius, int limit) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, RedisGeoCommands.DistanceUnit.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">      RedisGeoCommands.GeoRadiusCommandArgs args&#x3D; RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().limit(limit).sortAscending();</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询两位置距离"><a href="#查询两位置距离" class="headerlink" title="查询两位置距离"></a>查询两位置距离</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Double geoDist(String key, String member1, String member2, Metrics unit) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoDist(key, member1, member2, unit).getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取地理位置的坐标"><a href="#获取地理位置的坐标" class="headerlink" title="获取地理位置的坐标"></a>获取地理位置的坐标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoCoordinate&gt; geopos(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoPos(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="可以获取某个地理位置的geohash值"><a href="#可以获取某个地理位置的geohash值" class="headerlink" title="可以获取某个地理位置的geohash值"></a>可以获取某个地理位置的geohash值</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;String&gt; geohash(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoHash(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>redis</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -386,7 +390,8 @@ e.requestAnimationFrame = function () &#123;
 <p>个人理解：介于客户端与服务器端之间，用于对请求进行<strong>鉴权</strong>、<strong>限流</strong>、 <strong>路由</strong>、<strong>监控</strong>等功能。最关键的就是 <strong>路由和过滤器</strong> 了.</p>
 ]]></content>
       <tags>
-        <tag>SpringCloud</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -425,9 +430,8 @@ e.requestAnimationFrame = function () &#123;
 <p><img src="/assets/resource/springcloud/hystrix2.png"></p>
 ]]></content>
       <tags>
-        <tag>SpringCloud</tag>
-        <tag>hystrix</tag>
-        <tag>hystrix-board</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -502,8 +506,8 @@ e.requestAnimationFrame = function () &#123;
 </ul>
 ]]></content>
       <tags>
-        <tag>SpringCloud</tag>
-        <tag>Hystrix</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -723,8 +727,8 @@ e.requestAnimationFrame = function () &#123;
 </blockquote>
 ]]></content>
       <tags>
+        <tag>technology</tag>
         <tag>spring</tag>
-        <tag>springMvc</tag>
       </tags>
   </entry>
   <entry>
@@ -748,7 +752,8 @@ e.requestAnimationFrame = function () &#123;
 <p><img src="/assets/resource/rocket/rocketmq1.png"></p>
 ]]></content>
       <tags>
-        <tag>RocketMq</tag>
+        <tag>technology</tag>
+        <tag>rocketmq</tag>
       </tags>
   </entry>
   <entry>
@@ -800,7 +805,8 @@ e.requestAnimationFrame = function () &#123;
 <p>Process finished with exit code 0</p>
 ]]></content>
       <tags>
-        <tag>Zookeeper</tag>
+        <tag>technology</tag>
+        <tag>zookeeper</tag>
       </tags>
   </entry>
   <entry>
@@ -874,6 +880,7 @@ e.requestAnimationFrame = function () &#123;
 <h1 id="5、忽略文件-gitignore"><a href="#5、忽略文件-gitignore" class="headerlink" title="5、忽略文件.gitignore"></a>5、忽略文件.gitignore</h1><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。如下例：</p>
 ]]></content>
       <tags>
+        <tag>technology</tag>
         <tag>git</tag>
       </tags>
   </entry>
@@ -899,7 +906,8 @@ e.requestAnimationFrame = function () &#123;
 </blockquote>
 ]]></content>
       <tags>
-        <tag>Hadoop</tag>
+        <tag>technology</tag>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -1010,7 +1018,181 @@ e.requestAnimationFrame = function () &#123;
 </blockquote>
 ]]></content>
       <tags>
-        <tag>Hadoop</tag>
+        <tag>technology</tag>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo 常用指令</title>
+    <url>/2020/12/19/hexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
+    <content><![CDATA[<p>hexo 常用指令<br>在使用hexo 创建博客时，经常的使用的hexo指令,汇总如下。</p>
+<a id="more"></a>
+<h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
+
+<p>新建一个网站。如果没有设置 <code>folder</code> ，Hexo 默认在目前的文件夹建立网站。</p>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+<p>新建一篇文章。如果没有设置 <code>layout</code> 的话，默认使用 _config.yml 中的 <code>default_layout</code> 参数代替。如果标题包含空格的话，请使用引号括起来。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo new &quot;post title with whitespace&quot;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-p</code>, <code>--path</code></td>
+<td align="left">自定义新文章的路径</td>
+</tr>
+<tr>
+<td align="left"><code>-r</code>, <code>--replace</code></td>
+<td align="left">如果存在同名文章，将其替换</td>
+</tr>
+<tr>
+<td align="left"><code>-s</code>, <code>--slug</code></td>
+<td align="left">文章的 Slug，作为新文章的文件名和发布后的 URL</td>
+</tr>
+</tbody></table>
+<p>默认情况下，Hexo 会使用文章的标题来决定文章文件的路径。对于独立页面来说，Hexo 会创建一个以标题为名字的目录，并在目录中放置一个 <code>index.md</code> 文件。你可以使用 <code>--path</code> 参数来覆盖上述行为、自行决定文件的目录：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new page --path about&#x2F;me &quot;About me&quot;</span><br></pre></td></tr></table></figure>
+
+<p>以上命令会创建一个 <code>source/about/me.md</code> 文件，同时 Front Matter 中的 title 为 <code>&quot;About me&quot;</code></p>
+<p>注意！title 是必须指定的！如果你这么做并不能达到你的目的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new page --path about&#x2F;me</span><br></pre></td></tr></table></figure>
+
+<p>此时 Hexo 会创建 <code>source/_posts/about/me.md</code>，同时 <code>me.md</code> 的 Front Matter 中的 title 为 <code>&quot;page&quot;</code>。这是因为在上述命令中，hexo-cli 将 <code>page</code> 视为指定文章的标题、并采用默认的 <code>layout</code>。</p>
+<h2 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>生成静态文件。</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-d</code>, <code>--deploy</code></td>
+<td align="left">文件生成后立即部署网站</td>
+</tr>
+<tr>
+<td align="left"><code>-w</code>, <code>--watch</code></td>
+<td align="left">监视文件变动</td>
+</tr>
+<tr>
+<td align="left"><code>-b</code>, <code>--bail</code></td>
+<td align="left">生成过程中如果发生任何未处理的异常则抛出异常</td>
+</tr>
+<tr>
+<td align="left"><code>-f</code>, <code>--force</code></td>
+<td align="left">强制重新生成文件 Hexo 引入了差分机制，如果 <code>public</code> 目录存在，那么 <code>hexo g</code> 只会重新生成改动的文件。 使用该参数的效果接近 <code>hexo clean &amp;&amp; hexo generate</code></td>
+</tr>
+<tr>
+<td align="left"><code>-c</code>, <code>--concurrency</code></td>
+<td align="left">最大同时生成文件的数量，默认无限制</td>
+</tr>
+</tbody></table>
+<p>该命令可以简写为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
+
+<h2 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发表草稿。</p>
+<h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>启动服务器。默认情况下，访问网址为： <code>http://localhost:4000/</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-p</code>, <code>--port</code></td>
+<td align="left">重设端口</td>
+</tr>
+<tr>
+<td align="left"><code>-s</code>, <code>--static</code></td>
+<td align="left">只使用静态文件</td>
+</tr>
+<tr>
+<td align="left"><code>-l</code>, <code>--log</code></td>
+<td align="left">启动日记记录，使用覆盖记录格式</td>
+</tr>
+</tbody></table>
+<h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>部署网站。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-g</code>, <code>--generate</code></td>
+<td align="left">部署之前预先生成静态文件</td>
+</tr>
+</tbody></table>
+<p>该命令可以简写为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+
+<h2 id="render"><a href="#render" class="headerlink" title="render"></a>render</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
+
+<p>渲染文件。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-o</code>, <code>--output</code></td>
+<td align="left">设置输出路径</td>
+</tr>
+</tbody></table>
+<h2 id="migrate"><a href="#migrate" class="headerlink" title="migrate"></a>migrate</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo migrate &lt;type&gt;</span><br></pre></td></tr></table></figure>
+
+<p>从其他博客系统。</p>
+<h2 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+
+<p>清除缓存文件 (<code>db.json</code>) 和已生成的静态文件 (<code>public</code>)。</p>
+<p>在某些情况特大修改（尤其是更换主题后），需要运行该命令。</p>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo list &lt;type&gt;</span><br></pre></td></tr></table></figure>
+
+<p>列出网站资料。</p>
+<h2 id="version"><a href="#version" class="headerlink" title="version"></a>version</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
+
+<p>显示 Hexo 版本。</p>
+<h2 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h2><h3 id="安全模式"><a href="#安全模式" class="headerlink" title="安全模式"></a>安全模式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo --safe</span><br></pre></td></tr></table></figure>
+
+<p>在安全模式下，不会载入插件和脚本。当您在安装新插件遭遇问题时，可以尝试以安全模式重新执行。</p>
+<h3 id="调试模式"><a href="#调试模式" class="headerlink" title="调试模式"></a>调试模式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo --debug</span><br></pre></td></tr></table></figure>
+
+<p>在终端中显示调试信息并记录到 <code>debug.log</code>。</p>
+<h3 id="简洁模式"><a href="#简洁模式" class="headerlink" title="简洁模式"></a>简洁模式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo --silent</span><br></pre></td></tr></table></figure>
+
+<p>隐藏终端信息。</p>
+<h3 id="自定义配置文件的路径"><a href="#自定义配置文件的路径" class="headerlink" title="自定义配置文件的路径"></a>自定义配置文件的路径</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 使用 custom.yml 代替默认的 _config.yml</span><br><span class="line">$ hexo server --config custom.yml</span><br><span class="line"></span><br><span class="line"># 使用 custom.yml 和 custom2.json，其中 custom2.json 优先级更高</span><br><span class="line">$ hexo generate --config custom.yml,custom2.json,custom3.yml</span><br></pre></td></tr></table></figure>
+
+<p>自定义配置文件的路径，指定这个参数后将不再使用默认的 <code>_config.yml</code>。<br>你可以使用一个 YAML 或 JSON 文件的路径，也可以使用逗号分隔（无空格）的多个 YAML 或 JSON 文件的路径。例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 使用 custom.yml 代替默认的 _config.yml</span><br><span class="line">$ hexo server --config custom.yml</span><br><span class="line"></span><br><span class="line"># 使用 custom.yml, custom2.json 和 custom3.yml，其中 custom3.yml 优先级最高，其次是 custom2.json</span><br><span class="line">$ hexo generate --config custom.yml,custom2.json,custom3.yml</span><br></pre></td></tr></table></figure>
+
+<p>当你指定了多个配置文件以后，Hexo 会按顺序将这部分配置文件合并成一个 <code>_multiconfig.yml</code>。如果遇到重复的配置，排在后面的文件的配置会覆盖排在前面的文件的配置。这个原则适用于任意数量、任意深度的 YAML 和 JSON 文件。</p>
+<h3 id="显示草稿"><a href="#显示草稿" class="headerlink" title="显示草稿"></a>显示草稿</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo --draft</span><br></pre></td></tr></table></figure>
+
+<p>显示 <code>source/_drafts</code> 文件夹中的草稿文章。</p>
+<h3 id="自定义-CWD"><a href="#自定义-CWD" class="headerlink" title="自定义 CWD"></a>自定义 CWD</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo --cwd &#x2F;path&#x2F;to&#x2F;cwd</span><br></pre></td></tr></table></figure>
+
+<p>自定义当前工作目录（Current working directory）的路径。</p>
+]]></content>
+      <tags>
+        <tag>博客生涯</tag>
       </tags>
   </entry>
   <entry>
@@ -1083,7 +1265,8 @@ e.requestAnimationFrame = function () &#123;
 <p>以上查询显示如下结果:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123; &quot;_id&quot; : &quot;mark&quot;, &quot;value&quot; : 4 &#125;</span><br><span class="line">&#123; &quot;_id&quot; : &quot;runoob&quot;, &quot;value&quot; : 1 &#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>redis</tag>
+        <tag>technology</tag>
+        <tag>mongodb</tag>
       </tags>
   </entry>
   <entry>
@@ -1393,6 +1576,7 @@ e.requestAnimationFrame = function () &#123;
 <p>zremrangebyscore a4 5 6</p>
 ]]></content>
       <tags>
+        <tag>technology</tag>
         <tag>redis</tag>
       </tags>
   </entry>
@@ -1416,8 +1600,8 @@ e.requestAnimationFrame = function () &#123;
 <p>（5）、失败回调</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceFallbackProvider implements FallbackProvider &#123;</span><br><span class="line">    @Override</span><br><span class="line">    &#x2F;&#x2F; 指定熔断器功能应用于哪些路由的服务</span><br><span class="line">    public String getRoute() &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里只针对&quot;springbootService&quot;服务进行熔断</span><br><span class="line">        &#x2F;&#x2F; 如果需要针对所有服务熔断，则return &quot;*&quot;</span><br><span class="line">        return &quot;springbootService&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ClientHttpResponse fallbackResponse(String route, Throwable cause) &#123;</span><br><span class="line">        System.out.println(&quot;route:&quot;+route);</span><br><span class="line"></span><br><span class="line">        return new ClientHttpResponse() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public HttpStatus getStatusCode() throws IOException &#123;</span><br><span class="line">                return HttpStatus.OK;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public int getRawStatusCode() throws IOException &#123;</span><br><span class="line">                return 200;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public String getStatusText() throws IOException &#123;</span><br><span class="line">                return &quot;ok&quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void close() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            &#x2F;&#x2F; 发生熔断式，返回的信息</span><br><span class="line">            public InputStream getBody() throws IOException &#123;</span><br><span class="line">                return new ByteArrayInputStream(&quot;Sorry, the service is unavailable now.&quot;.getBytes());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public HttpHeaders getHeaders() &#123;</span><br><span class="line">                HttpHeaders headers &#x3D; new HttpHeaders();</span><br><span class="line">                headers.setContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">                return headers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>SpringCloud</tag>
-        <tag>Zuul</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -1446,7 +1630,8 @@ e.requestAnimationFrame = function () &#123;
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class JsonUtils &#123;</span><br><span class="line"></span><br><span class="line">    public JsonUtils() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String renderString(HttpServletResponse response, Object object) &#123;</span><br><span class="line">        return renderString(response, JsonMapper.toJsonString(object), &quot;application&#x2F;json&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String renderString(HttpServletResponse response, String string, String type) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            response.setContentType(type);</span><br><span class="line">            response.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">            response.getWriter().print(string);</span><br><span class="line">            return null;</span><br><span class="line">        &#125; catch (IOException var4) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>SpringCloud</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -1474,8 +1659,8 @@ e.requestAnimationFrame = function () &#123;
 <p><img src="/assets/resource/springcloud/eureka0.png"></p>
 ]]></content>
       <tags>
-        <tag>SpringCloud</tag>
-        <tag>Eureka</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -1526,8 +1711,8 @@ e.requestAnimationFrame = function () &#123;
 
 ]]></content>
       <tags>
-        <tag>SpringCloud</tag>
-        <tag>Feign</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -1550,8 +1735,8 @@ e.requestAnimationFrame = function () &#123;
 <p>（5）、启动连个生产者提供方法（略去）</p>
 ]]></content>
       <tags>
-        <tag>SpringCloud</tag>
-        <tag>Ribbon</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -1604,7 +1789,8 @@ e.requestAnimationFrame = function () &#123;
 <p><img src="/assets/resource/hadoop/deploy/web2.png"></p>
 ]]></content>
       <tags>
-        <tag>Hadoop</tag>
+        <tag>technology</tag>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
