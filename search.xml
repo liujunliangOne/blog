@@ -77,6 +77,71 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo Github Page搭建个人博客</title>
+    <url>/2020/12/12/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><h3 id="1、hexo介绍"><a href="#1、hexo介绍" class="headerlink" title="1、hexo介绍"></a>1、hexo介绍</h3><blockquote>
+<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页</p>
+</blockquote>
+<h3 id="2、Markdown介绍"><a href="#2、Markdown介绍" class="headerlink" title="2、Markdown介绍"></a>2、Markdown介绍</h3><blockquote>
+<p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="1、github账号创建和git安装"><a href="#1、github账号创建和git安装" class="headerlink" title="1、github账号创建和git安装"></a>1、github账号创建和git安装</h3><blockquote>
+<p>没有github账号，按照流程注册即可<br>创建仓库,命名格式为 yourname.git.io<br>为仓库创建两个分支，master（默认的主分支）用于博客的发布，另外创建一个分支hexo（具体名称自拟吧）用于保存博客项目，为了防止换电脑导致以前的博文丢失的情况，确保记录的同步，并且将自己创建的分支hexo设置为默认分支–settings中可进行设置<br>创建git-pages，一般仓库创建后会自动勾选，此选项可以保证通过已项目名为域名来访问你的博文<br>接下来为保证可以在终端运行git命令，需要安装git</p>
+</blockquote>
+<blockquote>
+<p>git version  //检测是否安装成功</p>
+</blockquote>
+<h3 id="2、nodejs安装"><a href="#2、nodejs安装" class="headerlink" title="2、nodejs安装"></a>2、nodejs安装</h3><blockquote>
+<p>进入<a href="https://nodejs.org/">node.js官网</a>安装，按照导航进行</p>
+</blockquote>
+<blockquote>
+<p>npm -v  //检测nodejs是否安装成功</p>
+<p>若出现 命令未找到 的错误提示，则需要手动的配置环境变量，将nodejs目录配到path目录下。此处选择nodejs版本时尽量选择最新的版本，方便后续选择的主题时候的兼容性。</p>
+</blockquote>
+<h3 id="3-hexo安装"><a href="#3-hexo安装" class="headerlink" title="3.hexo安装"></a>3.hexo安装</h3><blockquote>
+<p>nodejs安装成功后可以使用以下命令安装hexo.</p>
+</blockquote>
+<blockquote>
+<p>npm install hexo -g //安装全局的hexo<br>npm install hexo //在某目录下有效<br>hexo -v //检测是否成功安装</p>
+</blockquote>
+<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>###项目创建</p>
+<blockquote>
+<p>选择一个位置将仓库同步到本地，进入到文件中，打开文件查看选项中的显示影藏文件，可看到至少有一个.git文件（此处将.git文件复制到别处，随后清空仓库项目文件夹，为了后续操作执行–hexo init 的时候需要文件夹为空），同步命令为：</p>
+</blockquote>
+<blockquote>
+<p>git clone  xxx  //复制github仓库路径<br>随后在此目录下（保证此时是空文件夹），打开CMD（shift+鼠标右键），顺序运行：<br> hexo init //初始化项目<br> npm install hexo //安装插件<br> npm install hexo-deployer-git //发布到git上时必要的插件<br>项目初始化后，可以看到如下的目录结构，分别表示为：<br>       .deploy #需要部署的文件<br>       node_modules #Hexo插件<br>       public #生成的静态网页文件<br>       scaffolds #模板<br>       source #博客正文和其他源文件，404、favicon、CNAME 、站点地图都放在这里<br>       _drafts #草稿<br>       _posts #文章<br>       themes #主题<br>       _config.yml #全局配置文件<br>       package.json<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">接下来可以运行命令，创建一篇博文，文章使用的是MarkDown语言，具体语法此处不做介绍</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<pre><code>hexo new &quot;title&quot; //创建指定标题的文章</code></pre>
+<p>文章内容编辑好以后，执行命令：<br>    hexo clean //清除原有记录<br>    hexo g //generate生成html文件<br>    hexo s //server本地运行<br>本地运行以后会实时的对本地文件进行监控，修改后直接刷新浏览器即可看到效果，到此，简单的个人博客已经搭建完成了，接下来可以件博客发布到github上，让网友可以通过你的域名访问个人博客,发布需要的几个步骤：</p>
+</blockquote>
+<ol>
+<li><p>成功安装了发布需要的插件</p>
+<blockquote>
+<p>npm install hexo-deployer-git //发布到git上时必要的插件`</p>
+</blockquote>
+</li>
+<li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
+<blockquote>
+<p>deploy: type: git repo: <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
+</blockquote>
+</li>
+<li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
+<blockquote>
+<p>hexo d</p>
+</blockquote>
+</li>
+<li><p>发布之后可以登录你的域名查看效果</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>博客生涯</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo搭建博客跟随鼠标线条特效</title>
     <url>/2020/12/14/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%BA%BF%E6%9D%A1%E7%89%B9%E6%95%88/</url>
     <content><![CDATA[<p>博客页面鼠标悬停即可展示该特效，操作方式本文以<strong>yilia</strong>主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建鼠标线条特效的后缀为mouseline.js的文件，粘贴js代码如下：<br>  <a id="more"></a></p>
@@ -141,71 +206,6 @@
 <p>hexo s</p>
 </blockquote>
 <p>根据控制台提示，在浏览器执行localhost:4000打开博客后，页面鼠标悬停即可查看线条效果。</p>
-]]></content>
-      <tags>
-        <tag>博客生涯</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo Github Page搭建个人博客</title>
-    <url>/2020/12/12/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><h3 id="1、hexo介绍"><a href="#1、hexo介绍" class="headerlink" title="1、hexo介绍"></a>1、hexo介绍</h3><blockquote>
-<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页</p>
-</blockquote>
-<h3 id="2、Markdown介绍"><a href="#2、Markdown介绍" class="headerlink" title="2、Markdown介绍"></a>2、Markdown介绍</h3><blockquote>
-<p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="1、github账号创建和git安装"><a href="#1、github账号创建和git安装" class="headerlink" title="1、github账号创建和git安装"></a>1、github账号创建和git安装</h3><blockquote>
-<p>没有github账号，按照流程注册即可<br>创建仓库,命名格式为 yourname.git.io<br>为仓库创建两个分支，master（默认的主分支）用于博客的发布，另外创建一个分支hexo（具体名称自拟吧）用于保存博客项目，为了防止换电脑导致以前的博文丢失的情况，确保记录的同步，并且将自己创建的分支hexo设置为默认分支–settings中可进行设置<br>创建git-pages，一般仓库创建后会自动勾选，此选项可以保证通过已项目名为域名来访问你的博文<br>接下来为保证可以在终端运行git命令，需要安装git</p>
-</blockquote>
-<blockquote>
-<p>git version  //检测是否安装成功</p>
-</blockquote>
-<h3 id="2、nodejs安装"><a href="#2、nodejs安装" class="headerlink" title="2、nodejs安装"></a>2、nodejs安装</h3><blockquote>
-<p>进入<a href="https://nodejs.org/">node.js官网</a>安装，按照导航进行</p>
-</blockquote>
-<blockquote>
-<p>npm -v  //检测nodejs是否安装成功</p>
-<p>若出现 命令未找到 的错误提示，则需要手动的配置环境变量，将nodejs目录配到path目录下。此处选择nodejs版本时尽量选择最新的版本，方便后续选择的主题时候的兼容性。</p>
-</blockquote>
-<h3 id="3-hexo安装"><a href="#3-hexo安装" class="headerlink" title="3.hexo安装"></a>3.hexo安装</h3><blockquote>
-<p>nodejs安装成功后可以使用以下命令安装hexo.</p>
-</blockquote>
-<blockquote>
-<p>npm install hexo -g //安装全局的hexo<br>npm install hexo //在某目录下有效<br>hexo -v //检测是否成功安装</p>
-</blockquote>
-<h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>###项目创建</p>
-<blockquote>
-<p>选择一个位置将仓库同步到本地，进入到文件中，打开文件查看选项中的显示影藏文件，可看到至少有一个.git文件（此处将.git文件复制到别处，随后清空仓库项目文件夹，为了后续操作执行–hexo init 的时候需要文件夹为空），同步命令为：</p>
-</blockquote>
-<blockquote>
-<p>git clone  xxx  //复制github仓库路径<br>随后在此目录下（保证此时是空文件夹），打开CMD（shift+鼠标右键），顺序运行：<br> hexo init //初始化项目<br> npm install hexo //安装插件<br> npm install hexo-deployer-git //发布到git上时必要的插件<br>项目初始化后，可以看到如下的目录结构，分别表示为：<br>       .deploy #需要部署的文件<br>       node_modules #Hexo插件<br>       public #生成的静态网页文件<br>       scaffolds #模板<br>       source #博客正文和其他源文件，404、favicon、CNAME 、站点地图都放在这里<br>       _drafts #草稿<br>       _posts #文章<br>       themes #主题<br>       _config.yml #全局配置文件<br>       package.json<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">接下来可以运行命令，创建一篇博文，文章使用的是MarkDown语言，具体语法此处不做介绍</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<pre><code>hexo new &quot;title&quot; //创建指定标题的文章</code></pre>
-<p>文章内容编辑好以后，执行命令：<br>    hexo clean //清除原有记录<br>    hexo g //generate生成html文件<br>    hexo s //server本地运行<br>本地运行以后会实时的对本地文件进行监控，修改后直接刷新浏览器即可看到效果，到此，简单的个人博客已经搭建完成了，接下来可以件博客发布到github上，让网友可以通过你的域名访问个人博客,发布需要的几个步骤：</p>
-</blockquote>
-<ol>
-<li><p>成功安装了发布需要的插件</p>
-<blockquote>
-<p>npm install hexo-deployer-git //发布到git上时必要的插件`</p>
-</blockquote>
-</li>
-<li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
-<blockquote>
-<p>deploy: type: git repo: <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;</a>:yourname/yourname.github.io.git branch: master</p>
-</blockquote>
-</li>
-<li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
-<blockquote>
-<p>hexo d</p>
-</blockquote>
-</li>
-<li><p>发布之后可以登录你的域名查看效果</p>
-</li>
-</ol>
 ]]></content>
       <tags>
         <tag>博客生涯</tag>
@@ -286,38 +286,6 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>Redis-GEO的Java中使用</title>
-    <url>/2020/11/21/Redis-GEO%E7%9A%84Java%E4%B8%AD%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<h2 id="添加坐标"><a href="#添加坐标" class="headerlink" title="添加坐标"></a>添加坐标</h2><p> key ,经度 , 维度 , 距离 ,return m 表示单位为米</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long addReo(String key, double longitude, double latitude, String itemName) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, point, itemName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="批量添加地理位置"><a href="#批量添加地理位置" class="headerlink" title="批量添加地理位置"></a>批量添加地理位置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long geoadd(String key, Map&lt;Object, Point&gt; memberCoordinateMap) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, memberCoordinateMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置获取指定范围内的地理位置集合"><a href="#根据给定地理位置获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置获取指定范围内的地理位置集合"></a>根据给定地理位置获取指定范围内的地理位置集合</h2><p>返回匹配位置的经纬度 + 匹配位置与给定地理位置的距离 + 从近到远排序</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoRadiusResponse&gt; georadiusByMember(String key, String member, double radius) &#123;</span><br><span class="line">    return (List&lt;GeoRadiusResponse&gt;) redisTemplate.getOperations().opsForGeo().geoRadiusByMember(key, member, radius);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置坐标获取指定范围内的地理位置集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置集合"></a>根据给定地理位置坐标获取指定范围内的地理位置集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadius(String key, double longitude, double latitude, double radius) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, Metrics.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置坐标获取指定范围内的地理位置部分集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置部分集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置部分集合"></a>根据给定地理位置坐标获取指定范围内的地理位置部分集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadiusArgs(String key, double longitude, double latitude, double radius, int limit) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, RedisGeoCommands.DistanceUnit.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">      RedisGeoCommands.GeoRadiusCommandArgs args&#x3D; RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().limit(limit).sortAscending();</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询两位置距离"><a href="#查询两位置距离" class="headerlink" title="查询两位置距离"></a>查询两位置距离</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Double geoDist(String key, String member1, String member2, Metrics unit) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoDist(key, member1, member2, unit).getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取地理位置的坐标"><a href="#获取地理位置的坐标" class="headerlink" title="获取地理位置的坐标"></a>获取地理位置的坐标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoCoordinate&gt; geopos(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoPos(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="可以获取某个地理位置的geohash值"><a href="#可以获取某个地理位置的geohash值" class="headerlink" title="可以获取某个地理位置的geohash值"></a>可以获取某个地理位置的geohash值</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;String&gt; geohash(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoHash(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java mongodb 的基本操作</title>
     <url>/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
     <content><![CDATA[<h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</p>
@@ -356,6 +324,38 @@ e.requestAnimationFrame = function () &#123;
         <tag>technology</tag>
         <tag>mongodb</tag>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis-GEO的Java中使用</title>
+    <url>/2020/11/21/Redis-GEO%E7%9A%84Java%E4%B8%AD%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h2 id="添加坐标"><a href="#添加坐标" class="headerlink" title="添加坐标"></a>添加坐标</h2><p> key ,经度 , 维度 , 距离 ,return m 表示单位为米</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long addReo(String key, double longitude, double latitude, String itemName) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, point, itemName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="批量添加地理位置"><a href="#批量添加地理位置" class="headerlink" title="批量添加地理位置"></a>批量添加地理位置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long geoadd(String key, Map&lt;Object, Point&gt; memberCoordinateMap) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, memberCoordinateMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置获取指定范围内的地理位置集合"><a href="#根据给定地理位置获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置获取指定范围内的地理位置集合"></a>根据给定地理位置获取指定范围内的地理位置集合</h2><p>返回匹配位置的经纬度 + 匹配位置与给定地理位置的距离 + 从近到远排序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoRadiusResponse&gt; georadiusByMember(String key, String member, double radius) &#123;</span><br><span class="line">    return (List&lt;GeoRadiusResponse&gt;) redisTemplate.getOperations().opsForGeo().geoRadiusByMember(key, member, radius);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置集合"></a>根据给定地理位置坐标获取指定范围内的地理位置集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadius(String key, double longitude, double latitude, double radius) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, Metrics.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置部分集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置部分集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置部分集合"></a>根据给定地理位置坐标获取指定范围内的地理位置部分集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadiusArgs(String key, double longitude, double latitude, double radius, int limit) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, RedisGeoCommands.DistanceUnit.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">      RedisGeoCommands.GeoRadiusCommandArgs args&#x3D; RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().limit(limit).sortAscending();</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询两位置距离"><a href="#查询两位置距离" class="headerlink" title="查询两位置距离"></a>查询两位置距离</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Double geoDist(String key, String member1, String member2, Metrics unit) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoDist(key, member1, member2, unit).getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取地理位置的坐标"><a href="#获取地理位置的坐标" class="headerlink" title="获取地理位置的坐标"></a>获取地理位置的坐标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoCoordinate&gt; geopos(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoPos(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="可以获取某个地理位置的geohash值"><a href="#可以获取某个地理位置的geohash值" class="headerlink" title="可以获取某个地理位置的geohash值"></a>可以获取某个地理位置的geohash值</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;String&gt; geohash(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoHash(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>redis</tag>
       </tags>
   </entry>
   <entry>
@@ -1878,30 +1878,6 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>道德经第四章之挫锐解纷，和光同尘</title>
-    <url>/2020/12/19/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%B9%8B%E6%8C%AB%E9%94%90%E8%A7%A3%E7%BA%B7%EF%BC%8C%E5%92%8C%E5%85%89%E5%90%8C%E5%B0%98/</url>
-    <content><![CDATA[<p>道冲，而用之或不盈。</p>
-<p>渊兮，似万物之宗。</p>
-<a id="more"></a> 
-
-<p>挫其锐，解其纷，和其光，同其尘。</p>
-<p>湛兮似或存。</p>
-<p>吾不知谁之子，象帝之先。</p>
-<blockquote>
-<p> 译文</p>
-</blockquote>
-<p>“道”本身是虚空无形的，但其作用无穷。</p>
-<p>深远啊，他好像是万物之本源。</p>
-<p>挫去其锋锐，消除弃纷扰，调和其光辉，使它与俗世融合为一体。</p>
-<p>幽深啊，虚无缥缈又真实存在着。</p>
-<p>我不知他是谁孕育而生，应该在造物主之前就存在。</p>
-]]></content>
-      <tags>
-        <tag>阅读</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>道德经第五章之多言数穷，不如守中</title>
     <url>/2020/12/20/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%94%E7%AB%A0%E4%B9%8B%E5%A4%9A%E8%A8%80%E6%95%B0%E7%A9%B7%EF%BC%8C%E4%B8%8D%E5%A6%82%E5%AE%88%E4%B8%AD/</url>
     <content><![CDATA[<p>天地不仁，以万物为刍狗。</p>
@@ -1919,6 +1895,30 @@ e.requestAnimationFrame = function () &#123;
 <p>天地之间，不正像个风箱吗？</p>
 <p>虽然中空但永不穷尽，越鼓动他，产生的能量就越多。</p>
 <p>言辞政令越多，反而会加速国家的败亡，不如保持少言静虚。</p>
+]]></content>
+      <tags>
+        <tag>阅读</tag>
+        <tag>道德经</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>道德经第四章之挫锐解纷，和光同尘</title>
+    <url>/2020/12/19/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%B9%8B%E6%8C%AB%E9%94%90%E8%A7%A3%E7%BA%B7%EF%BC%8C%E5%92%8C%E5%85%89%E5%90%8C%E5%B0%98/</url>
+    <content><![CDATA[<p>道冲，而用之或不盈。</p>
+<p>渊兮，似万物之宗。</p>
+<a id="more"></a> 
+
+<p>挫其锐，解其纷，和其光，同其尘。</p>
+<p>湛兮似或存。</p>
+<p>吾不知谁之子，象帝之先。</p>
+<blockquote>
+<p> 译文</p>
+</blockquote>
+<p>“道”本身是虚空无形的，但其作用无穷。</p>
+<p>深远啊，他好像是万物之本源。</p>
+<p>挫去其锋锐，消除弃纷扰，调和其光辉，使它与俗世融合为一体。</p>
+<p>幽深啊，虚无缥缈又真实存在着。</p>
+<p>我不知他是谁孕育而生，应该在造物主之前就存在。</p>
 ]]></content>
       <tags>
         <tag>阅读</tag>
