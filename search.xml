@@ -125,7 +125,7 @@
 </li>
 <li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
 <blockquote>
-<p>deploy: type: git repo: <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
+<p>deploy: type: git repo: <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:yourname/yourname.github.io.git branch: master</p>
 </blockquote>
 </li>
 <li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
@@ -138,7 +138,8 @@
 </ol>
 ]]></content>
       <tags>
-        <tag>博客生涯</tag>
+        <tag>technology</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -208,7 +209,8 @@
 <p>根据控制台提示，在浏览器执行localhost:4000打开博客后，页面鼠标悬停即可查看线条效果。</p>
 ]]></content>
       <tags>
-        <tag>博客生涯</tag>
+        <tag>technology</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -282,7 +284,8 @@ e.requestAnimationFrame = function () &#123;
 <p>根据控制台提示，在浏览器执行localhost:4000打开博客后，页面内点击鼠标即可查看爱心效果。</p>
 ]]></content>
       <tags>
-        <tag>博客生涯</tag>
+        <tag>technology</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -1192,7 +1195,8 @@ e.requestAnimationFrame = function () &#123;
 <p>自定义当前工作目录（Current working directory）的路径。</p>
 ]]></content>
       <tags>
-        <tag>博客生涯</tag>
+        <tag>technology</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -1818,8 +1822,8 @@ e.requestAnimationFrame = function () &#123;
 <p>这不是一般的深远玄妙，而是深远有深远，玄妙又玄妙，这就是宇宙天地万物之一切奥妙的总门。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -1847,8 +1851,8 @@ e.requestAnimationFrame = function () &#123;
 <p>所以圣人治世，按照“无为”的原则来做事，那么天下也就没有什么治理不好的了。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -1873,8 +1877,8 @@ e.requestAnimationFrame = function () &#123;
 <p>正因为他不居功，所以他的功业才不会失去什么。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -1897,8 +1901,8 @@ e.requestAnimationFrame = function () &#123;
 <p>言辞政令越多，反而会加速国家的败亡，不如保持少言静虚。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -1921,8 +1925,8 @@ e.requestAnimationFrame = function () &#123;
 <p>我不知他是谁孕育而生，应该在造物主之前就存在。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -1945,7 +1949,8 @@ e.requestAnimationFrame = function () &#123;
 </ul>
 ]]></content>
       <tags>
-        <tag>博客生涯</tag>
+        <tag>technology</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -1964,8 +1969,8 @@ e.requestAnimationFrame = function () &#123;
 <p>他就这么存在着，亘古不变，连绵不绝不尽的生育万物，其价值无穷无尽。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -2020,7 +2025,8 @@ e.requestAnimationFrame = function () &#123;
 <p>好好更新博客，不要想太多，水滴石穿，积少成多，你也会得到来自个人博客的第一桶<strong>“$”</strong>。</p>
 ]]></content>
       <tags>
-        <tag>博客生涯</tag>
+        <tag>technology</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -2043,8 +2049,8 @@ e.requestAnimationFrame = function () &#123;
 <p>这不正是因为他无私吗，所以反而成就了自己。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -2069,8 +2075,8 @@ e.requestAnimationFrame = function () &#123;
 <p>唯其有谦卑不争的美德，所以他才不会出现过失错误。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -2159,8 +2165,8 @@ e.requestAnimationFrame = function () &#123;
 <p>功成身退，才是顺应自然的大道，谓之“顺其自然”。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
       </tags>
   </entry>
   <entry>
@@ -2189,8 +2195,47 @@ e.requestAnimationFrame = function () &#123;
 <p>创造万物而不据为己有，养育万物而不自恃有功，居功自傲，成为万物却不主宰万物。</p>
 ]]></content>
       <tags>
-        <tag>阅读</tag>
         <tag>道德经</tag>
+        <tag>read</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>道德经第十一章之有以为利，无以为用</title>
+    <url>/2020/12/29/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E4%B9%8B%E6%9C%89%E4%BB%A5%E4%B8%BA%E5%88%A9%EF%BC%8C%E6%97%A0%E4%BB%A5%E4%B8%BA%E7%94%A8/</url>
+    <content><![CDATA[<p>三十辐共一毂（gu）,</p>
+<p>当其无，有车之用。</p>
+<a id="more"></a>
+<p>埏埴（shanzhi）以为器，</p>
+<p>当其无，有器之用。</p>
+<p>凿户牖（you）以为室,</p>
+<p>当其无，有室之用。</p>
+<p>故有之以为利，无之以为用。</p>
+<blockquote>
+<p>译文</p>
+</blockquote>
+<p>三十根辐条集结到一起为一个车轮，</p>
+<p>正是因为它们能拱成一个圆形的中空的之处，才能连接车轴，成为了车轮来用。</p>
+<p>柔和黏土制成陶器，</p>
+<p>正是因为他留有中间空的部分，才能成就他的用处。</p>
+<p>所以，“有”给人提供方便，“无发挥着作用”，这就是有无相生吧。</p>
+]]></content>
+      <tags>
+        <tag>道德经</tag>
+        <tag>read</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我想写点东西</title>
+    <url>/2020/12/29/%E6%88%91%E6%83%B3%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF/</url>
+    <content><![CDATA[<p>​        我想写点东西，每当想去写点什么，感觉大脑里有很多东西想释放出来，可是拿起笔或者双手放到键盘上，就不知所措了，就无从下手了，还有一丝丝的恐惧。<a id="more"></a>会想到从哪里开始写，有什么思路没，中心思想是什么，写的好不好，写下来的东西有没有质量，会不会被人看到后嘲笑自己，慢慢的自己的惰性、怯意就蔓延起来，内心的OS会发出声音告诉自己“算啦，就这吧！回头再说吧，或者明天再开始”。日复一日，一字都没有保存下来，今天可算催促自己迈出了第一步，相信这不会是最后一步，会坚持下来，就当是每日的日记，给自己的每一天留下点痕迹吧。</p>
+<p>​        回想学生时代拿起笔还能写点东西，那时候最讨厌的就是老师让写作文；后来上了大学拿起笔写点什么的机会就更少了，顶多也就在朋友圈里表达一下；再后来参加工作了，每天忙碌起来，朋友圈也发的少了，感觉大家都比较忙了，朋友们也都每天早出晚归，也都想安安静静的生活吧。自己的生活也慢慢安静了，可能思考的时间也多了吧，总想去写点什么，自己也能感觉到可能我也也写不出来华丽的辞藻，优美的句式，但是良不安分的心、良不服输的心，良狂傲的心，还是想动动手试试，同时也想提高些自己的写作能力，表达能力，给自己留下点什么吧。</p>
+<p>​        接下来会写些什么我自己也不清楚，现在也不知自己所云几何，但是写到这个字的时候，这篇文章已经是五百多字了，感觉还是有点成就感的，毕竟还是把这些文字给堆叠起来了，想说的话给表达出来的，这是我的第一步，也算是今天的一个小小的成功吧。这会我突然想到南宋诗人陆游的一句诗句“文章本天成，妙手偶得之”。好文章可能一直在，不过现在可能我还没练就一双妙手吧，或者还没到那个偶然的一瞬间吧。</p>
+<p>​       其实在今天动手写之前，关于如何去写好一篇文章，我查了些资料。在看资料的过程中，每篇文章在字字过目的过程中，感觉那些老师们是真厉害，写出了那么棒的文章，内心里开始想，他们是怎么想到的这一点，他们是怎么做的这个结构，他们是怎么想到的这个话题，他们是怎么的这些词语，内心着实的佩服，感觉自己这一百多斤弱爆了，怎么这么大的差距，自己好卑微呀，自己什么时候也能像他们那样，妙手捏来皆文章，笔尖挥洒，挥斥方遒。每当想到这些的时候自己就开始羞愧了，怎么好意思写东西，自己能写出那么好吗，你看人家的格式、断句、话题，可望不可即呀，屡屡被暴击，面红耳赤。其实现在细想，这种心态不应该，别人能写出来，自己也能写，慢慢地积累，不积跬步，怎么能至千里。</p>
+<p>​       今天是我的第一步，相信不是最后一步，不求惊艳四方，但求每日记录，留下自己的痕迹，像萤火虫那样，虽然渺小，但也能放肆的发出微弱的光。愿看到此篇有所共鸣，正准备开始做些什么的道友，不要想了，做吧！</p>
+<p>​       </p>
+]]></content>
+      <tags>
+        <tag>diy</tag>
       </tags>
   </entry>
 </search>
