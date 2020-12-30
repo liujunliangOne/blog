@@ -2238,4 +2238,52 @@ e.requestAnimationFrame = function () &#123;
         <tag>diy</tag>
       </tags>
   </entry>
+  <entry>
+    <title>道德经第十二章之圣人之腹，去彼取此</title>
+    <url>/2020/12/30/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E4%B9%8B%E5%9C%A3%E4%BA%BA%E4%B9%8B%E8%85%B9%EF%BC%8C%E5%8E%BB%E5%BD%BC%E5%8F%96%E6%AD%A4/</url>
+    <content><![CDATA[<p>五色令人目盲，</p>
+<p>五音令人耳聋，</p>
+<a id="more"></a>
+<p>五味令人口爽，</p>
+<p>驰骋畋猎，令人心发狂，</p>
+<p>难得之货，令人行妨。</p>
+<p>是以圣人为腹不为目。</p>
+<p>故去彼取此。</p>
+<blockquote>
+<p>译文</p>
+</blockquote>
+<p>五色令人眼花缭乱,</p>
+<p>五音令人耳朵失聪,</p>
+<p>五味令人失去味觉,</p>
+<p>纵情狩猎是人心狂野不羁,</p>
+<p>稀世珍宝使人行为不轨。</p>
+<p>所以圣人只求温饱，而不追求名利和声色之娱。</p>
+<p>所以远离浮华，而去选择简单知足的生活。</p>
+]]></content>
+      <tags>
+        <tag>道德经</tag>
+        <tag>read</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo+yilia主题模版添加版权声明</title>
+    <url>/2020/12/30/hexo-yilia%E4%B8%BB%E9%A2%98%E6%A8%A1%E7%89%88%E6%B7%BB%E5%8A%A0%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/</url>
+    <content><![CDATA[<p>hexo+yilia主题模版添加版权声明</p>
+<a id="more"></a>
+<p>在<code>themes/yilia/layout/_partial/article.ejs</code>文件的指定位置如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%-</span> <span class="attr">post.content</span> %&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">--</span> 在此处添加代码<span class="attr">--</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> ((<span class="attr">theme.reward_type</span> === <span class="string">2</span> || (<span class="attr">theme.reward_type</span> === <span class="string">1</span> &amp;&amp; <span class="attr">post.reward</span>)) &amp;&amp; !<span class="attr">index</span>)&#123; %&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加如下代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- 添加版权声明 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span></span></span><br><span class="line"><span class="tag">  <span class="attr">var</span> <span class="attr">sUrl</span> = <span class="string">url.replace(/index\.html$/,</span> &#x27;&#x27;);</span></span><br><span class="line"><span class="tag">  <span class="attr">sUrl</span> = <span class="string">/^(http:|https:)\/\//.test(sUrl)</span> ? <span class="attr">sUrl</span> <span class="attr">:</span> &#x27;<span class="attr">https:</span>&#x27; + <span class="attr">sUrl</span>;</span></span><br><span class="line"><span class="tag">%&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> ((<span class="attr">theme.declare_type</span> === <span class="string">2</span> || (<span class="attr">theme.declare_type</span> === <span class="string">1</span> &amp;&amp; <span class="attr">post.declare</span>)) &amp;&amp; !<span class="attr">index</span>)&#123; %&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;declare&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">strong</span>&gt;</span>本文作者：<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span>(<span class="attr">config.author</span> != <span class="string">undefined)&#123;</span> %&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">%=</span> <span class="attr">config.author</span>%&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> &#125;<span class="attr">else</span>&#123;%&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">&quot;red&quot;</span>&gt;</span>请在博客根目录“_config.yml”中填入正确的“author”<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%&#125;%</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">strong</span>&gt;</span>本文链接：<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%= config.url %&gt;/&lt;%= post.path %&gt;&quot;</span> <span class="attr">title</span>=<span class="string">&quot;&lt;%= post.title %&gt;&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">config.url</span> %&gt;</span>/<span class="tag">&lt;<span class="name">%=</span> <span class="attr">post.path</span> %&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">strong</span>&gt;</span>版权声明：<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">    本作品采用</span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">&quot;license&quot;</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%= theme.licensee_url%&gt;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">%=</span> <span class="attr">theme.licensee_name</span>%&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    进行许可。转载请注明出处！</span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span>(<span class="attr">theme.licensee_img</span> != <span class="string">undefined)&#123;</span> %&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">&quot;license&quot;</span> <span class="attr">href</span>=<span class="string">&quot;&lt;%= theme.licensee_url%&gt;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;知识共享许可协议&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border-width:0&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&lt;%= theme.licensee_img%&gt;&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; <span class="attr">else</span> &#123;%&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;declare&quot;</span> <span class="attr">hidden</span>=<span class="string">&quot;hidden&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 添加版权声明 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在文件<code>yilia/source/main.0cf68a.css</code>中添加:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*版权声明的样式*/</span></span><br><span class="line"><span class="selector-class">.declare</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#eaeaea</span>;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">3px</span> solid <span class="number">#ff1700</span>;</span><br><span class="line">  <span class="attribute">padding</span>: .<span class="number">5em</span> <span class="number">1em</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在文件<code>themes/yilia/_config.yml</code>中添加：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 版权声明</span></span><br><span class="line"><span class="comment">#在需要进行版权声明的文章的md文件头部，设置属性declare: true。</span></span><br><span class="line"><span class="comment">#版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明</span></span><br><span class="line"><span class="attr">declare_type:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">licensee_url:</span> <span class="string">https://creativecommons.org/licenses/by-nc-sa/4.0/</span>        <span class="comment">#当前应用的版权协议地址。</span></span><br><span class="line"><span class="attr">licensee_name:</span> <span class="string">&#x27;知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议&#x27;</span>        <span class="comment">#版权协议的名称</span></span><br><span class="line"><span class="attr">licensee_img:</span> <span class="string">https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png</span>    <span class="comment">#版权协议的Logo</span></span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>博客搭建</tag>
+      </tags>
+  </entry>
 </search>

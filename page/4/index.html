@@ -78,7 +78,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 42
+        文章总数 44
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -189,6 +189,194 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-windows 下部署hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/25/windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2hadoop/">windows 下部署hadoop</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/25/windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2hadoop/" class="archive-article-date">
+  	<time datetime="2020-09-25T12:14:27.527Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-25</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、下载hadoop-和配置的文件（待定）"><a href="#1、下载hadoop-和配置的文件（待定）" class="headerlink" title="1、下载hadoop 和配置的文件（待定）"></a>1、下载hadoop 和配置的文件（待定）</h2><p>（1）、各种版本<a target="_blank" rel="noopener" href="https://archive.apache.org/dist/hadoop/common/">hadoop</a></p>
+<p>（2）、根据版本进行选择bin的内容进行覆盖（支持windows 运行的工具）将bin目录(包含以下.dll和.exe文件)文件替换原来hadoop目录下的bin目录</p>
+<h2 id="2、-配置hadoop环境变量"><a href="#2、-配置hadoop环境变量" class="headerlink" title="2、 配置hadoop环境变量"></a>2、 配置hadoop环境变量</h2><p>右键单击我的电脑 –&gt;属性 –&gt;高级环境变量配置 –&gt;高级选项卡 –&gt;环境变量 –&gt; 单击新建HADOOP_HOME和编辑环境变量path如下图 </p>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/25/windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2hadoop/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-springcloud之ribbon" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/18/springcloud%E4%B9%8Bribbon/">SpringCloud之Ribbon</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/18/springcloud%E4%B9%8Bribbon/" class="archive-article-date">
+  	<time datetime="2020-09-18T12:04:21.280Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Spring Cloud Ribbon是一个基于HTTP和TCP的客户端负载均衡工具，它基于Netflix Ribbon实现。通过Spring Cloud的封装，可以让我们轻松地将面向服务的REST模版请求自动转换成客户端负载均衡的服务调用。集中式负载均衡。</p>
+<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootConsumerRibbon</span><br><span class="line">server.port&#x3D;6007</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">springcloud</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/18/springcloud%E4%B9%8Bribbon/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
     <article id="post-SpringCloud之Hystrix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -220,11 +408,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -314,11 +503,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -405,11 +595,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -498,11 +689,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -590,11 +782,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -685,11 +878,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -779,11 +973,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -873,11 +1068,12 @@
       
 
       
+	  <!-- 添加版权声明 -->
 	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
     </div>
     <div class="article-info article-info-index">
       
@@ -907,202 +1103,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-Java使用MongoDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/">Java mongodb 的基本操作</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/" class="archive-article-date">
-  	<time datetime="2020-09-07T13:13:47.622Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-07</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</p>
-<p>连接数据库的Java代码如下：</p>
-        
-      
-
-      
-	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-redis 基本操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/29/redis%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">redis 基本操作</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/29/redis%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2020-08-29T01:54:30.918Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-29</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>redis是key-value的数据结构，每条数据都是⼀个键值对</li>
-<li>键的类型是字符串</li>
-<li>注意：键不能重复</li>
-<li>值的类型分为五种：</li>
-<li>字符串string</li>
-<li>哈希hash</li>
-<li>列表list</li>
-<li>集合set</li>
-<li>有序集合zset
-        
-      
-
-      
-	    
-
-  <div class="declare" hidden="hidden"></div>
-
-      <!-- 添加版权声明 -->
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/29/redis%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">展开全文 >></a>
         </p>
       
 
