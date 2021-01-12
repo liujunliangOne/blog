@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hadoop之HDFS</title>
-    <url>/2020/09/25/Hadoop%E4%B9%8BHDFS/</url>
+    <url>/20200925/Hadoop%E4%B9%8BHDFS/</url>
     <content><![CDATA[<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>HDFS <strong>(分布式文件系统)</strong> 是整个hadoop体系的基础，负责数据的存储与管理。HDFS有着高<a href="https://baike.baidu.com/item/%E5%AE%B9%E9%94%99%E6%80%A7/9131391">容错性</a>（fault-tolerant）的特点，并且设计用来部署在低廉的（low-cost）硬件上。而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。</p>
 <a id="more"></a>
 <p>client：切分文件，访问HDFS时，首先与NameNode交互，获取目标文件的位置信息，然后与DataNode交互，读写数据</p>
@@ -39,7 +39,7 @@
   </entry>
   <entry>
     <title>Hadoop入门教程</title>
-    <url>/2020/09/25/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+    <url>/20200925/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
 <p>（1）、HDSF  文件存儲</p>
 <p>（2）、HBASE 非关系型数据库</p>
@@ -78,7 +78,7 @@
   </entry>
   <entry>
     <title>Hexo Github Page搭建个人博客</title>
-    <url>/2020/12/12/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <url>/20201212/Hexo%20Github%20Page%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><h3 id="1、hexo介绍"><a href="#1、hexo介绍" class="headerlink" title="1、hexo介绍"></a>1、hexo介绍</h3><blockquote>
 <p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown解析文章，在几秒内，即可利用靓丽的主题生成静态网页</p>
 </blockquote>
@@ -144,7 +144,7 @@
   </entry>
   <entry>
     <title>Hexo搭建博客跟随鼠标线条特效</title>
-    <url>/2020/12/14/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%BA%BF%E6%9D%A1%E7%89%B9%E6%95%88/</url>
+    <url>/20201214/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%BA%BF%E6%9D%A1%E7%89%B9%E6%95%88/</url>
     <content><![CDATA[<p>博客页面鼠标悬停即可展示该特效，操作方式本文以<strong>yilia</strong>主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建鼠标线条特效的后缀为mouseline.js的文件，粘贴js代码如下：<br>  <a id="more"></a></p>
 <blockquote>
 <p>!function(){</p>
@@ -215,7 +215,7 @@
   </entry>
   <entry>
     <title>Hexo搭建博客鼠标点击爱心特效</title>
-    <url>/2020/12/13/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83%E7%89%B9%E6%95%88/</url>
+    <url>/20201213/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%88%B1%E5%BF%83%E7%89%B9%E6%95%88/</url>
     <content><![CDATA[<p>博客页面点击弹出爱心特效，操作方式本文以<strong>yilia</strong>主题模板为例，在主题文件夹下的source文件夹下是否存在js文件夹，不存在需创建。在js文件夹内创建爱心特效的后缀为click-live.js的文件，粘贴js代码如下：</p>
 <a id="more"></a>
 <blockquote>
@@ -290,7 +290,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>Java mongodb 的基本操作</title>
-    <url>/2020/09/07/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
+    <url>/20200907/Java%E4%BD%BF%E7%94%A8MongoDB/</url>
     <content><![CDATA[<h2 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h2><p>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</p>
 <p>连接数据库的Java代码如下：</p>
 <a id="more"></a>
@@ -331,7 +331,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>Redis-GEO的Java中使用</title>
-    <url>/2020/11/21/Redis-GEO%E7%9A%84Java%E4%B8%AD%E4%BD%BF%E7%94%A8/</url>
+    <url>/20201121/Redis-GEO%E7%9A%84Java%E4%B8%AD%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
@@ -363,7 +363,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud 简单总结</title>
-    <url>/2020/09/13/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/</url>
+    <url>/20200913/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="什么是Spring-cloud"><a href="#什么是Spring-cloud" class="headerlink" title="什么是Spring cloud"></a>什么是Spring cloud</h2><blockquote>
 <p>构建分布式系统不需要复杂和容易出错。Spring Cloud 为最常见的分布式系统模式提供了一种简单且易于接受的编程模型，帮助开发人员构建有弹性的、可靠的、协调的应用程序。Spring Cloud 构建于 Spring Boot 之上，使得开发者很容易入手并快速应用于生产中。</p>
 </blockquote>
@@ -399,7 +399,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud 配置 hystrix-board</title>
-    <url>/2020/09/13/SpringCloud%20%E9%85%8D%E7%BD%AE%20hystrix-board/</url>
+    <url>/20200913/SpringCloud%20%E9%85%8D%E7%BD%AE%20hystrix-board/</url>
     <content><![CDATA[<p>hystrix-board服务监控</p>
 <p>1、创建新项目:hystrixdashboard。在application.properties文件中添加配置文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;hystrixboard</span><br><span class="line">server.port&#x3D;6009</span><br></pre></td></tr></table></figure>
@@ -439,7 +439,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud之Hystrix</title>
-    <url>/2020/09/18/SpringCloud%E4%B9%8BHystrix/</url>
+    <url>/20200918/SpringCloud%E4%B9%8BHystrix/</url>
     <content><![CDATA[<h2 id="Hystrix的请求合并"><a href="#Hystrix的请求合并" class="headerlink" title="Hystrix的请求合并"></a>Hystrix的请求合并</h2><h3 id="1、请求合并"><a href="#1、请求合并" class="headerlink" title="1、请求合并"></a>1、请求合并</h3><p>为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。</p>
 <p>同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置</p>
 <blockquote>
@@ -515,7 +515,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>Spring 常用注解</title>
-    <url>/2020/08/24/Spring%E6%B3%A8%E8%A7%A3/</url>
+    <url>/20200824/Spring%E6%B3%A8%E8%A7%A3/</url>
     <content><![CDATA[<h2 id="Spring部分"><a href="#Spring部分" class="headerlink" title="Spring部分"></a>Spring部分</h2><h3 id="1、声明bean的注解"><a href="#1、声明bean的注解" class="headerlink" title="1、声明bean的注解"></a>1、声明bean的注解</h3><blockquote>
 <p>@Component 组件，没有明确的角色</p>
 </blockquote>
@@ -736,7 +736,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>Windows 下部署RocketMq</title>
-    <url>/2020/09/13/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/</url>
+    <url>/20200913/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/</url>
     <content><![CDATA[<h2 id="1、环境"><a href="#1、环境" class="headerlink" title="1、环境"></a>1、环境</h2><p>Windows系统、JDK1.8、Maven 、Git</p>
 <h2 id="2、RocketMq部署"><a href="#2、RocketMq部署" class="headerlink" title="2、RocketMq部署"></a>2、RocketMq部署</h2><h3 id="2-1、下载："><a href="#2-1、下载：" class="headerlink" title="2.1、下载："></a>2.1、下载：</h3><p><a href="http://rocketmq.apache.org/release_notes/release-notes-4.3.0/">http://rocketmq.apache.org/release_notes/release-notes-4.3.0/</a></p>
 <p><a href="https://github.com/apache/rocketmq-externals.git">https://github.com/apache/rocketmq-externals.git</a></p>
@@ -761,7 +761,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>Zookeeper windows 安装 单机测试</title>
-    <url>/2020/10/19/Zookeeper%20windows%20%E5%AE%89%E8%A3%85%20%E5%8D%95%E6%9C%BA/</url>
+    <url>/20201019/Zookeeper%20windows%20%E5%AE%89%E8%A3%85%20%E5%8D%95%E6%9C%BA/</url>
     <content><![CDATA[<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>zookeeper 下载地址为: <a href="https://zookeeper.apache.org/releases.html">https://zookeeper.apache.org/releases.html</a></p>
 <p>本例使用版本 zookeeper-3.4.14</p>
 <p>1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:</p>
@@ -814,7 +814,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>git的基本操作</title>
-    <url>/2020/12/15/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <url>/20201215/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p>在实际开发中，会使用git作为版本控制工具来完成团队协作，因此，对命令做部分常用操作的归纳总结，方便日常查看使用。</p>
 <a id="more"></a>
 
@@ -889,7 +889,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>Hadoop之MapReduce</title>
-    <url>/2020/09/25/hadoop%E4%B9%8BMapReduce/</url>
+    <url>/20200925/hadoop%E4%B9%8BMapReduce/</url>
     <content><![CDATA[<h2 id="MapReduce简介"><a href="#MapReduce简介" class="headerlink" title="MapReduce简介"></a>MapReduce简介</h2><p>MapReduce <strong>（分布式计算框架）</strong>是一种基于磁盘的分布式并行批处理计算模型，用于处理大数据量的计算。其中Map对应数据集上的独立元素进行指定的操作，生成键-值对形式中间，Reduce则对中间结果中相同的键的所有值进行规约，以得到最终结果。</p>
 <p>Jobtracker：master节点，只有一个，管理所有作业，任务/作业的监控，错误处理等，将任务分解成一系列任务，并分派给Tasktracker。</p>
 <p>Tacktracker：slave节点，运行 Map task和Reduce task；并与Jobtracker交互，汇报任务状态。</p>
@@ -915,7 +915,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>hadoop常用操作命令汇总</title>
-    <url>/2020/09/25/hadoop%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
+    <url>/20200925/hadoop%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
     <content><![CDATA[<h2 id="hadoop常用操作命令汇总"><a href="#hadoop常用操作命令汇总" class="headerlink" title="hadoop常用操作命令汇总"></a>hadoop常用操作命令汇总</h2><p>（1）、列出根目录下所有的目录或文件</p>
 <blockquote>
 <p>hadoop dfs -ls /</p>
@@ -1027,7 +1027,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>hexo 常用指令</title>
-    <url>/2020/12/19/hexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
+    <url>/20201219/hexo-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
     <content><![CDATA[<p>hexo 常用指令<br>在使用hexo 创建博客时，经常的使用的hexo指令,汇总如下。</p>
 <a id="more"></a>
 <h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
@@ -1201,7 +1201,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>hexo 命令</title>
-    <url>/2020/08/22/hexo%E4%BD%BF%E7%94%A8/</url>
+    <url>/20200822/hexo%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <a id="more"></a>
 
@@ -1225,7 +1225,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>mongodb常用的查询及介绍</title>
-    <url>/2020/11/24/mongodb%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/</url>
+    <url>/20201124/mongodb%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/</url>
     <content><![CDATA[<h2 id="ObjectId组成"><a href="#ObjectId组成" class="headerlink" title="ObjectId组成"></a>ObjectId组成</h2><p>ObjectId 是一个12字节 BSON 类型数据，有以下格式：</p>
 <ul>
 <li>前4个字节表示时间戳</li>
@@ -1275,7 +1275,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>redis 基本操作</title>
-    <url>/2020/08/29/redis%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <url>/20200829/redis%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<ul>
 <li>redis是key-value的数据结构，每条数据都是⼀个键值对</li>
 <li>键的类型是字符串</li>
@@ -1586,7 +1586,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud之Zuul</title>
-    <url>/2020/09/18/springcloud%20%E4%B9%8Bzuul/</url>
+    <url>/20200918/springcloud%20%E4%B9%8Bzuul/</url>
     <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribbon结合实现了负载均衡的功能</p>
 <a id="more"></a>
 <h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、pom依赖</p>
@@ -1610,7 +1610,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud之生产者</title>
-    <url>/2020/09/18/springcloud%20%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85/</url>
+    <url>/20200918/springcloud%20%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85/</url>
     <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>生产者为了提供测试方法</p>
 <h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">server.port&#x3D;6001</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
@@ -1640,7 +1640,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud之Eureka</title>
-    <url>/2020/09/18/springcloud%E4%B9%8BEurake/</url>
+    <url>/20200918/springcloud%E4%B9%8BEurake/</url>
     <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -1669,7 +1669,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud之Feign</title>
-    <url>/2020/09/18/springcloud%E4%B9%8Bfeign/</url>
+    <url>/20200918/springcloud%E4%B9%8Bfeign/</url>
     <content><![CDATA[<h4 id="1、-Feign介绍"><a href="#1、-Feign介绍" class="headerlink" title="1、 Feign介绍"></a>1、 Feign介绍</h4><p>Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。</p>
 <h3 id="2、Feign工作原理如下"><a href="#2、Feign工作原理如下" class="headerlink" title="2、Feign工作原理如下"></a>2、Feign工作原理如下</h3><p>（1）、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生成此接口的代理对象</p>
 <p>（2）、@FeignClient(value = “springbootService”, fallback=ServiceFallback.class) 即指定了生产者的服务名称，Feign会从注册中心获取生产者服务列表，并通过负载均衡算法进行服务调用。</p>
@@ -1721,7 +1721,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>SpringCloud之Ribbon</title>
-    <url>/2020/09/18/springcloud%E4%B9%8Bribbon/</url>
+    <url>/20200918/springcloud%E4%B9%8Bribbon/</url>
     <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Spring Cloud Ribbon是一个基于HTTP和TCP的客户端负载均衡工具，它基于Netflix Ribbon实现。通过Spring Cloud的封装，可以让我们轻松地将面向服务的REST模版请求自动转换成客户端负载均衡的服务调用。集中式负载均衡。</p>
 <h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootConsumerRibbon</span><br><span class="line">server.port&#x3D;6007</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
@@ -1745,7 +1745,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>windows 下部署hadoop</title>
-    <url>/2020/09/25/windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2hadoop/</url>
+    <url>/20200925/windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2hadoop/</url>
     <content><![CDATA[<h2 id="1、下载hadoop-和配置的文件（待定）"><a href="#1、下载hadoop-和配置的文件（待定）" class="headerlink" title="1、下载hadoop 和配置的文件（待定）"></a>1、下载hadoop 和配置的文件（待定）</h2><p>（1）、各种版本<a href="https://archive.apache.org/dist/hadoop/common/">hadoop</a></p>
 <p>（2）、根据版本进行选择bin的内容进行覆盖（支持windows 运行的工具）将bin目录(包含以下.dll和.exe文件)文件替换原来hadoop目录下的bin目录</p>
 <h2 id="2、-配置hadoop环境变量"><a href="#2、-配置hadoop环境变量" class="headerlink" title="2、 配置hadoop环境变量"></a>2、 配置hadoop环境变量</h2><p>右键单击我的电脑 –&gt;属性 –&gt;高级环境变量配置 –&gt;高级选项卡 –&gt;环境变量 –&gt; 单击新建HADOOP_HOME和编辑环境变量path如下图 </p>
@@ -1799,7 +1799,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第一章之天地之始，万物之母</title>
-    <url>/2020/12/16/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%B9%8B%E5%A4%A9%E5%9C%B0%E4%B9%8B%E5%A7%8B%EF%BC%8C%E4%B8%87%E7%89%A9%E4%B9%8B%E6%AF%8D/</url>
+    <url>/20201216/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%B9%8B%E5%A4%A9%E5%9C%B0%E4%B9%8B%E5%A7%8B%EF%BC%8C%E4%B8%87%E7%89%A9%E4%B9%8B%E6%AF%8D/</url>
     <content><![CDATA[<p>道可道，非常道；</p>
 <p>名可名，非常名。</p>
 <p>无，名天地之始；</p>
@@ -1828,7 +1828,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第三章之圣人之治，无为而治</title>
-    <url>/2020/12/18/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%89%E7%AB%A0%E4%B9%8B%E5%9C%A3%E4%BA%BA%E4%B9%8B%E6%B2%BB%EF%BC%8C%E6%97%A0%E4%B8%BA%E8%80%8C%E6%B2%BB/</url>
+    <url>/20201218/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%89%E7%AB%A0%E4%B9%8B%E5%9C%A3%E4%BA%BA%E4%B9%8B%E6%B2%BB%EF%BC%8C%E6%97%A0%E4%B8%BA%E8%80%8C%E6%B2%BB/</url>
     <content><![CDATA[<p>不尚贤，使民不争。</p>
 <p>不贵难得之货，使民不为盗。</p>
 <p>不见可欲，使民心不乱。</p>
@@ -1857,7 +1857,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第二章之为而不恃，功成弗居</title>
-    <url>/2020/12/17/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%B9%8B%E4%B8%BA%E8%80%8C%E4%B8%8D%E6%81%83%EF%BC%8C%E5%8A%9F%E6%88%90%E5%BC%97%E5%B1%85/</url>
+    <url>/20201217/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%B9%8B%E4%B8%BA%E8%80%8C%E4%B8%8D%E6%81%83%EF%BC%8C%E5%8A%9F%E6%88%90%E5%BC%97%E5%B1%85/</url>
     <content><![CDATA[<p>天下皆知美之为美，斯恶矣；</p>
 <p>皆知善之为善，斯不善矣。</p>
 <p>故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随，恒也。</p>
@@ -1883,7 +1883,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第五章之多言数穷，不如守中</title>
-    <url>/2020/12/20/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%94%E7%AB%A0%E4%B9%8B%E5%A4%9A%E8%A8%80%E6%95%B0%E7%A9%B7%EF%BC%8C%E4%B8%8D%E5%A6%82%E5%AE%88%E4%B8%AD/</url>
+    <url>/20201220/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%94%E7%AB%A0%E4%B9%8B%E5%A4%9A%E8%A8%80%E6%95%B0%E7%A9%B7%EF%BC%8C%E4%B8%8D%E5%A6%82%E5%AE%88%E4%B8%AD/</url>
     <content><![CDATA[<p>天地不仁，以万物为刍狗。</p>
 <p>圣人不仁，以百姓为刍狗。</p>
 <a id="more"></a>
@@ -1907,7 +1907,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第四章之挫锐解纷，和光同尘</title>
-    <url>/2020/12/19/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%B9%8B%E6%8C%AB%E9%94%90%E8%A7%A3%E7%BA%B7%EF%BC%8C%E5%92%8C%E5%85%89%E5%90%8C%E5%B0%98/</url>
+    <url>/20201219/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%9B%9B%E7%AB%A0%E4%B9%8B%E6%8C%AB%E9%94%90%E8%A7%A3%E7%BA%B7%EF%BC%8C%E5%92%8C%E5%85%89%E5%90%8C%E5%B0%98/</url>
     <content><![CDATA[<p>道冲，而用之或不盈。</p>
 <p>渊兮，似万物之宗。</p>
 <a id="more"></a> 
@@ -1931,7 +1931,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>hexo创建sitemap站点地图</title>
-    <url>/2020/12/21/hexo%E5%88%9B%E5%BB%BAsitemap%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE/</url>
+    <url>/20201221/hexo%E5%88%9B%E5%BB%BAsitemap%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE/</url>
     <content><![CDATA[<p>创建站点地图文件</p>
 <p>站点地图是一种xml文件，通过该文件列出您网站上的网页，从而将您网站内容的组织架构告知Google、百度其他搜索引擎。搜索引擎网页抓取工具会读取此文件，以便更加智能地抓取您的网站，增加网站的曝光度。</p>
 <a id="more"></a>
@@ -1955,7 +1955,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第六章之玄牝之门，谓天地根</title>
-    <url>/2020/12/22/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%85%AD%E7%AB%A0%E4%B9%8B%E7%8E%84%E7%89%9D%E4%B9%8B%E9%97%A8%EF%BC%8C%E8%B0%93%E5%A4%A9%E5%9C%B0%E6%A0%B9/</url>
+    <url>/20201222/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%85%AD%E7%AB%A0%E4%B9%8B%E7%8E%84%E7%89%9D%E4%B9%8B%E9%97%A8%EF%BC%8C%E8%B0%93%E5%A4%A9%E5%9C%B0%E6%A0%B9/</url>
     <content><![CDATA[<p>谷神不死，是谓玄牝。</p>
 <p>玄牝之门，视为天地根。</p>
 <a id="more"></a>
@@ -1975,7 +1975,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>个人博客站点添加谷歌联盟Google Adsense</title>
-    <url>/2020/12/22/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E8%81%94%E7%9B%9FGoogle-Adsense/</url>
+    <url>/20201222/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%AB%99%E7%82%B9%E6%B7%BB%E5%8A%A0%E8%B0%B7%E6%AD%8C%E8%81%94%E7%9B%9FGoogle-Adsense/</url>
     <content><![CDATA[<p>自己通过hexo+github page 自己搭建了个小站，目的是为了平时的工作学习一个积累总结吧。然后通过圈子交流，决定挂个广告，睡后工资算作为副业的一种吧，平时也没怎么在意，只是坚持写自己博客，定时更新吧。</p>
 <a id="more"></a>
 
@@ -2031,7 +2031,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第七章之以其无私，故成其私</title>
-    <url>/2020/12/23/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%8B%E4%BB%A5%E5%85%B6%E6%97%A0%E7%A7%81%EF%BC%8C%E6%95%85%E6%88%90%E5%85%B6%E7%A7%81/</url>
+    <url>/20201223/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%B9%8B%E4%BB%A5%E5%85%B6%E6%97%A0%E7%A7%81%EF%BC%8C%E6%95%85%E6%88%90%E5%85%B6%E7%A7%81/</url>
     <content><![CDATA[<p>天长地久。</p>
 <p>天地所以能长且久者，以其不自生，故能长生。</p>
 <a id="more"></a>
@@ -2055,7 +2055,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第八章之上善若水，不争无尤</title>
-    <url>/2020/12/24/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%85%AB%E7%AB%A0%E4%B9%8B%E4%B8%8A%E5%96%84%E8%8B%A5%E6%B0%B4%EF%BC%8C%E4%B8%8D%E4%BA%89%E6%97%A0%E5%B0%A4/</url>
+    <url>/20201224/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%85%AB%E7%AB%A0%E4%B9%8B%E4%B8%8A%E5%96%84%E8%8B%A5%E6%B0%B4%EF%BC%8C%E4%B8%8D%E4%BA%89%E6%97%A0%E5%B0%A4/</url>
     <content><![CDATA[<p>上善若水。</p>
 <p>水善利万物为不争，</p>
 <a id="more"></a>
@@ -2081,7 +2081,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>百度热力图接口</title>
-    <url>/2020/12/25/%E7%99%BE%E5%BA%A6%E7%83%AD%E5%8A%9B%E5%9B%BE%E6%8E%A5%E5%8F%A3/</url>
+    <url>/20201225/%E7%99%BE%E5%BA%A6%E7%83%AD%E5%8A%9B%E5%9B%BE%E6%8E%A5%E5%8F%A3/</url>
     <content><![CDATA[<p>百度热力图接口，基于百度地图绘制热力图。</p>
 <a id="more"></a>
 
@@ -2092,7 +2092,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>springboot+mybatis-plus+mysql 自动生成数据库表搭建项目</title>
-    <url>/2020/12/26/springboot-mybatis-plus-mysql-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/</url>
+    <url>/20201226/springboot-mybatis-plus-mysql-%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE/</url>
     <content><![CDATA[<p>springboot+mybatis-plus+mysql 自动生成数据库表搭建项目</p>
 <a id="more"></a>
 <p>第一步创建springboot项目</p>
@@ -2147,7 +2147,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第九章之功遂身退，天之道也</title>
-    <url>/2020/12/27/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B9%9D%E7%AB%A0%E4%B9%8B%E5%8A%9F%E9%81%82%E8%BA%AB%E9%80%80%EF%BC%8C%E5%A4%A9%E4%B9%8B%E9%81%93%E4%B9%9F/</url>
+    <url>/20201227/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B9%9D%E7%AB%A0%E4%B9%8B%E5%8A%9F%E9%81%82%E8%BA%AB%E9%80%80%EF%BC%8C%E5%A4%A9%E4%B9%8B%E9%81%93%E4%B9%9F/</url>
     <content><![CDATA[<p>持而盈之，不如其已。</p>
 <p>揣而锐之，不可长保。</p>
 <a id="more"></a>
@@ -2171,7 +2171,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十章之抟气为柔，明白四达</title>
-    <url>/2020/12/28/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E7%AB%A0%E4%B9%8B%E6%8A%9F%E6%B0%94%E4%B8%BA%E6%9F%94%EF%BC%8C%E6%98%8E%E7%99%BD%E5%9B%9B%E8%BE%BE/</url>
+    <url>/20201228/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E7%AB%A0%E4%B9%8B%E6%8A%9F%E6%B0%94%E4%B8%BA%E6%9F%94%EF%BC%8C%E6%98%8E%E7%99%BD%E5%9B%9B%E8%BE%BE/</url>
     <content><![CDATA[<p>载营魄抱一，能无离乎？</p>
 <p>抟气为柔，能如婴儿乎？</p>
 <a id="more"></a>
@@ -2201,7 +2201,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十一章之有以为利，无以为用</title>
-    <url>/2020/12/29/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E4%B9%8B%E6%9C%89%E4%BB%A5%E4%B8%BA%E5%88%A9%EF%BC%8C%E6%97%A0%E4%BB%A5%E4%B8%BA%E7%94%A8/</url>
+    <url>/20201229/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E4%B9%8B%E6%9C%89%E4%BB%A5%E4%B8%BA%E5%88%A9%EF%BC%8C%E6%97%A0%E4%BB%A5%E4%B8%BA%E7%94%A8/</url>
     <content><![CDATA[<p>三十辐共一毂（gu）,</p>
 <p>当其无，有车之用。</p>
 <a id="more"></a>
@@ -2226,7 +2226,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>我想写点东西</title>
-    <url>/2020/12/29/%E6%88%91%E6%83%B3%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF/</url>
+    <url>/20201229/%E6%88%91%E6%83%B3%E5%86%99%E7%82%B9%E4%B8%9C%E8%A5%BF/</url>
     <content><![CDATA[<p>​我想写点东西，每当想去写点什么，感觉大脑里有很多东西想释放出来，可是拿起笔或者双手放到键盘上，就不知所措了，就无从下手了，还有一丝丝的恐惧。<a id="more"></a>会想到从哪里开始写，有什么思路没，中心思想是什么，写的好不好，写下来的东西有没有质量，会不会被人看到后嘲笑自己，慢慢的自己的惰性、怯意就蔓延起来，内心的OS会发出声音告诉自己“算啦，就这吧！回头再说吧，或者明天再开始”。日复一日，一字都没有保存下来，今天可算催促自己迈出了第一步，相信这不会是最后一步，会坚持下来，就当是每日的日记，给自己的每一天留下点痕迹吧。</p>
 <p>​回想学生时代拿起笔还能写点东西，那时候最讨厌的就是老师让写作文；后来上了大学拿起笔写点什么的机会就更少了，顶多也就在朋友圈里表达一下；再后来参加工作了，每天忙碌起来，朋友圈也发的少了，感觉大家都比较忙了，朋友们也都每天早出晚归，也都想安安静静的生活吧。自己的生活也慢慢安静了，可能思考的时间也多了吧，总想去写点什么，自己也能感觉到可能我也也写不出来华丽的辞藻，优美的句式，但是良不安分的心、良不服输的心，良狂傲的心，还是想动动手试试，同时也想提高些自己的写作能力，表达能力，给自己留下点什么吧。</p>
 <p>​接下来会写些什么我自己也不清楚，现在也不知自己所云几何，但是写到这个字的时候，这篇文章已经是五百多字了，感觉还是有点成就感的，毕竟还是把这些文字给堆叠起来了，想说的话给表达出来的，这是我的第一步，也算是今天的一个小小的成功吧。这会我突然想到南宋诗人陆游的一句诗句“文章本天成，妙手偶得之”。好文章可能一直在，不过现在可能我还没练就一双妙手吧，或者还没到那个偶然的一瞬间吧。</p>
@@ -2240,7 +2240,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十二章之圣人之腹，去彼取此</title>
-    <url>/2020/12/30/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E4%B9%8B%E5%9C%A3%E4%BA%BA%E4%B9%8B%E8%85%B9%EF%BC%8C%E5%8E%BB%E5%BD%BC%E5%8F%96%E6%AD%A4/</url>
+    <url>/20201230/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E4%B9%8B%E5%9C%A3%E4%BA%BA%E4%B9%8B%E8%85%B9%EF%BC%8C%E5%8E%BB%E5%BD%BC%E5%8F%96%E6%AD%A4/</url>
     <content><![CDATA[<p>五色令人目盲，</p>
 <p>五音令人耳聋，</p>
 <a id="more"></a>
@@ -2267,7 +2267,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>hexo+yilia主题模版添加版权声明</title>
-    <url>/2020/12/30/hexo-yilia%E4%B8%BB%E9%A2%98%E6%A8%A1%E7%89%88%E6%B7%BB%E5%8A%A0%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/</url>
+    <url>/20201230/hexo-yilia%E4%B8%BB%E9%A2%98%E6%A8%A1%E7%89%88%E6%B7%BB%E5%8A%A0%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E/</url>
     <content><![CDATA[<p>hexo+yilia主题模版添加版权声明</p>
 <a id="more"></a>
 <p>在<code>themes/yilia/layout/_partial/article.ejs</code>文件的指定位置如下：</p>
@@ -2288,7 +2288,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十三章之得之若惊，失之若惊</title>
-    <url>/2020/12/31/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E4%B9%8B%E5%BE%97%E4%B9%8B%E8%8B%A5%E6%83%8A%EF%BC%8C%E5%A4%B1%E4%B9%8B%E8%8B%A5%E6%83%8A/</url>
+    <url>/20201231/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E4%B9%8B%E5%BE%97%E4%B9%8B%E8%8B%A5%E6%83%8A%EF%BC%8C%E5%A4%B1%E4%B9%8B%E8%8B%A5%E6%83%8A/</url>
     <content><![CDATA[<p>宠辱若惊，贵大患若身。</p>
 <p>何谓宠辱若惊？</p>
 <a id="more"></a>
@@ -2320,7 +2320,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十四章之得之执古之道，御今之有</title>
-    <url>/2021/01/01/%E2%80%9C%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E4%B9%8B%E5%BE%97%E4%B9%8B%E6%89%A7%E5%8F%A4%E4%B9%8B%E9%81%93%EF%BC%8C%E5%BE%A1%E4%BB%8A%E4%B9%8B%E6%9C%89/</url>
+    <url>/20210101/%E2%80%9C%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E4%B9%8B%E5%BE%97%E4%B9%8B%E6%89%A7%E5%8F%A4%E4%B9%8B%E9%81%93%EF%BC%8C%E5%BE%A1%E4%BB%8A%E4%B9%8B%E6%9C%89/</url>
     <content><![CDATA[<p>视之不见，名曰夷；</p>
 <p>听之不闻，名曰希；</p>
 <p>搏之不得，名曰微。</p>
@@ -2351,7 +2351,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十五章之微妙玄通，深不可识</title>
-    <url>/2021/01/02/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%E4%B9%8B%E5%BE%AE%E5%A6%99%E7%8E%84%E9%80%9A%EF%BC%8C%E6%B7%B1%E4%B8%8D%E5%8F%AF%E8%AF%86/</url>
+    <url>/20210102/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%E4%B9%8B%E5%BE%AE%E5%A6%99%E7%8E%84%E9%80%9A%EF%BC%8C%E6%B7%B1%E4%B8%8D%E5%8F%AF%E8%AF%86/</url>
     <content><![CDATA[<p>古之善为士者，</p>
 <p>微妙玄通，深不可识。</p>
 <a id="more"></a>
@@ -2396,7 +2396,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十六章之致虚守静，复归其根</title>
-    <url>/2021/01/03/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E4%B9%8B%E8%87%B4%E8%99%9A%E5%AE%88%E9%9D%99%EF%BC%8C%E5%A4%8D%E5%BD%92%E5%85%B6%E6%A0%B9/</url>
+    <url>/20210103/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%E4%B9%8B%E8%87%B4%E8%99%9A%E5%AE%88%E9%9D%99%EF%BC%8C%E5%A4%8D%E5%BD%92%E5%85%B6%E6%A0%B9/</url>
     <content><![CDATA[<p>致虚极，守静笃。</p>
 <p>万物并作，吾以观复。</p>
 <a id="more"></a>
@@ -2430,7 +2430,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十七章之悠兮贵言，功成事遂</title>
-    <url>/2021/01/04/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AB%A0%E4%B9%8B%E6%82%A0%E5%85%AE%E8%B4%B5%E8%A8%80%EF%BC%8C%E5%8A%9F%E6%88%90%E4%BA%8B%E9%81%82/</url>
+    <url>/20210104/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B8%83%E7%AB%A0%E4%B9%8B%E6%82%A0%E5%85%AE%E8%B4%B5%E8%A8%80%EF%BC%8C%E5%8A%9F%E6%88%90%E4%BA%8B%E9%81%82/</url>
     <content><![CDATA[<p>太上，下知有之。</p>
 <p>其次，亲而誉之。</p>
 <a id="more"></a>
@@ -2456,7 +2456,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十九章之见素抱朴，少私寡欲</title>
-    <url>/2021/01/06/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0%E4%B9%8B%E8%A7%81%E7%B4%A0%E6%8A%B1%E6%9C%B4%EF%BC%8C%E5%B0%91%E7%A7%81%E5%AF%A1%E6%AC%B2/</url>
+    <url>/20210106/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0%E4%B9%8B%E8%A7%81%E7%B4%A0%E6%8A%B1%E6%9C%B4%EF%BC%8C%E5%B0%91%E7%A7%81%E5%AF%A1%E6%AC%B2/</url>
     <content><![CDATA[<p>绝圣弃智，民利百倍。</p>
 <p>绝仁弃义，民富孝慈。</p>
 <a id="more"></a>
@@ -2483,7 +2483,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第十八章之道废仁出，慧出大伪</title>
-    <url>/2021/01/05/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AB%A0%E4%B9%8B%E9%81%93%E5%BA%9F%E4%BB%81%E5%87%BA%EF%BC%8C%E6%85%A7%E5%87%BA%E5%A4%A7%E4%BC%AA/</url>
+    <url>/20210105/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E5%8D%81%E5%85%AB%E7%AB%A0%E4%B9%8B%E9%81%93%E5%BA%9F%E4%BB%81%E5%87%BA%EF%BC%8C%E6%85%A7%E5%87%BA%E5%A4%A7%E4%BC%AA/</url>
     <content><![CDATA[<p>大道废，有仁义。</p>
 <p>慧智出，有大伪。</p>
 <a id="more"></a>
@@ -2504,7 +2504,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第二十章之独异于人，而贵食母</title>
-    <url>/2021/01/07/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E7%AB%A0%E4%B9%8B%E7%8B%AC%E5%BC%82%E4%BA%8E%E4%BA%BA%EF%BC%8C%E8%80%8C%E8%B4%B5%E9%A3%9F%E6%AF%8D/</url>
+    <url>/20210107/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E7%AB%A0%E4%B9%8B%E7%8B%AC%E5%BC%82%E4%BA%8E%E4%BA%BA%EF%BC%8C%E8%80%8C%E8%B4%B5%E9%A3%9F%E6%AF%8D/</url>
     <content><![CDATA[<p>唯之一阿，相去几何？</p>
 <p>善之与恶，想去若何?</p>
 <a id="more"></a>
@@ -2550,7 +2550,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第二十一章之孔德之容，惟道是从</title>
-    <url>/2021/01/08/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%80%E7%AB%A0%E4%B9%8B%E5%AD%94%E5%BE%B7%E4%B9%8B%E5%AE%B9%EF%BC%8C%E6%83%9F%E9%81%93%E6%98%AF%E4%BB%8E/</url>
+    <url>/20210108/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%80%E7%AB%A0%E4%B9%8B%E5%AD%94%E5%BE%B7%E4%B9%8B%E5%AE%B9%EF%BC%8C%E6%83%9F%E9%81%93%E6%98%AF%E4%BB%8E/</url>
     <content><![CDATA[<p>孔德之容，惟道是从。</p>
 <p>道之为物，惟恍惟惚。</p>
 <a id="more"></a>
@@ -2581,7 +2581,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第二十三章之同于道者，希言自然</title>
-    <url>/2021/01/10/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%89%E7%AB%A0%E4%B9%8B%E5%90%8C%E4%BA%8E%E9%81%93%E8%80%85%EF%BC%8C%E5%B8%8C%E8%A8%80%E8%87%AA%E7%84%B6/</url>
+    <url>/20210110/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%89%E7%AB%A0%E4%B9%8B%E5%90%8C%E4%BA%8E%E9%81%93%E8%80%85%EF%BC%8C%E5%B8%8C%E8%A8%80%E8%87%AA%E7%84%B6/</url>
     <content><![CDATA[<p>希言自然。</p>
 <p>故飘风不终朝，骤雨不终日。</p>
 <a id="more"></a>
@@ -2611,7 +2611,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第二十二章之夫唯不争，莫与之争</title>
-    <url>/2021/01/09/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%8C%E7%AB%A0%E4%B9%8B%E5%A4%AB%E5%94%AF%E4%B8%8D%E4%BA%89%EF%BC%8C%E8%8E%AB%E4%B8%8E%E4%B9%8B%E4%BA%89/</url>
+    <url>/20210109/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%8C%E7%AB%A0%E4%B9%8B%E5%A4%AB%E5%94%AF%E4%B8%8D%E4%BA%89%EF%BC%8C%E8%8E%AB%E4%B8%8E%E4%B9%8B%E4%BA%89/</url>
     <content><![CDATA[<p>曲则全，</p>
 <p>枉则直，</p>
 <a id="more"></a>
@@ -2652,7 +2652,7 @@ e.requestAnimationFrame = function () &#123;
   </entry>
   <entry>
     <title>道德经第二十四章之企者不立，跨者不行</title>
-    <url>/2021/01/11/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%9B%9B%E7%AB%A0%E4%B9%8B%E4%BC%81%E8%80%85%E4%B8%8D%E7%AB%8B%EF%BC%8C%E8%B7%A8%E8%80%85%E4%B8%8D%E8%A1%8C/</url>
+    <url>/20210111/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%9B%9B%E7%AB%A0%E4%B9%8B%E4%BC%81%E8%80%85%E4%B8%8D%E7%AB%8B%EF%BC%8C%E8%B7%A8%E8%80%85%E4%B8%8D%E8%A1%8C/</url>
     <content><![CDATA[<p>企者不立。</p>
 <p>跨者不行。</p>
 <a id="more"></a>
@@ -2673,6 +2673,33 @@ e.requestAnimationFrame = function () &#123;
 <p>自高自大的人，反而不能取得威信。</p>
 <p>从道的角度讲，以上这些行为可说是：“剩饭赘瘤。”</p>
 <p>谁都厌恶它们，所以有道之人不会这么做。</p>
+]]></content>
+      <tags>
+        <tag>道德经</tag>
+        <tag>read</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>道德经第二十五章之寂兮廖兮，道法自然</title>
+    <url>/20210112/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%94%E7%AB%A0%E4%B9%8B%E5%AF%82%E5%85%AE%E5%BB%96%E5%85%AE%EF%BC%8C%E9%81%93%E6%B3%95%E8%87%AA%E7%84%B6/</url>
+    <content><![CDATA[<p>有物混成，先天地生。</p>
+<p>寂兮廖兮，独立不改，周行而不殆，可以为天地母。</p>
+<a id="more"></a>
+<p>吾不知其名，字之曰道，强为名曰大。</p>
+<p>大曰逝，逝曰远，远曰反。</p>
+<p>故道大，天大，地大，人亦大。</p>
+<p>域中有四大，而人居其一焉。</p>
+<p>人法地，地法天，天法道，道法自然。</p>
+<blockquote>
+<p>译文</p>
+</blockquote>
+<p>有一个浑然一体的东西，在天地形成以前就存在。</p>
+<p>他寂寥无声，独立不移，循环往复，永不衰竭，为万物产生本源。</p>
+<p>我不知道怎么称呼他，只好称之为“道”，并勉强叫它为“大”。</p>
+<p>他广大无边而运行不止，运行不知而伸展深远，伸展深远而重返本源。</p>
+<p>所以说道大、天大、地大、人也大。</p>
+<p>宇宙间有四大，而人为其中之一。</p>
+<p>人效法地，地效法天，天效法道，道效法自然。</p>
 ]]></content>
       <tags>
         <tag>道德经</tag>
