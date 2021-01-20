@@ -78,7 +78,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 64
+        文章总数 65
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -188,6 +188,102 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-hadoop之MapReduce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20200925/hadoop%E4%B9%8BMapReduce/">Hadoop之MapReduce</a>
+    </h1>
+  
+
+        
+        <a href="/20200925/hadoop%E4%B9%8BMapReduce/" class="archive-article-date">
+  	<time datetime="2020-09-25T12:27:12.654Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-25</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MapReduce简介"><a href="#MapReduce简介" class="headerlink" title="MapReduce简介"></a>MapReduce简介</h2><p>MapReduce <strong>（分布式计算框架）</strong>是一种基于磁盘的分布式并行批处理计算模型，用于处理大数据量的计算。其中Map对应数据集上的独立元素进行指定的操作，生成键-值对形式中间，Reduce则对中间结果中相同的键的所有值进行规约，以得到最终结果。</p>
+<p>Jobtracker：master节点，只有一个，管理所有作业，任务/作业的监控，错误处理等，将任务分解成一系列任务，并分派给Tasktracker。</p>
+<p>Tacktracker：slave节点，运行 Map task和Reduce task；并与Jobtracker交互，汇报任务状态。</p>
+<p>Map task：解析每条数据记录，传递给用户编写的map()函数并执行，将输出结果写入到本地磁盘（如果为map—only作业，则直接写入HDFS）。</p>
+<p>Reduce task：从Map 它深刻地执行结果中，远程读取输入数据，对数据进行排序，将数据分组传递给用户编写的Reduce()函数执行。</p>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20200925/hadoop%E4%B9%8BMapReduce/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
   
     <article id="post-windows 下部署hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1008,101 +1104,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/20200913/Spring%20cloud%20%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-Windows 下部署RocketMq" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20200913/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/">Windows 下部署RocketMq</a>
-    </h1>
-  
-
-        
-        <a href="/20200913/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/" class="archive-article-date">
-  	<time datetime="2020-09-13T00:36:34.092Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、环境"><a href="#1、环境" class="headerlink" title="1、环境"></a>1、环境</h2><p>Windows系统、JDK1.8、Maven 、Git</p>
-<h2 id="2、RocketMq部署"><a href="#2、RocketMq部署" class="headerlink" title="2、RocketMq部署"></a>2、RocketMq部署</h2><h3 id="2-1、下载："><a href="#2-1、下载：" class="headerlink" title="2.1、下载："></a>2.1、下载：</h3><p><a target="_blank" rel="noopener" href="http://rocketmq.apache.org/release_notes/release-notes-4.3.0/">http://rocketmq.apache.org/release_notes/release-notes-4.3.0/</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/apache/rocketmq-externals.git">https://github.com/apache/rocketmq-externals.git</a></p>
-<h3 id="2-2、解压release-notes-4-3-0后配置环境变量"><a href="#2-2、解压release-notes-4-3-0后配置环境变量" class="headerlink" title="2.2、解压release-notes-4.3.0后配置环境变量"></a>2.2、解压release-notes-4.3.0后配置环境变量</h3>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rocketmq</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20200913/Windows%20%E4%B8%8B%E9%83%A8%E7%BD%B2RocketMq/">展开全文 >></a>
         </p>
       
 
