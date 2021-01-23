@@ -34,6 +34,8 @@
    <meta name="keywords" content="刘峻良,liujunliang,刘峻良的博客,博客">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
+<link rel="stylesheet" type="text/css" href="/./css/search.css">
+
   <style type="text/css">
   
     #container.show {
@@ -203,6 +205,33 @@
 </nav>
 
       <div id="wrapper" class="body-wrap">
+	  
+<div class="page-header" style="">
+    
+    <span>🍻
+        <span id="jinrishici-sentence" title="今日诗词">正在加载今日诗词....</span>
+    </span>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+ 
+    
+    <script type="text/javascript" src="/js/search.js"></script>
+    <span id="local-search" class="local-search local-search-plugin" style="">
+      <input type="search" placeholder="请搜索关键词" id="local-search-input" class="local-search-input-cls" style="">
+      <i id="local-search-icon-search" class="icon" aria-hidden="true" title="请搜索关键词">🔍</i>
+      <div id="local-search-result" class="local-search-result-cls"></div>
+    </span>
+
+    <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        if ($('.local-search').size()) {
+          $.getScript('/js/search.js', function() {
+            searchFunc("/search.xml", 'local-search-input', 'local-search-result');
+          });
+        }
+    </script>
+    
+</div>
+
         <div class="menu-l">
           <div class="canvas-wrap">
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
@@ -225,7 +254,7 @@
   <div class="archive-article-inner">
     <header class="archive-article-header">
       	<div class="article-meta">
-	      	<a href="/20200824/Spring%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
+	      	<a href="/20200824/70a6ebcd.html" class="archive-article-date">
   	<time datetime="2020-08-24T11:14:01.274Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-24</time>
 </a>
 
@@ -233,7 +262,7 @@
     	 
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/20200824/Spring%E6%B3%A8%E8%A7%A3/">Spring 常用注解</a>
+      <a class="archive-article-title" href="/20200824/70a6ebcd.html">Spring 常用注解</a>
     </h1>
   
 
@@ -291,7 +320,11 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 刘峻良
+    		<!--如果有设置theme.since，并且时间小于当前时间（年份），形式为：@ 2018 - 2019(+作者/标题)；否则默认为当前年份(+作者/标题)。 -->
+    		
+                &copy; 2020-2021
+            
+			刘峻良
     	</div>
       	<div class="footer-right">
       	 GitHub <a href="https://alibroadcast.com" target="_blank">ALiang</a> by Litten
@@ -396,6 +429,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客搭建</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -436,19 +473,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">read</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">道德经</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客搭建</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">diy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">read</a>
               </li>
             
             <div class="clearfix"></div>
