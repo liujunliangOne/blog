@@ -2618,4 +2618,18 @@ e.requestAnimationFrame = function () &#123;
         <tag>read</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java 获取两个时间中间的日期集合</title>
+    <url>/20210123/Java-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E4%B8%AD%E9%97%B4%E7%9A%84%E6%97%A5%E6%9C%9F%E9%9B%86%E5%90%88/</url>
+    <content><![CDATA[<p>Java 获取两个时间中间的日期集合<br>根据两个时间2021-01-05 00:00:00 ，2021-01-12 00:00:00，取出来两个时间的每日字符串日期</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static List&lt;String&gt; getDayBySpace(String beginDate, String endDate) &#123;</span><br><span class="line">    List&lt;String&gt; days &#x3D; new ArrayList&lt;String&gt;();</span><br><span class="line">    Date start &#x3D; format(beginDate);</span><br><span class="line">    Date end &#x3D; format(endDate);</span><br><span class="line">    Calendar tempStart &#x3D; Calendar.getInstance();</span><br><span class="line">    tempStart.setTime(start);</span><br><span class="line">    Calendar tempEnd &#x3D; Calendar.getInstance();</span><br><span class="line">    tempEnd.setTime(end);</span><br><span class="line">    tempEnd.add(Calendar.DATE, +1);&#x2F;&#x2F; 日期加1(包含结束)</span><br><span class="line">    while (tempStart.before(tempEnd)) &#123;</span><br><span class="line">        days.add(format.format(tempStart.getTime()));</span><br><span class="line">        tempStart.add(Calendar.DAY_OF_YEAR, 1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return days;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static SimpleDateFormat format &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>technology</tag>
+      </tags>
+  </entry>
 </search>

@@ -11,20 +11,19 @@
   <meta name="sogou_site_verification" content="ypZXKCtiDw"/>
   <meta name="shenma-site-verification" content="76039c2a3e35f449021385dd42691d2f_1608551885">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>Hadoop入门教程 | 刘峻良</title>
+  <title>Java 获取两个时间中间的日期集合 | 刘峻良</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1 、Hadoop 入门教程 Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (http:&#x2F;&#x2F;hadoop.apache.org&#x2F;) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop">
+  <meta name="description" content="Java 获取两个时间中间的日期集合根据两个时间2021-01-05 00:00:00 ，2021-01-12 00:00:00，取出来两个时间的每日字符串日期">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop入门教程">
-<meta property="og:url" content="https://alibroadcast.com/20200925/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:title" content="Java 获取两个时间中间的日期集合">
+<meta property="og:url" content="https://alibroadcast.com/20210123/Java-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E4%B8%AD%E9%97%B4%E7%9A%84%E6%97%A5%E6%9C%9F%E9%9B%86%E5%90%88/index.html">
 <meta property="og:site_name" content="刘峻良">
-<meta property="og:description" content="1 、Hadoop 入门教程 Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (http:&#x2F;&#x2F;hadoop.apache.org&#x2F;) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop">
+<meta property="og:description" content="Java 获取两个时间中间的日期集合根据两个时间2021-01-05 00:00:00 ，2021-01-12 00:00:00，取出来两个时间的每日字符串日期">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-09-25T12:27:12.667Z">
-<meta property="article:modified_time" content="2020-12-19T07:20:55.580Z">
+<meta property="article:published_time" content="2021-01-23T05:17:31.000Z">
+<meta property="article:modified_time" content="2021-01-23T05:19:18.439Z">
 <meta property="article:author" content="刘峻良">
 <meta property="article:tag" content="technology">
-<meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="刘峻良" type="application/atom+xml">
@@ -34,7 +33,7 @@
   
   
   
-<meta name="keywords" content="Hadoop入门教程,Hadoop,刘峻良,liujunliang,刘峻良的博客,博客">
+<meta name="keywords" content="Java 获取两个时间中间的日期集合,刘峻良,liujunliang,刘峻良的博客,博客">
 
   
   
@@ -197,20 +196,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Hadoop入门教程" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java-获取两个时间中间的日期集合" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hadoop入门教程
+      Java 获取两个时间中间的日期集合
     </h1>
   
 
         
-        <a href="/20200925/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2020-09-25T12:27:12.667Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-25</time>
+        <a href="/20210123/Java-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E4%B8%AD%E9%97%B4%E7%9A%84%E6%97%A5%E6%9C%9F%E9%9B%86%E5%90%88/" class="archive-article-date">
+  	<time datetime="2021-01-23T05:17:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
 </a>
 
         <!-- 不蒜子统计 -->
@@ -223,36 +222,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a target="_blank" rel="noopener" href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
-<p>（1）、HDSF  文件存儲</p>
-<p>（2）、HBASE 非关系型数据库</p>
-<p>（3）、MapReduce 离线计算</p>
-<p>（4）、hive 数据查询</p>
-<p>（5）、spark 内存级别计算</p>
-<p>（6）、stom 实时计算</p>
-<p>（7）、kafka 消息队列</p>
+        <p>Java 获取两个时间中间的日期集合<br>根据两个时间2021-01-05 00:00:00 ，2021-01-12 00:00:00，取出来两个时间的每日字符串日期</p>
 <a id="more"></a>
-<h2 id="1-2-HDFS-文件系统"><a href="#1-2-HDFS-文件系统" class="headerlink" title="1.2 HDFS  文件系统"></a>1.2 HDFS  文件系统</h2><p>HDFS（Hadoop Distributed File System，Hadoop分布式文件系统），它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集（largedata set）的应用程序。</p>
-<p>HDFS的设计特点:</p>
-<p>1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储。</p>
-<p>2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多。</p>
-<p>3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</p>
-<p>4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</p>
-<p>5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</p>
-<p>HDFS的master/slave构架:</p>
-<p>一个HDFS集群是有一个Namenode和一定数目的Datanode组成。Namenode是一个中心服务器，负责管理文件系统的namespace和客户端对文件的访问。Datanode在集群中一般是一个节点一个，负责管理节点上它们附带的存储。在内部，一个文件其实分成一个或多个block，这些block存储在Datanode集合里。Namenode执行文件系统的namespace操作，例如打开、关闭、重命名文件和目录，同时决定block到具体Datanode节点的映射。Datanode在Namenode的指挥下进行block的创建、删除和复制。Namenode和Datanode都是设计成可以跑在普通的廉价的运行linux的机器上。</p>
-<p>HDFS的关键元素:</p>
-<p>1、 Block：将一个文件进行分块，通常是64M。</p>
-<p>2、 NameNode：保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2. 开始支持activity-standy模式—-如果主NameNode失效，启动备用主机运行NameNode。</p>
-<p>3、 DataNode：分布在廉价的计算机上，用于存储Block块文件。</p>
-<h2 id="1-3-MapReduce-文件系统"><a href="#1-3-MapReduce-文件系统" class="headerlink" title="1.3 MapReduce 文件系统"></a>1.3 MapReduce 文件系统</h2><p>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。MapReduce将分成两个部分”Map（映射）”和”Reduce（归约）”。</p>
-<p>当你向MapReduce框架提交一个计算作业时，它会首先把计算作业拆分成若干个Map任务，然后分配到不同的节点上去执行，每一个Map任务处理输入数据中的一部分，当Map任务完成后，它会生成一些中间文件，这些中间文件将会作为Reduce任务的输入数据。Reduce任务的主要目标就是把前面若干个Map的输出汇总到一起并输出。</p>
-<p>步骤1：首先对输入数据源进行切片</p>
-<p>步骤2：master调度worker执行map任务</p>
-<p>步骤3：worker读取输入源片段</p>
-<p>步骤4：worker执行map任务，将任务输出保存在本地</p>
-<p>步骤5：master调度worker执行reduce任务，reduce worker读取map任务的输出文件</p>
-<p>步骤6：执行reduce任务，将任务输出保存到HDFS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;String&gt; getDayBySpace(String beginDate, String endDate) &#123;</span><br><span class="line">    List&lt;String&gt; days &#x3D; new ArrayList&lt;String&gt;();</span><br><span class="line">    Date start &#x3D; format(beginDate);</span><br><span class="line">    Date end &#x3D; format(endDate);</span><br><span class="line">    Calendar tempStart &#x3D; Calendar.getInstance();</span><br><span class="line">    tempStart.setTime(start);</span><br><span class="line">    Calendar tempEnd &#x3D; Calendar.getInstance();</span><br><span class="line">    tempEnd.setTime(end);</span><br><span class="line">    tempEnd.add(Calendar.DATE, +1);&#x2F;&#x2F; 日期加1(包含结束)</span><br><span class="line">    while (tempStart.before(tempEnd)) &#123;</span><br><span class="line">        days.add(format.format(tempStart.getTime()));</span><br><span class="line">        tempStart.add(Calendar.DAY_OF_YEAR, 1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return days;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static SimpleDateFormat format &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -310,10 +285,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -356,7 +327,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/20200925/Hadoop%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/20210123/Java-%E8%8E%B7%E5%8F%96%E4%B8%A4%E4%B8%AA%E6%97%B6%E9%97%B4%E4%B8%AD%E9%97%B4%E7%9A%84%E6%97%A5%E6%9C%9F%E9%9B%86%E5%90%88/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -370,18 +341,9 @@
   
 <nav id="article-nav">
   
-    <a href="/20200925/Hadoop%E4%B9%8BHDFS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hadoop之HDFS
-        
-      </div>
-    </a>
   
-  
-    <a href="/20200925/hadoop%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hadoop常用操作命令汇总</div>
+    <a href="/20210122/%E9%81%93%E5%BE%B7%E7%BB%8F%E7%AC%AC%E4%B8%89%E5%8D%81%E5%9B%9B%E7%AB%A0%E4%B9%8B%E4%B8%8D%E8%87%AA%E4%B8%BA%E5%A4%A7%EF%BC%8C%E6%95%85%E6%88%90%E5%85%B6%E5%A4%A7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">道德经第三十四章之不自为大，故成其大</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -408,7 +370,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E3%80%81Hadoop-%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">1 、Hadoop 入门教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-HDFS-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.2 HDFS  文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-MapReduce-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.</span> <span class="toc-text">1.3 MapReduce 文件系统</span></a></li></ol></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -452,7 +414,7 @@ if(true){
   	repo: 'blog',
   	owner: 'liujunliangOne',
   	admin: ['liujunliangOne'],
-  	id: 'Fri Sep 25 2020 20:27:12 GMT+0800',
+  	id: 'Sat Jan 23 2021 13:17:31 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
