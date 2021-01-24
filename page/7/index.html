@@ -101,7 +101,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 70
+        文章总数 71
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -240,6 +240,101 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-springcloud之feign" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20200918/d9b4a7e3.html">SpringCloud之Feign</a>
+    </h1>
+  
+
+        
+        <a href="/20200918/d9b4a7e3.html" class="archive-article-date">
+  	<time datetime="2020-09-18T12:04:21.264Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1、-Feign介绍"><a href="#1、-Feign介绍" class="headerlink" title="1、 Feign介绍"></a>1、 Feign介绍</h4><p>Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。</p>
+<h3 id="2、Feign工作原理如下"><a href="#2、Feign工作原理如下" class="headerlink" title="2、Feign工作原理如下"></a>2、Feign工作原理如下</h3><p>（1）、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生成此接口的代理对象</p>
+<p>（2）、@FeignClient(value = “springbootService”, fallback=ServiceFallback.class) 即指定了生产者的服务名称，Feign会从注册中心获取生产者服务列表，并通过负载均衡算法进行服务调用。</p>
+<p>（3）、在接口方法 中使用注解@RequestMapping(value = “/service/hello”)，指定调用的url，Feign将根据url进行远程调用。</p>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">springcloud</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20200918/d9b4a7e3.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
   
     <article id="post-springcloud 之zuul" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1107,101 +1202,9 @@
 
 
   
-    <article id="post-hexo使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20200822/6c599cb.html">hexo 命令</a>
-    </h1>
-  
-
-        
-        <a href="/20200822/6c599cb.html" class="archive-article-date">
-  	<time datetime="2020-08-22T05:27:05.393Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-22</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20200822/6c599cb.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+      <a class="extend prev" rel="prev" href="/page/6/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">下一页</a>
     </nav>	
   
 
