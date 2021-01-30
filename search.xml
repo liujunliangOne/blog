@@ -2822,6 +2822,20 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
+    <title>获取任何一年第一天日期和最后一天日期</title>
+    <url>/20210130/5cb6df7b.html</url>
+    <content><![CDATA[<p>根据时间格式，获取任何一年的开始和结束时间。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static SimpleDateFormat formatDYH &#x3D; new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static String getYearFirst(int year) &#123;</span><br><span class="line">    Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">    calendar.clear();</span><br><span class="line">    calendar.set(Calendar.YEAR, year);</span><br><span class="line">    calendar.set(Calendar.HOUR_OF_DAY, 0);</span><br><span class="line">    calendar.set(Calendar.MINUTE, 0);</span><br><span class="line">    calendar.set(Calendar.SECOND, 0);</span><br><span class="line">    calendar.set(Calendar.MILLISECOND, 0);</span><br><span class="line">    Date currYearFirst &#x3D; calendar.getTime();</span><br><span class="line">    String first &#x3D; formatDYH.format(currYearFirst);</span><br><span class="line">    return first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static String getYearLast(int year) &#123;</span><br><span class="line">    Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">    calendar.clear();</span><br><span class="line">    calendar.set(Calendar.YEAR, year);</span><br><span class="line">    calendar.set(Calendar.HOUR_OF_DAY, 23);</span><br><span class="line">    calendar.set(Calendar.MINUTE, 59);</span><br><span class="line">    calendar.set(Calendar.SECOND, 59);</span><br><span class="line">    calendar.set(Calendar.MILLISECOND, 999);</span><br><span class="line">    calendar.roll(Calendar.DAY_OF_YEAR, -1);</span><br><span class="line"></span><br><span class="line">    Date currYearLast &#x3D; calendar.getTime();</span><br><span class="line">    String last &#x3D; formatDYH.format(currYearLast);</span><br><span class="line">    return last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>404 Not Found：该页无法显示</title>
     <url>//404.html</url>
     <content><![CDATA[<!DOCTYPE html>
