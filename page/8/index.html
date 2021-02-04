@@ -101,7 +101,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 81
+        文章总数 82
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -240,6 +240,106 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-SpringCloud之Hystrix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20200918/cf32e034.html">SpringCloud之Hystrix</a>
+    </h1>
+  
+
+        
+        <a href="/20200918/cf32e034.html" class="archive-article-date">
+  	<time datetime="2020-09-18T12:04:21.264Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hystrix的请求合并"><a href="#Hystrix的请求合并" class="headerlink" title="Hystrix的请求合并"></a>Hystrix的请求合并</h2><h3 id="1、请求合并"><a href="#1、请求合并" class="headerlink" title="1、请求合并"></a>1、请求合并</h3><p>为什么要请求合并呢？为了减少线程和网络连接。开发者提供一个接口，实现批量请求。</p>
+<p>同时有利也有弊端，请求合并会导致依赖服务的请求延迟增高，延迟的最大值就是合并时间窗口的大小，默认10ms,也可通过配置</p>
+<blockquote>
+<p>hystrix.collapser.default.timerDelayInMilliseconds</p>
+</blockquote>
+<p>进行修改属性值。</p>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">springcloud</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20200918/cf32e034.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
   
     <article id="post-springcloud之feign" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1095,112 +1195,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/20200829/2d14f3e3.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-Spring注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20200824/70a6ebcd.html">Spring 常用注解</a>
-    </h1>
-  
-
-        
-        <a href="/20200824/70a6ebcd.html" class="archive-article-date">
-  	<time datetime="2020-08-24T11:14:01.274Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-24</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Spring部分"><a href="#Spring部分" class="headerlink" title="Spring部分"></a>Spring部分</h2><h3 id="1、声明bean的注解"><a href="#1、声明bean的注解" class="headerlink" title="1、声明bean的注解"></a>1、声明bean的注解</h3><blockquote>
-<p>@Component 组件，没有明确的角色</p>
-</blockquote>
-<blockquote>
-<p>@Service 在业务逻辑层使用（service层）</p>
-</blockquote>
-<blockquote>
-<p>@Repository 在数据访问层使用（dao层）</p>
-</blockquote>
-<blockquote>
-<p>@Controller 在展现层使用，控制器的声明（C）</p>
-</blockquote>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-			 
-      <!-- 添加公众号 -->
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20200824/70a6ebcd.html">展开全文 >></a>
         </p>
       
 
