@@ -3005,6 +3005,32 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
+    <title>历经四个月，谷歌联盟的PIN码问题终于解决了</title>
+    <url>/20210324/3d342e2e.html</url>
+    <content><![CDATA[<p>历经四个月，谷歌联盟的PIN码问题终于解决了。</p>
+<p>什么是PIN码？其实就是谷歌再给你报酬前的一次地址认证，以邮件的形式发给你，邮件里有一串六位数字就是PIN码。个人觉得这种邮件的方式效率太慢了。</p>
+<a id="more"></a>
+<p>谷歌官方解释：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">为确保您的帐号安全无虞，在向您发放任何付款之前，Google 会要求您先验证地址。地址验证方法具体如下：</span><br><span class="line"></span><br><span class="line">1. 当您的收入达到</span><br><span class="line"></span><br><span class="line">   进行验证所需的最低限额</span><br><span class="line"></span><br><span class="line">   时，我们会将个人识别码（PIN 码）邮寄到您的付款地址。</span><br><span class="line"></span><br><span class="line">   PIN 码通常会在 2 至 4 周内寄达，但也可能需要更长时间，具体取决于您所在的地理位置。</span><br><span class="line"></span><br><span class="line">   **注意**：如果我们要求您验证自己的身份，那么在您成功完成身份验证之前，我们不会给您寄送 PIN 码。</span><br><span class="line"></span><br><span class="line">2. 收到 PIN 码后，请</span><br><span class="line"></span><br><span class="line">   将其输入 AdSense 帐号</span><br><span class="line"></span><br><span class="line">   以验证您的地址。</span><br><span class="line"></span><br><span class="line">   自 PIN 码生成之日算起，您可以在 4 个月内将该码输入帐号。如果您在 4 个月后还未输入该码，我们会停止在您的页面上展示广告。</span><br><span class="line"></span><br><span class="line">   **注意**：PIN 码是指在您的帐号余额达到进行验证所需的最低限额时生成的 6 位数字。PIN 码与发布商 ID 不同。请仅在 PIN 码验证卡片中输入正确的 PIN 码。请勿输入随机数字。如果 PIN 码输错三次，您的帐号将停止展示广告。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我从触发验证账号地址到认证经历了四个多月，谷歌的这个邮件是个平邮 ，没有订单号，只能默默等待，中间去附近邮局还问过，基本查不出来只能等待，就这样来来回回申请了四次，这个邮件石沉大海，一点声音都没，中间给谷歌发邮件但是提示让耐心等待。到第四个月，最后一次机会发送邮件了，心里忐忑，再收不到就要停止展示广告了，等了一个月，中间也搜了相关问题，给谷歌工作人员发邮件，收到的回复都是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">您好！感谢您的回复。</span><br><span class="line"></span><br><span class="line">请访问 [AdSense 帮助中心](https:&#x2F;&#x2F;support.google.com&#x2F;adsense)来解决与帐号有关的其他问题。为更好地获得支持服务，请确保您在尝试解决问题时已登录自己的 Google 帐号。</span><br><span class="line"></span><br><span class="line">为了更便于为您提供帮助，AdSense 在[此处](https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;answer&#x2F;2581949)列出了您可以使用的所有联系方式。</span><br><span class="line"></span><br><span class="line">[帮助中心](https:&#x2F;&#x2F;support.google.com&#x2F;payments)</span><br></pre></td></tr></table></figure>
+
+<p>最后实在没办法了，只能等待，最后在官网终于找到办法了，就是第四次发送后超过一个月还没收到，就可以在线认证地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">您好</span><br><span class="line">在此回覆您的問題</span><br><span class="line"></span><br><span class="line">PIN碼寄發四次之後(已超過30天)還是沒有收到的朋友，請用以下表單連結</span><br><span class="line">(僅開放給中國和台灣發佈商使用，香港發布商如果填對正確地址 一定收得到pin)</span><br><span class="line">AdSense: https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;contact&#x2F;id_verification</span><br><span class="line">AdMob: https:&#x2F;&#x2F;support.google.com&#x2F;admob&#x2F;contact&#x2F;mail_pin_issues</span><br><span class="line"></span><br><span class="line">以上連結經過Google政策組與優化經理再三確認連結無誤可用</span><br><span class="line">請務必先登入有效且正在變現的AdSense&#x2F;AdMob帳戶再開啟對應的連結</span><br><span class="line"></span><br><span class="line">或者透過个人识别码 (PIN)排查工具，進入線上驗證PIN碼的流程</span><br><span class="line">https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;troubleshooter&#x2F;1094206</span><br></pre></td></tr></table></figure>
+
+<p>通过访问地址，按要求填写资料，认证图片我上传的自己的身份证照片，提交后收到谷歌工作人员的提示邮件如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">尊敬的发布商：</span><br><span class="line"></span><br><span class="line">您好！感谢您与 AdSense 支持团队联系。我们已经安排了一位专家来调查您遇到的问题，并将尽快给您答复。</span><br><span class="line"></span><br><span class="line">我们的团队会尽一切努力在两个工作日（周一至周五）内给您答复。但有时我们会比平时更加繁忙，因此如果您未立刻收到我们的回复，请不必担心，也不用就您遇到的问题再次发送邮件。</span><br><span class="line"></span><br><span class="line">在您的问题得到解决后，您可能会收到一份调查问卷，以便您对我们的客户服务进行反馈。反馈意见有助于我们找出需要改进的方面，因此如果您在收到调查问卷后花一点时间填写，我们将不胜感激。</span><br></pre></td></tr></table></figure>
+
+<p>我这边其实没过多久就收到认证通过的邮件了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">您好！</span><br><span class="line"></span><br><span class="line">感谢您发送身份证明。很高兴通知您，该证明符合AdSense的地址验证要求。您将不再需要输入个人识别码。</span><br><span class="line"></span><br><span class="line">为了确保您可以顺利收取AdSense付款，请您查看并完成以下步骤：</span><br><span class="line"></span><br><span class="line">选择付款方式</span><br><span class="line">检查您的余额是否达到付款最低限额</span><br><span class="line">查看我们的付款时间表以了解收到付款的时间</span><br><span class="line">祝您一切顺利！</span><br><span class="line"></span><br><span class="line">此致</span><br><span class="line"></span><br><span class="line">Google AdSense小组敬上</span><br></pre></td></tr></table></figure>
+<p>最后，至此我的谷歌联盟的账号认证就成功了，四个月的期待，最后成功了，心里还是美滋滋的。希望同道的你能有缘看到这篇文章，应该能帮助到你，最后不要心急，你的努力不会辜负你，加油！</p>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>404 Not Found：该页无法显示</title>
     <url>//404.html</url>
     <content><![CDATA[<!DOCTYPE html>
