@@ -11,17 +11,19 @@
   <meta name="sogou_site_verification" content="ypZXKCtiDw"/>
   <meta name="shenma-site-verification" content="76039c2a3e35f449021385dd42691d2f_1608551885">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>Archives: 2021/1 | 码海一粟</title>
+  <title>Spring Boot之jar包改成war包模式 | 码海一粟</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="码海一粟，从事Java软件开发，敲了几年代码，修炼的道路，一颗不服输的心，努力奔跑。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="码海一粟">
-<meta property="og:url" content="https://alibroadcast.com/archives/2021/01/page/3/index.html">
+  <meta name="description" content="Spring Boot之jar包改成war包模式。一般用Springboot 创建项目后运行生成的默认为jar，有时候部署项目需要打包成war ,使用一下步骤即可转变。1、修改pom文件 123&lt;!--&lt;packaging&gt;war&lt;&#x2F;packaging&gt;--&gt; &lt;packaging&gt;jar&lt;&#x2F;packaging&gt;  2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot之jar包改成war包模式">
+<meta property="og:url" content="https://alibroadcast.com/20210328/87e3e338.html">
 <meta property="og:site_name" content="码海一粟">
-<meta property="og:description" content="码海一粟，从事Java软件开发，敲了几年代码，修炼的道路，一颗不服输的心，努力奔跑。">
+<meta property="og:description" content="Spring Boot之jar包改成war包模式。一般用Springboot 创建项目后运行生成的默认为jar，有时候部署项目需要打包成war ,使用一下步骤即可转变。1、修改pom文件 123&lt;!--&lt;packaging&gt;war&lt;&#x2F;packaging&gt;--&gt; &lt;packaging&gt;jar&lt;&#x2F;packaging&gt;  2">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-28T14:21:46.000Z">
+<meta property="article:modified_time" content="2021-03-28T14:28:36.212Z">
 <meta property="article:author" content="码海一粟">
-<meta property="article:tag" content="码海一粟,码海一粟的博客,博客">
+<meta property="article:tag" content="technology">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="码海一粟" type="application/atom+xml">
@@ -31,7 +33,7 @@
   
   
   
-   <meta name="keywords" content="码海一粟,码海一粟的博客,博客">
+     <meta name="keywords" content="Spring Boot之jar包改成war包模式,码海一粟,码海一粟的博客,博客">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
 <link rel="stylesheet" type="text/css" href="/./css/search.css">
@@ -239,460 +241,222 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Spring-Boot之jar包改成war包模式" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Boot之jar包改成war包模式
+    </h1>
+  
+
+        
+        <a href="/20210328/87e3e338.html" class="archive-article-date">
+  	<time datetime="2021-03-28T14:21:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-28</time>
+</a>
+
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Spring Boot之jar包改成war包模式。一般用Springboot 创建项目后运行生成的默认为jar，有时候部署项目需要打包成war ,使用一下步骤即可转变。<br>1、修改pom文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--&lt;packaging&gt;war&lt;&#x2F;packaging&gt;--&gt; </span><br><span class="line"></span><br><span class="line">&lt;packaging&gt;jar&lt;&#x2F;packaging&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、如果没有web.xml 需要增加该配置</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;failOnMissingWebXml&gt;false&lt;&#x2F;failOnMissingWebXml&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3、修改依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;exclusions&gt;</span><br><span class="line">        &lt;exclusion&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-tomcat&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;exclusion&gt;</span><br><span class="line">    &lt;&#x2F;exclusions&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-tomcat&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;scope&gt;provided&lt;&#x2F;scope&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.tomcat&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;tomcat-servlet-api&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;7.0.42&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;scope&gt;provided&lt;&#x2F;scope&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4、配置war包名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;finalName&gt;aicheng&lt;&#x2F;finalName&gt;</span><br><span class="line">  &lt;&#x2F;build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>5、主方法继承SpringBootServletInitializer</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class AichengApplication extends SpringBootServletInitializer &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) &#123;</span><br><span class="line">        return application.sources(TestApplication.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(TestApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6、执行maven 生成war</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+         <div class="declare">
+           <strong>请关注我的微信公众号“爱程”</strong>
+           <br>
+           <br>
+           <a><img alt="个人公众号" style="border-width:0" src="/assets/img/qrcode_gh.png"/></a>		   
+         </div>
+       
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210113/bc01ec51.html" class="archive-article-date">
-  	<time datetime="2021-01-13T14:17:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-13</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210113/bc01ec51.html">道德经第二十六章之轻则失根，躁则失君</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/20210328/87e3e338.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210112/d21a1cb2.html" class="archive-article-date">
-  	<time datetime="2021-01-12T14:31:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-12</time>
-</a>
 
+  
+<nav id="article-nav">
+  
+  
+    <a href="/20210324/3d342e2e.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">历经四个月，谷歌联盟的PIN码问题终于解决了</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210112/d21a1cb2.html">道德经第二十五章之寂兮廖兮，道法自然</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210111/101c1992.html" class="archive-article-date">
-  	<time datetime="2021-01-11T14:06:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-11</time>
-</a>
+        
+    </div>
+</aside>
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210111/101c1992.html">道德经第二十四章之企者不立，跨者不行</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210110/dbab5d1e.html" class="archive-article-date">
-  	<time datetime="2021-01-10T14:13:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-10</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210110/dbab5d1e.html">道德经第二十三章之同于道者，希言自然</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210109/8990cc0f.html" class="archive-article-date">
-  	<time datetime="2021-01-09T14:02:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-09</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210109/8990cc0f.html">道德经第二十二章之夫唯不争，莫与之争</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210108/5208fbe2.html" class="archive-article-date">
-  	<time datetime="2021-01-08T13:44:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-08</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210108/5208fbe2.html">道德经第二十一章之孔德之容，惟道是从</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210107/b1406943.html" class="archive-article-date">
-  	<time datetime="2021-01-07T13:32:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-07</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210107/b1406943.html">道德经第二十章之独异于人，而贵食母</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210106/e8b46c18.html" class="archive-article-date">
-  	<time datetime="2021-01-06T13:08:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210106/e8b46c18.html">道德经第十九章之见素抱朴，少私寡欲</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210105/9d3566ed.html" class="archive-article-date">
-  	<time datetime="2021-01-05T12:59:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-05</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210105/9d3566ed.html">道德经第十八章之道废仁出，慧出大伪</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210104/a9d251fb.html" class="archive-article-date">
-  	<time datetime="2021-01-04T12:52:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-04</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210104/a9d251fb.html">道德经第十七章之悠兮贵言，功成事遂</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">read</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">道德经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/01/page/2/">上一页</a><a class="page-number" href="/archives/2021/01/">1</a><a class="page-number" href="/archives/2021/01/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/2021/01/page/4/">4</a><a class="extend next" rel="next" href="/archives/2021/01/page/4/">下一页</a>
-    </nav>	
-	
   
 
-
- <!-- newsdetail -->
+  
+  
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<!-- newsdetail -->
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-1303628385911689"
@@ -702,6 +466,34 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2f513189b9b4b5da5670',
+  	clientSecret: '0bd1e7728dce6728fdcb39a2a961c223df68c0f0',
+  	repo: 'blog',
+  	owner: 'liujunliangOne',
+  	admin: ['liujunliangOne'],
+  	id: 'Sun Mar 28 2021 22:21:46 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
+  
+
+  
+
+
+
+
           </div>
         </div>
       </div>
@@ -739,8 +531,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
