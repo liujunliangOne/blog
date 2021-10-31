@@ -11,20 +11,20 @@
   <meta name="sogou_site_verification" content="ypZXKCtiDw"/>
   <meta name="shenma-site-verification" content="76039c2a3e35f449021385dd42691d2f_1608551885">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>hexo 命令 | 码海一粟</title>
+  <title>在Docker中安装Java | 码海一粟</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="所有的环境安装，都是在centos系统中操作的，并非本地windows系统。 查看 docker 中是否已经存在 java jdk 镜像：docker images 如果本地还没有，则可以进行搜索 Docker Hub 服务器上的镜像：docker search java，其中的 “docker.io&#x2F;java” 是 Oracle 的 java jdk ，也是平时本地开发时安装的 jdk，建议就安">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo 命令">
-<meta property="og:url" content="https://alibroadcast.com/20200822/6c599cb.html">
+<meta property="og:title" content="在Docker中安装Java">
+<meta property="og:url" content="https://alibroadcast.com/20211031/7fc0372c.html">
 <meta property="og:site_name" content="码海一粟">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="所有的环境安装，都是在centos系统中操作的，并非本地windows系统。 查看 docker 中是否已经存在 java jdk 镜像：docker images 如果本地还没有，则可以进行搜索 Docker Hub 服务器上的镜像：docker search java，其中的 “docker.io&#x2F;java” 是 Oracle 的 java jdk ，也是平时本地开发时安装的 jdk，建议就安">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-22T05:27:05.393Z">
-<meta property="article:modified_time" content="2021-01-23T08:37:31.811Z">
+<meta property="article:published_time" content="2021-10-31T04:44:34.000Z">
+<meta property="article:modified_time" content="2021-10-31T04:46:35.783Z">
 <meta property="article:author" content="码海一粟">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="yilia">
+<meta property="article:tag" content="technology">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="码海一粟" type="application/atom+xml">
@@ -34,7 +34,7 @@
   
   
   
-     <meta name="keywords" content="hexo 命令,码海一粟,码海一粟的博客,博客">
+     <meta name="keywords" content="在Docker中安装Java,docker,码海一粟,码海一粟的博客,博客">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
 <link rel="stylesheet" type="text/css" href="/./css/search.css">
@@ -236,20 +236,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hexo使用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-在Docker中安装Java" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      hexo 命令
+      在Docker中安装Java
     </h1>
   
 
         
-        <a href="/20200822/6c599cb.html" class="archive-article-date">
-  	<time datetime="2020-08-22T05:27:05.393Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-22</time>
+        <a href="/20211031/7fc0372c.html" class="archive-article-date">
+  	<time datetime="2021-10-31T04:44:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-31</time>
 </a>
 
         <!-- 不蒜子统计 -->
@@ -262,21 +262,61 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+        <p>所有的环境安装，都是在centos系统中操作的，并非本地windows系统。</p>
+<p>查看 docker 中是否已经存在 java jdk 镜像：docker images</p>
+<p>如果本地还没有，则可以进行搜索 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub </a>服务器上的镜像：docker search java，其中的 <a target="_blank" rel="noopener" href="https://hub.docker.com/_/oracle-jdk">“docker.io/java” </a>是 Oracle 的 java jdk ，也是平时本地开发时安装的 jdk，建议就安装它.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">下载 oracle 官方 java jdk 镜像：</span><br><span class="line"></span><br><span class="line">docker pull docker.io&#x2F;java:8，不指定版本时，默认下载最新版本，docker pull docker.io&#x2F;java</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+<p>默认是从Docker Hub官方的仓库中下载镜像的。如果没有指定对应的版本，默认会获取版本为latest的镜像。</p>
+<p>注意：</p>
+<p>latest是针对于镜像所在的仓库里面的软件最新版本。并非是软件本身的最新发布版本。</p>
+<h2 id="查看-Docker-Java-JDK-版本"><a href="#查看-Docker-Java-JDK-版本" class="headerlink" title="查看 Docker Java JDK 版本"></a>查看 Docker Java JDK 版本</h2><p>1、查看本地下载好的镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>2、查看容器列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>​    -a：表示包含停止运行的容器</p>
+<p>3、运行 java jdk 容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name java-jdk8 -d docker.io&#x2F;java:8</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>​    -i：以交互模式运行容器，通常与 -t 同时使用<br>​    -t：为容器重新分配一个伪输入终端，通常与 -i 同时使用<br>​    –name：自定义容器名<br>​    -d：表示后台运行<br>​    docker.io/java:8：指定运行的镜像名称，根据自己实际情况填写，也可以是 image id</p>
+<p>4、再次查看当前运行的容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>5、进入容器并执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it java-jdk8 &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<p>6、进入容器后，查看 java jdk 版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p>7、退出容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>8、启动容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start java-jdk8</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行jar包"><a href="#运行jar包" class="headerlink" title="运行jar包"></a>运行jar包</h2><p>docker 运行jar包日志存入指定文件中</p>
+<p>上传jar到服务器的指定目录</p>
+<p>在该目录下创建Dockerfile 文件</p>
+<p>  vi Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM java:8</span><br><span class="line">MAINTAINER LIU</span><br><span class="line">ADD api.jar  lt.jar</span><br><span class="line">expose 8088</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,lt.jar]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>  from java:8   拉取一个jdk为1.8的docker image<br>  maintainer  作者是LIU<br>  api.jar 就是你上传的jar包，替换为jar包的名称<br>  lt.jar  是你将该jar包重新命名为什么名称，在容器中运行<br>  expose  该容器暴露的端口是多少，就是jar在容器中以多少端口运行<br>  entrypoint 容器启动之后执行的命令，java -jar lt.jar  即启动jar</p>
+<p>创建好Dockerfile文件之后，执行命令 构建镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t my&#x2F;lt .</span><br></pre></td></tr></table></figure>
+
+<p>注意最后的 .  表示 Dockerfile 文件在当前目录下</p>
+<p>  my/demo  构建之后镜像名称</p>
+<p> 镜像构建成功之后，就可以运行容器了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name lt -p 8080:8080 my&#x2F;lt  </span><br><span class="line">或者</span><br><span class="line">docker run -d --restart&#x3D;always --name lt -p 8080:8080 my&#x2F;lt   这个表示docker容器停止和重启后自动重启jar</span><br></pre></td></tr></table></figure>
+
+<p>.然后docker ps 看看你的容器有没有在运行即可 </p>
+<p> docker logs –tail  300 -f  demo  查看启动日志 </p>
+<p>另： 如果docker run 的时候没有加 –restart=always ，然后已经运行的docker容器怎么设置自动重启？ 执行下面命令：</p>
+<p>  docker update –-restart=always lt  </p>
+<p> lt  : 你的容器名称</p>
 
       
 
@@ -335,11 +375,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
         		</li>
       		
 		</ul>
@@ -383,7 +423,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/20200822/6c599cb.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/20211031/7fc0372c.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -397,15 +437,11 @@
   
 <nav id="article-nav">
   
-    <a href="/20200824/70a6ebcd.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spring 常用注解
-        
-      </div>
-    </a>
   
+    <a href="/20211031/214eea17.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker的使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -430,7 +466,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-Docker-Java-JDK-%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">查看 Docker Java JDK 版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8Cjar%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">运行jar包</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -474,7 +510,7 @@ if(true){
   	repo: 'blog',
   	owner: 'liujunliangOne',
   	admin: ['liujunliangOne'],
-  	id: 'Sat Aug 22 2020 13:27:05 GMT+0800',
+  	id: 'Sun Oct 31 2021 12:44:34 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 

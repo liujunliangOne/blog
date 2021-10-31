@@ -99,7 +99,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 39
+        文章总数 41
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -234,6 +234,208 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-mongodb常用的查询语句" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20201124/1ad206fb.html">mongodb常用的查询及介绍</a>
+    </h1>
+  
+
+        
+        <a href="/20201124/1ad206fb.html" class="archive-article-date">
+  	<time datetime="2020-11-24T10:36:23.922Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-24</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ObjectId组成"><a href="#ObjectId组成" class="headerlink" title="ObjectId组成"></a>ObjectId组成</h2><p>ObjectId 是一个12字节 BSON 类型数据，有以下格式：</p>
+<ul>
+<li>前4个字节表示时间戳</li>
+<li>接下来的3个字节是机器标识码</li>
+<li>紧接的两个字节由进程id组成（PID）</li>
+<li>最后三个字节是随机数。</li>
+</ul>
+<p>MongoDB中存储的文档必须有一个”_id”键。这个键的值可以是任何类型的，默认是个ObjectId对象。</p>
+<p>在一个集合里面，每个文档都有唯一的”_id”值，来确保集合里面每个文档都能被唯一标识。</p>
+<p>MongoDB采用ObjectId，而不是其他比较常规的做法（比如自动增加的主键）的主要原因，因为在多个 服务器上同步自动增加主键值既费力还费时。</p>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20201124/1ad206fb.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-Redis-GEO的Java中使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20201121/ac4ae06.html">Redis-GEO的Java中使用</a>
+    </h1>
+  
+
+        
+        <a href="/20201121/ac4ae06.html" class="archive-article-date">
+  	<time datetime="2020-11-21T03:44:07.638Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-21</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20201121/ac4ae06.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
   
     <article id="post-Zookeeper windows 安装 单机" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1033,204 +1235,9 @@
 
 
   
-    <article id="post-springcloud之feign" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20200918/d9b4a7e3.html">SpringCloud之Feign</a>
-    </h1>
-  
-
-        
-        <a href="/20200918/d9b4a7e3.html" class="archive-article-date">
-  	<time datetime="2020-09-18T12:04:21.264Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1、-Feign介绍"><a href="#1、-Feign介绍" class="headerlink" title="1、 Feign介绍"></a>1、 Feign介绍</h4><p>Feign是Netflix公司开源的轻量级rest客户端，使用Feign可以非常方便的实现Http 客户端，省去了RestTemplate。Spring Cloud引入Feign并且集成了Ribbon实现客户端负载均衡调用。</p>
-<h3 id="2、Feign工作原理如下"><a href="#2、Feign工作原理如下" class="headerlink" title="2、Feign工作原理如下"></a>2、Feign工作原理如下</h3><p>（1）、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生成此接口的代理对象</p>
-<p>（2）、@FeignClient(value = “springbootService”, fallback=ServiceFallback.class) 即指定了生产者的服务名称，Feign会从注册中心获取生产者服务列表，并通过负载均衡算法进行服务调用。</p>
-<p>（3）、在接口方法 中使用注解@RequestMapping(value = “/service/hello”)，指定调用的url，Feign将根据url进行远程调用。</p>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-			 
-      <!-- 添加公众号 -->
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">springcloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20200918/d9b4a7e3.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-springcloud 之生产者" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20200918/b4e206d4.html">SpringCloud之生产者</a>
-    </h1>
-  
-
-        
-        <a href="/20200918/b4e206d4.html" class="archive-article-date">
-  	<time datetime="2020-09-18T12:04:21.248Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-18</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>生产者为了提供测试方法</p>
-<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">server.port&#x3D;6001</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-			 
-      <!-- 添加公众号 -->
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">springcloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20200918/b4e206d4.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
     </nav>	
   
 
@@ -1406,6 +1413,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">diy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
             
             <div class="clearfix"></div>

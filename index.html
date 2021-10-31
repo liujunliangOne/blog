@@ -99,7 +99,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 39
+        文章总数 41
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -234,6 +234,199 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-在Docker中安装Java" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20211031/7fc0372c.html">在Docker中安装Java</a>
+    </h1>
+  
+
+        
+        <a href="/20211031/7fc0372c.html" class="archive-article-date">
+  	<time datetime="2021-10-31T04:44:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-31</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>所有的环境安装，都是在centos系统中操作的，并非本地windows系统。</p>
+<p>查看 docker 中是否已经存在 java jdk 镜像：docker images</p>
+<p>如果本地还没有，则可以进行搜索 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub </a>服务器上的镜像：docker search java，其中的 <a target="_blank" rel="noopener" href="https://hub.docker.com/_/oracle-jdk">“docker.io/java” </a>是 Oracle 的 java jdk ，也是平时本地开发时安装的 jdk，建议就安装它.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">下载 oracle 官方 java jdk 镜像：</span><br><span class="line"></span><br><span class="line">docker pull docker.io&#x2F;java:8，不指定版本时，默认下载最新版本，docker pull docker.io&#x2F;java</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20211031/7fc0372c.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-docker的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20211031/214eea17.html">docker的使用</a>
+    </h1>
+  
+
+        
+        <a href="/20211031/214eea17.html" class="archive-article-date">
+  	<time datetime="2021-10-31T04:40:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-31</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker run ubuntu:15.10 &#x2F;bin&#x2F;echo &quot;Hello world&quot;</span><br><span class="line">Hello world</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20211031/214eea17.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
   
     <article id="post-Spring-Boot之jar包改成war包模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -973,191 +1166,9 @@
 
 
   
-    <article id="post-我想写点东西" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20201229/5eb2fbf4.html">我想写点东西</a>
-    </h1>
-  
-
-        
-        <a href="/20201229/5eb2fbf4.html" class="archive-article-date">
-  	<time datetime="2020-12-28T23:32:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-29</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​我想写点东西，每当想去写点什么，感觉大脑里有很多东西想释放出来，可是拿起笔或者双手放到键盘上，就不知所措了，就无从下手了，还有一丝丝的恐惧。
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-			 
-      <!-- 添加公众号 -->
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">diy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20201229/5eb2fbf4.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-springboot-mybatis-plus-mysql-自动生成数据库表搭建项目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20201226/a9bc42f.html">springboot+mybatis-plus+mysql 自动生成数据库表搭建项目</a>
-    </h1>
-  
-
-        
-        <a href="/20201226/a9bc42f.html" class="archive-article-date">
-  	<time datetime="2020-12-26T00:30:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-26</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>springboot+mybatis-plus+mysql 自动生成数据库表搭建项目</p>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-			 
-      <!-- 添加公众号 -->
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20201226/a9bc42f.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
     </nav>	
   
 
@@ -1333,6 +1344,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">diy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
             
             <div class="clearfix"></div>
