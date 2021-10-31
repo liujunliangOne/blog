@@ -38,6 +38,45 @@
       </tags>
   </entry>
   <entry>
+    <title>Hadoop入门教程</title>
+    <url>/20200925/5230e215.html</url>
+    <content><![CDATA[<h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
+<p>（1）、HDSF  文件存儲</p>
+<p>（2）、HBASE 非关系型数据库</p>
+<p>（3）、MapReduce 离线计算</p>
+<p>（4）、hive 数据查询</p>
+<p>（5）、spark 内存级别计算</p>
+<p>（6）、stom 实时计算</p>
+<p>（7）、kafka 消息队列</p>
+<a id="more"></a>
+<h2 id="1-2-HDFS-文件系统"><a href="#1-2-HDFS-文件系统" class="headerlink" title="1.2 HDFS  文件系统"></a>1.2 HDFS  文件系统</h2><p>HDFS（Hadoop Distributed File System，Hadoop分布式文件系统），它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集（largedata set）的应用程序。</p>
+<p>HDFS的设计特点:</p>
+<p>1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储。</p>
+<p>2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多。</p>
+<p>3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</p>
+<p>4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</p>
+<p>5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</p>
+<p>HDFS的master/slave构架:</p>
+<p>一个HDFS集群是有一个Namenode和一定数目的Datanode组成。Namenode是一个中心服务器，负责管理文件系统的namespace和客户端对文件的访问。Datanode在集群中一般是一个节点一个，负责管理节点上它们附带的存储。在内部，一个文件其实分成一个或多个block，这些block存储在Datanode集合里。Namenode执行文件系统的namespace操作，例如打开、关闭、重命名文件和目录，同时决定block到具体Datanode节点的映射。Datanode在Namenode的指挥下进行block的创建、删除和复制。Namenode和Datanode都是设计成可以跑在普通的廉价的运行linux的机器上。</p>
+<p>HDFS的关键元素:</p>
+<p>1、 Block：将一个文件进行分块，通常是64M。</p>
+<p>2、 NameNode：保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2. 开始支持activity-standy模式—-如果主NameNode失效，启动备用主机运行NameNode。</p>
+<p>3、 DataNode：分布在廉价的计算机上，用于存储Block块文件。</p>
+<h2 id="1-3-MapReduce-文件系统"><a href="#1-3-MapReduce-文件系统" class="headerlink" title="1.3 MapReduce 文件系统"></a>1.3 MapReduce 文件系统</h2><p>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。MapReduce将分成两个部分”Map（映射）”和”Reduce（归约）”。</p>
+<p>当你向MapReduce框架提交一个计算作业时，它会首先把计算作业拆分成若干个Map任务，然后分配到不同的节点上去执行，每一个Map任务处理输入数据中的一部分，当Map任务完成后，它会生成一些中间文件，这些中间文件将会作为Reduce任务的输入数据。Reduce任务的主要目标就是把前面若干个Map的输出汇总到一起并输出。</p>
+<p>步骤1：首先对输入数据源进行切片</p>
+<p>步骤2：master调度worker执行map任务</p>
+<p>步骤3：worker读取输入源片段</p>
+<p>步骤4：worker执行map任务，将任务输出保存在本地</p>
+<p>步骤5：master调度worker执行reduce任务，reduce worker读取map任务的输出文件</p>
+<p>步骤6：执行reduce任务，将任务输出保存到HDFS</p>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo Github Page搭建个人博客</title>
     <url>/20201212/3e726f87.html</url>
     <content><![CDATA[<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><h3 id="1、hexo介绍"><a href="#1、hexo介绍" class="headerlink" title="1、hexo介绍"></a>1、hexo介绍</h3><blockquote>
@@ -86,7 +125,7 @@
 </li>
 <li><p>在博客项目根目录下的_config.yml中进行如下配置：</p>
 <blockquote>
-<p>deploy: type: git repo: <a href="mailto:&#x67;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#99;&#x6f;&#109;">&#x67;&#105;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#99;&#x6f;&#109;</a>:yourname/yourname.github.io.git branch: master</p>
+<p>deploy: type: git repo: <a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#64;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;</a>:yourname/yourname.github.io.git branch: master</p>
 </blockquote>
 </li>
 <li><p>执行发布命令，首次可能需要输入github的用户名和密码</p>
@@ -101,45 +140,6 @@
       <tags>
         <tag>technology</tag>
         <tag>博客搭建</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hadoop入门教程</title>
-    <url>/20200925/5230e215.html</url>
-    <content><![CDATA[<h1 id="1-、Hadoop-入门教程"><a href="#1-、Hadoop-入门教程" class="headerlink" title="1 、Hadoop 入门教程"></a>1 、Hadoop 入门教程</h1><p> Hadoop 是 Apache 开源组织的一个分布式计算开源框架 (<a href="http://hadoop.apache.org/">http://hadoop.apache.org/</a>) ，用 java 语言实现开源软件框架，实现在大量计算机组成的集群中对海量数据进行分布式计算。Hadoop 框架中最核心设计就是：HDFS 和 MapReduce ，HDFS 实现存储，而MapReduce实现原理分析处理，这两部分是 hadoop 的核心。数据在 Hadoop 中处理的流程可以简单的按照下图来理解：数据通过 Haddop 的集群处理后得到结果，它是一个高性能处理海量数据集的工具 。</p>
-<p>（1）、HDSF  文件存儲</p>
-<p>（2）、HBASE 非关系型数据库</p>
-<p>（3）、MapReduce 离线计算</p>
-<p>（4）、hive 数据查询</p>
-<p>（5）、spark 内存级别计算</p>
-<p>（6）、stom 实时计算</p>
-<p>（7）、kafka 消息队列</p>
-<a id="more"></a>
-<h2 id="1-2-HDFS-文件系统"><a href="#1-2-HDFS-文件系统" class="headerlink" title="1.2 HDFS  文件系统"></a>1.2 HDFS  文件系统</h2><p>HDFS（Hadoop Distributed File System，Hadoop分布式文件系统），它是一个高度容错性的系统，适合部署在廉价的机器上。HDFS能提供高吞吐量的数据访问，适合那些有着超大数据集（largedata set）的应用程序。</p>
-<p>HDFS的设计特点:</p>
-<p>1、大数据文件，非常适合上T级别的大文件或者一堆大数据文件的存储。</p>
-<p>2、文件分块存储，HDFS会将一个完整的大文件平均分块存储到不同计算器上，它的意义在于读取文件时可以同时从多个主机取不同区块的文件，多主机读取比单主机读取效率要高得多。</p>
-<p>3、流式数据访问，一次写入多次读写，这种模式跟传统文件不同，它不支持动态改变文件内容，而是要求让文件一次写入就不做变化，要变化也只能在文件末添加内容。</p>
-<p>4、廉价硬件，HDFS可以应用在普通PC机上，这种机制能够让给一些公司用几十台廉价的计算机就可以撑起一个大数据集群。</p>
-<p>5、硬件故障，HDFS认为所有计算机都可能会出问题，为了防止某个主机失效读取不到该主机的块文件，它将同一个文件块副本分配到其它某几个主机上，如果其中一台主机失效，可以迅速找另一块副本取文件。</p>
-<p>HDFS的master/slave构架:</p>
-<p>一个HDFS集群是有一个Namenode和一定数目的Datanode组成。Namenode是一个中心服务器，负责管理文件系统的namespace和客户端对文件的访问。Datanode在集群中一般是一个节点一个，负责管理节点上它们附带的存储。在内部，一个文件其实分成一个或多个block，这些block存储在Datanode集合里。Namenode执行文件系统的namespace操作，例如打开、关闭、重命名文件和目录，同时决定block到具体Datanode节点的映射。Datanode在Namenode的指挥下进行block的创建、删除和复制。Namenode和Datanode都是设计成可以跑在普通的廉价的运行linux的机器上。</p>
-<p>HDFS的关键元素:</p>
-<p>1、 Block：将一个文件进行分块，通常是64M。</p>
-<p>2、 NameNode：保存整个文件系统的目录信息、文件信息及分块信息，这是由唯一一台主机专门保存，当然这台主机如果出错，NameNode就失效了。在Hadoop2. 开始支持activity-standy模式—-如果主NameNode失效，启动备用主机运行NameNode。</p>
-<p>3、 DataNode：分布在廉价的计算机上，用于存储Block块文件。</p>
-<h2 id="1-3-MapReduce-文件系统"><a href="#1-3-MapReduce-文件系统" class="headerlink" title="1.3 MapReduce 文件系统"></a>1.3 MapReduce 文件系统</h2><p>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。MapReduce将分成两个部分”Map（映射）”和”Reduce（归约）”。</p>
-<p>当你向MapReduce框架提交一个计算作业时，它会首先把计算作业拆分成若干个Map任务，然后分配到不同的节点上去执行，每一个Map任务处理输入数据中的一部分，当Map任务完成后，它会生成一些中间文件，这些中间文件将会作为Reduce任务的输入数据。Reduce任务的主要目标就是把前面若干个Map的输出汇总到一起并输出。</p>
-<p>步骤1：首先对输入数据源进行切片</p>
-<p>步骤2：master调度worker执行map任务</p>
-<p>步骤3：worker读取输入源片段</p>
-<p>步骤4：worker执行map任务，将任务输出保存在本地</p>
-<p>步骤5：master调度worker执行reduce任务，reduce worker读取map任务的输出文件</p>
-<p>步骤6：执行reduce任务，将任务输出保存到HDFS</p>
-]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -344,38 +344,6 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>Redis-GEO的Java中使用</title>
-    <url>/20201121/ac4ae06.html</url>
-    <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<h2 id="添加坐标"><a href="#添加坐标" class="headerlink" title="添加坐标"></a>添加坐标</h2><p> key ,经度 , 维度 , 距离 ,return m 表示单位为米</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long addReo(String key, double longitude, double latitude, String itemName) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, point, itemName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="批量添加地理位置"><a href="#批量添加地理位置" class="headerlink" title="批量添加地理位置"></a>批量添加地理位置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long geoadd(String key, Map&lt;Object, Point&gt; memberCoordinateMap) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, memberCoordinateMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置获取指定范围内的地理位置集合"><a href="#根据给定地理位置获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置获取指定范围内的地理位置集合"></a>根据给定地理位置获取指定范围内的地理位置集合</h2><p>返回匹配位置的经纬度 + 匹配位置与给定地理位置的距离 + 从近到远排序</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoRadiusResponse&gt; georadiusByMember(String key, String member, double radius) &#123;</span><br><span class="line">    return (List&lt;GeoRadiusResponse&gt;) redisTemplate.getOperations().opsForGeo().geoRadiusByMember(key, member, radius);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置坐标获取指定范围内的地理位置集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置集合"></a>根据给定地理位置坐标获取指定范围内的地理位置集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadius(String key, double longitude, double latitude, double radius) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, Metrics.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="根据给定地理位置坐标获取指定范围内的地理位置部分集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置部分集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置部分集合"></a>根据给定地理位置坐标获取指定范围内的地理位置部分集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadiusArgs(String key, double longitude, double latitude, double radius, int limit) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, RedisGeoCommands.DistanceUnit.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">      RedisGeoCommands.GeoRadiusCommandArgs args&#x3D; RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().limit(limit).sortAscending();</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询两位置距离"><a href="#查询两位置距离" class="headerlink" title="查询两位置距离"></a>查询两位置距离</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Double geoDist(String key, String member1, String member2, Metrics unit) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoDist(key, member1, member2, unit).getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取地理位置的坐标"><a href="#获取地理位置的坐标" class="headerlink" title="获取地理位置的坐标"></a>获取地理位置的坐标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoCoordinate&gt; geopos(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoPos(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="可以获取某个地理位置的geohash值"><a href="#可以获取某个地理位置的geohash值" class="headerlink" title="可以获取某个地理位置的geohash值"></a>可以获取某个地理位置的geohash值</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;String&gt; geohash(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoHash(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringCloud 简单总结</title>
     <url>/20200913/b8fbd54f.html</url>
     <content><![CDATA[<h2 id="什么是Spring-cloud"><a href="#什么是Spring-cloud" class="headerlink" title="什么是Spring cloud"></a>什么是Spring cloud</h2><blockquote>
@@ -412,6 +380,38 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
+    <title>Redis-GEO的Java中使用</title>
+    <url>/20201121/ac4ae06.html</url>
+    <content><![CDATA[<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;redis.clients&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;jedis&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.9.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;stringRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.StringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;jsonRedisSerializer&quot; class&#x3D;&quot;org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">系统内进行使用，hash key使用generic，value使用jdk进行序列化</span><br><span class="line"></span><br><span class="line">&lt;!-- redis template definition --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplate&quot;</span><br><span class="line">      class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot; primary&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;hashKeySerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;statisticsRedisTemplate&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id&#x3D;&quot;redisTemplateSecond&quot; class&#x3D;&quot;org.springframework.data.redis.core.RedisTemplate&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;connectionFactory&quot; ref&#x3D;&quot;jedisConnFactory&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;keySerializer&quot; ref&#x3D;&quot;stringRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;valueSerializer&quot; ref&#x3D;&quot;jsonRedisSerializer&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h2 id="添加坐标"><a href="#添加坐标" class="headerlink" title="添加坐标"></a>添加坐标</h2><p> key ,经度 , 维度 , 距离 ,return m 表示单位为米</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long addReo(String key, double longitude, double latitude, String itemName) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, point, itemName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="批量添加地理位置"><a href="#批量添加地理位置" class="headerlink" title="批量添加地理位置"></a>批量添加地理位置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Long geoadd(String key, Map&lt;Object, Point&gt; memberCoordinateMap) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoAdd(key, memberCoordinateMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置获取指定范围内的地理位置集合"><a href="#根据给定地理位置获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置获取指定范围内的地理位置集合"></a>根据给定地理位置获取指定范围内的地理位置集合</h2><p>返回匹配位置的经纬度 + 匹配位置与给定地理位置的距离 + 从近到远排序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoRadiusResponse&gt; georadiusByMember(String key, String member, double radius) &#123;</span><br><span class="line">    return (List&lt;GeoRadiusResponse&gt;) redisTemplate.getOperations().opsForGeo().geoRadiusByMember(key, member, radius);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置集合"></a>根据给定地理位置坐标获取指定范围内的地理位置集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadius(String key, double longitude, double latitude, double radius) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, Metrics.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据给定地理位置坐标获取指定范围内的地理位置部分集合"><a href="#根据给定地理位置坐标获取指定范围内的地理位置部分集合" class="headerlink" title="根据给定地理位置坐标获取指定范围内的地理位置部分集合"></a>根据给定地理位置坐标获取指定范围内的地理位置部分集合</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public GeoResults geoRadiusArgs(String key, double longitude, double latitude, double radius, int limit) &#123;</span><br><span class="line">    Point point &#x3D; new Point(longitude, latitude);</span><br><span class="line">    Distance distance &#x3D; new Distance(radius, RedisGeoCommands.DistanceUnit.KILOMETERS);</span><br><span class="line">    Circle circle &#x3D; new Circle(point, distance);</span><br><span class="line">      RedisGeoCommands.GeoRadiusCommandArgs args&#x3D; RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().includeCoordinates().limit(limit).sortAscending();</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoRadius(key, circle, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询两位置距离"><a href="#查询两位置距离" class="headerlink" title="查询两位置距离"></a>查询两位置距离</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Double geoDist(String key, String member1, String member2, Metrics unit) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoDist(key, member1, member2, unit).getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取地理位置的坐标"><a href="#获取地理位置的坐标" class="headerlink" title="获取地理位置的坐标"></a>获取地理位置的坐标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;GeoCoordinate&gt; geopos(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoPos(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="可以获取某个地理位置的geohash值"><a href="#可以获取某个地理位置的geohash值" class="headerlink" title="可以获取某个地理位置的geohash值"></a>可以获取某个地理位置的geohash值</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;String&gt; geohash(String key, String... members) &#123;</span><br><span class="line">    return redisTemplate.getOperations().opsForGeo().geoHash(key, members);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Boot之jar包改成war包模式</title>
     <url>/20210328/87e3e338.html</url>
     <content><![CDATA[<p>Spring Boot之jar包改成war包模式。一般用Springboot 创建项目后运行生成的默认为jar，有时候部署项目需要打包成war ,使用一下步骤即可转变。<br>1、修改pom文件</p>
@@ -434,46 +434,6 @@ e.requestAnimationFrame = function () &#123;
 ]]></content>
       <tags>
         <tag>technology</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringCloud 配置 hystrix-board</title>
-    <url>/20200913/e88ea648.html</url>
-    <content><![CDATA[<p>hystrix-board服务监控</p>
-<p>1、创建新项目:hystrixdashboard。在application.properties文件中添加配置文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;hystrixboard</span><br><span class="line">server.port&#x3D;6009</span><br></pre></td></tr></table></figure>
-
-<p>2、在pom文件中添加依赖</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix-dashboard&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>3、配置servlet</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;</span><br><span class="line">import org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">@Component</span><br><span class="line">public class config &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public ServletRegistrationBean getServlet() &#123;</span><br><span class="line">        HystrixMetricsStreamServlet streamServlet &#x3D; new HystrixMetricsStreamServlet();</span><br><span class="line">        ServletRegistrationBean registrationBean &#x3D; new ServletRegistrationBean(streamServlet);</span><br><span class="line">        registrationBean.setLoadOnStartup(1);</span><br><span class="line">        registrationBean.addUrlMappings(&quot;&#x2F;hystrix.stream&quot;);</span><br><span class="line">        registrationBean.setName(&quot;HystrixMetricsStreamServlet&quot;);</span><br><span class="line">        return registrationBean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>4、在主方法入口添加注解</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@EnableHystrixDashboard</span><br></pre></td></tr></table></figure>
-
-<p>5、在消费者主方法入口添加注解 同时添加依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@EnableCircuitBreaker</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.hystrix&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hystrix-javanica&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>6、启动项目浏览器输入网址</p>
-<blockquote>
-<p><a href="http://localhost:6009/hystrix">http://localhost:6009/hystrix</a></p>
-</blockquote>
-<p><img src="/assets/resource/springcloud/hystrix.png"></p>
-<p>7、输入消费者地址</p>
-<blockquote>
-<p><a href="http://localhost:6004/hystrix.stream">http://localhost:6004/hystrix.stream</a></p>
-</blockquote>
-<p><img src="/assets/resource/springcloud/hystrix2.png"></p>
-]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -799,56 +759,118 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>Zookeeper windows 安装 单机测试</title>
-    <url>/20201019/e8d2e74.html</url>
-    <content><![CDATA[<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>zookeeper 下载地址为: <a href="https://zookeeper.apache.org/releases.html">https://zookeeper.apache.org/releases.html</a></p>
-<p>本例使用版本 zookeeper-3.4.14</p>
-<p>1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:</p>
-<p><img src="/assets/resource/zookeeper/1.png"></p>
+    <title>git的基本操作</title>
+    <url>/20201215/45d3ebe2.html</url>
+    <content><![CDATA[<p>在实际开发中，会使用git作为版本控制工具来完成团队协作，因此，对命令做部分常用操作的归纳总结，方便日常查看使用。</p>
 <a id="more"></a>
 
-<p>2、在安装目录下面新建一个空的 data 文件夹和 log 文件夹:</p>
-<p><img src="/assets/resource/zookeeper/2.png"></p>
-<p>3、修改 zoo.cfg 配置文件，将 dataDir=/tmp/zookeeper 修改成 zookeeper 安装目录所在的 data 文件夹，再添加一条添加数据日志的配置(需要根据自己的安装路径修改)。</p>
-<p><img src="/assets/resource/zookeeper/3.png"></p>
-<p>4、双击 bin目录下zkServer.cmd 启动程序:控制台显示 <strong>bind to port 0.0.0.0/0.0.0.0:2181</strong>，表示服务端启动成功!</p>
-<p><img src="/assets/resource/zookeeper/4.png"></p>
-<p>5、双击 bin目录下zkCli.cmd 启动客户端</p>
-<p><img src="/assets/resource/zookeeper/5.png"></p>
-<h2 id="二、-Java连接测试"><a href="#二、-Java连接测试" class="headerlink" title="二、 Java连接测试"></a>二、 Java连接测试</h2><p>使用的 IDE 为 IntelliJ IDEA，创建一个 maven 工程，命名为 zookeeper-demo，并且引入如下依赖，可以自行在maven中央仓库选择合适的版本，介绍原生 API 和 Curator 两种方式。</p>
-<p>1、依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.11&lt;&#x2F;version&gt;</span><br><span class="line">  &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.zookeeper&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;zookeeper&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;3.4.8&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.curator&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;curator-framework&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.0.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.curator&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;curator-recipes&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.0.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>2、客户端的 zookeeper 原生 API</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class ConnectionDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            final CountDownLatch countDownLatch &#x3D; new CountDownLatch(1);</span><br><span class="line">            ZooKeeper zooKeeper &#x3D;</span><br><span class="line">                    new ZooKeeper(&quot;127.0.0.1:2181&quot;,</span><br><span class="line">                            4000, new Watcher() &#123;</span><br><span class="line">                        @Override</span><br><span class="line">                        public void process(WatchedEvent event) &#123;</span><br><span class="line">                            if (Event.KeeperState.SyncConnected &#x3D;&#x3D; event.getState()) &#123;</span><br><span class="line">                                &#x2F;&#x2F;如果收到了服务端的响应事件，连接成功</span><br><span class="line">                                countDownLatch.countDown();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">            &#x2F;&#x2F; countDownLatch.await();</span><br><span class="line">            &#x2F;&#x2F;CONNECTED</span><br><span class="line">           &#x2F;&#x2F; zooKeeper.create(&quot;&#x2F;runoob&quot;,&quot;0&quot;.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);</span><br><span class="line">            System.out.println(zooKeeper.getState());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>控制台输出 connected 显示连接成功!</p>
-<p>log4j:WARN No appenders could be found for logger (org.apache.zookeeper.ZooKeeper).<br>log4j:WARN Please initialize the log4j system properly.<br>log4j:WARN See <a href="http://logging.apache.org/log4j/1.2/faq.html#noconfig">http://logging.apache.org/log4j/1.2/faq.html#noconfig</a> for more info.<br>CONNECTED</p>
-<p>Process finished with exit code 0</p>
-<p>简单示例添加节点 API，将上述代码中</p>
-<p> zooKeeper.create(“/runoob”,”0”.getBytes(),ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);</p>
-<p>注释打开执行，同时在服务端终端执行命令，显示设置成功。</p>
-<p>[zk: localhost:2181(CONNECTED) 1] get /runoob<br>0<br>cZxid = 0x69<br>ctime = Fri Oct 16 15:51:26 GMT+08:00 2020<br>mZxid = 0x69<br>mtime = Fri Oct 16 15:51:26 GMT+08:00 2020<br>pZxid = 0x69<br>cversion = 0<br>dataVersion = 0<br>aclVersion = 0<br>ephemeralOwner = 0x0<br>dataLength = 1<br>numChildren = 0<br>[zk: localhost:2181(CONNECTED) 2]</p>
-<p>3、客户端的curator连接</p>
-<p>Curator 是 Netflix 公司开源的一套 zookeeper 客户端框架，解决了很多 Zookeeper 客户端非常底层的细节开发工作，包括连接重连、反复注册 Watcher 和 NodeExistsException 异常等。</p>
-<p>Curator 包含了几个包：</p>
-<ul>
-<li><p><strong>curator-framework</strong>：对 zookeeper 的底层 api 的一些封装。</p>
-</li>
-<li><p><strong>curator-client</strong>：提供一些客户端的操作，例如重试策略等。</p>
-</li>
-<li><p><strong>curator-recipes</strong>：封装了一些高级特性，如：Cache 事件监听、选举、分布式锁、分布式计数器、分布式 Barrier 等。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class CuratorDemo &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        CuratorFramework curatorFramework&#x3D; CuratorFrameworkFactory.</span><br><span class="line">                builder().connectString(&quot;127.0.0.1:2181&quot;).</span><br><span class="line">                sessionTimeoutMs(4000).retryPolicy(new</span><br><span class="line">                ExponentialBackoffRetry(1000,3)).</span><br><span class="line">                namespace(&quot;&quot;).build();</span><br><span class="line">        curatorFramework.start();</span><br><span class="line">        Stat stat&#x3D;new Stat();</span><br><span class="line">        &#x2F;&#x2F;查询节点数据</span><br><span class="line">        byte[] bytes &#x3D;        curatorFramework.getData().storingStatIn(stat).forPath(&quot;&#x2F;runoob&quot;);</span><br><span class="line">        System.out.println(new String(bytes));</span><br><span class="line">        curatorFramework.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>上一步设置了 <strong>/runoob</strong> 节点值，所以控制台输出。</p>
-<p>log4j:WARN No appenders could be found for logger (org.apache.curator.utils.Compatibility).<br>log4j:WARN Please initialize the log4j system properly.<br>log4j:WARN See <a href="http://logging.apache.org/log4j/1.2/faq.html#noconfig">http://logging.apache.org/log4j/1.2/faq.html#noconfig</a> for more info.<br>0</p>
-<p>Process finished with exit code 0</p>
+<p>主要涉及到四个关键点：</p>
+<ol>
+<li>工作区：本地电脑存放项目文件的地方；</li>
+<li>暂存区（Index/Stage）：在使用git管理项目文件的时候，其本地的项目文件会多出一个.git的文件夹，将这个.git文件夹称之为版本库。其中.git文件夹中包含了两个部分，一个是暂存区（Index或者Stage）,顾名思义就是暂时存放文件的地方，通常使用add命令将工作区的文件添加到暂存区里；</li>
+<li>本地仓库：.git文件夹里还包括git自动创建的master分支，并且将HEAD指针指向master分支。使用commit命令可以将暂存区中的文件添加到本地仓库中；</li>
+<li>远程仓库：不是在本地仓库中，项目代码在远程git服务器上，比如项目放在github上，就是一个远程仓库，通常使用clone命令将远程仓库拷贝到本地仓库中，开发后推送到远程仓库中即可；</li>
+</ol>
+<p>日常开发时，代码实际上放置在工作区，通过add等这些命令将代码文教提交给暂存区（Index/Stage），也就意味着代码全权交给了git进行管理，之后通过commit等命令将暂存区提交给master分支上，也就是意味打了一个版本，也可以说代码提交到了本地仓库中。另外，团队协作过程中自然而然还涉及到与远程仓库的交互。</p>
+<p>因此，经过这样的分析，git命令可以分为这样的逻辑进行理解和记忆：</p>
+<ol>
+<li>git管理配置的命令；</li>
+<li>工作区与暂存区的交互；</li>
+<li>暂存区与本地仓库（分支）上的交互；</li>
+<li>本地仓库与远程仓库的交互。</li>
+</ol>
+<h1 id="1、-git配置命令"><a href="#1、-git配置命令" class="headerlink" title="1、 git配置命令"></a>1、 git配置命令</h1><p>查询配置信息</p>
+<blockquote>
+<p>列出当前配置：<code>git config --list</code>;<br>列出repository配置：<code>git config --local --list</code>;<br>列出全局配置：<code>git config --global --list</code>;<br>列出系统配置：<code>git config --system --list</code>;</p>
+</blockquote>
+<p>第一次使用git，配置用户信息</p>
+<blockquote>
+<p>配置用户名：<code>git config --global user.name &quot;your name&quot;</code>;<br>配置用户邮箱：<code>git config --global user.email &quot;youremail@github.com&quot;</code>;</p>
+</blockquote>
+<h1 id="2、工作区上的操作命令"><a href="#2、工作区上的操作命令" class="headerlink" title="2、工作区上的操作命令"></a>2、工作区上的操作命令</h1><p>新建仓库</p>
+<blockquote>
+<p>将工作区中的项目文件使用git进行管理，即创建一个新的本地仓库：<code>git init</code>；<br>从远程git仓库复制项目：<code>git clone &lt;url&gt;</code></p>
+</blockquote>
+<p>提交</p>
+<blockquote>
+<p>提交工作区所有文件到暂存区：<code>git add .</code><br>提交工作区中指定文件到暂存区：<code>git add &lt;file1&gt; &lt;file2&gt; ...</code>;<br>提交工作区中某个文件夹中所有文件到暂存区：<code>git add [dir]</code>;</p>
+</blockquote>
+<p>撤销</p>
+<blockquote>
+<p>删除工作区文件，并且也从暂存区删除对应文件的记录：<code>git rm &lt;file1&gt; &lt;file2&gt;</code>;<br>从暂存区中删除文件，但是工作区依然还有该文件:<code>git rm --cached &lt;file&gt;</code>;<br>取消暂存区已经暂存的文件：<code>git reset HEAD &lt;file&gt;...</code>;<br>撤销上一次对文件的操作：<code>git checkout --&lt;file&gt;</code>。要确定上一次对文件的修改不再需要，如果想保留上一次的修改以备以后继续工作，可以使用stashing和分支来处理；<br>隐藏当前变更，以便能够切换分支：<code>git stash</code>；<br>查看当前所有的储藏：<code>git stash list</code>；<br>应用最新的储藏：<code>git stash apply</code>，如果想应用更早的储藏：<code>git stash apply stash@&#123;2&#125;</code>；重新应用被暂存的变更，需要加上<code>--index</code>参数：<code>git stash apply --index</code>;<br>使用apply命令只是应用储藏，而内容仍然还在栈上，需要移除指定的储藏：<code>git stash drop stash&#123;0&#125;</code>；如果使用pop命令不仅可以重新应用储藏，还可以立刻从堆栈中清除：<code>git stash pop</code>;<br>在某些情况下，你可能想应用储藏的修改，在进行了一些其他的修改后，又要取消之前所应用储藏的修改。Git没有提供类似于 stash unapply 的命令，但是可以通过取消该储藏的补丁达到同样的效果：<code>git stash show -p stash@&#123;0&#125; | git apply -R</code>；同样的，如果你沒有指定具体的某个储藏，Git 会选择最近的储藏：<code>git stash show -p | git apply -R</code>；</p>
+</blockquote>
+<p>更新文件</p>
+<blockquote>
+<p>重命名文件，并将已改名文件提交到暂存区：<code>git mv [file-original] [file-renamed]</code>;</p>
+</blockquote>
+<p>查新信息</p>
+<blockquote>
+<p>查询当前工作区所有文件的状态：<code>git status</code>;<br>比较工作区中当前文件和暂存区之间的差异，也就是修改之后还没有暂存的内容：git diff；指定文件在工作区和暂存区上差异比较：<code>git diff &lt;file-name&gt;</code>;</p>
+</blockquote>
+<h1 id="3、暂存区上的操作命令"><a href="#3、暂存区上的操作命令" class="headerlink" title="3、暂存区上的操作命令"></a>3、暂存区上的操作命令</h1><p>提交文件到版本库</p>
+<blockquote>
+<p>将暂存区中的文件提交到本地仓库中，即打上新版本：<code>git commit -m &quot;commit_info&quot;</code>;<br>将所有已经使用git管理过的文件暂存后一并提交，跳过add到暂存区的过程：<code>git commit -a -m &quot;commit_info&quot;</code>;<br>提交文件时，发现漏掉几个文件，或者注释写错了，可以撤销上一次提交：<code>git commit --amend</code>;</p>
+</blockquote>
+<p>查看信息</p>
+<blockquote>
+<p>比较暂存区与上一版本的差异：<code>git diff --cached</code>;<br>指定文件在暂存区和本地仓库的不同：<code>git diff &lt;file-name&gt; --cached</code>;<br>查看提交历史：git log；参数<code>-p</code>展开每次提交的内容差异，用<code>-2</code>显示最近的两次更新，如<code>git log -p -2</code>;</p>
+</blockquote>
+<p>打标签</p>
+<blockquote>
+<p>列出现在所有的标签：<code>git tag</code>;<br>使用特定的搜索模式列出符合条件的标签：<code>git tag -l &quot;v1.4.2.*&quot;</code>;<br>创建含附注类型的标签，需要加<code>-a</code>参数: <code>git tag -a v1.4 -m &quot;my version 1.4&quot;</code>;<br>使用git show命令查看相应标签的版本信息：<code>git show v1.4</code>;<br>验证已签署的标签：git tag -v ，如<code>git tag -v v1.5</code>;<br>创建一个轻量级标签的话，就直接使用git tag命令即可，连<code>-a</code>,<code>-s</code>以及<code>-m</code>选项都不需要，直接给出标签名字即可，如<code>git tag v1.5</code>;<br>将标签推送到远程仓库中：git push origin ，如<code>git push origin v1.5</code>；<br>将本地所有的标签全部推送到远程仓库中：<code>git push origin --tags</code>;</p>
+</blockquote>
+<p>分支管理</p>
+<blockquote>
+<p>创建分支：<code>git branch &lt;branch-name&gt;</code>，如<code>git branch yilia</code>；<br>从当前所处的分支切换到其他分支：<code>git checkout &lt;branch-name&gt;</code>，如<code>git checkout yilia</code>；<br>新建并切换到新建分支上：<code>git checkout -b &lt;branch-name&gt;</code>;<br>删除分支：<code>git branch -d &lt;branch-name&gt;</code>；<br>将当前分支与指定分支进行合并：<code>git merge &lt;branch-name&gt;</code>;<br>显示本地仓库的所有分支：<code>git branch</code>;<br>查看各个分支最后一个提交对象的信息：<code>git branch -v</code>;<br>查看哪些分支已经合并到当前分支：<code>git branch --merged</code>;<br>查看当前哪些分支还没有合并到当前分支：<code>git branch --no-merged</code>;<br>把远程分支合并到当前分支：<code>git merge &lt;remote-name&gt;/&lt;branch-name&gt;</code>;<br>在远程分支的基础上创建新的本地分支<code>：git checkout -b &lt;branch-name&gt; &lt;remote-name&gt;/&lt;branch-name&gt;</code>，如<code>git checkout -b serverfix origin/serverfix</code>;<br>从远程分支checkout出来的本地分支，称之为跟踪分支。在跟踪分支上向远程分支上推送内容：<code>git push</code>。该命令会自动判断应该向远程仓库中的哪个分支推送数据；在跟踪分支上合并远程分支：<code>git pull</code>；<br>将一个分支里提交的改变移到基底分支上重放一遍：<code>git rebase &lt;rebase-branch&gt; &lt;branch-name&gt;</code>；</p>
+</blockquote>
+<h1 id="4、本地仓库上的操作"><a href="#4、本地仓库上的操作" class="headerlink" title="4、本地仓库上的操作"></a>4、本地仓库上的操作</h1><blockquote>
+<p>查看本地仓库关联的远程仓库：<code>git remote</code>；在克隆完每个远程仓库后，远程仓库默认为<code>origin</code>;加上<code>-v</code>的参数后，会显示远程仓库的<code>url</code>地址；<br>添加远程仓库：<code>git remote add [remote-name] [url]</code>，比如：<code>git remote add example git://github.com/example/example.git</code>;<br>从远程仓库中抓取本地仓库中没有的更新：<code>git fetch [remote-name]</code>，如<code>git fetch origin</code>;使用fetch只是将远端数据拉到本地仓库，并不自动合并到当前工作分支，只能人工合并。如果设置了某个分支关联到远程仓库的某个分支的话，可以使用<code>git pull</code>来拉去远程分支的数据，然后将远端分支自动合并到本地仓库中的当前分支；<br>将本地仓库某分支推送到远程仓库上：<code>git push [remote-name] [branch-name]</code>，如<code>git push origin master</code>；如果想将本地分支推送到远程仓库的不同名分支：<code>git push &lt;remote-name&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;</code>，如<code>git push origin serverfix:awesomebranch</code>;如果想删除远程分支：<code>git push [romote-name] :&lt;remote-branch&gt;</code>，如<code>git push origin :serverfix</code>。这里省略了本地分支，也就相当于将空白内容推送给远程分支，就等于删掉了远程分支。<br>查看远程仓库的详细信息：<code>git remote show origin</code>；<br>修改某个远程仓库在本地的简称：<code>git remote rename [old-name] [new-name]</code>，如<code>git remote rename origin org</code>；<br>移除远程仓库：<code>git remote rm [remote-name]</code>；</p>
+</blockquote>
+<h1 id="5、忽略文件-gitignore"><a href="#5、忽略文件-gitignore" class="headerlink" title="5、忽略文件.gitignore"></a>5、忽略文件.gitignore</h1><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。如下例：</p>
 ]]></content>
       <tags>
         <tag>technology</tag>
-        <tag>zookeeper</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud 配置 hystrix-board</title>
+    <url>/20200913/e88ea648.html</url>
+    <content><![CDATA[<p>hystrix-board服务监控</p>
+<p>1、创建新项目:hystrixdashboard。在application.properties文件中添加配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;hystrixboard</span><br><span class="line">server.port&#x3D;6009</span><br></pre></td></tr></table></figure>
+
+<p>2、在pom文件中添加依赖</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix-dashboard&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3、配置servlet</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;</span><br><span class="line">import org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">@Component</span><br><span class="line">public class config &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public ServletRegistrationBean getServlet() &#123;</span><br><span class="line">        HystrixMetricsStreamServlet streamServlet &#x3D; new HystrixMetricsStreamServlet();</span><br><span class="line">        ServletRegistrationBean registrationBean &#x3D; new ServletRegistrationBean(streamServlet);</span><br><span class="line">        registrationBean.setLoadOnStartup(1);</span><br><span class="line">        registrationBean.addUrlMappings(&quot;&#x2F;hystrix.stream&quot;);</span><br><span class="line">        registrationBean.setName(&quot;HystrixMetricsStreamServlet&quot;);</span><br><span class="line">        return registrationBean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、在主方法入口添加注解</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@EnableHystrixDashboard</span><br></pre></td></tr></table></figure>
+
+<p>5、在消费者主方法入口添加注解 同时添加依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@EnableCircuitBreaker</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.netflix.hystrix&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hystrix-javanica&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>6、启动项目浏览器输入网址</p>
+<blockquote>
+<p><a href="http://localhost:6009/hystrix">http://localhost:6009/hystrix</a></p>
+</blockquote>
+<p><img src="/assets/resource/springcloud/hystrix.png"></p>
+<p>7、输入消费者地址</p>
+<blockquote>
+<p><a href="http://localhost:6004/hystrix.stream">http://localhost:6004/hystrix.stream</a></p>
+</blockquote>
+<p><img src="/assets/resource/springcloud/hystrix2.png"></p>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -987,6 +1009,59 @@ e.requestAnimationFrame = function () &#123;
       <tags>
         <tag>technology</tag>
         <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Zookeeper windows 安装 单机测试</title>
+    <url>/20201019/e8d2e74.html</url>
+    <content><![CDATA[<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>zookeeper 下载地址为: <a href="https://zookeeper.apache.org/releases.html">https://zookeeper.apache.org/releases.html</a></p>
+<p>本例使用版本 zookeeper-3.4.14</p>
+<p>1、查看 conf 目录下是否存在 zoo.cfg ，没有时将 zoo_sample.cfg 文件，复制一份，重命名为 zoo.cfg:</p>
+<p><img src="/assets/resource/zookeeper/1.png"></p>
+<a id="more"></a>
+
+<p>2、在安装目录下面新建一个空的 data 文件夹和 log 文件夹:</p>
+<p><img src="/assets/resource/zookeeper/2.png"></p>
+<p>3、修改 zoo.cfg 配置文件，将 dataDir=/tmp/zookeeper 修改成 zookeeper 安装目录所在的 data 文件夹，再添加一条添加数据日志的配置(需要根据自己的安装路径修改)。</p>
+<p><img src="/assets/resource/zookeeper/3.png"></p>
+<p>4、双击 bin目录下zkServer.cmd 启动程序:控制台显示 <strong>bind to port 0.0.0.0/0.0.0.0:2181</strong>，表示服务端启动成功!</p>
+<p><img src="/assets/resource/zookeeper/4.png"></p>
+<p>5、双击 bin目录下zkCli.cmd 启动客户端</p>
+<p><img src="/assets/resource/zookeeper/5.png"></p>
+<h2 id="二、-Java连接测试"><a href="#二、-Java连接测试" class="headerlink" title="二、 Java连接测试"></a>二、 Java连接测试</h2><p>使用的 IDE 为 IntelliJ IDEA，创建一个 maven 工程，命名为 zookeeper-demo，并且引入如下依赖，可以自行在maven中央仓库选择合适的版本，介绍原生 API 和 Curator 两种方式。</p>
+<p>1、依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;junit&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;junit&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.11&lt;&#x2F;version&gt;</span><br><span class="line">  &lt;scope&gt;test&lt;&#x2F;scope&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.zookeeper&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;zookeeper&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;3.4.8&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.curator&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;curator-framework&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.0.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.curator&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;curator-recipes&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;4.0.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、客户端的 zookeeper 原生 API</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class ConnectionDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            final CountDownLatch countDownLatch &#x3D; new CountDownLatch(1);</span><br><span class="line">            ZooKeeper zooKeeper &#x3D;</span><br><span class="line">                    new ZooKeeper(&quot;127.0.0.1:2181&quot;,</span><br><span class="line">                            4000, new Watcher() &#123;</span><br><span class="line">                        @Override</span><br><span class="line">                        public void process(WatchedEvent event) &#123;</span><br><span class="line">                            if (Event.KeeperState.SyncConnected &#x3D;&#x3D; event.getState()) &#123;</span><br><span class="line">                                &#x2F;&#x2F;如果收到了服务端的响应事件，连接成功</span><br><span class="line">                                countDownLatch.countDown();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">            &#x2F;&#x2F; countDownLatch.await();</span><br><span class="line">            &#x2F;&#x2F;CONNECTED</span><br><span class="line">           &#x2F;&#x2F; zooKeeper.create(&quot;&#x2F;runoob&quot;,&quot;0&quot;.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);</span><br><span class="line">            System.out.println(zooKeeper.getState());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出 connected 显示连接成功!</p>
+<p>log4j:WARN No appenders could be found for logger (org.apache.zookeeper.ZooKeeper).<br>log4j:WARN Please initialize the log4j system properly.<br>log4j:WARN See <a href="http://logging.apache.org/log4j/1.2/faq.html#noconfig">http://logging.apache.org/log4j/1.2/faq.html#noconfig</a> for more info.<br>CONNECTED</p>
+<p>Process finished with exit code 0</p>
+<p>简单示例添加节点 API，将上述代码中</p>
+<p> zooKeeper.create(“/runoob”,”0”.getBytes(),ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);</p>
+<p>注释打开执行，同时在服务端终端执行命令，显示设置成功。</p>
+<p>[zk: localhost:2181(CONNECTED) 1] get /runoob<br>0<br>cZxid = 0x69<br>ctime = Fri Oct 16 15:51:26 GMT+08:00 2020<br>mZxid = 0x69<br>mtime = Fri Oct 16 15:51:26 GMT+08:00 2020<br>pZxid = 0x69<br>cversion = 0<br>dataVersion = 0<br>aclVersion = 0<br>ephemeralOwner = 0x0<br>dataLength = 1<br>numChildren = 0<br>[zk: localhost:2181(CONNECTED) 2]</p>
+<p>3、客户端的curator连接</p>
+<p>Curator 是 Netflix 公司开源的一套 zookeeper 客户端框架，解决了很多 Zookeeper 客户端非常底层的细节开发工作，包括连接重连、反复注册 Watcher 和 NodeExistsException 异常等。</p>
+<p>Curator 包含了几个包：</p>
+<ul>
+<li><p><strong>curator-framework</strong>：对 zookeeper 的底层 api 的一些封装。</p>
+</li>
+<li><p><strong>curator-client</strong>：提供一些客户端的操作，例如重试策略等。</p>
+</li>
+<li><p><strong>curator-recipes</strong>：封装了一些高级特性，如：Cache 事件监听、选举、分布式锁、分布式计数器、分布式 Barrier 等。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class CuratorDemo &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        CuratorFramework curatorFramework&#x3D; CuratorFrameworkFactory.</span><br><span class="line">                builder().connectString(&quot;127.0.0.1:2181&quot;).</span><br><span class="line">                sessionTimeoutMs(4000).retryPolicy(new</span><br><span class="line">                ExponentialBackoffRetry(1000,3)).</span><br><span class="line">                namespace(&quot;&quot;).build();</span><br><span class="line">        curatorFramework.start();</span><br><span class="line">        Stat stat&#x3D;new Stat();</span><br><span class="line">        &#x2F;&#x2F;查询节点数据</span><br><span class="line">        byte[] bytes &#x3D;        curatorFramework.getData().storingStatIn(stat).forPath(&quot;&#x2F;runoob&quot;);</span><br><span class="line">        System.out.println(new String(bytes));</span><br><span class="line">        curatorFramework.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>上一步设置了 <strong>/runoob</strong> 节点值，所以控制台输出。</p>
+<p>log4j:WARN No appenders could be found for logger (org.apache.curator.utils.Compatibility).<br>log4j:WARN Please initialize the log4j system properly.<br>log4j:WARN See <a href="http://logging.apache.org/log4j/1.2/faq.html#noconfig">http://logging.apache.org/log4j/1.2/faq.html#noconfig</a> for more info.<br>0</p>
+<p>Process finished with exit code 0</p>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>zookeeper</tag>
       </tags>
   </entry>
   <entry>
@@ -1696,30 +1771,6 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>SpringCloud之Zuul</title>
-    <url>/20200918/1adb8023.html</url>
-    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribbon结合实现了负载均衡的功能</p>
-<a id="more"></a>
-<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、pom依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;&#x2F;project.reporting.outputEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;spring-cloud.version&gt;Finchley.SR2&lt;&#x2F;spring-cloud.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-eureka&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-zuul&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置hystrix所需依赖的包 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
-
-<p>（2）、application.properties</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootZuul</span><br><span class="line">server.port&#x3D;6005</span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br><span class="line"></span><br><span class="line">zuul.routes.springbootService.path&#x3D;&#x2F;springbootService&#x2F;**</span><br><span class="line">zuul.routes.springbootService.serviceId&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">zuul.routes.springCloudFeign.path&#x3D;&#x2F;springCloudFeign&#x2F;**</span><br><span class="line">zuul.routes.springCloudFeign.serviceId&#x3D;springCloudFeign</span><br></pre></td></tr></table></figure>
-
-<p>（3）、主方法入口</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableZuulProxy</span><br><span class="line">@RefreshScope</span><br><span class="line">public class ZuulserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ZuulserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（4）、请求过滤</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class serviceFilter extends ZuulFilter &#123;</span><br><span class="line"></span><br><span class="line">    private static Logger log &#x3D; LoggerFactory.getLogger(serviceFilter.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String filterType() &#123;</span><br><span class="line">        return &quot;pre&quot;; &#x2F;&#x2F; 定义filter的类型，有pre、route、post、error四种</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int filterOrder() &#123;</span><br><span class="line">        return 0; &#x2F;&#x2F; 定义filter的顺序，数字越小表示顺序越高，越先执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean shouldFilter() &#123;</span><br><span class="line">        return true; &#x2F;&#x2F; 表示是否需要执行该filter，true表示执行，false表示不执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object run() &#123;</span><br><span class="line">        &#x2F;&#x2F; filter需要执行的具体操作</span><br><span class="line">        RequestContext ctx &#x3D; RequestContext.getCurrentContext();</span><br><span class="line">        HttpServletRequest request &#x3D; ctx.getRequest();</span><br><span class="line">        String token &#x3D; request.getParameter(&quot;token&quot;);</span><br><span class="line">        System.out.println(token);</span><br><span class="line">        if (token &#x3D;&#x3D; null) &#123;</span><br><span class="line">            log.warn(&quot;there is no request token&quot;);</span><br><span class="line">            ctx.setSendZuulResponse(false);</span><br><span class="line">            ctx.setResponseStatusCode(401);</span><br><span class="line">            try &#123;</span><br><span class="line">                ctx.getResponse().getWriter().write(&quot;there is no request token&quot;);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;ok&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（5）、失败回调</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceFallbackProvider implements FallbackProvider &#123;</span><br><span class="line">    @Override</span><br><span class="line">    &#x2F;&#x2F; 指定熔断器功能应用于哪些路由的服务</span><br><span class="line">    public String getRoute() &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里只针对&quot;springbootService&quot;服务进行熔断</span><br><span class="line">        &#x2F;&#x2F; 如果需要针对所有服务熔断，则return &quot;*&quot;</span><br><span class="line">        return &quot;springbootService&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ClientHttpResponse fallbackResponse(String route, Throwable cause) &#123;</span><br><span class="line">        System.out.println(&quot;route:&quot;+route);</span><br><span class="line"></span><br><span class="line">        return new ClientHttpResponse() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public HttpStatus getStatusCode() throws IOException &#123;</span><br><span class="line">                return HttpStatus.OK;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public int getRawStatusCode() throws IOException &#123;</span><br><span class="line">                return 200;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public String getStatusText() throws IOException &#123;</span><br><span class="line">                return &quot;ok&quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void close() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            &#x2F;&#x2F; 发生熔断式，返回的信息</span><br><span class="line">            public InputStream getBody() throws IOException &#123;</span><br><span class="line">                return new ByteArrayInputStream(&quot;Sorry, the service is unavailable now.&quot;.getBytes());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public HttpHeaders getHeaders() &#123;</span><br><span class="line">                HttpHeaders headers &#x3D; new HttpHeaders();</span><br><span class="line">                headers.setContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">                return headers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>springcloud</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringCloud之生产者</title>
     <url>/20200918/b4e206d4.html</url>
     <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>生产者为了提供测试方法</p>
@@ -1744,6 +1795,59 @@ e.requestAnimationFrame = function () &#123;
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class JsonMapper extends ObjectMapper &#123;</span><br><span class="line">    private static final long serialVersionUID &#x3D; 3591908322400026138L;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private static Logger logger &#x3D; LoggerFactory.getLogger(JsonMapper.class);</span><br><span class="line">    private static JsonMapper mapper;</span><br><span class="line"></span><br><span class="line">    public JsonMapper() &#123;</span><br><span class="line">        this(Include.NON_EMPTY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public JsonMapper(Include include) &#123;</span><br><span class="line">        if (include !&#x3D; null) &#123;</span><br><span class="line">            this.setSerializationInclusion(include);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        this.enableSimple();</span><br><span class="line">        this.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);</span><br><span class="line">        this.getSerializerProvider().setNullValueSerializer(new JsonSerializer&lt;Object&gt;() &#123;</span><br><span class="line">            public void serialize(Object value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException &#123;</span><br><span class="line">                jgen.writeString(&quot;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        this.registerModule((new SimpleModule()).addSerializer(String.class, new JsonSerializer&lt;String&gt;() &#123;</span><br><span class="line">            public void serialize(String value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException &#123;</span><br><span class="line">                jgen.writeString(StringEscapeUtils.unescapeHtml4(value));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;));</span><br><span class="line">        this.setTimeZone(TimeZone.getDefault());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static JsonMapper getInstance() &#123;</span><br><span class="line">        if (mapper &#x3D;&#x3D; null) &#123;</span><br><span class="line">            mapper &#x3D; (new JsonMapper()).enableSimple();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return mapper;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static JsonMapper nonDefaultMapper() &#123;</span><br><span class="line">        if (mapper &#x3D;&#x3D; null) &#123;</span><br><span class="line">            mapper &#x3D; new JsonMapper(Include.NON_DEFAULT);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return mapper;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String toJson(Object object) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return this.writeValueAsString(object);</span><br><span class="line">        &#125; catch (IOException var3) &#123;</span><br><span class="line">            logger.warn(&quot;write to json string error:&quot; + object, var3);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public &lt;T&gt; T fromJson(String jsonString, Class&lt;T&gt; clazz) &#123;</span><br><span class="line">        if (StringUtils.isEmpty(jsonString)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                return this.readValue(jsonString, clazz);</span><br><span class="line">            &#125; catch (IOException var4) &#123;</span><br><span class="line">                logger.warn(&quot;parse json string error:&quot; + jsonString, var4);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public &lt;T&gt; T fromJson(String jsonString, JavaType javaType) &#123;</span><br><span class="line">        if (StringUtils.isEmpty(jsonString)) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                return this.readValue(jsonString, javaType);</span><br><span class="line">            &#125; catch (IOException var4) &#123;</span><br><span class="line">                logger.warn(&quot;parse json string error:&quot; + jsonString, var4);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public JavaType createCollectionType(Class&lt;?&gt; collectionClass, Class... elementClasses) &#123;</span><br><span class="line">        return this.getTypeFactory().constructParametricType(collectionClass, elementClasses);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public &lt;T&gt; T update(String jsonString, T object) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return this.readerForUpdating(object).readValue(jsonString);</span><br><span class="line">        &#125; catch (JsonProcessingException var4) &#123;</span><br><span class="line">            logger.warn(&quot;update json string:&quot; + jsonString + &quot; to object:&quot; + object + &quot; error.&quot;, var4);</span><br><span class="line">        &#125; catch (IOException var5) &#123;</span><br><span class="line">            logger.warn(&quot;update json string:&quot; + jsonString + &quot; to object:&quot; + object + &quot; error.&quot;, var5);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String toJsonP(String functionName, Object object) &#123;</span><br><span class="line">        return this.toJson(new JSONPObject(functionName, object));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public JsonMapper enableEnumUseToString() &#123;</span><br><span class="line">        this.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);</span><br><span class="line">        this.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public JsonMapper enableJaxbAnnotation() &#123;</span><br><span class="line">        JaxbAnnotationModule module &#x3D; new JaxbAnnotationModule();</span><br><span class="line">        this.registerModule(module);</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public JsonMapper enableSimple() &#123;</span><br><span class="line">        this.configure(Feature.ALLOW_SINGLE_QUOTES, true);</span><br><span class="line">        this.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ObjectMapper getMapper() &#123;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String toJsonString(Object object) &#123;</span><br><span class="line">        return getInstance().toJson(object);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static Object fromJsonString(String jsonString, Class&lt;?&gt; clazz) &#123;</span><br><span class="line">        return getInstance().fromJson(jsonString, clazz);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class JsonUtils &#123;</span><br><span class="line"></span><br><span class="line">    public JsonUtils() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String renderString(HttpServletResponse response, Object object) &#123;</span><br><span class="line">        return renderString(response, JsonMapper.toJsonString(object), &quot;application&#x2F;json&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String renderString(HttpServletResponse response, String string, String type) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            response.setContentType(type);</span><br><span class="line">            response.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">            response.getWriter().print(string);</span><br><span class="line">            return null;</span><br><span class="line">        &#125; catch (IOException var4) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud之Eureka</title>
+    <url>/20200918/cef2acbf.html</url>
+    <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p>2、在项目的主入口添加注解@EnableEurekaServer</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class EurekaserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(EurekaserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、在application.properties文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port&#x3D;5000</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line">#是否向服务注册中心注册自己,默认为true</span><br><span class="line">eureka.client.register-with-eureka&#x3D;false</span><br><span class="line">#是否检索服务</span><br><span class="line">eureka.client.fetch-registry&#x3D;true</span><br><span class="line">eureka.client.serviceUrl.defaultZone&#x3D;http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+<p>4、输入地址<a href="http://localhost:5000/">http://localhost:5000/</a></p>
+<p><img src="/assets/resource/springcloud/eureka0.png"></p>
+<p>5、EurakeSever 认证 添加依赖 并 在application.properties文件中进行配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加basic认证</span><br><span class="line"></span><br><span class="line">security.basic.enabled&#x3D;true</span><br><span class="line"></span><br><span class="line">security.user.name&#x3D;user1</span><br><span class="line"></span><br><span class="line">security.user.password&#x3D;password1</span><br></pre></td></tr></table></figure>
+
+<p>6、我们也修改服务端，我们只需要将服务提供端application.properties 中原来的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eureka.client.service-url.defalutZone&#x3D; http:&#x2F;&#x2F;localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line">变为： eureka.client.serviceurl.defalutZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/resource/springcloud/eureka0.png"></p>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringCloud之Zuul</title>
+    <url>/20200918/1adb8023.html</url>
+    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Zuul是Netflix开源的微服务网关，可以和Eureka、Ribbon、Hystrix等组件配合使用，Spring Cloud对Zuul进行了整合与增强，Zuul默认使用的HTTP客户端是Apache HTTPClient，也可以使用RestClient或okhttp3.OkHttpClient。  Zuul的主要功能是路由转发和过滤器。路由功能是微服务的一部分。zuul默认和Ribbon结合实现了负载均衡的功能</p>
+<a id="more"></a>
+<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、pom依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;&#x2F;project.reporting.outputEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;spring-cloud.version&gt;Finchley.SR2&lt;&#x2F;spring-cloud.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-eureka&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.0.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-zuul&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 配置hystrix所需依赖的包 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.4.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（2）、application.properties</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootZuul</span><br><span class="line">server.port&#x3D;6005</span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br><span class="line"></span><br><span class="line">zuul.routes.springbootService.path&#x3D;&#x2F;springbootService&#x2F;**</span><br><span class="line">zuul.routes.springbootService.serviceId&#x3D;springbootService</span><br><span class="line"></span><br><span class="line">zuul.routes.springCloudFeign.path&#x3D;&#x2F;springCloudFeign&#x2F;**</span><br><span class="line">zuul.routes.springCloudFeign.serviceId&#x3D;springCloudFeign</span><br></pre></td></tr></table></figure>
+
+<p>（3）、主方法入口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableZuulProxy</span><br><span class="line">@RefreshScope</span><br><span class="line">public class ZuulserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ZuulserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）、请求过滤</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class serviceFilter extends ZuulFilter &#123;</span><br><span class="line"></span><br><span class="line">    private static Logger log &#x3D; LoggerFactory.getLogger(serviceFilter.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String filterType() &#123;</span><br><span class="line">        return &quot;pre&quot;; &#x2F;&#x2F; 定义filter的类型，有pre、route、post、error四种</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int filterOrder() &#123;</span><br><span class="line">        return 0; &#x2F;&#x2F; 定义filter的顺序，数字越小表示顺序越高，越先执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean shouldFilter() &#123;</span><br><span class="line">        return true; &#x2F;&#x2F; 表示是否需要执行该filter，true表示执行，false表示不执行</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object run() &#123;</span><br><span class="line">        &#x2F;&#x2F; filter需要执行的具体操作</span><br><span class="line">        RequestContext ctx &#x3D; RequestContext.getCurrentContext();</span><br><span class="line">        HttpServletRequest request &#x3D; ctx.getRequest();</span><br><span class="line">        String token &#x3D; request.getParameter(&quot;token&quot;);</span><br><span class="line">        System.out.println(token);</span><br><span class="line">        if (token &#x3D;&#x3D; null) &#123;</span><br><span class="line">            log.warn(&quot;there is no request token&quot;);</span><br><span class="line">            ctx.setSendZuulResponse(false);</span><br><span class="line">            ctx.setResponseStatusCode(401);</span><br><span class="line">            try &#123;</span><br><span class="line">                ctx.getResponse().getWriter().write(&quot;there is no request token&quot;);</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        log.info(&quot;ok&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（5）、失败回调</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ServiceFallbackProvider implements FallbackProvider &#123;</span><br><span class="line">    @Override</span><br><span class="line">    &#x2F;&#x2F; 指定熔断器功能应用于哪些路由的服务</span><br><span class="line">    public String getRoute() &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里只针对&quot;springbootService&quot;服务进行熔断</span><br><span class="line">        &#x2F;&#x2F; 如果需要针对所有服务熔断，则return &quot;*&quot;</span><br><span class="line">        return &quot;springbootService&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ClientHttpResponse fallbackResponse(String route, Throwable cause) &#123;</span><br><span class="line">        System.out.println(&quot;route:&quot;+route);</span><br><span class="line"></span><br><span class="line">        return new ClientHttpResponse() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public HttpStatus getStatusCode() throws IOException &#123;</span><br><span class="line">                return HttpStatus.OK;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public int getRawStatusCode() throws IOException &#123;</span><br><span class="line">                return 200;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public String getStatusText() throws IOException &#123;</span><br><span class="line">                return &quot;ok&quot;;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void close() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            &#x2F;&#x2F; 发生熔断式，返回的信息</span><br><span class="line">            public InputStream getBody() throws IOException &#123;</span><br><span class="line">                return new ByteArrayInputStream(&quot;Sorry, the service is unavailable now.&quot;.getBytes());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public HttpHeaders getHeaders() &#123;</span><br><span class="line">                HttpHeaders headers &#x3D; new HttpHeaders();</span><br><span class="line">                headers.setContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">                return headers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>technology</tag>
         <tag>springcloud</tag>
@@ -1802,132 +1906,6 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>SpringCloud之Eureka</title>
-    <url>/20200918/cef2acbf.html</url>
-    <content><![CDATA[<h2 id="Eurake-服务注册与发现"><a href="#Eurake-服务注册与发现" class="headerlink" title="Eurake 服务注册与发现"></a>Eurake 服务注册与发现</h2><p>1、首先创建springboot项目，引入依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.3.5.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<p>2、在项目的主入口添加注解@EnableEurekaServer</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class EurekaserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(EurekaserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、在application.properties文件中进行配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server.port&#x3D;5000</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line">#是否向服务注册中心注册自己,默认为true</span><br><span class="line">eureka.client.register-with-eureka&#x3D;false</span><br><span class="line">#是否检索服务</span><br><span class="line">eureka.client.fetch-registry&#x3D;true</span><br><span class="line">eureka.client.serviceUrl.defaultZone&#x3D;http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
-<p>4、输入地址<a href="http://localhost:5000/">http://localhost:5000/</a></p>
-<p><img src="/assets/resource/springcloud/eureka0.png"></p>
-<p>5、EurakeSever 认证 添加依赖 并 在application.properties文件中进行配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加basic认证</span><br><span class="line"></span><br><span class="line">security.basic.enabled&#x3D;true</span><br><span class="line"></span><br><span class="line">security.user.name&#x3D;user1</span><br><span class="line"></span><br><span class="line">security.user.password&#x3D;password1</span><br></pre></td></tr></table></figure>
-
-<p>6、我们也修改服务端，我们只需要将服务提供端application.properties 中原来的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eureka.client.service-url.defalutZone&#x3D; http:&#x2F;&#x2F;localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line">变为： eureka.client.serviceurl.defalutZone&#x3D;http:&#x2F;&#x2F;user1:password1@localhost:8761&#x2F;eureka&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/assets/resource/springcloud/eureka0.png"></p>
-]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>springcloud</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringCloud之Ribbon</title>
-    <url>/20200918/d4b47d90.html</url>
-    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Spring Cloud Ribbon是一个基于HTTP和TCP的客户端负载均衡工具，它基于Netflix Ribbon实现。通过Spring Cloud的封装，可以让我们轻松地将面向服务的REST模版请求自动转换成客户端负载均衡的服务调用。集中式负载均衡。</p>
-<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootConsumerRibbon</span><br><span class="line">server.port&#x3D;6007</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<p>（2）、主入口方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@ServletComponentScan</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableHystrix</span><br><span class="line">public class RibbonserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(RibbonserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced</span><br><span class="line">    RestTemplate restTemplate()&#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（3）、接口调用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 调用：localhost:6007&#x2F;consumerServiceRibbon?token&#x3D;1</span><br><span class="line">@RequestMapping(&quot;&#x2F;consumerServiceRibbon&quot;)</span><br><span class="line">@HystrixCommand(fallbackMethod &#x3D; &quot;consumerServiceRibbonFallback&quot;)</span><br><span class="line">public String consumerServiceRibbon(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    String result &#x3D; this.restTemplate.postForObject(&quot;http:&#x2F;&#x2F;springbootService&#x2F;service&#x2F;rest?token&#x3D;1&quot;, serviceInfo, String.class);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（4）、失败回调</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public String consumerServiceRibbonFallback(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    return &quot;consumerServiceRibbon异常，端口：&quot; + port + &quot;，Name&#x3D;&quot; + serviceInfo.getName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（5）、启动连个生产者提供方法（略去）</p>
-]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>springcloud</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十四章之得之执古之道，御今之有</title>
-    <url>/20210101/c260b9db.html</url>
-    <content><![CDATA[<p>视之不见，名曰夷；</p>
-<p>听之不闻，名曰希；</p>
-<p>搏之不得，名曰微。</p>
-<a id="more"></a>
-<p>此三者不可致诘，故混而为一。</p>
-<p>其上不皦，其下不昧。</p>
-<p>绳绳不可名，复归于无物。</p>
-<p>是谓无状之状，无物之象，是为惚恍。</p>
-<p>迎之不见其首，随之不见其后。</p>
-<p>执古之道，御今之有。能知古始，是谓道纪。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows 下部署hadoop</title>
-    <url>/20200925/e58b4864.html</url>
-    <content><![CDATA[<h2 id="1、下载hadoop-和配置的文件（待定）"><a href="#1、下载hadoop-和配置的文件（待定）" class="headerlink" title="1、下载hadoop 和配置的文件（待定）"></a>1、下载hadoop 和配置的文件（待定）</h2><p>（1）、各种版本<a href="https://archive.apache.org/dist/hadoop/common/">hadoop</a></p>
-<p>（2）、根据版本进行选择bin的内容进行覆盖（支持windows 运行的工具）将bin目录(包含以下.dll和.exe文件)文件替换原来hadoop目录下的bin目录</p>
-<h2 id="2、-配置hadoop环境变量"><a href="#2、-配置hadoop环境变量" class="headerlink" title="2、 配置hadoop环境变量"></a>2、 配置hadoop环境变量</h2><p>右键单击我的电脑 –&gt;属性 –&gt;高级环境变量配置 –&gt;高级选项卡 –&gt;环境变量 –&gt; 单击新建HADOOP_HOME和编辑环境变量path如下图 </p>
-<a id="more"></a>
-<p><img src="/assets/resource/hadoop/deploy/huanbian1.png" alt="系统变量"></p>
-<p><img src="/assets/resource/hadoop/deploy/huanbian2.png" alt="path"></p>
-<h2 id="3、修改hadoop配置文件"><a href="#3、修改hadoop配置文件" class="headerlink" title="3、修改hadoop配置文件"></a>3、修改hadoop配置文件</h2><p>（1）、编辑“E:＼hadoop-3.0.0\etc\hadoop”下的 <strong>core-site.xml</strong> 文件，将下列文本粘贴进去，并保存；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;tmp&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.name.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;name&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.default.name&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;hdfs:&#x2F;&#x2F;localhost:9500&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>（2）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的 <strong>mapred-site.xml</strong> (没有就将mapred-site.xml.template重命名为mapred-site.xml)文件，粘贴一下内容并保存；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">       &lt;name&gt;mapreduce.framework.name&lt;&#x2F;name&gt;</span><br><span class="line">       &lt;value&gt;yarn&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">       &lt;name&gt;mapred.job.tracker&lt;&#x2F;name&gt;</span><br><span class="line">       &lt;value&gt;hdfs:&#x2F;&#x2F;localhost:9501&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-
-<p>（3）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的 <strong>hdfs-site.xml</strong> 文件，粘贴以下内容并保存。请自行创建data目录，在这里我是在HADOOP_HOME目录下创建了workplace/data目录；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;!-- 这个参数设置为1，因为是单机版hadoop --&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.data.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;data&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">	&lt;property&gt; </span><br><span class="line">        &lt;name&gt;dfs.webhdfs.enabled&lt;&#x2F;name&gt; </span><br><span class="line">        &lt;value&gt;true&lt;&#x2F;value&gt; </span><br><span class="line">    &lt;&#x2F;property&gt; </span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.http.address&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;localhost:50070&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-
-<p>（4）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的<strong>yarn-site.xml</strong>文件，粘贴以下内容并保存；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">   </span><br><span class="line">	 &lt;!-- Site specific YARN configuration properties --&gt;</span><br><span class="line">    &lt;property&gt;       </span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;&#x2F;name&gt;       </span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;&#x2F;value&gt;    </span><br><span class="line">    &lt;&#x2F;property&gt;    </span><br><span class="line">    &lt;property&gt;       </span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;&#x2F;name&gt;       </span><br><span class="line">        &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;&#x2F;value&gt;    </span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;!-- NodeManager总的可用虚拟CPU个数 --&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;!-- 每个节点可用的最大内存 --&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;2048&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;!-- 中间结果存放位置 --&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.local-dirs&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;tmp&#x2F;nm-local-dir&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.log-dirs&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;logs&#x2F;yarn&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-
-<p>（5）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的 <strong>hadoop-env.cmd</strong> 文件，将JAVA_HOME用 @rem注释掉，编辑为JAVA_HOME的路径，然后保存；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@rem set JAVA_HOME&#x3D;%JAVA_HOME%</span><br><span class="line"></span><br><span class="line">set JAVA_HOME&#x3D;C:\PROGRA~1\Java\jdk1.8.0_201</span><br></pre></td></tr></table></figure>
-
-<h2 id="4、运行环境"><a href="#4、运行环境" class="headerlink" title="4、运行环境"></a>4、运行环境</h2><p>（1）、运行cmd窗口，执行“ <strong>hdfs namenode -format</strong> ”；<br>（2）、运行cmd窗口，切换到hadoop的sbin目录，执行“start-all.cmd”，它将会启动以下进程。<br><img src="/assets/resource/hadoop/deploy/c1.png"   /></p>
-<img src="/assets/resource/hadoop/deploy/c2.png"  />
-
-<img src="/assets/resource/hadoop/deploy/c3.png"  />
-
-<img src="/assets/resource/hadoop/deploy/c4.png" />
-
-<h2 id="５、接下来上传测试，操作HDFS"><a href="#５、接下来上传测试，操作HDFS" class="headerlink" title="５、接下来上传测试，操作HDFS"></a>５、<strong>接下来上传测试，操作HDFS</strong></h2><p>根据你core-site.xml的配置，接下来你就可以通过：hdfs://localhost:9５00来对hdfs进行操作了。</p>
-<p>（1）、创建输入目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;hadoop fs -mkdir hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;</span><br><span class="line"></span><br><span class="line">C:\WINDOWS\system32&gt;hadoop fs -mkdir hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput</span><br></pre></td></tr></table></figure>
-
-<p>（2）、上传数据到目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;hadoop fs -put D:\file.txt hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput</span><br><span class="line"></span><br><span class="line">C:\WINDOWS\system32&gt;hadoop fs -put D:\file１.txt hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput</span><br></pre></td></tr></table></figure>
-
-<p>（3）、查看文件</p>
-<blockquote>
-<p>E:\hadoop-3.0.0\bin&gt;hadoop fs -ls  hdfs://localhost:9500/user/wcinput<br>Found 2 items<br>-rw-r–r–   1 Administrator supergroup    3551058 2020-09-18 15:01 hdfs://localhost:9500/user/wcinput/file.txt<br>-rw-r–r–   1 Administrator supergroup     145579 2020-09-18 15:01 hdfs://localhost:9500/user/wcinput/file2.txt</p>
-</blockquote>
-<h2 id="6、hadoop自带的web控制台GUI"><a href="#6、hadoop自带的web控制台GUI" class="headerlink" title="6、hadoop自带的web控制台GUI"></a>6、hadoop自带的web控制台GUI</h2><p>（1）、资源管理GUI:<a href="http://localhost:8088/%EF%BC%9B">http://localhost:8088/；</a> </p>
-<p><img src="/assets/resource/hadoop/deploy/web1.png"></p>
-<p>（2）、节点管理GUI:<a href="http://localhost:50070/%EF%BC%9B">http://localhost:50070/；</a> </p>
-<p><img src="/assets/resource/hadoop/deploy/web2.png"></p>
-]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>万象皆为平淡又倔强着</title>
     <url>/20210117/86e081cf.html</url>
     <content><![CDATA[<p>​坐在窗台的电脑屏幕前，双手搭在键盘上，猫咪在身旁来回地走动着，惬意的午后总是那么的令人平静。沉思酝酿着灵感，想着把自己最近状态给表达出来，想着怎么写、应该写哪些方面的东西，标题怎么拟，脑子一片空白。</p>
@@ -1938,32 +1916,6 @@ e.requestAnimationFrame = function () &#123;
 ]]></content>
       <tags>
         <tag>diy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>历经四个月，谷歌联盟的PIN码问题终于解决了</title>
-    <url>/20210324/3d342e2e.html</url>
-    <content><![CDATA[<p>历经四个月，谷歌联盟的PIN码问题终于解决了。</p>
-<p>什么是PIN码？其实就是谷歌再给你报酬前的一次地址认证，以邮件的形式发给你，邮件里有一串六位数字就是PIN码。个人觉得这种邮件的方式效率太慢了。</p>
-<a id="more"></a>
-<p>谷歌官方解释：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">为确保您的帐号安全无虞，在向您发放任何付款之前，Google 会要求您先验证地址。地址验证方法具体如下：</span><br><span class="line"></span><br><span class="line">1. 当您的收入达到</span><br><span class="line"></span><br><span class="line">   进行验证所需的最低限额</span><br><span class="line"></span><br><span class="line">   时，我们会将个人识别码（PIN 码）邮寄到您的付款地址。</span><br><span class="line"></span><br><span class="line">   PIN 码通常会在 2 至 4 周内寄达，但也可能需要更长时间，具体取决于您所在的地理位置。</span><br><span class="line"></span><br><span class="line">   **注意**：如果我们要求您验证自己的身份，那么在您成功完成身份验证之前，我们不会给您寄送 PIN 码。</span><br><span class="line"></span><br><span class="line">2. 收到 PIN 码后，请</span><br><span class="line"></span><br><span class="line">   将其输入 AdSense 帐号</span><br><span class="line"></span><br><span class="line">   以验证您的地址。</span><br><span class="line"></span><br><span class="line">   自 PIN 码生成之日算起，您可以在 4 个月内将该码输入帐号。如果您在 4 个月后还未输入该码，我们会停止在您的页面上展示广告。</span><br><span class="line"></span><br><span class="line">   **注意**：PIN 码是指在您的帐号余额达到进行验证所需的最低限额时生成的 6 位数字。PIN 码与发布商 ID 不同。请仅在 PIN 码验证卡片中输入正确的 PIN 码。请勿输入随机数字。如果 PIN 码输错三次，您的帐号将停止展示广告。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>我从触发验证账号地址到认证经历了四个多月，谷歌的这个邮件是个平邮 ，没有订单号，只能默默等待，中间去附近邮局还问过，基本查不出来只能等待，就这样来来回回申请了四次，这个邮件石沉大海，一点声音都没，中间给谷歌发邮件但是提示让耐心等待。到第四个月，最后一次机会发送邮件了，心里忐忑，再收不到就要停止展示广告了，等了一个月，中间也搜了相关问题，给谷歌工作人员发邮件，收到的回复都是：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">您好！感谢您的回复。</span><br><span class="line"></span><br><span class="line">请访问 [AdSense 帮助中心](https:&#x2F;&#x2F;support.google.com&#x2F;adsense)来解决与帐号有关的其他问题。为更好地获得支持服务，请确保您在尝试解决问题时已登录自己的 Google 帐号。</span><br><span class="line"></span><br><span class="line">为了更便于为您提供帮助，AdSense 在[此处](https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;answer&#x2F;2581949)列出了您可以使用的所有联系方式。</span><br><span class="line"></span><br><span class="line">[帮助中心](https:&#x2F;&#x2F;support.google.com&#x2F;payments)</span><br></pre></td></tr></table></figure>
-
-<p>最后实在没办法了，只能等待，最后在官网终于找到办法了，就是第四次发送后超过一个月还没收到，就可以在线认证地址：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">您好</span><br><span class="line">在此回覆您的問題</span><br><span class="line"></span><br><span class="line">PIN碼寄發四次之後(已超過30天)還是沒有收到的朋友，請用以下表單連結</span><br><span class="line">(僅開放給中國和台灣發佈商使用，香港發布商如果填對正確地址 一定收得到pin)</span><br><span class="line">AdSense: https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;contact&#x2F;id_verification</span><br><span class="line">AdMob: https:&#x2F;&#x2F;support.google.com&#x2F;admob&#x2F;contact&#x2F;mail_pin_issues</span><br><span class="line"></span><br><span class="line">以上連結經過Google政策組與優化經理再三確認連結無誤可用</span><br><span class="line">請務必先登入有效且正在變現的AdSense&#x2F;AdMob帳戶再開啟對應的連結</span><br><span class="line"></span><br><span class="line">或者透過个人识别码 (PIN)排查工具，進入線上驗證PIN碼的流程</span><br><span class="line">https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;troubleshooter&#x2F;1094206</span><br></pre></td></tr></table></figure>
-
-<p>通过访问地址，按要求填写资料，认证图片我上传的自己的身份证照片，提交后收到谷歌工作人员的提示邮件如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">尊敬的发布商：</span><br><span class="line"></span><br><span class="line">您好！感谢您与 AdSense 支持团队联系。我们已经安排了一位专家来调查您遇到的问题，并将尽快给您答复。</span><br><span class="line"></span><br><span class="line">我们的团队会尽一切努力在两个工作日（周一至周五）内给您答复。但有时我们会比平时更加繁忙，因此如果您未立刻收到我们的回复，请不必担心，也不用就您遇到的问题再次发送邮件。</span><br><span class="line"></span><br><span class="line">在您的问题得到解决后，您可能会收到一份调查问卷，以便您对我们的客户服务进行反馈。反馈意见有助于我们找出需要改进的方面，因此如果您在收到调查问卷后花一点时间填写，我们将不胜感激。</span><br></pre></td></tr></table></figure>
-
-<p>我这边其实没过多久就收到认证通过的邮件了：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">您好！</span><br><span class="line"></span><br><span class="line">感谢您发送身份证明。很高兴通知您，该证明符合AdSense的地址验证要求。您将不再需要输入个人识别码。</span><br><span class="line"></span><br><span class="line">为了确保您可以顺利收取AdSense付款，请您查看并完成以下步骤：</span><br><span class="line"></span><br><span class="line">选择付款方式</span><br><span class="line">检查您的余额是否达到付款最低限额</span><br><span class="line">查看我们的付款时间表以了解收到付款的时间</span><br><span class="line">祝您一切顺利！</span><br><span class="line"></span><br><span class="line">此致</span><br><span class="line"></span><br><span class="line">Google AdSense小组敬上</span><br></pre></td></tr></table></figure>
-<p>最后，至此我的谷歌联盟的账号认证就成功了，四个月的期待，最后成功了，心里还是美滋滋的。希望同道的你能有缘看到这篇文章，应该能帮助到你，最后不要心急，你的努力不会辜负你，加油！</p>
-]]></content>
-      <tags>
-        <tag>technology</tag>
       </tags>
   </entry>
   <entry>
@@ -2023,17 +1975,107 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>我想写点东西</title>
-    <url>/20201229/5eb2fbf4.html</url>
-    <content><![CDATA[<p>​我想写点东西，每当想去写点什么，感觉大脑里有很多东西想释放出来，可是拿起笔或者双手放到键盘上，就不知所措了，就无从下手了，还有一丝丝的恐惧。<a id="more"></a>会想到从哪里开始写，有什么思路没，中心思想是什么，写的好不好，写下来的东西有没有质量，会不会被人看到后嘲笑自己，慢慢的自己的惰性、怯意就蔓延起来，内心的OS会发出声音告诉自己“算啦，就这吧！回头再说吧，或者明天再开始”。日复一日，一字都没有保存下来，今天可算催促自己迈出了第一步，相信这不会是最后一步，会坚持下来，就当是每日的日记，给自己的每一天留下点痕迹吧。</p>
-<p>​回想学生时代拿起笔还能写点东西，那时候最讨厌的就是老师让写作文；后来上了大学拿起笔写点什么的机会就更少了，顶多也就在朋友圈里表达一下；再后来参加工作了，每天忙碌起来，朋友圈也发的少了，感觉大家都比较忙了，朋友们也都每天早出晚归，也都想安安静静的生活吧。自己的生活也慢慢安静了，可能思考的时间也多了吧，总想去写点什么，自己也能感觉到可能我也也写不出来华丽的辞藻，优美的句式，但是良不安分的心、良不服输的心，良狂傲的心，还是想动动手试试，同时也想提高些自己的写作能力，表达能力，给自己留下点什么吧。</p>
-<p>​接下来会写些什么我自己也不清楚，现在也不知自己所云几何，但是写到这个字的时候，这篇文章已经是五百多字了，感觉还是有点成就感的，毕竟还是把这些文字给堆叠起来了，想说的话给表达出来的，这是我的第一步，也算是今天的一个小小的成功吧。这会我突然想到南宋诗人陆游的一句诗句“文章本天成，妙手偶得之”。好文章可能一直在，不过现在可能我还没练就一双妙手吧，或者还没到那个偶然的一瞬间吧。</p>
-<p>​其实在今天动手写之前，关于如何去写好一篇文章，我查了些资料。在看资料的过程中，每篇文章在字字过目的过程中，感觉那些老师们是真厉害，写出了那么棒的文章，内心里开始想，他们是怎么想到的这一点，他们是怎么做的这个结构，他们是怎么想到的这个话题，他们是怎么的这些词语，内心着实的佩服，感觉自己这一百多斤弱爆了，怎么这么大的差距，自己好卑微呀，自己什么时候也能像他们那样，妙手捏来皆文章，笔尖挥洒，挥斥方遒。每当想到这些的时候自己就开始羞愧了，怎么好意思写东西，自己能写出那么好吗，你看人家的格式、断句、话题，可望不可即呀，屡屡被暴击，面红耳赤。其实现在细想，这种心态不应该，别人能写出来，自己也能写，慢慢地积累，不积跬步，怎么能至千里。</p>
-<p>​今天是我的第一步，相信不是最后一步，不求惊艳四方，但求每日记录，留下自己的痕迹，像萤火虫那样，虽然渺小，但也能放肆的发出微弱的光。愿看到此篇有所共鸣，正准备开始做些什么的道友，不要想了，做吧！</p>
-<p>​       </p>
+    <title>SpringCloud之Ribbon</title>
+    <url>/20200918/d4b47d90.html</url>
+    <content><![CDATA[<h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>Spring Cloud Ribbon是一个基于HTTP和TCP的客户端负载均衡工具，它基于Netflix Ribbon实现。通过Spring Cloud的封装，可以让我们轻松地将面向服务的REST模版请求自动转换成客户端负载均衡的服务调用。集中式负载均衡。</p>
+<h2 id="2、贴代码"><a href="#2、贴代码" class="headerlink" title="2、贴代码"></a>2、贴代码</h2><p>（1）、application.properties文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring.application.name&#x3D;springbootConsumerRibbon</span><br><span class="line">server.port&#x3D;6007</span><br><span class="line"></span><br><span class="line">eureka.client.service-url.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:5000&#x2F;eureka&#x2F;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p>（2）、主入口方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@ServletComponentScan</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableHystrix</span><br><span class="line">public class RibbonserviceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(RibbonserviceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced</span><br><span class="line">    RestTemplate restTemplate()&#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（3）、接口调用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 调用：localhost:6007&#x2F;consumerServiceRibbon?token&#x3D;1</span><br><span class="line">@RequestMapping(&quot;&#x2F;consumerServiceRibbon&quot;)</span><br><span class="line">@HystrixCommand(fallbackMethod &#x3D; &quot;consumerServiceRibbonFallback&quot;)</span><br><span class="line">public String consumerServiceRibbon(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    String result &#x3D; this.restTemplate.postForObject(&quot;http:&#x2F;&#x2F;springbootService&#x2F;service&#x2F;rest?token&#x3D;1&quot;, serviceInfo, String.class);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）、失败回调</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public String consumerServiceRibbonFallback(@RequestBody ServiceInfo serviceInfo) &#123;</span><br><span class="line">    return &quot;consumerServiceRibbon异常，端口：&quot; + port + &quot;，Name&#x3D;&quot; + serviceInfo.getName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（5）、启动连个生产者提供方法（略去）</p>
 ]]></content>
       <tags>
-        <tag>diy</tag>
+        <tag>technology</tag>
+        <tag>springcloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>历经四个月，谷歌联盟的PIN码问题终于解决了</title>
+    <url>/20210324/3d342e2e.html</url>
+    <content><![CDATA[<p>历经四个月，谷歌联盟的PIN码问题终于解决了。</p>
+<p>什么是PIN码？其实就是谷歌再给你报酬前的一次地址认证，以邮件的形式发给你，邮件里有一串六位数字就是PIN码。个人觉得这种邮件的方式效率太慢了。</p>
+<a id="more"></a>
+<p>谷歌官方解释：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">为确保您的帐号安全无虞，在向您发放任何付款之前，Google 会要求您先验证地址。地址验证方法具体如下：</span><br><span class="line"></span><br><span class="line">1. 当您的收入达到</span><br><span class="line"></span><br><span class="line">   进行验证所需的最低限额</span><br><span class="line"></span><br><span class="line">   时，我们会将个人识别码（PIN 码）邮寄到您的付款地址。</span><br><span class="line"></span><br><span class="line">   PIN 码通常会在 2 至 4 周内寄达，但也可能需要更长时间，具体取决于您所在的地理位置。</span><br><span class="line"></span><br><span class="line">   **注意**：如果我们要求您验证自己的身份，那么在您成功完成身份验证之前，我们不会给您寄送 PIN 码。</span><br><span class="line"></span><br><span class="line">2. 收到 PIN 码后，请</span><br><span class="line"></span><br><span class="line">   将其输入 AdSense 帐号</span><br><span class="line"></span><br><span class="line">   以验证您的地址。</span><br><span class="line"></span><br><span class="line">   自 PIN 码生成之日算起，您可以在 4 个月内将该码输入帐号。如果您在 4 个月后还未输入该码，我们会停止在您的页面上展示广告。</span><br><span class="line"></span><br><span class="line">   **注意**：PIN 码是指在您的帐号余额达到进行验证所需的最低限额时生成的 6 位数字。PIN 码与发布商 ID 不同。请仅在 PIN 码验证卡片中输入正确的 PIN 码。请勿输入随机数字。如果 PIN 码输错三次，您的帐号将停止展示广告。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我从触发验证账号地址到认证经历了四个多月，谷歌的这个邮件是个平邮 ，没有订单号，只能默默等待，中间去附近邮局还问过，基本查不出来只能等待，就这样来来回回申请了四次，这个邮件石沉大海，一点声音都没，中间给谷歌发邮件但是提示让耐心等待。到第四个月，最后一次机会发送邮件了，心里忐忑，再收不到就要停止展示广告了，等了一个月，中间也搜了相关问题，给谷歌工作人员发邮件，收到的回复都是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">您好！感谢您的回复。</span><br><span class="line"></span><br><span class="line">请访问 [AdSense 帮助中心](https:&#x2F;&#x2F;support.google.com&#x2F;adsense)来解决与帐号有关的其他问题。为更好地获得支持服务，请确保您在尝试解决问题时已登录自己的 Google 帐号。</span><br><span class="line"></span><br><span class="line">为了更便于为您提供帮助，AdSense 在[此处](https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;answer&#x2F;2581949)列出了您可以使用的所有联系方式。</span><br><span class="line"></span><br><span class="line">[帮助中心](https:&#x2F;&#x2F;support.google.com&#x2F;payments)</span><br></pre></td></tr></table></figure>
+
+<p>最后实在没办法了，只能等待，最后在官网终于找到办法了，就是第四次发送后超过一个月还没收到，就可以在线认证地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">您好</span><br><span class="line">在此回覆您的問題</span><br><span class="line"></span><br><span class="line">PIN碼寄發四次之後(已超過30天)還是沒有收到的朋友，請用以下表單連結</span><br><span class="line">(僅開放給中國和台灣發佈商使用，香港發布商如果填對正確地址 一定收得到pin)</span><br><span class="line">AdSense: https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;contact&#x2F;id_verification</span><br><span class="line">AdMob: https:&#x2F;&#x2F;support.google.com&#x2F;admob&#x2F;contact&#x2F;mail_pin_issues</span><br><span class="line"></span><br><span class="line">以上連結經過Google政策組與優化經理再三確認連結無誤可用</span><br><span class="line">請務必先登入有效且正在變現的AdSense&#x2F;AdMob帳戶再開啟對應的連結</span><br><span class="line"></span><br><span class="line">或者透過个人识别码 (PIN)排查工具，進入線上驗證PIN碼的流程</span><br><span class="line">https:&#x2F;&#x2F;support.google.com&#x2F;adsense&#x2F;troubleshooter&#x2F;1094206</span><br></pre></td></tr></table></figure>
+
+<p>通过访问地址，按要求填写资料，认证图片我上传的自己的身份证照片，提交后收到谷歌工作人员的提示邮件如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">尊敬的发布商：</span><br><span class="line"></span><br><span class="line">您好！感谢您与 AdSense 支持团队联系。我们已经安排了一位专家来调查您遇到的问题，并将尽快给您答复。</span><br><span class="line"></span><br><span class="line">我们的团队会尽一切努力在两个工作日（周一至周五）内给您答复。但有时我们会比平时更加繁忙，因此如果您未立刻收到我们的回复，请不必担心，也不用就您遇到的问题再次发送邮件。</span><br><span class="line"></span><br><span class="line">在您的问题得到解决后，您可能会收到一份调查问卷，以便您对我们的客户服务进行反馈。反馈意见有助于我们找出需要改进的方面，因此如果您在收到调查问卷后花一点时间填写，我们将不胜感激。</span><br></pre></td></tr></table></figure>
+
+<p>我这边其实没过多久就收到认证通过的邮件了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">您好！</span><br><span class="line"></span><br><span class="line">感谢您发送身份证明。很高兴通知您，该证明符合AdSense的地址验证要求。您将不再需要输入个人识别码。</span><br><span class="line"></span><br><span class="line">为了确保您可以顺利收取AdSense付款，请您查看并完成以下步骤：</span><br><span class="line"></span><br><span class="line">选择付款方式</span><br><span class="line">检查您的余额是否达到付款最低限额</span><br><span class="line">查看我们的付款时间表以了解收到付款的时间</span><br><span class="line">祝您一切顺利！</span><br><span class="line"></span><br><span class="line">此致</span><br><span class="line"></span><br><span class="line">Google AdSense小组敬上</span><br></pre></td></tr></table></figure>
+<p>最后，至此我的谷歌联盟的账号认证就成功了，四个月的期待，最后成功了，心里还是美滋滋的。希望同道的你能有缘看到这篇文章，应该能帮助到你，最后不要心急，你的努力不会辜负你，加油！</p>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows 下部署hadoop</title>
+    <url>/20200925/e58b4864.html</url>
+    <content><![CDATA[<h2 id="1、下载hadoop-和配置的文件（待定）"><a href="#1、下载hadoop-和配置的文件（待定）" class="headerlink" title="1、下载hadoop 和配置的文件（待定）"></a>1、下载hadoop 和配置的文件（待定）</h2><p>（1）、各种版本<a href="https://archive.apache.org/dist/hadoop/common/">hadoop</a></p>
+<p>（2）、根据版本进行选择bin的内容进行覆盖（支持windows 运行的工具）将bin目录(包含以下.dll和.exe文件)文件替换原来hadoop目录下的bin目录</p>
+<h2 id="2、-配置hadoop环境变量"><a href="#2、-配置hadoop环境变量" class="headerlink" title="2、 配置hadoop环境变量"></a>2、 配置hadoop环境变量</h2><p>右键单击我的电脑 –&gt;属性 –&gt;高级环境变量配置 –&gt;高级选项卡 –&gt;环境变量 –&gt; 单击新建HADOOP_HOME和编辑环境变量path如下图 </p>
+<a id="more"></a>
+<p><img src="/assets/resource/hadoop/deploy/huanbian1.png" alt="系统变量"></p>
+<p><img src="/assets/resource/hadoop/deploy/huanbian2.png" alt="path"></p>
+<h2 id="3、修改hadoop配置文件"><a href="#3、修改hadoop配置文件" class="headerlink" title="3、修改hadoop配置文件"></a>3、修改hadoop配置文件</h2><p>（1）、编辑“E:＼hadoop-3.0.0\etc\hadoop”下的 <strong>core-site.xml</strong> 文件，将下列文本粘贴进去，并保存；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;tmp&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.name.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;name&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.default.name&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;hdfs:&#x2F;&#x2F;localhost:9500&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的 <strong>mapred-site.xml</strong> (没有就将mapred-site.xml.template重命名为mapred-site.xml)文件，粘贴一下内容并保存；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">       &lt;name&gt;mapreduce.framework.name&lt;&#x2F;name&gt;</span><br><span class="line">       &lt;value&gt;yarn&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">       &lt;name&gt;mapred.job.tracker&lt;&#x2F;name&gt;</span><br><span class="line">       &lt;value&gt;hdfs:&#x2F;&#x2F;localhost:9501&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（3）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的 <strong>hdfs-site.xml</strong> 文件，粘贴以下内容并保存。请自行创建data目录，在这里我是在HADOOP_HOME目录下创建了workplace/data目录；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;!-- 这个参数设置为1，因为是单机版hadoop --&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.data.dir&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;data&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">	&lt;property&gt; </span><br><span class="line">        &lt;name&gt;dfs.webhdfs.enabled&lt;&#x2F;name&gt; </span><br><span class="line">        &lt;value&gt;true&lt;&#x2F;value&gt; </span><br><span class="line">    &lt;&#x2F;property&gt; </span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.http.address&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;localhost:50070&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（4）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的<strong>yarn-site.xml</strong>文件，粘贴以下内容并保存；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">   </span><br><span class="line">	 &lt;!-- Site specific YARN configuration properties --&gt;</span><br><span class="line">    &lt;property&gt;       </span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;&#x2F;name&gt;       </span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;&#x2F;value&gt;    </span><br><span class="line">    &lt;&#x2F;property&gt;    </span><br><span class="line">    &lt;property&gt;       </span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;&#x2F;name&gt;       </span><br><span class="line">        &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;&#x2F;value&gt;    </span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;!-- NodeManager总的可用虚拟CPU个数 --&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;!-- 每个节点可用的最大内存 --&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;2048&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;!-- 中间结果存放位置 --&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.local-dirs&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;workplace&#x2F;tmp&#x2F;nm-local-dir&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.log-dirs&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;value&gt;&#x2F;E:&#x2F;hadoop-3.0.0&#x2F;logs&#x2F;yarn&lt;&#x2F;value&gt;</span><br><span class="line">    &lt;&#x2F;property&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（5）、编辑“E:＼hadoop-3.0.0\etc\hadoop”目录下的 <strong>hadoop-env.cmd</strong> 文件，将JAVA_HOME用 @rem注释掉，编辑为JAVA_HOME的路径，然后保存；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@rem set JAVA_HOME&#x3D;%JAVA_HOME%</span><br><span class="line"></span><br><span class="line">set JAVA_HOME&#x3D;C:\PROGRA~1\Java\jdk1.8.0_201</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、运行环境"><a href="#4、运行环境" class="headerlink" title="4、运行环境"></a>4、运行环境</h2><p>（1）、运行cmd窗口，执行“ <strong>hdfs namenode -format</strong> ”；<br>（2）、运行cmd窗口，切换到hadoop的sbin目录，执行“start-all.cmd”，它将会启动以下进程。<br><img src="/assets/resource/hadoop/deploy/c1.png"   /></p>
+<img src="/assets/resource/hadoop/deploy/c2.png"  />
+
+<img src="/assets/resource/hadoop/deploy/c3.png"  />
+
+<img src="/assets/resource/hadoop/deploy/c4.png" />
+
+<h2 id="５、接下来上传测试，操作HDFS"><a href="#５、接下来上传测试，操作HDFS" class="headerlink" title="５、接下来上传测试，操作HDFS"></a>５、<strong>接下来上传测试，操作HDFS</strong></h2><p>根据你core-site.xml的配置，接下来你就可以通过：hdfs://localhost:9５00来对hdfs进行操作了。</p>
+<p>（1）、创建输入目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;hadoop fs -mkdir hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;</span><br><span class="line"></span><br><span class="line">C:\WINDOWS\system32&gt;hadoop fs -mkdir hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput</span><br></pre></td></tr></table></figure>
+
+<p>（2）、上传数据到目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;hadoop fs -put D:\file.txt hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput</span><br><span class="line"></span><br><span class="line">C:\WINDOWS\system32&gt;hadoop fs -put D:\file１.txt hdfs:&#x2F;&#x2F;localhost:9500&#x2F;user&#x2F;wcinput</span><br></pre></td></tr></table></figure>
+
+<p>（3）、查看文件</p>
+<blockquote>
+<p>E:\hadoop-3.0.0\bin&gt;hadoop fs -ls  hdfs://localhost:9500/user/wcinput<br>Found 2 items<br>-rw-r–r–   1 Administrator supergroup    3551058 2020-09-18 15:01 hdfs://localhost:9500/user/wcinput/file.txt<br>-rw-r–r–   1 Administrator supergroup     145579 2020-09-18 15:01 hdfs://localhost:9500/user/wcinput/file2.txt</p>
+</blockquote>
+<h2 id="6、hadoop自带的web控制台GUI"><a href="#6、hadoop自带的web控制台GUI" class="headerlink" title="6、hadoop自带的web控制台GUI"></a>6、hadoop自带的web控制台GUI</h2><p>（1）、资源管理GUI:<a href="http://localhost:8088/%EF%BC%9B">http://localhost:8088/；</a> </p>
+<p><img src="/assets/resource/hadoop/deploy/web1.png"></p>
+<p>（2）、节点管理GUI:<a href="http://localhost:50070/%EF%BC%9B">http://localhost:50070/；</a> </p>
+<p><img src="/assets/resource/hadoop/deploy/web2.png"></p>
+]]></content>
+      <tags>
+        <tag>technology</tag>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -2062,984 +2104,17 @@ e.requestAnimationFrame = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>道德经第七章之以其无私，故成其私</title>
-    <url>/20201223/b7297f9f.html</url>
-    <content><![CDATA[<p>天长地久。</p>
-<p>天地所以能长且久者，以其不自生，故能长生。</p>
-<a id="more"></a>
-
-<p>是以圣人后其身而身先，外其身而身存。</p>
-<p>非以其无私邪！</p>
-<p>故能成其私。</p>
+    <title>我想写点东西</title>
+    <url>/20201229/5eb2fbf4.html</url>
+    <content><![CDATA[<p>​我想写点东西，每当想去写点什么，感觉大脑里有很多东西想释放出来，可是拿起笔或者双手放到键盘上，就不知所措了，就无从下手了，还有一丝丝的恐惧。<a id="more"></a>会想到从哪里开始写，有什么思路没，中心思想是什么，写的好不好，写下来的东西有没有质量，会不会被人看到后嘲笑自己，慢慢的自己的惰性、怯意就蔓延起来，内心的OS会发出声音告诉自己“算啦，就这吧！回头再说吧，或者明天再开始”。日复一日，一字都没有保存下来，今天可算催促自己迈出了第一步，相信这不会是最后一步，会坚持下来，就当是每日的日记，给自己的每一天留下点痕迹吧。</p>
+<p>​回想学生时代拿起笔还能写点东西，那时候最讨厌的就是老师让写作文；后来上了大学拿起笔写点什么的机会就更少了，顶多也就在朋友圈里表达一下；再后来参加工作了，每天忙碌起来，朋友圈也发的少了，感觉大家都比较忙了，朋友们也都每天早出晚归，也都想安安静静的生活吧。自己的生活也慢慢安静了，可能思考的时间也多了吧，总想去写点什么，自己也能感觉到可能我也也写不出来华丽的辞藻，优美的句式，但是良不安分的心、良不服输的心，良狂傲的心，还是想动动手试试，同时也想提高些自己的写作能力，表达能力，给自己留下点什么吧。</p>
+<p>​接下来会写些什么我自己也不清楚，现在也不知自己所云几何，但是写到这个字的时候，这篇文章已经是五百多字了，感觉还是有点成就感的，毕竟还是把这些文字给堆叠起来了，想说的话给表达出来的，这是我的第一步，也算是今天的一个小小的成功吧。这会我突然想到南宋诗人陆游的一句诗句“文章本天成，妙手偶得之”。好文章可能一直在，不过现在可能我还没练就一双妙手吧，或者还没到那个偶然的一瞬间吧。</p>
+<p>​其实在今天动手写之前，关于如何去写好一篇文章，我查了些资料。在看资料的过程中，每篇文章在字字过目的过程中，感觉那些老师们是真厉害，写出了那么棒的文章，内心里开始想，他们是怎么想到的这一点，他们是怎么做的这个结构，他们是怎么想到的这个话题，他们是怎么的这些词语，内心着实的佩服，感觉自己这一百多斤弱爆了，怎么这么大的差距，自己好卑微呀，自己什么时候也能像他们那样，妙手捏来皆文章，笔尖挥洒，挥斥方遒。每当想到这些的时候自己就开始羞愧了，怎么好意思写东西，自己能写出那么好吗，你看人家的格式、断句、话题，可望不可即呀，屡屡被暴击，面红耳赤。其实现在细想，这种心态不应该，别人能写出来，自己也能写，慢慢地积累，不积跬步，怎么能至千里。</p>
+<p>​今天是我的第一步，相信不是最后一步，不求惊艳四方，但求每日记录，留下自己的痕迹，像萤火虫那样，虽然渺小，但也能放肆的发出微弱的光。愿看到此篇有所共鸣，正准备开始做些什么的道友，不要想了，做吧！</p>
+<p>​       </p>
 ]]></content>
       <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第一章之天地之始，万物之母</title>
-    <url>/20201216/183d62f6.html</url>
-    <content><![CDATA[<p>道可道，非常道；</p>
-<p>名可名，非常名。</p>
-<p>无，名天地之始；</p>
-<p>有，名万物之母。</p>
-<a id="more"></a>
-
-<p>故常无，欲以观其妙；</p>
-<p>常有，欲以观其徼。</p>
-<p>此两者，同出而异名，同谓之玄之又玄，众妙之门。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十一章之夫唯兵者，不祥之器</title>
-    <url>/20210119/ece2efee.html</url>
-    <content><![CDATA[<p>夫唯兵者，不祥之器，物或恶之。</p>
-<p>故有道者不处。</p>
-<a id="more"></a>
-<p>君子居则贵左，用兵则贵右。</p>
-<p>兵者不祥之器，非君子之器。</p>
-<p>不得已而用之。</p>
-<p>恬淡为上，胜而不美。</p>
-<p>而美之者，是乐杀人。</p>
-<p>夫乐杀人者，则不可以得志于天下矣。</p>
-<p>吉事尚左，凶事尚右。</p>
-<p>偏将军居左，上将军居右，言以丧礼处之。</p>
-<p>杀人之众，以哀悲泣之。</p>
-<p>战胜，以丧礼处之。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十七章之不欲以静，天下自定</title>
-    <url>/20210125/34de4b8f.html</url>
-    <content><![CDATA[<p>道常无为而无不为。</p>
-<p>侯王若能守之，万物将自化。</p>
-<a id="more"></a>
-<p>化而欲作，吾将镇之以无名之朴。</p>
-<p>无名之朴，夫亦将不欲。</p>
-<p>不欲以静，天下将自定。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十三章之知人者智，自知者明</title>
-    <url>/20210121/f032caea.html</url>
-    <content><![CDATA[<p>知人者智，</p>
-<p>自知者明。</p>
-<a id="more"></a>
-<p>胜人者有力，</p>
-<p>自胜者强。</p>
-<p>知足者富，</p>
-<p>强行者有志。</p>
-<p>不失其所者久。</p>
-<p>死而不亡者寿。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十九章之以贱为本，以下为基</title>
-    <url>/20210127/8e8b0e03.html</url>
-    <content><![CDATA[<p>昔之得一者：</p>
-<p>天得一以清；</p>
-<a id="more"></a>
-<p>地得一以宁；</p>
-<p>神得一以灵；</p>
-<p>谷得一以盈；</p>
-<p>万物得一以生；</p>
-<p>侯王得一以为天下贞。</p>
-<p>其致之也，</p>
-<p>为天无以清，将恐裂；</p>
-<p>地无以宁，将恐废；</p>
-<p>神无以灵，将恐歇；</p>
-<p>谷无以盈，将恐竭；</p>
-<p>万物无以生，将恐灭；</p>
-<p>侯王无以贞，将恐蹶。</p>
-<p>故贵以贱为本，高以下为基。</p>
-<p>是以侯王自称孤、寡、不谷。</p>
-<p>此非以贱为本邪？非乎？</p>
-<p>故至誉无誉。</p>
-<p>是故不欲琭琭如玉，珞珞如玉。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十五章之道之出口，淡乎无味</title>
-    <url>/20210123/fd3495fb.html</url>
-    <content><![CDATA[<p>执大象，天下往。</p>
-<p>往而不害，安平太。</p>
-<a id="more"></a>
-<p>乐与饵，过客止。</p>
-<p>道之出口，淡乎其无味，</p>
-<p>视之不足见，听之不足闻，用之不足既。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十二章之万物自宾，知止不殆</title>
-    <url>/20210120/fe2b188b.html</url>
-    <content><![CDATA[<p>道常无名，朴。</p>
-<p>虽小，天下莫能臣也。</p>
-<a id="more"></a>
-<p>侯王若能守之，万物将自宾。</p>
-<p>天地相合，以降甘露，民莫之令而自均。</p>
-<p>始制有名。</p>
-<p>名亦既有，夫亦将知止。</p>
-<p>知止可以不殆。</p>
-<p>譬道之在天下，犹川谷之于江海。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十八章之失道后德，失义后礼</title>
-    <url>/20210126/41ad8969.html</url>
-    <content><![CDATA[<p>上德不德，是以有德，下德不失德，是以无德。</p>
-<p>上德无为而无以为，</p>
-<a id="more"></a>
-<p>下德无为而有以为。</p>
-<p>上仁为之而无以为，</p>
-<p>上义为之而有以为。</p>
-<p>上礼为之而莫之应，则攘臂而仍之。</p>
-<p>故失道而后德，失德而后仁，失仁而后义，失义而后礼。</p>
-<p>夫礼者，忠信之薄，而乱之首。</p>
-<p>前识者，道之华，而愚之始。</p>
-<p>是以大丈夫处其厚，不居其薄；</p>
-<p>处其实，不居其华。</p>
-<p>故去彼取此。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十六章之将欲歙之，必固张之</title>
-    <url>/20210124/f60a9fda.html</url>
-    <content><![CDATA[<p>将欲歙之，必固张之；</p>
-<p>将欲弱之，必固强之；</p>
-<a id="more"></a>
-<p>将欲废之，必固兴之；</p>
-<p>将于废之，必固兴之；</p>
-<p>将欲夺之，必故与之；</p>
-<p>是谓微明。</p>
-<p>柔弱胜刚强。</p>
-<p>鱼不可脱于渊，国之利器不可以示人。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十章之物壮则老，是谓不道</title>
-    <url>/20210118/5ee5f638.html</url>
-    <content><![CDATA[<p>以道佐人主者，不以兵强天下。</p>
-<p>其事好还。</p>
-<a id="more"></a>
-<p>师之所处，荆棘生焉。</p>
-<p>大军之后，必有凶年。</p>
-<p>善友果而已，不敢以取强。</p>
-<p>果而勿矜，果而勿伐，果而勿骄，果而不得已，果而勿强。</p>
-<p>物壮则老，是谓不道。</p>
-<p>不道早已。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三章之圣人之治，无为而治</title>
-    <url>/20201218/a971979.html</url>
-    <content><![CDATA[<p>不尚贤，使民不争。</p>
-<p>不贵难得之货，使民不为盗。</p>
-<p>不见可欲，使民心不乱。</p>
-<p>是以圣人之治，</p>
-<p>虚其心，实其腹，弱其志，强其骨。</p>
-<a id="more"></a>
-<p>常使民无知无欲，</p>
-<p>使夫智者不敢为也。</p>
-<p>为无为，则无不治。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第九章之功遂身退，天之道也</title>
-    <url>/20201227/dba745e4.html</url>
-    <content><![CDATA[<p>持而盈之，不如其已。</p>
-<p>揣而锐之，不可长保。</p>
-<a id="more"></a>
-
-<p>金玉满堂，莫之能守。</p>
-<p>富贵而骄，自遗其咎。</p>
-<p>功遂身退，天之道也。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十一章之孔德之容，惟道是从</title>
-    <url>/20210108/5208fbe2.html</url>
-    <content><![CDATA[<p>孔德之容，惟道是从。</p>
-<p>道之为物，惟恍惟惚。</p>
-<a id="more"></a>
-<p>惚兮恍兮，其中有象。</p>
-<p>恍兮惚兮，其中有物。</p>
-<p>窈兮冥兮，其中有精。</p>
-<p>其精甚真，其中有信。</p>
-<p>自今及古，其名不去，以阅众甫。</p>
-<p>吾何以知众甫之状哉？</p>
-<p>以此。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第三十四章之不自为大，故成其大</title>
-    <url>/20210122/78ddd442.html</url>
-    <content><![CDATA[<p>大道氾（fan）兮,其可左右。</p>
-<p>万物恃之而生而不辞。</p>
-<a id="more"></a>
-<p>功成不名有。</p>
-<p>衣养万物而不为主。</p>
-<p>常无欲，可名于小。</p>
-<p>万物归焉而不为主，可名为大。</p>
-<p>以其终不自为大，故能成其大。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十七章之善行无迹，善言无瑕</title>
-    <url>/20210114/ecfeb076.html</url>
-    <content><![CDATA[<p>善行无辙迹；</p>
-<p>善言无瑕谪；</p>
-<a id="more"></a>
-
-<p>善数不用筹策；</p>
-<p>善闭无关楗而不可开；</p>
-<p>善结无绳约而不可解。</p>
-<p>是以圣人常善救人，故无弃人；</p>
-<p>常善救物，故无弃物。</p>
-<p>是谓袭明。</p>
-<p>故善人者，不善人之师；</p>
-<p>不善人者，善人之资。</p>
-<p>不贵其师，不爱其资，</p>
-<p>虽智大迷。</p>
-<p>是谓要妙。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十三章之同于道者，希言自然</title>
-    <url>/20210110/dbab5d1e.html</url>
-    <content><![CDATA[<p>希言自然。</p>
-<p>故飘风不终朝，骤雨不终日。</p>
-<a id="more"></a>
-<p>孰以此者？天地。</p>
-<p>天地尚不能久，而况于人乎？</p>
-<p>故从事于道者，同于道；</p>
-<p>德者，同于德；</p>
-<p>失者，同于失。</p>
-<p>同于道者，道亦乐得之。</p>
-<p>同于德者，德亦乐得之。</p>
-<p>同于失者，失亦乐得之。</p>
-<p>信不足焉，有不信焉。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十九章之无为无执，无败无失</title>
-    <url>/20210116/d547ff89.html</url>
-    <content><![CDATA[<p>将欲取天下而为之，吾见其不得已。</p>
-<p>天下神器，不可为也。</p>
-<a id="more"></a>
-<p>为者败之，执者失之。</p>
-<p>是以圣人无为，故无败，无执，故无失。</p>
-<p>夫物或行或随，或嘘或吹，或强或赢，或载或隳(hui)。</p>
-<p>是以圣人去甚，去奢，去泰。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十二章之夫唯不争，莫与之争</title>
-    <url>/20210109/8990cc0f.html</url>
-    <content><![CDATA[<p>曲则全，</p>
-<p>枉则直，</p>
-<a id="more"></a>
-<p>洼则盈，</p>
-<p>敝则新，</p>
-<p>少则得，</p>
-<p>多则惑。</p>
-<p>是以圣人抱一为天下式。</p>
-<p>不自见，故明；</p>
-<p>不自是，故彰；</p>
-<p>不自伐，故有功；</p>
-<p>不自矜，故长。</p>
-<p>夫唯不争，故天下莫能与之争。</p>
-<p>古之所谓，“曲则全”者，岂虚言哉！</p>
-<p>诚全而归之。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十五章之寂兮廖兮，道法自然</title>
-    <url>/20210112/d21a1cb2.html</url>
-    <content><![CDATA[<p>有物混成，先天地生。</p>
-<p>寂兮廖兮，独立不改，周行而不殆，可以为天地母。</p>
-<a id="more"></a>
-<p>吾不知其名，字之曰道，强为名曰大。</p>
-<p>大曰逝，逝曰远，远曰反。</p>
-<p>故道大，天大，地大，人亦大。</p>
-<p>域中有四大，而人居其一焉。</p>
-<p>人法地，地法天，天法道，道法自然。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十六章之轻则失根，躁则失君</title>
-    <url>/20210113/bc01ec51.html</url>
-    <content><![CDATA[<p>重为轻根，静为躁君。</p>
-<p>是以圣人终日行不离辎重。</p>
-<a id="more"></a>
-<p>虽有荣观，燕处超然。</p>
-<p>奈何万乘之主，而以身轻天下？</p>
-<p>轻则失根，躁则失君。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十四章之企者不立，跨者不行</title>
-    <url>/20210111/101c1992.html</url>
-    <content><![CDATA[<p>企者不立。</p>
-<p>跨者不行。</p>
-<a id="more"></a>
-<p>自见者不明。</p>
-<p>自是者不彰。</p>
-<p>自伐者无功。</p>
-<p>自矜者不长。</p>
-<p>其在道也，曰：“余食赘行。”</p>
-<p>物或恶之，故有道者不处。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十章之独异于人，而贵食母</title>
-    <url>/20210107/b1406943.html</url>
-    <content><![CDATA[<p>唯之一阿，相去几何？</p>
-<p>善之与恶，想去若何?</p>
-<a id="more"></a>
-<p>人之所畏，不可不畏。</p>
-<p>荒兮，其未央哉！</p>
-<p>众人熙熙，</p>
-<p>如享太牢，如春登台。</p>
-<p>我独泊兮，其未兆；</p>
-<p>沌沌兮，如婴儿之未孩；</p>
-<p>儽儽lei兮，若无所归。</p>
-<p>众人皆有余，而我独有遗。</p>
-<p>我愚人之心也哉！</p>
-<p>俗人昭昭，我独昏昏。</p>
-<p>众人察察，我独闷闷。</p>
-<p>澹tan兮其若海；</p>
-<p>飂liao兮若无止。</p>
-<p>众人皆有以，而我独顽似鄙。</p>
-<p>我独异于人，而贵食母。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二章之为而不恃，功成弗居</title>
-    <url>/20201217/856e5eb.html</url>
-    <content><![CDATA[<p>天下皆知美之为美，斯恶矣；</p>
-<p>皆知善之为善，斯不善矣。</p>
-<p>故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随，恒也。</p>
-<p>是以圣人处无为之事，行不言之教；</p>
-<a id="more"></a>
-
-<p>万物作而弗始，生而弗有，为而弗恃，功成而弗居。</p>
-<p>夫唯弗居，是以不去。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第五十一章之尊道贵德，而常自然</title>
-    <url>/20210209/6c81ce6b.html</url>
-    <content><![CDATA[<p>道生之，德畜之，物形之，势成之。</p>
-<p>是以万物莫不尊道而贵德。</p>
-<a id="more"></a>
-<p>道之尊，德之贵，夫莫之爵而常自然。</p>
-<p>故道生之，德畜之；</p>
-<p>长之育之；亭之毒之；养之覆之。</p>
-<p>生而不有，为而不恃，长而不宰。</p>
-<p>是谓玄德。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第五十之善摄生者，其无死地</title>
-    <url>/20210208/d2dcff23.html</url>
-    <content><![CDATA[<p>出生入死。</p>
-<p>生之徒，十有三；</p>
-<p>死之徒，十有三；</p>
-<p>人之生，动之死地，亦十有三。</p>
-<a id="more"></a>
-<p>夫何故？</p>
-<p>以其生生之厚。</p>
-<p>盖闻善摄生者，陆行不遇兕（si）虎，入军不被甲兵。</p>
-<p>兕无所投其角，虎无所措去爪，兵无所容其刃。</p>
-<p>夫何故？</p>
-<p>以其无死地。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第五章之多言数穷，不如守中</title>
-    <url>/20201220/6c1ba015.html</url>
-    <content><![CDATA[<p>天地不仁，以万物为刍狗。</p>
-<p>圣人不仁，以百姓为刍狗。</p>
-<a id="more"></a>
-
-<p>天地之间，其犹橐龠（tuo yue）乎？</p>
-<p>虚而不屈，动而愈出。</p>
-<p>多言数穷，不如守中。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第八章之上善若水，不争无尤</title>
-    <url>/20201224/93880331.html</url>
-    <content><![CDATA[<p>上善若水。</p>
-<p>水善利万物为不争，</p>
-<a id="more"></a>
-
-<p>处众人之所恶，</p>
-<p>故几于道。</p>
-<p>居善地，心善渊，与善仁，言善信，正善治，事善能，动善时。</p>
-<p>夫唯不争，故无尤。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第六章之玄牝之门，谓天地根</title>
-    <url>/20201222/be86b8af.html</url>
-    <content><![CDATA[<p>谷神不死，是谓玄牝。</p>
-<p>玄牝之门，视为天地根。</p>
-<a id="more"></a>
-
-<p>绵绵若存，用之不勤。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十一章之有以为利，无以为用</title>
-    <url>/20201229/e267850c.html</url>
-    <content><![CDATA[<p>三十辐共一毂（gu）,</p>
-<p>当其无，有车之用。</p>
-<a id="more"></a>
-<p>埏埴（shanzhi）以为器，</p>
-<p>当其无，有器之用。</p>
-<p>凿户牖（you）以为室,</p>
-<p>当其无，有室之用。</p>
-<p>故有之以为利，无之以为用。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十七章之悠兮贵言，功成事遂</title>
-    <url>/20210104/a9d251fb.html</url>
-    <content><![CDATA[<p>太上，下知有之。</p>
-<p>其次，亲而誉之。</p>
-<a id="more"></a>
-<p>其次，畏之。</p>
-<p>其次，悔之。</p>
-<p>信不足焉，有不信焉。</p>
-<p>悠兮其贵言，功成身遂，</p>
-<p>百姓皆谓：我自然。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十三章之得之若惊，失之若惊</title>
-    <url>/20201231/698ac23f.html</url>
-    <content><![CDATA[<p>宠辱若惊，贵大患若身。</p>
-<p>何谓宠辱若惊？</p>
-<a id="more"></a>
-<p>宠为下，</p>
-<p>得之若惊，失之若惊，</p>
-<p>是谓宠辱若惊。</p>
-<p>何谓贵大患若身？</p>
-<p>吾所以有大患者，为吾有身。</p>
-<p>及吾无身，吾有何患？</p>
-<p>故贵以身为天下，若可寄天下。</p>
-<p>爱以身为天下，若可托天下。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十九章之见素抱朴，少私寡欲</title>
-    <url>/20210106/e8b46c18.html</url>
-    <content><![CDATA[<p>绝圣弃智，民利百倍。</p>
-<p>绝仁弃义，民富孝慈。</p>
-<a id="more"></a>
-<p>绝巧弃利，盗贼无有。</p>
-<p>此三者以为文不足，</p>
-<p>故令有所属。</p>
-<p>见素抱朴，少私寡欲。</p>
-<p>绝学无忧。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十二章之圣人之腹，去彼取此</title>
-    <url>/20201230/708837d8.html</url>
-    <content><![CDATA[<p>五色令人目盲，</p>
-<p>五音令人耳聋，</p>
-<a id="more"></a>
-<p>五味令人口爽，</p>
-<p>驰骋畋猎，令人心发狂，</p>
-<p>难得之货，令人行妨。</p>
-<p>是以圣人为腹不为目。</p>
-<p>故去彼取此。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十五章之微妙玄通，深不可识</title>
-    <url>/20210102/77a1cb1f.html</url>
-    <content><![CDATA[<p>古之善为士者，</p>
-<p>微妙玄通，深不可识。</p>
-<a id="more"></a>
-<p>夫唯不可识，故强为之容：</p>
-<p>豫兮若冬涉川；</p>
-<p>犹兮若畏四邻；</p>
-<p>俨兮其为客；</p>
-<p>涣兮若冰之将释；</p>
-<p>敦兮其若朴；</p>
-<p>旷兮其若谷；</p>
-<p>混兮其若浊；</p>
-<p>澹tan兮其若海；</p>
-<p>飂liao兮若无止。</p>
-<p>孰能浊以静之徐清。</p>
-<p>孰能安以久动之徐生。</p>
-<p>保此道者，不欲盈。</p>
-<p>夫唯不盈，故能避而新成。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十八章之道废仁出，慧出大伪</title>
-    <url>/20210105/9d3566ed.html</url>
-    <content><![CDATA[<p>大道废，有仁义。</p>
-<p>慧智出，有大伪。</p>
-<a id="more"></a>
-<p>六亲不和，有孝慈。</p>
-<p>国家昏乱，有忠臣。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十六章之致虚守静，复归其根</title>
-    <url>/20210103/14f0b3b5.html</url>
-    <content><![CDATA[<p>致虚极，守静笃。</p>
-<p>万物并作，吾以观复。</p>
-<a id="more"></a>
-<p>夫物芸芸，各复归其根。</p>
-<p>归根曰静，是曰复命。</p>
-<p>复命曰常。</p>
-<p>知常曰明。</p>
-<p>不知常，妄作，凶。</p>
-<p>知常容，容乃公。</p>
-<p>公乃王，王乃天，</p>
-<p>天乃道，道乃久，</p>
-<p>没身不殆。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第十章之抟气为柔，明白四达</title>
-    <url>/20201228/10f3b6.html</url>
-    <content><![CDATA[<p>载营魄抱一，能无离乎？</p>
-<p>抟气为柔，能如婴儿乎？</p>
-<a id="more"></a>
-<p>涤除玄览，能无疵乎？</p>
-<p>爱民治国，能无为乎？</p>
-<p>天门开阖，能为雌乎？</p>
-<p>明白四达，能无知乎？</p>
-<p>生之畜之。</p>
-<p>生而不有，为而不恃，长而不宰。</p>
-<p>是谓玄德。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十一章之大象无形，道隐无名</title>
-    <url>/20210129/df27a73f.html</url>
-    <content><![CDATA[<p>上士闻道，勤而行之。</p>
-<p>中士闻道，若存若亡。</p>
-<p>下士闻道，大笑之。</p>
-<a id="more"></a>
-<p>不笑不足以为道。</p>
-<p>故建言有之：</p>
-<p>明道若昧；</p>
-<p>进道若退；</p>
-<p>夷道若退；</p>
-<p>夷道若纇；</p>
-<p>上德若谷；</p>
-<p>广德若不足；</p>
-<p>建德若偷；</p>
-<p>质真若渝；</p>
-<p>大白若辱；</p>
-<p>大方无隅；</p>
-<p>大器晚成；</p>
-<p>大音希声；</p>
-<p>大象无形；</p>
-<p>道隐无名。</p>
-<p>夫唯道，善贷且成。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十七之不行而知，不为而成</title>
-    <url>/20210205/2a01c89f.html</url>
-    <content><![CDATA[<p>不出户，知天下；</p>
-<p>不窥牖（you），见天道。</p>
-<a id="more"></a>
-<p>其出弥远，其知弥少。</p>
-<p>是以圣人不行而知，不见而名，不为而成。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十三章之不言之教，无为之益</title>
-    <url>/20210201/f8705562.html</url>
-    <content><![CDATA[<p>天下之至柔，驰骋天下之至坚。</p>
-<p>无有入无间，吾是以知无为之有益。</p>
-<a id="more"></a>
-<p>不言之教，无为之益，天下希及之。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十九之善者吾善，不善吾善</title>
-    <url>/20210207/cc13b80d.html</url>
-    <content><![CDATA[<p>圣人无常心，以百姓心为心。</p>
-<p>善者吾善之，不善者吾亦善之，德善。</p>
-<a id="more"></a>
-<p>信者吾信之，不信者吾亦信之，德信。</p>
-<p>圣人在天下，歙歙焉；为天下，浑其心。</p>
-<p>百姓皆注其耳目，圣人皆孩之。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十二章之负阴抱阳，冲气为和</title>
-    <url>/20210131/8f578d0.html</url>
-    <content><![CDATA[<p>道生一，一生二，二生三，三生万物。</p>
-<p>万物负阴而抱阳，冲气以为和。</p>
-<a id="more"></a>
-<p>人之所恶，唯孤、寡、不谷、而王公以为称。</p>
-<p>故物或损之而益，或益之而损。</p>
-<p>人之所教，我亦教之：</p>
-<p>强梁者不得其死。</p>
-<p>吾将以为教父。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十五之大成若缺，其用不弊</title>
-    <url>/20210203/9e1ab363.html</url>
-    <content><![CDATA[<p>大成若缺，其用不弊。</p>
-<p>大盈若冲，其用不穷。</p>
-<a id="more"></a>
-<p>大直若屈，大巧若拙，</p>
-<p>大辩若讷。</p>
-<p>躁胜寒，静胜热。</p>
-<p>清静为天下正。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十八之为学日益，为道日损</title>
-    <url>/20210206/8869ef8a.html</url>
-    <content><![CDATA[<p>为学日益，为道日损。</p>
-<p>损之又损，以至于无为。</p>
-<a id="more"></a>
-<p>无为而无不为。</p>
-<p>取天下常以无事，</p>
-<p>及其有事，不足以取天下。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十六之罪于纵欲，知足常足</title>
-    <url>/20210204/21dd33af.html</url>
-    <content><![CDATA[<p>天下有道，却走马以粪。</p>
-<p>天下无道，戎马生于郊。</p>
-<a id="more"></a>
-<p>罪莫大于可欲，祸莫大于不知足，咎莫大于欲得。</p>
-<p>故知足之足，常足矣。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十四之知足不辱，知止不殆</title>
-    <url>/20210202/cdef808b.html</url>
-    <content><![CDATA[<p>名与身孰亲？</p>
-<p>身与货孰多？</p>
-<a id="more"></a>
-<p>得与亡孰病？</p>
-<p>甚爱必大费，多藏必厚亡。</p>
-<p>甚爱必大费，知止不殆，可以长久。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四章之挫锐解纷，和光同尘</title>
-    <url>/20201219/da025771.html</url>
-    <content><![CDATA[<p>道冲，而用之或不盈。</p>
-<p>渊兮，似万物之宗。</p>
-<a id="more"></a> 
-
-<p>挫其锐，解其纷，和其光，同其尘。</p>
-<p>湛兮似或存。</p>
-<p>吾不知谁之子，象帝之先。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第四十章之物生于有，有生于无</title>
-    <url>/20210128/86936f61.html</url>
-    <content><![CDATA[<p>反者道之动。</p>
-<p>弱者道之用。</p>
-<a id="more"></a>
-<p>天下万物生于有，有生于无。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>道德经第二十八章之知荣守辱，为天下谷</title>
-    <url>/20210115/f033ab2e.html</url>
-    <content><![CDATA[<p>知其雄，守其雌，为天下溪。</p>
-<p>为天下溪，常德不离，复归于婴儿。</p>
-<a id="more"></a>
-<p>知其白，守其黑，为天下式。</p>
-<p>为天下式，常德不忒，复归于无极。</p>
-<p>知其荣，守其辱，为天下谷。</p>
-<p>为天下谷，常德乃足，复归于朴。</p>
-<p>朴散则为器，圣人用之，则为官长。</p>
-<p>故大制不割。</p>
-]]></content>
-      <tags>
-        <tag>read</tag>
-        <tag>道德经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git的基本操作</title>
-    <url>/20201215/45d3ebe2.html</url>
-    <content><![CDATA[<p>在实际开发中，会使用git作为版本控制工具来完成团队协作，因此，对命令做部分常用操作的归纳总结，方便日常查看使用。</p>
-<a id="more"></a>
-
-<p>主要涉及到四个关键点：</p>
-<ol>
-<li>工作区：本地电脑存放项目文件的地方；</li>
-<li>暂存区（Index/Stage）：在使用git管理项目文件的时候，其本地的项目文件会多出一个.git的文件夹，将这个.git文件夹称之为版本库。其中.git文件夹中包含了两个部分，一个是暂存区（Index或者Stage）,顾名思义就是暂时存放文件的地方，通常使用add命令将工作区的文件添加到暂存区里；</li>
-<li>本地仓库：.git文件夹里还包括git自动创建的master分支，并且将HEAD指针指向master分支。使用commit命令可以将暂存区中的文件添加到本地仓库中；</li>
-<li>远程仓库：不是在本地仓库中，项目代码在远程git服务器上，比如项目放在github上，就是一个远程仓库，通常使用clone命令将远程仓库拷贝到本地仓库中，开发后推送到远程仓库中即可；</li>
-</ol>
-<p>日常开发时，代码实际上放置在工作区，通过add等这些命令将代码文教提交给暂存区（Index/Stage），也就意味着代码全权交给了git进行管理，之后通过commit等命令将暂存区提交给master分支上，也就是意味打了一个版本，也可以说代码提交到了本地仓库中。另外，团队协作过程中自然而然还涉及到与远程仓库的交互。</p>
-<p>因此，经过这样的分析，git命令可以分为这样的逻辑进行理解和记忆：</p>
-<ol>
-<li>git管理配置的命令；</li>
-<li>工作区与暂存区的交互；</li>
-<li>暂存区与本地仓库（分支）上的交互；</li>
-<li>本地仓库与远程仓库的交互。</li>
-</ol>
-<h1 id="1、-git配置命令"><a href="#1、-git配置命令" class="headerlink" title="1、 git配置命令"></a>1、 git配置命令</h1><p>查询配置信息</p>
-<blockquote>
-<p>列出当前配置：<code>git config --list</code>;<br>列出repository配置：<code>git config --local --list</code>;<br>列出全局配置：<code>git config --global --list</code>;<br>列出系统配置：<code>git config --system --list</code>;</p>
-</blockquote>
-<p>第一次使用git，配置用户信息</p>
-<blockquote>
-<p>配置用户名：<code>git config --global user.name &quot;your name&quot;</code>;<br>配置用户邮箱：<code>git config --global user.email &quot;youremail@github.com&quot;</code>;</p>
-</blockquote>
-<h1 id="2、工作区上的操作命令"><a href="#2、工作区上的操作命令" class="headerlink" title="2、工作区上的操作命令"></a>2、工作区上的操作命令</h1><p>新建仓库</p>
-<blockquote>
-<p>将工作区中的项目文件使用git进行管理，即创建一个新的本地仓库：<code>git init</code>；<br>从远程git仓库复制项目：<code>git clone &lt;url&gt;</code></p>
-</blockquote>
-<p>提交</p>
-<blockquote>
-<p>提交工作区所有文件到暂存区：<code>git add .</code><br>提交工作区中指定文件到暂存区：<code>git add &lt;file1&gt; &lt;file2&gt; ...</code>;<br>提交工作区中某个文件夹中所有文件到暂存区：<code>git add [dir]</code>;</p>
-</blockquote>
-<p>撤销</p>
-<blockquote>
-<p>删除工作区文件，并且也从暂存区删除对应文件的记录：<code>git rm &lt;file1&gt; &lt;file2&gt;</code>;<br>从暂存区中删除文件，但是工作区依然还有该文件:<code>git rm --cached &lt;file&gt;</code>;<br>取消暂存区已经暂存的文件：<code>git reset HEAD &lt;file&gt;...</code>;<br>撤销上一次对文件的操作：<code>git checkout --&lt;file&gt;</code>。要确定上一次对文件的修改不再需要，如果想保留上一次的修改以备以后继续工作，可以使用stashing和分支来处理；<br>隐藏当前变更，以便能够切换分支：<code>git stash</code>；<br>查看当前所有的储藏：<code>git stash list</code>；<br>应用最新的储藏：<code>git stash apply</code>，如果想应用更早的储藏：<code>git stash apply stash@&#123;2&#125;</code>；重新应用被暂存的变更，需要加上<code>--index</code>参数：<code>git stash apply --index</code>;<br>使用apply命令只是应用储藏，而内容仍然还在栈上，需要移除指定的储藏：<code>git stash drop stash&#123;0&#125;</code>；如果使用pop命令不仅可以重新应用储藏，还可以立刻从堆栈中清除：<code>git stash pop</code>;<br>在某些情况下，你可能想应用储藏的修改，在进行了一些其他的修改后，又要取消之前所应用储藏的修改。Git没有提供类似于 stash unapply 的命令，但是可以通过取消该储藏的补丁达到同样的效果：<code>git stash show -p stash@&#123;0&#125; | git apply -R</code>；同样的，如果你沒有指定具体的某个储藏，Git 会选择最近的储藏：<code>git stash show -p | git apply -R</code>；</p>
-</blockquote>
-<p>更新文件</p>
-<blockquote>
-<p>重命名文件，并将已改名文件提交到暂存区：<code>git mv [file-original] [file-renamed]</code>;</p>
-</blockquote>
-<p>查新信息</p>
-<blockquote>
-<p>查询当前工作区所有文件的状态：<code>git status</code>;<br>比较工作区中当前文件和暂存区之间的差异，也就是修改之后还没有暂存的内容：git diff；指定文件在工作区和暂存区上差异比较：<code>git diff &lt;file-name&gt;</code>;</p>
-</blockquote>
-<h1 id="3、暂存区上的操作命令"><a href="#3、暂存区上的操作命令" class="headerlink" title="3、暂存区上的操作命令"></a>3、暂存区上的操作命令</h1><p>提交文件到版本库</p>
-<blockquote>
-<p>将暂存区中的文件提交到本地仓库中，即打上新版本：<code>git commit -m &quot;commit_info&quot;</code>;<br>将所有已经使用git管理过的文件暂存后一并提交，跳过add到暂存区的过程：<code>git commit -a -m &quot;commit_info&quot;</code>;<br>提交文件时，发现漏掉几个文件，或者注释写错了，可以撤销上一次提交：<code>git commit --amend</code>;</p>
-</blockquote>
-<p>查看信息</p>
-<blockquote>
-<p>比较暂存区与上一版本的差异：<code>git diff --cached</code>;<br>指定文件在暂存区和本地仓库的不同：<code>git diff &lt;file-name&gt; --cached</code>;<br>查看提交历史：git log；参数<code>-p</code>展开每次提交的内容差异，用<code>-2</code>显示最近的两次更新，如<code>git log -p -2</code>;</p>
-</blockquote>
-<p>打标签</p>
-<blockquote>
-<p>列出现在所有的标签：<code>git tag</code>;<br>使用特定的搜索模式列出符合条件的标签：<code>git tag -l &quot;v1.4.2.*&quot;</code>;<br>创建含附注类型的标签，需要加<code>-a</code>参数: <code>git tag -a v1.4 -m &quot;my version 1.4&quot;</code>;<br>使用git show命令查看相应标签的版本信息：<code>git show v1.4</code>;<br>验证已签署的标签：git tag -v ，如<code>git tag -v v1.5</code>;<br>创建一个轻量级标签的话，就直接使用git tag命令即可，连<code>-a</code>,<code>-s</code>以及<code>-m</code>选项都不需要，直接给出标签名字即可，如<code>git tag v1.5</code>;<br>将标签推送到远程仓库中：git push origin ，如<code>git push origin v1.5</code>；<br>将本地所有的标签全部推送到远程仓库中：<code>git push origin --tags</code>;</p>
-</blockquote>
-<p>分支管理</p>
-<blockquote>
-<p>创建分支：<code>git branch &lt;branch-name&gt;</code>，如<code>git branch yilia</code>；<br>从当前所处的分支切换到其他分支：<code>git checkout &lt;branch-name&gt;</code>，如<code>git checkout yilia</code>；<br>新建并切换到新建分支上：<code>git checkout -b &lt;branch-name&gt;</code>;<br>删除分支：<code>git branch -d &lt;branch-name&gt;</code>；<br>将当前分支与指定分支进行合并：<code>git merge &lt;branch-name&gt;</code>;<br>显示本地仓库的所有分支：<code>git branch</code>;<br>查看各个分支最后一个提交对象的信息：<code>git branch -v</code>;<br>查看哪些分支已经合并到当前分支：<code>git branch --merged</code>;<br>查看当前哪些分支还没有合并到当前分支：<code>git branch --no-merged</code>;<br>把远程分支合并到当前分支：<code>git merge &lt;remote-name&gt;/&lt;branch-name&gt;</code>;<br>在远程分支的基础上创建新的本地分支<code>：git checkout -b &lt;branch-name&gt; &lt;remote-name&gt;/&lt;branch-name&gt;</code>，如<code>git checkout -b serverfix origin/serverfix</code>;<br>从远程分支checkout出来的本地分支，称之为跟踪分支。在跟踪分支上向远程分支上推送内容：<code>git push</code>。该命令会自动判断应该向远程仓库中的哪个分支推送数据；在跟踪分支上合并远程分支：<code>git pull</code>；<br>将一个分支里提交的改变移到基底分支上重放一遍：<code>git rebase &lt;rebase-branch&gt; &lt;branch-name&gt;</code>；</p>
-</blockquote>
-<h1 id="4、本地仓库上的操作"><a href="#4、本地仓库上的操作" class="headerlink" title="4、本地仓库上的操作"></a>4、本地仓库上的操作</h1><blockquote>
-<p>查看本地仓库关联的远程仓库：<code>git remote</code>；在克隆完每个远程仓库后，远程仓库默认为<code>origin</code>;加上<code>-v</code>的参数后，会显示远程仓库的<code>url</code>地址；<br>添加远程仓库：<code>git remote add [remote-name] [url]</code>，比如：<code>git remote add example git://github.com/example/example.git</code>;<br>从远程仓库中抓取本地仓库中没有的更新：<code>git fetch [remote-name]</code>，如<code>git fetch origin</code>;使用fetch只是将远端数据拉到本地仓库，并不自动合并到当前工作分支，只能人工合并。如果设置了某个分支关联到远程仓库的某个分支的话，可以使用<code>git pull</code>来拉去远程分支的数据，然后将远端分支自动合并到本地仓库中的当前分支；<br>将本地仓库某分支推送到远程仓库上：<code>git push [remote-name] [branch-name]</code>，如<code>git push origin master</code>；如果想将本地分支推送到远程仓库的不同名分支：<code>git push &lt;remote-name&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;</code>，如<code>git push origin serverfix:awesomebranch</code>;如果想删除远程分支：<code>git push [romote-name] :&lt;remote-branch&gt;</code>，如<code>git push origin :serverfix</code>。这里省略了本地分支，也就相当于将空白内容推送给远程分支，就等于删掉了远程分支。<br>查看远程仓库的详细信息：<code>git remote show origin</code>；<br>修改某个远程仓库在本地的简称：<code>git remote rename [old-name] [new-name]</code>，如<code>git remote rename origin org</code>；<br>移除远程仓库：<code>git remote rm [remote-name]</code>；</p>
-</blockquote>
-<h1 id="5、忽略文件-gitignore"><a href="#5、忽略文件-gitignore" class="headerlink" title="5、忽略文件.gitignore"></a>5、忽略文件.gitignore</h1><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore 的文件，列出要忽略的文件模式。如下例：</p>
-]]></content>
-      <tags>
-        <tag>technology</tag>
-        <tag>git</tag>
+        <tag>diy</tag>
       </tags>
   </entry>
   <entry>
