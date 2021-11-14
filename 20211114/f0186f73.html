@@ -11,17 +11,20 @@
   <meta name="sogou_site_verification" content="ypZXKCtiDw"/>
   <meta name="shenma-site-verification" content="76039c2a3e35f449021385dd42691d2f_1608551885">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>Archives | 码海一粟</title>
+  <title>Docker 安装 MySQL | 码海一粟</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="码海一粟，从事Java软件开发，敲了几年代码，修炼的道路，一颗不服输的心，努力奔跑。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="码海一粟">
-<meta property="og:url" content="https://alibroadcast.com/archives/index.html">
+  <meta name="description" content="查看可用的 MySQL 版本访问 MySQL 镜像库地址：https:&#x2F;&#x2F;hub.docker.com&#x2F;_&#x2F;mysql?tab&#x3D;tags 。 可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 mysql:latest 。 此外，我们还可以用 docker search mysql 命令来查看可用版本： 1234567891011121314root@localhost ~]#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 安装 MySQL">
+<meta property="og:url" content="https://alibroadcast.com/20211114/f0186f73.html">
 <meta property="og:site_name" content="码海一粟">
-<meta property="og:description" content="码海一粟，从事Java软件开发，敲了几年代码，修炼的道路，一颗不服输的心，努力奔跑。">
+<meta property="og:description" content="查看可用的 MySQL 版本访问 MySQL 镜像库地址：https:&#x2F;&#x2F;hub.docker.com&#x2F;_&#x2F;mysql?tab&#x3D;tags 。 可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 mysql:latest 。 此外，我们还可以用 docker search mysql 命令来查看可用版本： 1234567891011121314root@localhost ~]#">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-14T13:30:21.000Z">
+<meta property="article:modified_time" content="2021-11-14T13:49:33.289Z">
 <meta property="article:author" content="码海一粟">
-<meta property="article:tag" content="码海一粟,码海一粟的博客,博客">
+<meta property="article:tag" content="technology">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="码海一粟" type="application/atom+xml">
@@ -31,7 +34,7 @@
   
   
   
-   <meta name="keywords" content="码海一粟,码海一粟的博客,博客">
+     <meta name="keywords" content="在Docker中安装MySQL,docker,码海一粟,码海一粟的博客,博客">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
 <link rel="stylesheet" type="text/css" href="/./css/search.css">
@@ -233,37 +236,140 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Docker-安装-MySQL" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Docker 安装 MySQL
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20211114/f0186f73.html" class="archive-article-date">
+
+        
+        <a href="/20211114/f0186f73.html" class="archive-article-date">
   	<time datetime="2021-11-14T13:30:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-14</time>
 </a>
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20211114/f0186f73.html">Docker 安装 MySQL</a>
-    </h1>
-  
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
 
-        <div class="article-info info-on-right">
-          
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="查看可用的-MySQL-版本"><a href="#查看可用的-MySQL-版本" class="headerlink" title="查看可用的 MySQL 版本"></a>查看可用的 MySQL 版本</h3><p>访问 MySQL 镜像库地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql?tab=tags">https://hub.docker.com/_/mysql?tab=tags</a> 。</p>
+<p>可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 <strong>mysql:latest</strong> 。</p>
+<p>此外，我们还可以用 <strong>docker search mysql</strong> 命令来查看可用版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@localhost ~]# docker search mysql</span><br><span class="line">INDEX       NAME                                        DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">docker.io   docker.io&#x2F;mysql                             MySQL is a widely used, open-source relati...   11480     [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;mariadb                           MariaDB Server is a high performing open s...   4356      [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;mysql&#x2F;mysql-server                Optimized MySQL Server Docker images. Crea...   849                  [OK]</span><br><span class="line">docker.io   docker.io&#x2F;percona                           Percona Server is a fork of the MySQL rela...   557       [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;phpmyadmin                        phpMyAdmin - A web interface for MySQL and...   332       [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;centos&#x2F;mysql-57-centos7           MySQL 5.7 SQL database server                   91                   </span><br><span class="line">docker.io   docker.io&#x2F;mysql&#x2F;mysql-cluster               Experimental MySQL Cluster Docker images. ...   88                   </span><br><span class="line">docker.io   docker.io&#x2F;centurylink&#x2F;mysql                 Image containing mysql. Optimized to be li...   59                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;databack&#x2F;mysql-backup             Back up mysql databases to... anywhere!         51                   </span><br><span class="line">docker.io   docker.io&#x2F;prom&#x2F;mysqld-exporter                                                              42                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;deitch&#x2F;mysql-backup               REPLACED! Please use http:&#x2F;&#x2F;hub.docker.com...   41                   [OK]</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="拉取-MySQL-镜像"><a href="#拉取-MySQL-镜像" class="headerlink" title="拉取 MySQL 镜像"></a>拉取 MySQL 镜像</h3><p>这里我们拉取官方的最新版本的镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:latest</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Trying to pull repository docker.io&#x2F;library&#x2F;mysql ... </span><br><span class="line">latest: Pulling from docker.io&#x2F;library&#x2F;mysql</span><br><span class="line">07aded7c29c6: Pulling fs layer </span><br><span class="line">f68b8cbd22de: Download complete </span><br><span class="line">30c1754a28c4: Downloading [&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;                                   ] 1.265 MB&#x2F;4.179 MB</span><br><span class="line">1b7cb4d6fe05: Waiting </span><br><span class="line">79a41dc56b9a: Waiting </span><br><span class="line">00a75e3842fb: Waiting </span><br><span class="line">b36a6919c217: Waiting </span><br><span class="line">635b0b84d686: Waiting </span><br><span class="line">6d24c7242d02: Waiting </span><br><span class="line">5be6c5edf16f: Waiting </span><br><span class="line">cb35eac1242c: Waiting </span><br><span class="line">a573d4e1c407: Waiting </span><br></pre></td></tr></table></figure>
+
+<h3 id="查看本地镜像"><a href="#查看本地镜像" class="headerlink" title="查看本地镜像"></a>查看本地镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">docker.io&#x2F;mysql     latest              2fe463762680        22 hours ago        514 MB</span><br><span class="line">docker.io&#x2F;java      8                   d23bdf5b1b1b        4 years ago         643 MB</span><br><span class="line">docker.io&#x2F;ubuntu    15.10               9b9cb95443b5        5 years ago         137 MB</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h3><p>安装完成后，我们可以使用以下命令来运行 mysql 容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD&#x3D;123456 mysql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<p>-p 3306:3306 ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务。<br>MYSQL_ROOT_PASSWORD=123456：设置 MySQL 服务 root 用户的密码。</p>
+<h3 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h3><p>通过 <strong>docker ps</strong> 命令查看是否安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">e5f364c8eea5        mysql               &quot;docker-entrypoint...&quot;   13 seconds ago      Up 11 seconds       0.0.0.0:3306-&gt;3306&#x2F;tcp, 33060&#x2F;tcp   mysql</span><br><span class="line">4b567ab8009e        docker.io&#x2F;java:8    &quot;&#x2F;bin&#x2F;bash&quot;              27 minutes ago      Up 27 minutes                                           java-jdk8</span><br></pre></td></tr></table></figure>
+
+<p>本机可以通过 root 和密码 123456 访问 MySQL 服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@e5f364c8eea5:&#x2F;# mysql -h localhost -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 8</span><br><span class="line">Server version: 8.0.26 MySQL Community Server - GPL</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2021, Oracle and&#x2F;or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and&#x2F;or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; </span><br></pre></td></tr></table></figure>
+
+<p>问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mysql -h localhost -u root -p</span><br><span class="line">-bash: mysql: 未找到命令</span><br><span class="line">[root@localhost ~]# docker exec -itd mysql</span><br><span class="line">&quot;docker exec&quot; requires at least 2 argument(s).</span><br><span class="line">See &#39;docker exec --help&#39;.</span><br><span class="line"></span><br><span class="line">Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</span><br><span class="line"></span><br><span class="line">Run a command in a running container</span><br></pre></td></tr></table></figure>
+
+<p>办法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker exec -it e5f364c8eea5 bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="用客户端navicat测试连接提示"><a href="#用客户端navicat测试连接提示" class="headerlink" title="用客户端navicat测试连接提示"></a>用客户端navicat测试连接提示</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navicat for mysql 链接时报错：1251-Client does not support authentication protocol requested by server</span><br></pre></td></tr></table></figure>
+
+<p>主要原因是mysql服务器要求的认证插件版本与客户端不一致造成的。</p>
+<p>打开mysql命令行输入如下命令查看，系统用户对应的认证插件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select user,plugin from mysql.user</span><br><span class="line">    -&gt; ;</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">| user             | plugin                |</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">| root             | caching_sha2_password |</span><br><span class="line">| mysql.infoschema | caching_sha2_password |</span><br><span class="line">| mysql.session    | caching_sha2_password |</span><br><span class="line">| mysql.sys        | caching_sha2_password |</span><br><span class="line">| root             | caching_sha2_password |</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到root用户使用的plugin是caching_sha2_password，mysql官方网站有如下说明：</p>
+<p>caching_sha2_password是8.0默认的认证插件，必须使用支持此插件的客户端版本。</p>
+<p>plugin的作用之一就是处理后的密码格式和长度是不一样的，类似于使用MD5加密和使用base64加密一样对于同一个密码处理后的格式是不一样的.</p>
+<p>解决方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">root的plugin改成mysql_native_password。相当于降了一级。</span><br><span class="line">mysql官方网站提供了从mysql_old_password升级到mysql_native_password，我们可以仿照这个。</span><br><span class="line">这里改成：</span><br><span class="line"></span><br><span class="line">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;root&#39;;</span><br><span class="line"></span><br><span class="line">这行代码有两层含义，第一:修改root的密码为&#39;root&#39;，摒弃原来的旧密码。第二：使用mysql_native_password对新密码进行编码。</span><br><span class="line"></span><br><span class="line">FLUSH PRIVILEGES; #刷新权限</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select user,plugin from mysql.user ;</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">| user             | plugin                |</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">| root             | caching_sha2_password |</span><br><span class="line">| mysql.infoschema | caching_sha2_password |</span><br><span class="line">| mysql.session    | caching_sha2_password |</span><br><span class="line">| mysql.sys        | caching_sha2_password |</span><br><span class="line">| root             | mysql_native_password |</span><br><span class="line">+------------------+-----------------------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>没有生效还是其他原因？重启容器之后还是不行。</p>
+<p>发现刚刚修改的是localhost，对于非本机的连接密码校验规则还是没有变。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select user,plugin ,host from mysql.user ;</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">| user             | plugin                | host      |</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">| root             | caching_sha2_password | %         |</span><br><span class="line">| mysql.infoschema | caching_sha2_password | localhost |</span><br><span class="line">| mysql.session    | caching_sha2_password | localhost |</span><br><span class="line">| mysql.sys        | caching_sha2_password | localhost |</span><br><span class="line">| root             | mysql_native_password | localhost |</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">alter user &#39;root&#39;@&#39;%&#39; identified by &#39;password&#39; password expire never;</span><br><span class="line"></span><br><span class="line">alter user &#39;root&#39;@&#39;%&#39; identified with mysql_native_password by &#39;123456&#39;; </span><br><span class="line"></span><br><span class="line">flush privileges;再次刷新一下权限配置。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select user,plugin ,host from mysql.user ;</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">| user             | plugin                | host      |</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">| root             | mysql_native_password | %         |</span><br><span class="line">| mysql.infoschema | caching_sha2_password | localhost |</span><br><span class="line">| mysql.session    | caching_sha2_password | localhost |</span><br><span class="line">| mysql.sys        | caching_sha2_password | localhost |</span><br><span class="line">| root             | mysql_native_password | localhost |</span><br><span class="line">+------------------+-----------------------+-----------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -279,386 +385,108 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/20211114/f0186f73.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20211031/7fc0372c.html" class="archive-article-date">
-  	<time datetime="2021-10-31T04:44:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-31</time>
-</a>
 
+  
+<nav id="article-nav">
+  
+  
+    <a href="/20211031/7fc0372c.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Docker中安装Java</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20211031/7fc0372c.html">在Docker中安装Java</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%AF%E7%94%A8%E7%9A%84-MySQL-%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">查看可用的 MySQL 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E5%8F%96-MySQL-%E9%95%9C%E5%83%8F"><span class="toc-number">2.</span> <span class="toc-text">拉取 MySQL 镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F"><span class="toc-number">3.</span> <span class="toc-text">查看本地镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">运行容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="toc-number">5.</span> <span class="toc-text">安装成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E5%AE%A2%E6%88%B7%E7%AB%AFnavicat%E6%B5%8B%E8%AF%95%E8%BF%9E%E6%8E%A5%E6%8F%90%E7%A4%BA"><span class="toc-number"></span> <span class="toc-text">用客户端navicat测试连接提示</span></a>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20211031/214eea17.html" class="archive-article-date">
-  	<time datetime="2021-10-31T04:40:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-31</time>
-</a>
+        
+    </div>
+</aside>
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20211031/214eea17.html">docker的使用</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210328/87e3e338.html" class="archive-article-date">
-  	<time datetime="2021-03-28T14:21:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-28</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210328/87e3e338.html">Spring Boot之jar包改成war包模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210324/3d342e2e.html" class="archive-article-date">
-  	<time datetime="2021-03-24T13:27:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210324/3d342e2e.html">历经四个月，谷歌联盟的PIN码问题终于解决了</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210315/3d59ae92.html" class="archive-article-date">
-  	<time datetime="2021-03-15T14:07:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-15</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210315/3d59ae92.html">根据车牌号获取车辆归属地</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210130/5cb6df7b.html" class="archive-article-date">
-  	<time datetime="2021-01-30T07:38:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-30</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210130/5cb6df7b.html">获取任何一年第一天日期和最后一天日期</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210124/915f21c1.html" class="archive-article-date">
-  	<time datetime="2021-01-24T09:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-24</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210124/915f21c1.html">hexo+yilia集成本地搜索</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210123/adab7f6.html" class="archive-article-date">
-  	<time datetime="2021-01-23T05:17:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-23</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210123/adab7f6.html">Java 获取两个时间中间的日期集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20210117/86e081cf.html" class="archive-article-date">
-  	<time datetime="2021-01-17T07:07:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-17</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20210117/86e081cf.html">万象皆为平淡又倔强着</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">diy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/2/">下一页</a>
-    </nav>	
-	
   
 
-
- <!-- newsdetail -->
+  
+  
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<!-- newsdetail -->
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-1303628385911689"
@@ -668,6 +496,34 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2f513189b9b4b5da5670',
+  	clientSecret: '0bd1e7728dce6728fdcb39a2a961c223df68c0f0',
+  	repo: 'blog',
+  	owner: 'liujunliangOne',
+  	admin: ['liujunliangOne'],
+  	id: 'Sun Nov 14 2021 21:30:21 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
+  
+
+  
+
+
+
+
           </div>
         </div>
       </div>
@@ -705,8 +561,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

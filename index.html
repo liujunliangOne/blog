@@ -99,7 +99,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 41
+        文章总数 42
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -234,6 +234,104 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Docker-安装-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20211114/f0186f73.html">Docker 安装 MySQL</a>
+    </h1>
+  
+
+        
+        <a href="/20211114/f0186f73.html" class="archive-article-date">
+  	<time datetime="2021-11-14T13:30:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-14</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="查看可用的-MySQL-版本"><a href="#查看可用的-MySQL-版本" class="headerlink" title="查看可用的 MySQL 版本"></a>查看可用的 MySQL 版本</h3><p>访问 MySQL 镜像库地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql?tab=tags">https://hub.docker.com/_/mysql?tab=tags</a> 。</p>
+<p>可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 <strong>mysql:latest</strong> 。</p>
+<p>此外，我们还可以用 <strong>docker search mysql</strong> 命令来查看可用版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@localhost ~]# docker search mysql</span><br><span class="line">INDEX       NAME                                        DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">docker.io   docker.io&#x2F;mysql                             MySQL is a widely used, open-source relati...   11480     [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;mariadb                           MariaDB Server is a high performing open s...   4356      [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;mysql&#x2F;mysql-server                Optimized MySQL Server Docker images. Crea...   849                  [OK]</span><br><span class="line">docker.io   docker.io&#x2F;percona                           Percona Server is a fork of the MySQL rela...   557       [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;phpmyadmin                        phpMyAdmin - A web interface for MySQL and...   332       [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;centos&#x2F;mysql-57-centos7           MySQL 5.7 SQL database server                   91                   </span><br><span class="line">docker.io   docker.io&#x2F;mysql&#x2F;mysql-cluster               Experimental MySQL Cluster Docker images. ...   88                   </span><br><span class="line">docker.io   docker.io&#x2F;centurylink&#x2F;mysql                 Image containing mysql. Optimized to be li...   59                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;databack&#x2F;mysql-backup             Back up mysql databases to... anywhere!         51                   </span><br><span class="line">docker.io   docker.io&#x2F;prom&#x2F;mysqld-exporter                                                              42                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;deitch&#x2F;mysql-backup               REPLACED! Please use http:&#x2F;&#x2F;hub.docker.com...   41                   [OK]</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20211114/f0186f73.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
   
     <article id="post-在Docker中安装Java" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1071,101 +1169,6 @@
 
 
   
-    <article id="post-hexo-yilia主题模版添加版权声明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20201230/6dace3f9.html">hexo+yilia主题模版添加版权声明</a>
-    </h1>
-  
-
-        
-        <a href="/20201230/6dace3f9.html" class="archive-article-date">
-  	<time datetime="2020-12-29T23:54:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-30</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>hexo+yilia主题模版添加版权声明</p>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-			 
-      <!-- 添加公众号 -->
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20201230/6dace3f9.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
@@ -1295,6 +1298,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
@@ -1311,11 +1318,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">springcloud</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+                <a href="javascript:void(0)" class="js-tag color2">springcloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1327,11 +1334,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1344,10 +1351,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">diy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
             
             <div class="clearfix"></div>
@@ -1414,7 +1417,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">码海一粟&lt;br&gt;&lt;br&gt;从事Java软件开发，敲了几年代码&lt;br&gt;修炼的道路，一颗不服输的心，努力奔跑&lt;br&gt;&lt;br&gt;&lt;br&gt;声明：&lt;br&gt;现部分文章为寻找问题时在网上相互转载，在此博客中做个记录，方便自己也方便有类似问题的朋友，故原出处已不好查到，如有侵权，请私信表明文章和原出处地址进行删除,谢谢！</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">刘峻良&lt;br&gt;&lt;br&gt;从事Java软件开发，敲了几年代码&lt;br&gt;修炼的道路，一颗不服输的心，努力奔跑&lt;br&gt;&lt;br&gt;&lt;br&gt;声明：&lt;br&gt;现部分文章为寻找问题时在网上相互转载，在此博客中做个记录，方便自己也方便有类似问题的朋友，故原出处已不好查到，如有侵权，请私信表明文章和原出处地址进行删除,谢谢！</div>
   	  	
     	</section>
     
