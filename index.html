@@ -99,7 +99,7 @@
 		</nav>
 		
 		 <nav style="font-size: 14px;color:#696969">
-        文章总数 42
+        文章总数 43
        </nav>
 	   
 		<nav class="header-smart-menu">
@@ -234,6 +234,104 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-在Docker中安装elasticSearch" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20211120/4fb10052.html">在Docker中安装elasticSearch</a>
+    </h1>
+  
+
+        
+        <a href="/20211120/4fb10052.html" class="archive-article-date">
+  	<time datetime="2021-11-20T14:30:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-20</time>
+</a>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search elasticsearch</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker search elasticsearch</span><br><span class="line">INDEX       NAME                                                   DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">docker.io   docker.io&#x2F;elasticsearch                                Elasticsearch is a powerful open source se...   5238      [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;nshou&#x2F;elasticsearch-kibana                   Elasticsearch-7.12.1 Kibana-7.12.1              131                  [OK]</span><br><span class="line">docker.io   docker.io&#x2F;mobz&#x2F;elasticsearch-head                      elasticsearch-head front-end and standalon...   80                   </span><br><span class="line">docker.io   docker.io&#x2F;elastichq&#x2F;elasticsearch-hq                   Official Docker image for ElasticHQ: Elast...   76                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;itzg&#x2F;elasticsearch                           Provides an easily configurable Elasticsea...   71                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;elastic&#x2F;elasticsearch                        The Elasticsearch Docker image maintained ...   54                   </span><br><span class="line">docker.io   docker.io&#x2F;taskrabbit&#x2F;elasticsearch-dump                Import and export tools for elasticsearch       27                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;lmenezes&#x2F;elasticsearch-kopf                  elasticsearch kopf                              18                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;barnybug&#x2F;elasticsearch                       Latest Elasticsearch 1.7.2 and previous re...   17                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;justwatch&#x2F;elasticsearch_exporter             Elasticsearch stats exporter for Prometheus     17                   </span><br><span class="line">docker.io   docker.io&#x2F;blacktop&#x2F;elasticsearch                       Alpine Linux based Elasticsearch Docker Image   16                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;esystemstech&#x2F;elasticsearch                   Debian based Elasticsearch packing for Lif...   15                   </span><br><span class="line">docker.io   docker.io&#x2F;monsantoco&#x2F;elasticsearch                     ElasticSearch Docker image                      11                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;mesoscloud&#x2F;elasticsearch                     [UNMAINTAINED] Elasticsearch                    9                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;centerforopenscience&#x2F;elasticsearch           Elasticsearch                                   4                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;dtagdevsec&#x2F;elasticsearch                     elasticsearch                                   4                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;barchart&#x2F;elasticsearch-aws                   Elasticsearch AWS node                          3                    </span><br><span class="line">docker.io   docker.io&#x2F;praseodym&#x2F;elasticsearch-curator              Elasticsearch Curator                           3                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;axway&#x2F;elasticsearch-docker-beat              &quot;Beat&quot; extension to read logs of container...   1                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;dsteinkopf&#x2F;elasticsearch-ingest-attachment   elasticsearch + ingest-attachment to be us...   1                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;jetstack&#x2F;elasticsearch-pet                   An elasticsearch image for kubernetes PetSets   1                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;kuzzleio&#x2F;elasticsearch                       Elasticsearch container based on Alpine Li...   1                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;phenompeople&#x2F;elasticsearch                   Elasticsearch is a powerful open source se...   1                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;travix&#x2F;elasticsearch-kubernetes              To run ElasticSearch in kubernetes and exp...   0                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;wreulicke&#x2F;elasticsearch                      elasticsearch                                   0                    [OK]</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">technology</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/20211120/4fb10052.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
   
     <article id="post-Docker-安装-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1047,97 +1145,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/20210123/adab7f6.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-万象皆为平淡又倔强着" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/20210117/86e081cf.html">万象皆为平淡又倔强着</a>
-    </h1>
-  
-
-        
-        <a href="/20210117/86e081cf.html" class="archive-article-date">
-  	<time datetime="2021-01-17T07:07:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-17</time>
-</a>
-
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​坐在窗台的电脑屏幕前，双手搭在键盘上，猫咪在身旁来回地走动着，惬意的午后总是那么的令人平静。沉思酝酿着灵感，想着把自己最近状态给表达出来，想着怎么写、应该写哪些方面的东西，标题怎么拟，脑子一片空白。</p>
-        
-      
-
-      
-	  <!-- 添加版权声明 -->
-	    
-       
-         <div class="declare" hidden="hidden"></div>
-       
-             <!-- 添加版权声明 -->
-			 
-      <!-- 添加公众号 -->
-	  
-    </div>
-    <div class="article-info article-info-index">
-      
-        <div class="article-pop-out tagcloud">
-          <i class="icon-tuding"></i>
-          <a class="article-tag-list-link color3">置顶</a>
-        </div>
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">diy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/20210117/86e081cf.html">展开全文 >></a>
         </p>
       
 
