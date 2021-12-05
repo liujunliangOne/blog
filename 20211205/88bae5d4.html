@@ -11,17 +11,20 @@
   <meta name="sogou_site_verification" content="ypZXKCtiDw"/>
   <meta name="shenma-site-verification" content="76039c2a3e35f449021385dd42691d2f_1608551885">
   <link rel="dns-prefetch" href="https://alibroadcast.com">
-  <title>Tag: zookeeper | 刘峻良</title>
+  <title>Docker 安装 Redis | 刘峻良</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="刘峻良，从事Java软件开发，敲了几年代码，修炼的道路，一颗不服输的心，努力奔跑。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘峻良">
-<meta property="og:url" content="https://alibroadcast.com/tags/zookeeper/index.html">
+  <meta name="description" content="Redis 是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 的 NoSQL 数据库，并提供多种语言的 API。 、查看可用的 Redis 版本访问 Redis 镜像库地址： https:&#x2F;&#x2F;hub.docker.com&#x2F;_&#x2F;redis?tab&#x3D;tags。 可以通过 Sort by 查看其他版本的 Redis，默认是最新版本 redis:late">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 安装 Redis">
+<meta property="og:url" content="https://alibroadcast.com/20211205/88bae5d4.html">
 <meta property="og:site_name" content="刘峻良">
-<meta property="og:description" content="刘峻良，从事Java软件开发，敲了几年代码，修炼的道路，一颗不服输的心，努力奔跑。">
+<meta property="og:description" content="Redis 是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 的 NoSQL 数据库，并提供多种语言的 API。 、查看可用的 Redis 版本访问 Redis 镜像库地址： https:&#x2F;&#x2F;hub.docker.com&#x2F;_&#x2F;redis?tab&#x3D;tags。 可以通过 Sort by 查看其他版本的 Redis，默认是最新版本 redis:late">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-05T00:43:42.000Z">
+<meta property="article:modified_time" content="2021-12-05T00:46:34.866Z">
 <meta property="article:author" content="刘峻良">
-<meta property="article:tag" content="刘峻良,刘峻良的博客,博客">
+<meta property="article:tag" content="technology">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="刘峻良" type="application/atom+xml">
@@ -31,7 +34,7 @@
   
   
   
-   <meta name="keywords" content="刘峻良,刘峻良的博客,博客">
+     <meta name="keywords" content="Docker 安装 Redis,docker,刘峻良,刘峻良的博客,博客">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
 <link rel="stylesheet" type="text/css" href="/./css/search.css">
@@ -233,37 +236,115 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Docker-安装-Redis" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/20201019/e8d2e74.html" class="archive-article-date">
-  	<time datetime="2020-10-19T11:09:54.458Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-19</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/20201019/e8d2e74.html">Zookeeper windows 安装 单机测试</a>
+    <h1 class="article-title" itemprop="name">
+      Docker 安装 Redis
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/20211205/88bae5d4.html" class="archive-article-date">
+  	<time datetime="2021-12-05T00:43:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-05</time>
+</a>
+
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Redis 是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 的 NoSQL 数据库，并提供多种语言的 API。</p>
+<h3 id="、查看可用的-Redis-版本"><a href="#、查看可用的-Redis-版本" class="headerlink" title="、查看可用的 Redis 版本"></a>、查看可用的 Redis 版本</h3><p>访问 Redis 镜像库地址： <a target="_blank" rel="noopener" href="https://hub.docker.com/_/redis?tab=tags%E3%80%82">https://hub.docker.com/_/redis?tab=tags。</a></p>
+<p>可以通过 Sort by 查看其他版本的 Redis，默认是最新版本 <strong>redis:latest</strong>。</p>
+<p>此外，我们还可以用 <strong>docker search redis</strong> 命令来查看可用版本：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker search redis</span><br><span class="line">INDEX       NAME                                       DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">docker.io   docker.io&#x2F;redis                            Redis is an open source key-value store th...   9976      [OK]       </span><br><span class="line">docker.io   docker.io&#x2F;sameersbn&#x2F;redis                                                                  83                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;grokzen&#x2F;redis-cluster            Redis cluster 3.0, 3.2, 4.0, 5.0, 6.0, 6.2      79                   </span><br><span class="line">docker.io   docker.io&#x2F;rediscommander&#x2F;redis-commander   Alpine image for redis-commander - Redis m...   66                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;redisearch             Redis With the RedisSearch module pre-load...   39                   </span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;redisinsight           RedisInsight - The GUI for Redis                35                   </span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;redis                  Clustered in-memory database engine compat...   31                   </span><br><span class="line">docker.io   docker.io&#x2F;oliver006&#x2F;redis_exporter          Prometheus Exporter for Redis Metrics. Su...   30                   </span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;rejson                 RedisJSON - Enhanced JSON data type proces...   27                   </span><br><span class="line">docker.io   docker.io&#x2F;arm32v7&#x2F;redis                    Redis is an open source key-value store th...   24                   </span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;redisgraph             A graph database module for Redis               16                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;arm64v8&#x2F;redis                    Redis is an open source key-value store th...   15                   </span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;redismod               An automated build of redismod - latest Re...   15                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;rebloom                A probablistic datatypes module for Redis       14                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;webhippie&#x2F;redis                  Docker image for redis                          11                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;insready&#x2F;redis-stat              Docker image for the real-time Redis monit...   10                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;redislabs&#x2F;redistimeseries        A time series database module for Redis         10                   </span><br><span class="line">docker.io   docker.io&#x2F;s7anley&#x2F;redis-sentinel-docker    Redis Sentinel                                  10                   [OK]</span><br><span class="line">docker.io   docker.io&#x2F;goodsmileduck&#x2F;redis-cli          redis-cli on alpine                             9                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;centos&#x2F;redis-32-centos7          Redis in-memory data structure store, used...   5                    </span><br><span class="line">docker.io   docker.io&#x2F;clearlinux&#x2F;redis                 Redis key-value data structure server with...   3                    </span><br><span class="line">docker.io   docker.io&#x2F;runnable&#x2F;redis-stunnel           stunnel to redis provided by linking conta...   1                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;tiredofit&#x2F;redis                  Redis Server w&#x2F; Zabbix monitoring and S6 O...   1                    [OK]</span><br><span class="line">docker.io   docker.io&#x2F;wodby&#x2F;redis                      Redis container image with orchestration        1                    [OK]</span><br></pre></td></tr></table></figure>
+
+<h3 id="取最新版的-Redis-镜像"><a href="#取最新版的-Redis-镜像" class="headerlink" title="取最新版的 Redis 镜像"></a>取最新版的 Redis 镜像</h3><p>这里我们拉取官方的最新版本的镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:latest</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker pull redis</span><br><span class="line">Using default tag: latest</span><br><span class="line">Trying to pull repository docker.io&#x2F;library&#x2F;redis ... </span><br><span class="line">latest: Pulling from docker.io&#x2F;library&#x2F;redis</span><br><span class="line">07aded7c29c6: Already exists </span><br><span class="line">1a5d64c027a4: Pull complete </span><br><span class="line">189d72810950: Pull complete </span><br><span class="line">b85aac102f7d: Pull complete </span><br><span class="line">fe1bca69301e: Pull complete </span><br><span class="line">fd69789c2b06: Pull complete </span><br><span class="line">Digest: sha256:a3cee5859456c894a20e7f59ba866ecd81c91e733c14</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h3><p>安装完成后，我们可以使用以下命令来运行 redis 容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name redis-test -p 6379:6379 redis</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker run -itd --name redis -p 6379:6379 redis</span><br><span class="line">1e500914c9e33144962fa990f35f3b45ff79b67d164dfe7b31012a53f972515a</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;docker-current: Error response from daemon: driver failed programming external connectivity on endpoint redis (b1e3de71a096463bfaa10b5b40a7ffde49ddc235c5f370091a1f48d4f0488097):  (iptables failed: iptables --wait -t nat -A DOCKER -p tcp -d 0&#x2F;0 --dport 6379 -j DNAT --to-destination 172.17.0.4:6379 ! -i docker0: iptables: No chain&#x2F;target&#x2F;match by that name.</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li><strong>-p 6379:6379</strong>：映射容器服务的 6379 端口到宿主机的 6379 端口。外部可以直接通过宿主机ip:6379 访问到 Redis 的服务。</li>
+</ul>
+<p>开启宿主机的对应端口即可。</p>
+<h3 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h3><p>最后我们可以通过 <strong>docker ps</strong> 命令查看容器的运行信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">1e500914c9e3        redis               &quot;docker-entrypoint...&quot;   25 minutes ago      Up 18 seconds       0.0.0.0:6379-&gt;6379&#x2F;tcp              redis</span><br><span class="line">e5f364c8eea5        mysql               &quot;docker-entrypoint...&quot;   About an hour ago   Up 5 minutes        0.0.0.0:3306-&gt;3306&#x2F;tcp, 33060&#x2F;tcp   mysql</span><br><span class="line">4b567ab8009e        docker.io&#x2F;java:8    &quot;&#x2F;bin&#x2F;bash&quot;              About an hour ago   Up 4 minutes                                            java-jdk8</span><br></pre></td></tr></table></figure>
+
+<p>接着我们通过 redis-cli 连接测试使用 redis 服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis-test &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker exec -it redis bash</span><br><span class="line">root@1e500914c9e3:&#x2F;data# redis-cli</span><br><span class="line">127.0.0.1:6379&gt; set myname redis </span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get myname</span><br><span class="line">&quot;redis&quot;</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+	  <!-- 添加版权声明 -->
+	    
+       
+         <div class="declare" hidden="hidden"></div>
+       
+             <!-- 添加版权声明 -->
+			 
+      <!-- 添加公众号 -->
+	  
+    </div>
+    <div class="article-info article-info-index">
+      
+        <div class="article-pop-out tagcloud">
+          <i class="icon-tuding"></i>
+          <a class="article-tag-list-link color3">置顶</a>
+        </div>
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -273,28 +354,114 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zookeeper</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://alibroadcast.com/20211205/88bae5d4.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/20211127/f774dcd3.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker 安装 MongoDB</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%80%81%E6%9F%A5%E7%9C%8B%E5%8F%AF%E7%94%A8%E7%9A%84-Redis-%E7%89%88%E6%9C%AC"><span class="toc-number">1.</span> <span class="toc-text">、查看可用的 Redis 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E6%9C%80%E6%96%B0%E7%89%88%E7%9A%84-Redis-%E9%95%9C%E5%83%8F"><span class="toc-number">2.</span> <span class="toc-text">取最新版的 Redis 镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">运行容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="toc-number">4.</span> <span class="toc-text">安装成功</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
 
-
- <!-- newsdetail -->
+  
+  
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<!-- newsdetail -->
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-1303628385911689"
@@ -304,6 +471,34 @@
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '2f513189b9b4b5da5670',
+  	clientSecret: '0bd1e7728dce6728fdcb39a2a961c223df68c0f0',
+  	repo: 'blog',
+  	owner: 'liujunliangOne',
+  	admin: ['liujunliangOne'],
+  	id: 'Sun Dec 05 2021 08:43:42 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
+  
+
+  
+
+
+
+
           </div>
         </div>
       </div>
@@ -341,9 +536,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
