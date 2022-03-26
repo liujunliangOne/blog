@@ -6,7 +6,7 @@
   <link href="https://alibroadcast.com/atom.xml" rel="self"/>
   
   <link href="https://alibroadcast.com/"/>
-  <updated>2022-01-23T07:37:32.043Z</updated>
+  <updated>2022-03-26T08:50:23.778Z</updated>
   <id>https://alibroadcast.com/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Redis分布式锁的实现方法</title>
+    <link href="https://alibroadcast.com/20220326/8ce6990b.html"/>
+    <id>https://alibroadcast.com/20220326/8ce6990b.html</id>
+    <published>2022-03-26T08:47:25.000Z</published>
+    <updated>2022-03-26T08:50:23.778Z</updated>
+    
+    <content type="html"><![CDATA[<p>​分布式锁是控制分布式系统之间同步访问共享资源的一种方式。在分布式系统中，常常需要协调他们的动作。如果不同的系统或是同一个系统的不同主机之间共享了一个或一组资源，那么访问这些资源的时候，往往需要互斥来防止彼此干扰来保证一致性，这个时候，便需要使用到分布式锁。</p><a id="more"></a><h2 id="分布式锁应该具备哪些条件"><a href="#分布式锁应该具备哪些条件" class="headerlink" title="分布式锁应该具备哪些条件"></a>分布式锁应该具备哪些条件</h2><p>分布式锁应具备哪些条件呢？</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、在分布式系统环境下，目标资源只能被一个消费者使用，即一个方法在同一时间只能被一个机器的一个线程执行； </span><br><span class="line">2、高可用、高特性的获取锁与释放锁；  </span><br><span class="line">3、具备可重入特性、锁失效机制，防止死锁； </span><br><span class="line">4、具备非阻塞锁特性，即没有获取到锁将直接返回获取锁失败。</span><br></pre></td></tr></table></figure><h2 id="Redis分布式锁的实现方法"><a href="#Redis分布式锁的实现方法" class="headerlink" title="Redis分布式锁的实现方法"></a>Redis分布式锁的实现方法</h2><h3 id="第一种分布式锁"><a href="#第一种分布式锁" class="headerlink" title="第一种分布式锁"></a>第一种分布式锁</h3><p>获取锁的命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET key value ex seconds nx</span><br></pre></td></tr></table></figure><p>加锁的同时设置过期时间。</p><h3 id="第二种Redisson-实现"><a href="#第二种Redisson-实现" class="headerlink" title="第二种Redisson 实现"></a>第二种Redisson 实现</h3><p>​Redisson 顾名思义，Redis 的儿子，本质上还是 Redis 加锁，不过是对 Redis 做了很多封装，它不仅提供了一系列的分布式的 Java 常用对象，还提供了许多分布式服务。</p><p>引入依赖：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.redisson&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;redisson&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.13.4&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure><p>使用方法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private void test() &#123;</span><br><span class="line">    &#x2F;&#x2F;分布式锁名 锁的粒度越细，性能越好</span><br><span class="line">    RLock lock &#x3D; redissonClient.getLock(&quot;test&quot;);</span><br><span class="line">    lock.lock();</span><br><span class="line">    try &#123;</span><br><span class="line">        &#x2F;&#x2F;具体业务......</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​使用方法 jdk 的 ReentrantLock 差不多，并且也支持 ReadWriteLock（读写锁）、Reentrant Lock（可重入锁）、Fair Lock（公平锁）、RedLock（红锁）等各种锁，详细可以参照redisson官方文档来查看。</p><p>​那么 Redisson 到底有哪些优势呢？锁的自动续期（默认都是 30 秒），如果业务超长，运行期间会自动给锁续上新的 30s，不用担心业务执行时间超长而锁被自动删掉。加锁的业务只要运行完成，就不会给当前续期，即便不手动解锁，锁默认在 30s 后删除，不会造成死锁问题。</p><p>也可以自定义自动续期的时间：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lock.lock(10, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure><p>一般开发中推荐使用虽然 lock() 有自动续锁机制，但是开发中还是推荐使用 lock(time，timeUnit)，因为它省掉了整个续期带来的性能损，可以设置过期时间长一点，搭配 unlock()。如果业务流程执行完成，会手动释放锁，若是业务执行超时报错了，报错后就会通过设置的过期时间来释放锁。</p><p>缺点：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在这种场景（主从结构）中存在明显的竞态:</span><br><span class="line">    客户端A从master获取到锁，</span><br><span class="line">    在master将锁同步到slave之前，master宕掉了。</span><br><span class="line">    slave节点被晋级为master节点，</span><br><span class="line">    客户端B取得了同一个资源被客户端A已经获取到的另外一个锁。安全失效！</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;​分布式锁是控制分布式系统之间同步访问共享资源的一种方式。在分布式系统中，常常需要协调他们的动作。如果不同的系统或是同一个系统的不同主机之间共享了一个或一组资源，那么访问这些资源的时候，往往需要互斥来防止彼此干扰来保证一致性，这个时候，便需要使用到分布式锁。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="technology" scheme="https://alibroadcast.com/tags/technology/"/>
+    
+    <category term="Redis" scheme="https://alibroadcast.com/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>maven 教程之简介</title>
     <link href="https://alibroadcast.com/20220123/6800631f.html"/>
     <id>https://alibroadcast.com/20220123/6800631f.html</id>
     <published>2022-01-23T07:35:18.000Z</published>
-    <updated>2022-01-23T07:37:32.043Z</updated>
+    <updated>2022-01-23T07:40:10.112Z</updated>
     
     <content type="html"><![CDATA[<p>简介：Maven 翻译为”专家”、”内行”，是 Apache 下的一个纯 Java 开发的开源项目。基于项目对象模型（缩写：POM）概念，Maven利用一个中央信息片断能管理一个项目的构建、报告和文档等步骤。<br>Maven 是一个项目管理工具，可以对 Java 项目进行构建、依赖管理。<br>Maven 也可被用于构建和管理各种项目，例如 C#，Ruby，Scala 和其他语言编写的项目。Maven 曾是 Jakarta 项目的子项目，现为由 Apache 软件基金会主持的独立 Apache 项目。</p><a id="more"></a><p>功能：</p><ul><li>构建</li><li>文档生成</li><li>报告</li><li>依赖</li><li>SCMs</li><li>发布</li><li>分发</li><li>邮件列表</li></ul><p>约定配置：</p><p>Maven 提倡使用一个共同的标准目录结构，Maven 使用约定优于配置的原则，大家尽可能的遵守这样的目录结构。如下所示：</p><p>${basedir} :存放pom.xml和所有的子目录</p><p>${basedir}/src/main/java :项目的java源代码</p><p>${basedir}/src/main/resources ：项目的资源，比如说property文件，springmvc.xml</p><p>${basedir}/src/test/java :项目的测试类，比如说junit代码</p><p>${basedir}/src/test/resources :测试用的资源</p><p>${basedir}/src/main/webapp/WEB-INF ：web应用文件目录，web项目的信息，比如存放web.xml、本地图片、jsp视图页面</p><p>${basedir}/target ：打包输出文件</p><p>${basedir}/target/classes：编译输出目录</p><p>${basedir}/target/test-classese：测试编译输出目录</p><p>Test.java : maven只会自动运行符合该命名规则的测试类</p><p>~/.m2/repository : maven 默认本地仓库目录位置</p><p>特点：</p><ul><li>项目设置遵循统一的规则。</li><li>任意工程中共享。</li><li>依赖管理包括自动更新。</li><li>一个庞大且不断增长的库。</li><li>可扩展，能够轻松编写 Java 或脚本语言的插件。</li><li>只需很少或不需要额外配置即可即时访问新功能。</li><li><strong>基于模型的构建</strong> − Maven能够将任意数量的项目构建到预定义的输出类型中，如 JAR，WAR 或基于项目元数据的分发，而不需要在大多数情况下执行任何脚本。</li><li><strong>项目信息的一致性站点</strong> − 使用与构建过程相同的元数据，Maven 能够生成一个网站或PDF，包括您要添加的任何文档，并添加到关于项目开发状态的标准报告中。</li><li><strong>发布管理和发布单独的输出</strong> − Maven 将不需要额外的配置，就可以与源代码管理系统（如 Subversion 或 Git）集成，并可以基于某个标签管理项目的发布。它也可以将其发布到分发位置供其他项目使用。Maven 能够发布单独的输出，如 JAR，包含其他依赖和文档的归档，或者作为源代码发布。</li><li><strong>向后兼容性</strong> − 您可以很轻松的从旧版本 Maven 的多个模块移植到 Maven 3 中。</li><li>子项目使用父项目依赖时，正常情况子项目应该继承父项目依赖，无需使用版本号，</li><li><strong>并行构建</strong> − 编译的速度能普遍提高20 - 50 %。</li><li><strong>更好的错误报告</strong> − Maven 改进了错误报告，它为您提供了 Maven wiki 页面的链接，您可以点击链接查看错误的完整描述。</li></ul>]]></content>
     
@@ -30,6 +51,10 @@
     
     
     
+    
+    <category term="technology" scheme="https://alibroadcast.com/tags/technology/"/>
+    
+    <category term="maven" scheme="https://alibroadcast.com/tags/maven/"/>
     
   </entry>
   
@@ -410,27 +435,6 @@
     
     
     <category term="technology" scheme="https://alibroadcast.com/tags/technology/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>个人博客站点添加谷歌联盟Google Adsense</title>
-    <link href="https://alibroadcast.com/20201222/6c293b94.html"/>
-    <id>https://alibroadcast.com/20201222/6c293b94.html</id>
-    <published>2020-12-21T23:53:58.000Z</published>
-    <updated>2021-01-23T08:37:31.842Z</updated>
-    
-    <content type="html"><![CDATA[<p>自己通过hexo+github page 自己搭建了个小站，目的是为了平时的工作学习一个积累总结吧。然后通过圈子交流，决定挂个广告，睡后工资算作为副业的一种吧，平时也没怎么在意，只是坚持写自己博客，定时更新吧。</p><a id="more"></a><p>通过查询搜集发现国内的广告联盟部分需要域名备案，备案就需要服务器，资金问题，自己的个人小站就没考虑。后来申请了谷歌联盟（Google AdSense）,申请过程比较曲折，还被拒绝了好几次，不过最后总算是申请下来了。也试了一下谷歌出版的“自动广告”，后来考虑还是自定义吧，在自己的博客页面内自定义位置了，本案例以yilia主题为例。</p><blockquote><p>谷歌联盟申请第一步</p></blockquote><p>登录<a href="https://www.google.com/adsense">谷歌联盟</a>申请账号，提交申请即可。刚开始一直被拒绝，拒绝的理由是“内容不足”，并且每次重新申请后的审核时间都得1到2周的时间，在审核过程中登录Google AdSense官网的状态一直是“正在启动您的账号”，可能现在谷歌广告联盟的个人账号申请确实难了很多。不过最后总算是申请下来了~</p><blockquote><p>添加广告代码</p></blockquote><p>1、注册账号完成之后，google会生成一段代码。<br>2、需要将谷歌提供给你的一份代码添加到你网站的中，因为我目前使用的是<strong>yilia</strong>主题，因此放到<em>\yilia\layout_partial\head.ejs</em> 任意一个位置即可。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script data-ad-client&#x3D;&quot;ca-pub-1303628385911689&quot; async src&#x3D;&quot;https:&#x2F;&#x2F;pagead2.googlesyndication.com&#x2F;pagead&#x2F;js&#x2F;adsbygoogle.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure><p>添加完成之后，hexo deploy网站，点击确认，谷歌会到你的网站上进行核查和验收，一般没问题的话几分钟就会出结果，有问题的话要等待一段时间。</p><blockquote><p>个性化配置广告位</p></blockquote><p>待通过审核之后，就可以开始考虑在自己的网站上进行广告位置的筛选和设计了，目前google adsense主要提供了自动广告和广告单元两种形式的广告添加方式。</p><blockquote><p>自动广告（不推荐）</p></blockquote><p>自动广告是google adsense近来提供的一种广告形式，它能够通过分析你的博客布局结构，自定义的在你的网站中插入合适的广告，无论是内容，还是广告尺寸，都是完全契合网站内容本身的，算是一种比较高质量的广告，但是根据我的使用经验不是很好用，具体的代码插入方法，其实就是上述的用来检验的代码，一旦上述代码审核通过，其实已经自动接入了google adsense的自动广告。</p><blockquote><p>广告单元（推荐）</p></blockquote><p>为了能够最高效的利用自己博客的广告位，adsense还提供了三种固定广告位</p><p>1、文字广告和展示广告(即侧边栏，评论区之类的固定广告位)<br>2、信息流广告(插入在信息流内容的广告位置)<br>3、文章内嵌广告(主要是插入在每篇文章内部的开始，中间，结尾部分，展示次数比较多)</p><p>由于本人的是博客网站，所以第二种信息流广告没有投入使用，这里主要使用了第一种。具体的操作流程是:</p><p>1、在网站上，选择广告单元-&gt;新建广告位-&gt;选择对应的广告类型-&gt;生成对应的广告代码。</p><p>2、文件引用位置决定广告展示位置，位置自己决定。</p><ul><li><p>例如在分页下方插入广告代码：打开文件yilia\layout_partial\archive.ejs代码插入中的末尾即可。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;ins class&#x3D;&quot;adsbygoogle&quot;</span><br><span class="line">     style&#x3D;&quot;display:block&quot;</span><br><span class="line">     data-ad-client&#x3D;&quot;ca-pub-1303628385911689&quot;</span><br><span class="line">     data-ad-slot&#x3D;&quot;6598417969&quot;</span><br><span class="line">     data-ad-format&#x3D;&quot;auto&quot;</span><br><span class="line">     data-full-width-responsive&#x3D;&quot;true&quot;&gt;&lt;&#x2F;ins&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">     (adsbygoogle &#x3D; window.adsbygoogle || []).push(&#123;&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure></li></ul><p>3、hexo deploy代码到github pages上，可能需要30分钟左右广告才会显示在网页上。</p><blockquote><p>注意事项</p></blockquote><p>在成功接入AdSense广告之后，并不算结束，Google会根据几种方式和数据判断广告点击是否作弊，从而注销你的账号。所以不要心存侥幸心理，好好发原创文章，提高网站的质量，并坚持更新才是王道。</p><p>1、作弊广告点击者的IP地址与你Adsense账户登录IP地址相同<br>2、作弊广告点击的CTR数据太高<br>3、作弊广告点击者的IP地址来自同一个地理区域<br>4、根据Cookies判断作弊Adsense广告点击<br>5、作弊广告点击者页面停留时间太短<br>6、直接访问者的广告点击率过高<br>7、流量小但广告点击率高<br>8、在网页上用文字提示请求鼓动点击广告<br>9、务必不要点自己的google adsense广告<br>10、务必不要让公司内部的同事去点击广告<br>11、收入攒够100美金才能提现</p><blockquote><p>总结</p></blockquote><p>好好更新博客，不要想太多，水滴石穿，积少成多，你也会得到来自个人博客的第一桶<strong>“$”</strong>。</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;自己通过hexo+github page 自己搭建了个小站，目的是为了平时的工作学习一个积累总结吧。然后通过圈子交流，决定挂个广告，睡后工资算作为副业的一种吧，平时也没怎么在意，只是坚持写自己博客，定时更新吧。&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="technology" scheme="https://alibroadcast.com/tags/technology/"/>
-    
-    <category term="博客搭建" scheme="https://alibroadcast.com/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   

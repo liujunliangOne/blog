@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alibroadcast.com/20220326/8ce6990b.html</loc>
+    
+    <lastmod>2022-03-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://alibroadcast.com/20220123/6800631f.html</loc>
     
     <lastmod>2022-01-23</lastmod>
@@ -340,7 +347,7 @@
 
   <url>
     <loc>https://alibroadcast.com/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -348,105 +355,119 @@
   
   <url>
     <loc>https://alibroadcast.com/tags/technology/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/docker/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/hadoop/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/mongodb/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/java/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/redis/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/springcloud/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/spring/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/rocketmq/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/zookeeper/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/git/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/hexo/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/yilia/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://alibroadcast.com/tags/diy/</loc>
-    <lastmod>2022-01-23</lastmod>
+    <lastmod>2022-03-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alibroadcast.com/tags/maven/</loc>
+    <lastmod>2022-03-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://alibroadcast.com/tags/Redis/</loc>
+    <lastmod>2022-03-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
